@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 }
-
+/*
 <?xml version-"1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -41,11 +41,11 @@ tools:context="com.example.jimmy.buttons.MainActivity">
 </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
+*/
 
 
 
-
-
+/* DONE
 package com.example.jimmy.buttons;
 
 import android.content.Intent;
@@ -80,12 +80,12 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 }
+*/
 
 
 
 
-
-
+/*
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -100,3 +100,5 @@ android:text="hello world"
 android:textSize="100dp"
 />
 </android.support.constraint.ConstraintLayout>
+
+*/
