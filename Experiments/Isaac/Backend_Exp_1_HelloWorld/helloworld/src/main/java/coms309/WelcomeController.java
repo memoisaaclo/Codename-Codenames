@@ -18,7 +18,7 @@ class WelcomeController {
     }
     
     @GetMapping("/add/{toAdd}")
-    public String welcome(@PathVariable Integer<List> toAdd) {
+    public String welcome(@PathVariable List<Integer> toAdd) {
     	int total = 0;
 	for (Integer num : toAdd) {
  	    total += num;
