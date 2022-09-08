@@ -21,7 +21,7 @@ public class Person {
 
     private String authorization;
 
-    private ArrayList<Person> friends;
+    private ArrayList<Person> friends = new ArrayList<Person>();
 
     public Person() {
 
@@ -32,6 +32,13 @@ public class Person {
         this.lastName = lastName;
         this.address = address;
         this.telephone = telephone;
+    }
+    public Person(String firstName, String lastName, String address, String telephone, String authorization) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.telephone = telephone;
+        this.authorization = authorization;
     }
 
     public String getFirstName() {
@@ -76,10 +83,13 @@ public class Person {
         String ret = "";
         for (Person p :
              friends) {
-            ret += p.toString();
+            ret += p.getFirstName() + " " + p.getLastName();
         }
         return ret;
     }
+
+    public void addFriend(Person friend) { this.friends.add(friend); }
+
     public void setFriends(ArrayList<Person> friends) { this.friends = friends; }
 
     @Override

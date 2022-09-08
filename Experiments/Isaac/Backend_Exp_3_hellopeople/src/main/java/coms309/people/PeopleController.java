@@ -1,14 +1,6 @@
 package coms309.people;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -50,6 +42,28 @@ public class PeopleController {
         System.out.println(person);
         peopleList.put(person.getFirstName(), person);
         return "New person "+ person.getFirstName() + " Saved";
+    }
+
+    @PostMapping("/people/addFriend")
+    public @ResponseBody String addFriend(
+            @RequestParam(value = "personFirstName", defaultValue = "null") String personFirstName,
+            @RequestParam(value = "friendFirstName", defaultValue = "null") String friendFirstName,
+            @RequestBody(required = false) Person reqbodyFriend) {
+        if (personFirstName.equals("null")) { return "Must provide person name"; };
+
+        Person friend;
+
+        try {
+            Person person = getPerson(personFirstName);
+
+            if (!friendFirstName.equals("null")) { friend = getPerson(friendFirstName); }
+            else { friend = reqbodyFriend; };
+            person.addFriend(friend);
+            return "Person, " + person + ", added friend, " + friend + ". Nice :)";
+
+        } catch (Exception e) {
+            return "Error: could not find Person " + personFirstName;
+        }
     }
 
     // THIS IS THE READ OPERATION
