@@ -23,6 +23,6 @@ class WelcomeController {
     public String welcome(@PathVariable Integer toAdd) {
     	total += toAdd;
 
-	return total.toString();
+	return "The total is : total + "";
     }
 }
