@@ -1,6 +1,8 @@
 package coms309.people;
 
 
+import java.util.ArrayList;
+
 /**
  * Provides the Definition/Structure for the people row
  *
@@ -16,6 +18,10 @@ public class Person {
     private String address;
 
     private String telephone;
+
+    private String authorization;
+
+    private ArrayList<Person> friends;
 
     public Person() {
 
@@ -60,11 +66,29 @@ public class Person {
         this.telephone = telephone;
     }
 
+    public String getAuthorization() { return this.authorization; }
+
+    public void setAuthorization(String authorization) { this.authorization = authorization; }
+
+    public ArrayList<Person> getFriends() { return friends; }
+
+    public String printPrettyFriends() {
+        String ret = "";
+        for (Person p :
+             friends) {
+            ret += p.toString();
+        }
+        return ret;
+    }
+    public void setFriends(ArrayList<Person> friends) { this.friends = friends; }
+
     @Override
     public String toString() {
         return firstName + " "
                 + lastName + " "
                 + address + " "
-                + telephone;
+                + telephone + " "
+                + authorization + " "
+                + printPrettyFriends();
     }
 }

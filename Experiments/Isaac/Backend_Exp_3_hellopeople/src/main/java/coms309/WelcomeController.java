@@ -14,6 +14,6 @@ class WelcomeController {
 
     @GetMapping("/")
     public String welcome() {
-        return "Robert is Testing";
+        return "Isaac is Testing: /people POST, GET";
     }
 }
