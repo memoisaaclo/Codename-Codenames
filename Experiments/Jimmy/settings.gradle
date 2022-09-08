@@ -16,3 +16,5 @@ rootProject.name = "JimmySampleAndroid"
 include ':app'
 include ':app'
 include ':app'
+include ':app'
+include ':app'

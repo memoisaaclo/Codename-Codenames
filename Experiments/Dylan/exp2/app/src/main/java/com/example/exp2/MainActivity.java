@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button button;
     private SeekBar numSides;
-    private Random rand;
+    private Random random;
     private String result;
 
     @Override
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String generateNum() {
         numSides = (SeekBar) findViewById(R.id.seekBar);
-        rand = new Random();
-        return Integer.toString(rand.nextInt(numSides.getProgress()) + 1);
+        random = new Random();
+        return Integer.toString(random.nextInt(numSides.getProgress()) + 1);
     }
 }
