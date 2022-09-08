@@ -20,7 +20,7 @@
         android:id="@+id/textview_third"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="I would have followed the tutorial, but someone pushed a file to where it is not supposed to be"
+        android:text="I would have followed the tutorial, but I could not get them to work"
         app:layout_constraintTop_toBottomOf="@id/textview_second"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
