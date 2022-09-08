@@ -37,6 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private String generateNum() {
         numSides = (SeekBar) findViewById(R.id.seekBar);
         random = new Random();
-        return Integer.toString(rand.nextInt(numSides.getProgress()) + 1);
+        return Integer.toString(random.nextInt(numSides.getProgress()) + 1);
     }
 }
