@@ -15,6 +15,7 @@
  */
 package managers;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,12 +77,27 @@ class OwnerController {
         return results;
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path = "/owners/{ownerId}")
-    public Optional<Owners> updateOwnerById(@PathVariable("ownerId") int id, Owners owner) {
-        
+    @RequestMapping(method = RequestMethod.PUT, path = "/owners/update/{ownerId}")
+    public String updateOwnerById(@PathVariable("ownerId") int id, Owners owner) {
+        Optional<Owners> current = ownersRepository.findById(id);
+        if (!current.isEmpty()) {
+        	
+        	Owners recreation = new Owners(
+        			id, 
+        			owner.getFirstName() != null ? owner.getFirstName() : current.get().getFirstName(),
+					owner.getLastName() != null ? owner.getLastName() : current.get().getLastName(),
+					owner.getAddress() != null ? owner.getAddress() : current.get().getAddress(),
+					owner.getTelephone() != null ? owner.getTelephone() : current.get().getTelephone());
+        	
+        	ownersRepository.deleteById(id);
+        	ownersRepository.save(recreation);
+        	
+        	return "record updated as id: " + recreation.getId();
+        	
+        } else {
+        	return "id does not exist";
+        }
     	
-    	
-        return null;
     }
     
 }
