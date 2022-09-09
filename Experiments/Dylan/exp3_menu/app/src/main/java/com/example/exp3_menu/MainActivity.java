@@ -3,8 +3,10 @@ package com.example.exp3_menu;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
 
 import com.example.exp3_menu.ui.gallery.GalleryFragment;
+import com.example.exp3_menu.ui.home.HomeFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
