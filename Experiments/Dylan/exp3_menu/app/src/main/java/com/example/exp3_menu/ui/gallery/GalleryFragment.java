@@ -21,11 +21,10 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
 
     private FragmentGalleryBinding binding;
     private Button button;
+    private TextView text;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-
 
         GalleryViewModel galleryViewModel =
                 new ViewModelProvider(this).get(GalleryViewModel.class);
@@ -40,9 +39,9 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String num = genRand(root);
-                TextView result = (TextView) root.findViewById(R.id.result);
-                result.setText(num);
+                String output = genRand(root);
+                text = (TextView) root.findViewById(R.id.result);
+                text.setText(output);
             }
         });
 
@@ -50,7 +49,6 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
     }
 
     private String genRand(View root) {
-
         SeekBar seek = (SeekBar) root.findViewById(R.id.seekBar);
         Random rand = new Random();
         return Integer.toString(rand.nextInt(seek.getProgress()) + 1);
@@ -66,4 +64,6 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
 
     }
+
+
 }
