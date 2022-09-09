@@ -11,7 +11,7 @@ public class HomeViewModel extends ViewModel {
 
     public HomeViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("Welcome to my First menu");
+        mText.setValue("Welcome to my Menu learning experience");
     }
 
     public LiveData<String> getText() {
