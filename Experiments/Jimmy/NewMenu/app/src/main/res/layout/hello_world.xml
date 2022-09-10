@@ -79,6 +79,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtbutton3" />
 
+        <TextView
+            android:id="@+id/recievetext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FLIP"
+            android:textSize="36sp"
+            tools:layout_editor_absoluteX="135dp"
+            tools:layout_editor_absoluteY="65dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

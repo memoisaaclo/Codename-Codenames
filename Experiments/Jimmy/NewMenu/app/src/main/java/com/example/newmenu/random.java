@@ -1,5 +1,6 @@
 package com.example.newmenu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,28 +23,35 @@ public class random extends AppCompatActivity
 
         rollbutton = findViewById(R.id.rollbutton);
         backbutton2 = findViewById(R.id.backbutton2);
-
         Random rand = new Random();
-
-        final int[] rand_int = {(rand.nextInt(1))};
+        final int[] coin_flip = {rand.nextInt(2)};
 
         rollbutton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                rand_int[0] = (rand.nextInt(2));
-                TextView tv = findViewById(R.id.txtview);
-                //Change visibility
-                //tv.setVisibility(View.VISIBLE);
-                //set a value in the textview
-                if (rand_int[0] == 1) {
-                    tv.setText("HEADS");
+                coin_flip[0] = (rand.nextInt(2));
+                TextView roll_tv = findViewById(R.id.rolltext);
+                //Intent intent = new Intent(getApplicationContext(), hello_world.class);
+
+                if (coin_flip[0] == 1)
+                {
+                    roll_tv.setText("HEADS");
                 }
                 else
                 {
-                    tv.setText("TAILS");
+                    roll_tv.setText("TAILS");
                 }
+            }
+        });
+
+        backbutton2.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(random.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

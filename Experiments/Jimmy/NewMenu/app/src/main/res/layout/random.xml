@@ -16,15 +16,15 @@
         android:text="FLIP" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="168dp"
+        android:id="@+id/rolltext"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="137dp"
+        android:layout_marginStart="92dp"
         android:layout_marginTop="196dp"
-        android:layout_marginEnd="106dp"
+        android:layout_marginEnd="29dp"
         android:text="FLIP"
         android:textSize="64sp" />
 
