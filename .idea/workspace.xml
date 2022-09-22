@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5a94a15-b0b7-4056-9ff9-d5a76591239e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Backend/backendEclipseProject/src/main/java/onetoone/Users/PlayerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/backendEclipseProject/src/main/java/onetoone/Users/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/backendEclipseProject/src/main/java/onetoone/Users/Player.java" afterDir="false" />
-    </list>
+    <list default="true" id="d5a94a15-b0b7-4056-9ff9-d5a76591239e" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -116,7 +112,7 @@
       <workItem from="1663372336705" duration="3078000" />
       <workItem from="1663819468519" duration="361000" />
       <workItem from="1663820083519" duration="90000" />
-      <workItem from="1663820186745" duration="1293000" />
+      <workItem from="1663820186745" duration="1524000" />
     </task>
     <servers />
   </component>
