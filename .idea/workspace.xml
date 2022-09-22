@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5a94a15-b0b7-4056-9ff9-d5a76591239e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Backend/backendEclipseProject/src/main/java/onetoone/Users/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/backendEclipseProject/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/backendEclipseProject/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/backendEclipseProject/src/main/java/onetoone/Users/PlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/backendEclipseProject/src/main/java/onetoone/Users/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/backendEclipseProject/src/main/java/onetoone/Users/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="60d497bd1aaf00f9ff06281a2caa931191821025" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -32,12 +33,14 @@
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
       <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
         <entry key="com.haulmont.jpb.jpaPalette" value="true" />
         <entry key="com.haulmont.jpb.jpaStructure" value="true" />
       </map>
     </option>
     <option name="myId2Visible">
       <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
         <entry key="com.haulmont.jpb.jpaPalette" value="false" />
         <entry key="com.haulmont.jpb.jpaStructure" value="false" />
       </map>
@@ -69,6 +72,7 @@
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "/Users/isaaclo/2_an_6",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "fileTemplates",
     "spring.configuration.checksum": "759e8a9473e88555237f17b16104fb16"
   },
   "keyToStringList": {
@@ -112,7 +116,7 @@
       <workItem from="1663372336705" duration="3078000" />
       <workItem from="1663819468519" duration="361000" />
       <workItem from="1663820083519" duration="90000" />
-      <workItem from="1663820186745" duration="705000" />
+      <workItem from="1663820186745" duration="1293000" />
     </task>
     <servers />
   </component>
