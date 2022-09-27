@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 /**
  * 
  * @author Vivek Bengre
- * 
+ * 	SQL is on branch 22
  */ 
 
 @SpringBootApplication
