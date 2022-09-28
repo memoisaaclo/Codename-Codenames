@@ -1,6 +1,5 @@
 package onetoone;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +11,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Date;
 
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
 /**
  * 
  * @author benckell and isaaclo
@@ -19,12 +20,12 @@ import java.util.Date;
  */ 
 
 @SpringBootApplication
-@EnableSwagger2
-//@EnableJpaRepositories
+@EnableJpaRepositories
 class Main {
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
+      
     }
 
     @Bean
