@@ -20,16 +20,27 @@ public class User {
 //    @JoinColumn(name = "playerID")
 //    private Player playerTableForeignKey;
     
-
+    
+    
+    
     public User(String username, String password) {
     	this.username = username;
     	this.passwordHash = password;
     }
     
-    public boolean validateCredentials(String username, String password) {
+    public User() {
+    	super();
+    }
+
+	public boolean validateCredentials(String username, String password) {
     	return this.username.equals(username) && passwordHash.equals(password);
     }
     
+    public String getUsername() {
+    	return username;
+    }
     
-    
+    public String getPassword() {
+    	return passwordHash;
+    }
 }
