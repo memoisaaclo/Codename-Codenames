@@ -15,8 +15,9 @@ public class UserController {
     }
 	
 	@GetMapping("/login/")
-    public String loginToAccount() {
-        return "This works really well.";
+    public String loginToAccount(@RequestBody String newUsername, @RequestBody String newPassword) {
+		
+        return "success";
     }
 	
 	

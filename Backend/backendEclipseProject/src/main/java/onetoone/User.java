@@ -15,16 +15,11 @@ public class User {
     
     //statistics:
     private Integer logins;
-    private Integer gamesWon;
-    private Integer gamesPlayed;
-    private Integer guessesMade;
-    private Integer correctGuesses;
-    private Integer cluesGiven;
 
-    //@OneToMany(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "gameID")
-    private Game gameHistory;
-
+//    @OneToOne(cascade = CascadeType.ALL);
+//    @JoinColumn(name = "playerID")
+//    private Player playerTableForeignKey;
+    
 
     public User(String username, String password) {
     	this.username = username;
@@ -34,5 +29,7 @@ public class User {
     public boolean validateCredentials(String username, String password) {
     	return this.username.equals(username) && passwordHash.equals(password);
     }
+    
+    
     
 }
