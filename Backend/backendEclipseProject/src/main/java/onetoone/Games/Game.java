@@ -12,7 +12,7 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private int id;
 
     private ArrayList<Card> cards;
 
@@ -20,11 +20,11 @@ public class Game {
 
     private Hashtable<Long, Role> playerRoles;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
