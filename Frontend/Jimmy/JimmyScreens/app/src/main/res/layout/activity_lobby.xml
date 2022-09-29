@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDB902"
-    tools:context=".MainActivity">
-
+	android:background="#EDB902">
+	
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/title_header"
         android:layout_width="0dp"
@@ -45,13 +44,13 @@
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="64dp"
         android:background="@color/gray_2"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/button_ready"
+        app:layout_constraintBottom_toTopOf="@+id/button_red_spymaster"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lobby_header" />
 
@@ -61,13 +60,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/gray_1"
         android:backgroundTint="@color/gray_1"
-        android:text="BACK TO MENU"
+        android:text="READY?"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="@color/gray_1" />
 
@@ -75,7 +75,7 @@
         android:id="@+id/text_lobby_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Available Games"
+        android:text="Waiting Users"
         android:textColor="#000000"
         android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/lobby_header"
@@ -87,7 +87,7 @@
         android:id="@+id/text_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LOBBY SELECT"
+        android:text="LOBBY 1"
         android:textColor="#000000"
         android:textSize="32dp"
         app:layout_constraintBottom_toBottomOf="@+id/title_header"
@@ -101,9 +101,74 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:text="Lobby1"
+        android:text="Player1"
         android:textColor="#000000"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="@+id/lobby_view"
         app:layout_constraintTop_toBottomOf="@+id/lobby_header" />
+
+    <Button
+        android:id="@+id/button_red_spymaster"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="224dp"
+        android:text="Spymaster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="548dp" />
+
+    <Button
+        android:id="@+id/button_blue_spymaster"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="224dp"
+        android:layout_marginEnd="32dp"
+        android:text="Spymaster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="548dp" />
+
+    <TextView
+        android:id="@+id/text_choose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:shadowColor="#000000"
+        android:text="Select Team/Role"
+        android:textColor="#000000"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_red_spymaster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lobby_view"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/button_red_operative"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="224dp"
+        android:text="Operative"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_red_spymaster" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="224dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:text="Operative"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_blue_spymaster" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
