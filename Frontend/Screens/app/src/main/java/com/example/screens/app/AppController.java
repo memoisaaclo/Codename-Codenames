@@ -1,6 +1,5 @@
 package com.example.screens.app;
 
-import com.example.screens.utils.LruBitmapCache;
 import android.app.Application;
 import android.text.TextUtils;
 
@@ -8,6 +7,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.example.screens.utils.LruBitmapCache;
 
 public class AppController extends Application {
 
