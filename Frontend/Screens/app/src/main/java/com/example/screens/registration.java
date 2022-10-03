@@ -132,11 +132,11 @@ public class registration extends Activity implements OnClickListener {
 
         makeJsonObjReq();
 
-        if (true) {
+        if (msgResponse == "success") {
             startActivity(new Intent
                     (registration.this, menu.class));
         } else {
-
+            //output error message to say "username already exists"
         }
     }
 }
