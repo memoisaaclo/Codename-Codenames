@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(MainActivity.this, login.class));
         } else if (v.getId() == R.id.menu_play) {
             // play game
+            //startActivity(new Intent(MainActivity.this, FILL IN FROM JIMMY));
         } else if (v.getId() == R.id.menu_user) {
             // user info connection
         } else if (v.getId() == R.id.menu_exit) {

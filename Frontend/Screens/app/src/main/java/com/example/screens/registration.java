@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -78,7 +79,7 @@ public class registration extends Activity implements OnClickListener {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, response.toString());
-                        String msgResponse = null;
+                        String msgResponse = "";
                         msgResponse = response.toString();
                         hideProgressDialog();
                     }
@@ -104,20 +105,25 @@ public class registration extends Activity implements OnClickListener {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-//                params.put("name", "Androidhive");
-//                params.put("email", "abc@androidhive.info");
-//                params.put("pass", "password123");
+
+                //JSON Request Parameters for registrations
+                params.put("username", ((TextView) findViewById(R.id.reg_user)).toString());
+                params.put("password", ((TextView) findViewById(R.id.reg_pass)).toString());
 
                 return params;
             }
 
         };
 
-        // adding request to request queue
-        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+        if ((TextView) findViewById(R.id.reg_pass) == (TextView) findViewById(R.id.reg_pass2)) {
+            // adding request to request queue
+            AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+        }   else {
+            //cancelling request
+            AppController.getInstance().getRequestQueue().cancelAll(tag_json_obj);
 
-        //cancelling request
-        // ApplicationController.getInstance().getRequestQueue().cancelAll(tag_json_obj);
+            //output error message to say "passowrds dont match"
+        }
 
     }
 
@@ -129,6 +135,8 @@ public class registration extends Activity implements OnClickListener {
         if (true) {
             startActivity(new Intent
                     (registration.this, menu.class));
+        } else {
+
         }
     }
 }
