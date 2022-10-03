@@ -3,12 +3,11 @@ package com.example.screens;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button play;
     private Button login;
@@ -35,7 +34,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-
-        startActivity(new Intent(MainActivity.this, registration.class));
+        if (v.getId() == R.id.menu_login) {
+            startActivity(new Intent(MainActivity.this, login.class));
+        } else if (v.getId() == R.id.menu_play) {
+            // play game
+        } else if (v.getId() == R.id.menu_user) {
+            // user info connection
+        } else if (v.getId() == R.id.menu_exit) {
+            //exit app
+        }
     }
 }

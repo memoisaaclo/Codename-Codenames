@@ -22,7 +22,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
 
         //buttons
-        login = (Button) findViewById(R.id.login);
+        login = (Button) findViewById(R.id.login_login);
         register = (Button) findViewById(R.id.login_register);
         exit = (Button) findViewById(R.id.login_exit);
 
@@ -39,9 +39,9 @@ public class login extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.login) {
+        if(v.getId() == R.id.login_login) {
             startActivity(new Intent(login.this, menu.class));
-        } else if (v.getId() == R.id.register) {
+        } else if (v.getId() == R.id.login_register) {
             startActivity((new Intent(login.this, registration.class)));
         } else if (v.getId() == R.id.login_exit) {
             startActivity(new Intent(login.this, menu.class));
