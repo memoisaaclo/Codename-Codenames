@@ -1,6 +1,9 @@
 package onetoone;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,19 +11,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-	@GetMapping("/login/register/")
-    public @ResponseBody String createNewAccountRegister(@RequestParam(value = "newUsername") String newUsername, @RequestParam(value = "newPassword") String newPassword) {
-		if(Main.userRepo.findByusername(newUsername) != null){
+	@RequestMapping(method = RequestMethod.POST, path = "/login/register")
+    public @ResponseBody String createNewAccountRegister(@RequestBody User usr) {
+		if(Main.userRepo.findByusername(usr.getUsername()) != null){
 			return "username already exists";	
 		}
 	
-		Main.userRepo.save(new User(newUsername, newPassword));
-		return "success: " + newUsername + " " + newPassword + " ";
+		Main.userRepo.save(usr);
+		return "success: " + usr.getUsername() + " " + usr.getPassword() + " ";
     }
 	
-	@GetMapping("/login/")
-    public @ResponseBody String loginToAccount(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
-		if(Main.userRepo.findByusername(username) != null && Main.userRepo.findByusername(username).getPassword().equals(password)){
+	@RequestMapping(method = RequestMethod.GET, path = "/login")
+    public @ResponseBody String loginToAccount(@RequestBody User usr) {
+		if(Main.userRepo.findByusername(usr.getUsername()) != null && Main.userRepo.findByusername(usr.getUsername()).getPassword().equals(usr.getPassword())){
 			return "success";
 		}
 		

@@ -39,6 +39,8 @@ class Main {
     CommandLineRunner initUser(UserRepository userRepository) {
         return args -> {
         	Main.userRepo = userRepository;
+        };
+    }
 
     @Bean
     CommandLineRunner initUser() {
