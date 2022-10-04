@@ -12,19 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST, path = "/login/register")
-    public @ResponseBody String createNewAccountRegister(@RequestBody User usr) {
+    public @ResponseBody String createNewAccountRegister(@RequestBody User usr) {	// creates user object off of json body
 		if(Main.userRepo.findByusername(usr.getUsername()) != null){
 			return "username already exists";	
 		}
 	
-		Main.userRepo.save(usr);
-		return "success: " + usr.getUsername() + " " + usr.getPassword() + " ";
+		Main.userRepo.save(usr);	// if username does not already exist, save the account to the database
+		return "success";
     }
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/login")
-    public @ResponseBody String loginToAccount(@RequestBody User usr) {
+    public @ResponseBody String loginToAccount(@RequestBody User usr) {	// creates user object off of json body
 		if(Main.userRepo.findByusername(usr.getUsername()) != null && Main.userRepo.findByusername(usr.getUsername()).getPassword().equals(usr.getPassword())){
-			return "success";
+			return "success";	// checks if account exists and password is correct
 		}
 		
         return "login failure";
