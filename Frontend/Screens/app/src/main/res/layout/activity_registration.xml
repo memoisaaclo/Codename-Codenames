@@ -154,4 +154,16 @@
         app:layout_constraintEnd_toEndOf="@+id/gameToolbar"
         app:layout_constraintTop_toTopOf="@+id/gameToolbar" />
 
+    <TextView
+        android:id="@+id/reg_error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="40sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/reg_user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
