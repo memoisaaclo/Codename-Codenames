@@ -1,0 +1,4 @@
+enum Role {
+    Spymaster,
+    Operative
+}
