@@ -2,7 +2,6 @@ package com.example.screens;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -73,7 +72,7 @@ public class registration extends Activity implements OnClickListener {
     private void makeJsonObjReq() {
         showProgressDialog();
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                Const.URL_JSON_OBJECT, null,
+                Const.URL_JSON_REGISTRATION, null,
                 new Response.Listener<JSONObject>() {
 
                     @Override
@@ -107,36 +106,53 @@ public class registration extends Activity implements OnClickListener {
                 Map<String, String> params = new HashMap<String, String>();
 
                 //JSON Request Parameters for registrations
-                params.put("username", ((TextView) findViewById(R.id.reg_user)).toString());
-                params.put("password", ((TextView) findViewById(R.id.reg_pass)).toString());
+                params.put("username", (((TextView) findViewById(R.id.registration_user)).getText().toString()));
+                params.put("password", ((TextView) findViewById(R.id.registration_password)).getText().toString());
 
                 return params;
             }
 
         };
 
-        if ((TextView) findViewById(R.id.reg_pass) == (TextView) findViewById(R.id.reg_pass2)) {
-            // adding request to request queue
-            AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
-        }   else {
-            //cancelling request
-            AppController.getInstance().getRequestQueue().cancelAll(tag_json_obj);
+//        if ((TextView) findViewById(R.id.registration_password) == (TextView) findViewById(R.id.registration_password2)) {
+//            // adding request to request queue
+//            AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+//        }   else {
+//            //cancelling request
+//            AppController.getInstance().getRequestQueue().cancelAll(tag_json_obj);
+//
+//            //output error message to say "passowrds dont match"
+//        }
 
-            //output error message to say "passowrds dont match"
-        }
+        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
 
     }
 
     @Override
     public void onClick(View view) {
 
+        TextView text = (TextView) findViewById(R.id.reg_pass2);
+        text.setText(((TextView) findViewById(R.id.registration_password)).getText().toString());
+
         makeJsonObjReq();
 
-        if (msgResponse == "success") {
-            startActivity(new Intent
-                    (registration.this, menu.class));
-        } else {
-            //output error message to say "username already exists"
-        }
+        text.setText("success");
+
+//        makeJsonObjReq();
+//
+//        System.out.println(msgResponse);
+//
+//        TextView text = (TextView) findViewById(R.id.reg_pass2);
+//
+//        text.setText(msgResponse);
+//
+//
+//        if (msgResponse == "success") {
+//
+//            startActivity(new Intent
+//                    (registration.this, menu.class));
+//        } else {
+//            //output error message to say "username already exists"
+//        }
     }
 }

@@ -8,8 +8,6 @@
     android:background="#EDB902"
     >
 
-
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar4"
         android:layout_width="match_parent"
@@ -19,7 +17,7 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/gameToolbar" />
 
     <TextView
         android:id="@+id/reg_title"
@@ -139,7 +137,21 @@
         android:textColor="#B30000"
         app:layout_constraintBottom_toBottomOf="@+id/gameToolbar"
         app:layout_constraintStart_toStartOf="@+id/gameToolbar"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/gameToolbar"
         />
+
+    <Button
+        android:id="@+id/reg_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#230959"
+        android:textColor="@color/white"
+        android:text="Exit"
+        app:layout_constraintBottom_toBottomOf="@+id/gameToolbar"
+        app:layout_constraintEnd_toEndOf="@+id/gameToolbar"
+        app:layout_constraintTop_toTopOf="@+id/gameToolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
