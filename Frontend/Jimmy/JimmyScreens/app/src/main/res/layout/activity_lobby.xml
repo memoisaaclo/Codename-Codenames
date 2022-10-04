@@ -62,9 +62,11 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:background="@color/gray_1"
+        android:background="@color/gray_1"
         android:backgroundTint="@color/gray_1"
         android:text="READY?"
         android:textColor="#000000"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -113,11 +115,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="224dp"
+        android:layout_marginBottom="64dp"
         android:text="Spymaster"
+		android:background="@color/cardinal"
+        app:layout_constraintBottom_toTopOf="@+id/button_ready"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="548dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button_blue_spymaster"
@@ -125,11 +129,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="224dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="64dp"
         android:text="Spymaster"
+		android:background="@color/blue"
+        app:layout_constraintBottom_toTopOf="@+id/button_ready"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="548dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/text_choose"
@@ -153,22 +159,40 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="224dp"
+        android:layout_marginBottom="8dp"
         android:text="Operative"
+		android:background="@color/cardinal"
+        app:layout_constraintBottom_toTopOf="@+id/button_ready"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_red_spymaster" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button_blue_operative"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="224dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
         android:text="Operative"
+		android:background="@color/blue"
+        app:layout_constraintBottom_toTopOf="@+id/button_ready"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_blue_spymaster" />
+
+    <TextView
+        android:id="@+id/text_playercount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="#"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/lobby_header"
+        app:layout_constraintEnd_toEndOf="@+id/lobby_header"
+        app:layout_constraintTop_toTopOf="@+id/lobby_header" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

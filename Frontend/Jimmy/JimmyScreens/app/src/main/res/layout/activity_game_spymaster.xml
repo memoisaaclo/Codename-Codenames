@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="#EDB902">
+
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/header_red"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="32dp"
+		android:background="@color/cardinal"
+		android:minHeight="?attr/actionBarSize"
+		android:theme="?attr/actionBarTheme"
+		app:layout_constraintBottom_toTopOf="@+id/header_clue"
+		app:layout_constraintEnd_toStartOf="@+id/header_blue"
+		app:layout_constraintStart_toStartOf="parent" />
+
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/header_clue"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="32dp"
+		android:background="@color/gray_1"
+		android:minHeight="?attr/actionBarSize"
+		android:theme="?attr/actionBarTheme"
+		app:layout_constraintEnd_toStartOf="@+id/header_applies"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		tools:layout_editor_absoluteY="499dp" />
+
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/header_applies"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="260dp"
+		android:layout_marginEnd="32dp"
+		android:background="@color/gray_2"
+		android:minHeight="?attr/actionBarSize"
+		android:theme="?attr/actionBarTheme"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		tools:layout_editor_absoluteY="499dp" />
+
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/header_guesses"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="32dp"
+		android:layout_marginTop="16dp"
+		android:layout_marginEnd="32dp"
+		android:layout_marginBottom="130dp"
+		android:background="@color/gray_2"
+		android:minHeight="?attr/actionBarSize"
+		android:theme="?attr/actionBarTheme"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/header_clue" />
+
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/box_guesses"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="32dp"
+		android:layout_marginEnd="32dp"
+		android:layout_marginBottom="16dp"
+		android:background="@color/gray_1"
+		android:minHeight="?attr/actionBarSize"
+		android:theme="?attr/actionBarTheme"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/header_guesses" />
+
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/header_blue"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="200dp"
+		android:layout_marginBottom="32dp"
+		android:background="@color/blue"
+		android:minHeight="?attr/actionBarSize"
+		android:theme="?attr/actionBarTheme"
+		app:layout_constraintBottom_toTopOf="@+id/header_clue"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent" />
+
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/title_header"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="640dp"
+		android:background="@color/cardinal"
+		android:minHeight="?attr/actionBarSize"
+		android:theme="?attr/actionBarTheme"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintVertical_bias="1.0" />
+
+	<TextView
+		android:id="@+id/text_header"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Spymaster"
+		android:textColor="#000000"
+		android:textSize="32dp"
+		app:layout_constraintBottom_toBottomOf="@+id/title_header"
+		app:layout_constraintEnd_toEndOf="@+id/title_header"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<Button
+		android:id="@+id/button_card1"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginEnd="335dp"
+		android:layout_marginBottom="256dp"
+		android:text="WORD"
+		android:background="@color/cardinal"
+		app:layout_constraintBottom_toTopOf="@+id/header_red"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/title_header" />
+
+	<Button
+		android:id="@+id/button_card2"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginEnd="250dp"
+		android:layout_marginBottom="256dp"
+		android:text="WORD"
+		android:background="@color/blue"
+		app:layout_constraintBottom_toTopOf="@+id/header_red"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/button_card1"
+		app:layout_constraintTop_toBottomOf="@+id/title_header" />
+
+	<Button
+		android:id="@+id/button_card3"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="256dp"
+		android:text="WORD"
+		android:background="@color/gray_1"
+		app:layout_constraintBottom_toTopOf="@+id/header_red"
+		app:layout_constraintEnd_toStartOf="@+id/button_card4"
+		app:layout_constraintStart_toEndOf="@+id/button_card2"
+		app:layout_constraintTop_toBottomOf="@+id/title_header" />
+
+	<Button
+		android:id="@+id/button_card4"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="250dp"
+		android:layout_marginBottom="256dp"
+		android:text="WORD"
+		android:background="@color/blue"
+		app:layout_constraintBottom_toTopOf="@+id/header_blue"
+		app:layout_constraintEnd_toStartOf="@+id/button_card5"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/title_header" />
+
+	<Button
+		android:id="@+id/button_card5"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="335dp"
+		android:layout_marginBottom="256dp"
+		android:text="WORD"
+		android:background="@color/blue"
+		app:layout_constraintBottom_toTopOf="@+id/header_blue"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/title_header" />
+
+	<Button
+		android:id="@+id/button_card6"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginEnd="335dp"
+		android:layout_marginBottom="192dp"
+		android:text="WORD"
+		android:background="@color/blue"
+		app:layout_constraintBottom_toTopOf="@+id/header_red"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/button_card1" />
+
+	<Button
+		android:id="@+id/button_card7"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="192dp"
+		android:text="WORD"
+		android:background="@color/cardinal"
+		app:layout_constraintBottom_toTopOf="@+id/header_red"
+		app:layout_constraintEnd_toStartOf="@+id/button_card8"
+		app:layout_constraintStart_toEndOf="@+id/button_card1"
+		app:layout_constraintTop_toBottomOf="@+id/button_card2" />
+
+	<Button
+		android:id="@+id/button_card8"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="192dp"
+		android:text="WORD"
+		android:background="@color/cardinal"
+		app:layout_constraintBottom_toTopOf="@+id/header_red"
+		app:layout_constraintEnd_toStartOf="@+id/button_card4"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toEndOf="@+id/button_card2"
+		app:layout_constraintTop_toBottomOf="@+id/button_card3" />
+
+	<Button
+		android:id="@+id/button_card9"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="192dp"
+		android:text="WORD"
+		android:background="@color/gray_1"
+		app:layout_constraintBottom_toTopOf="@+id/header_blue"
+		app:layout_constraintEnd_toStartOf="@+id/button_card5"
+		app:layout_constraintStart_toEndOf="@+id/button_card8"
+		app:layout_constraintTop_toBottomOf="@+id/button_card4" />
+
+	<Button
+		android:id="@+id/button_card10"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="335dp"
+		android:layout_marginBottom="192dp"
+		android:text="WORD"
+		android:background="@color/gray_1"
+		app:layout_constraintBottom_toTopOf="@+id/header_blue"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/button_card5" />
+
+	<Button
+		android:id="@+id/button_card11"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginEnd="335dp"
+		android:layout_marginBottom="128dp"
+		android:text="WORD"
+		android:background="@color/cardinal"
+		app:layout_constraintBottom_toTopOf="@+id/header_red"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/button_card6" />
+
+	<Button
+		android:id="@+id/button_card12"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="128dp"
+		android:text="WORD"
+		android:background="@color/blue"
+		app:layout_constraintBottom_toTopOf="@+id/header_red"
+		app:layout_constraintEnd_toStartOf="@+id/button_card13"
+		app:layout_constraintStart_toEndOf="@+id/button_card1"
+		app:layout_constraintTop_toBottomOf="@+id/button_card7" />
+
+	<Button
+		android:id="@+id/button_card13"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="128dp"
+		android:text="WORD"
+		android:background="@color/gray_1"
+		app:layout_constraintBottom_toTopOf="@+id/header_red"
+		app:layout_constraintEnd_toStartOf="@+id/button_card4"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toEndOf="@+id/button_card2"
+		app:layout_constraintTop_toBottomOf="@+id/button_card8" />
+
+	<Button
+		android:id="@+id/button_card14"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="128dp"
+		android:text="WORD"
+		android:background="@color/cardinal"
+		app:layout_constraintBottom_toTopOf="@+id/header_blue"
+		app:layout_constraintEnd_toStartOf="@+id/button_card5"
+		app:layout_constraintStart_toEndOf="@+id/button_card13"
+		app:layout_constraintTop_toBottomOf="@+id/button_card9" />
+
+	<Button
+		android:id="@+id/button_card15"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="335dp"
+		android:layout_marginBottom="128dp"
+		android:text="WORD"
+		android:background="@color/blue"
+		app:layout_constraintBottom_toTopOf="@+id/header_blue"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/button_card10" />
+
+	<Button
+		android:id="@+id/button_card16"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginEnd="335dp"
+		android:layout_marginBottom="64dp"
+		android:text="WORD"
+		android:background="@color/blue"
+		app:layout_constraintBottom_toTopOf="@+id/header_red"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/button_card11" />
+
+	<Button
+		android:id="@+id/button_card17"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="64dp"
+		android:text="WORD"
+		android:background="@color/cardinal"
+		app:layout_constraintBottom_toTopOf="@+id/header_red"
+		app:layout_constraintEnd_toStartOf="@+id/button_card18"
+		app:layout_constraintStart_toEndOf="@+id/button_card1"
+		app:layout_constraintTop_toBottomOf="@+id/button_card12" />
+
+	<Button
+		android:id="@+id/button_card18"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="64dp"
+		android:text="WORD"
+		android:background="@color/blue"
+		app:layout_constraintBottom_toTopOf="@+id/header_red"
+		app:layout_constraintEnd_toStartOf="@+id/button_card4"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toEndOf="@+id/button_card2"
+		app:layout_constraintTop_toBottomOf="@+id/button_card13" />
+
+	<Button
+		android:id="@+id/button_card19"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginBottom="64dp"
+		android:text="WORD"
+		android:background="@color/blue"
+		app:layout_constraintBottom_toTopOf="@+id/header_blue"
+		app:layout_constraintEnd_toStartOf="@+id/button_card5"
+		app:layout_constraintStart_toEndOf="@+id/button_card18"
+		app:layout_constraintTop_toBottomOf="@+id/button_card14" />
+
+	<Button
+		android:id="@+id/button_card20"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="335dp"
+		android:layout_marginBottom="64dp"
+		android:text="WORD"
+		android:background="@color/gray_1"
+		app:layout_constraintBottom_toTopOf="@+id/header_blue"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/button_card15" />
+
+	<Button
+		android:id="@+id/button_card21"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginEnd="335dp"
+		android:text="WORD"
+		android:background="@color/gray_1"
+		app:layout_constraintBottom_toTopOf="@+id/header_red"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/button_card16" />
+
+	<Button
+		android:id="@+id/button_card22"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:text="WORD"
+		android:background="#FF000000"
+		app:layout_constraintBottom_toTopOf="@+id/header_red"
+		app:layout_constraintEnd_toStartOf="@+id/button_card23"
+		app:layout_constraintStart_toEndOf="@+id/button_card1"
+		app:layout_constraintTop_toBottomOf="@+id/button_card17" />
+
+	<Button
+		android:id="@+id/button_card23"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:text="WORD"
+		android:background="@color/gray_1"
+		app:layout_constraintBottom_toTopOf="@+id/header_blue"
+		app:layout_constraintEnd_toStartOf="@+id/button_card4"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toEndOf="@+id/button_card2"
+		app:layout_constraintTop_toBottomOf="@+id/button_card18" />
+
+	<Button
+		android:id="@+id/button_card24"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:text="WORD"
+		android:background="@color/cardinal"
+		app:layout_constraintBottom_toTopOf="@+id/header_blue"
+		app:layout_constraintEnd_toStartOf="@+id/button_card5"
+		app:layout_constraintStart_toEndOf="@+id/button_card23"
+		app:layout_constraintTop_toBottomOf="@+id/button_card19" />
+
+	<Button
+		android:id="@+id/button_card25"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="335dp"
+		android:text="WORD"
+		android:background="@color/cardinal"
+		app:layout_constraintBottom_toTopOf="@+id/header_blue"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/button_card20" />
+
+	<TextView
+		android:id="@+id/text_labelred"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="96dp"
+		android:text="Score"
+		android:textColor="#FFFFFF"
+		app:layout_constraintBottom_toBottomOf="@+id/header_red"
+		app:layout_constraintEnd_toEndOf="@+id/header_red"
+		app:layout_constraintStart_toStartOf="@+id/header_red"
+		app:layout_constraintTop_toTopOf="@+id/header_red" />
+
+	<TextView
+		android:id="@+id/text_labelblue"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="96dp"
+		android:text="Score"
+		android:textColor="#FFFFFF"
+		app:layout_constraintBottom_toBottomOf="@+id/header_blue"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="@+id/header_blue"
+		app:layout_constraintTop_toTopOf="@+id/header_blue" />
+
+	<TextView
+		android:id="@+id/text_clue"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Current Clue Here"
+		android:textColor="#000000"
+		app:layout_constraintBottom_toBottomOf="@+id/header_clue"
+		app:layout_constraintEnd_toEndOf="@+id/header_clue"
+		app:layout_constraintStart_toStartOf="@+id/header_clue"
+		app:layout_constraintTop_toTopOf="@+id/header_clue" />
+
+	<TextView
+		android:id="@+id/text_applies"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Applies To: #"
+		android:textColor="#000000"
+		app:layout_constraintBottom_toBottomOf="@+id/header_applies"
+		app:layout_constraintEnd_toEndOf="@+id/header_applies"
+		app:layout_constraintStart_toEndOf="@+id/header_clue"
+		app:layout_constraintTop_toTopOf="@+id/header_applies" />
+
+	<TextView
+		android:id="@+id/text_guessesheader"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Other Guesses"
+		android:textColor="#000000"
+		app:layout_constraintBottom_toBottomOf="@+id/header_guesses"
+		app:layout_constraintEnd_toEndOf="@+id/header_guesses"
+		app:layout_constraintStart_toStartOf="@+id/header_guesses"
+		app:layout_constraintTop_toTopOf="@+id/header_guesses" />
+
+	<TextView
+		android:id="@+id/text_guesses"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:text="Player 1: Word"
+		android:textColor="#000000"
+		app:layout_constraintStart_toStartOf="@+id/box_guesses"
+		app:layout_constraintTop_toBottomOf="@+id/header_guesses" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
