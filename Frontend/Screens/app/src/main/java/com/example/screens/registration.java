@@ -97,8 +97,10 @@ public class registration extends Activity implements OnClickListener {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                hideProgressDialog();
+                if(error.getMessage() != null) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                    hideProgressDialog();
+                }
             }
         }) {
 
