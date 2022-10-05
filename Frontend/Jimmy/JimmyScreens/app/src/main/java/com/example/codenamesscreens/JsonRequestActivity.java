@@ -25,40 +25,48 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JsonRequestActivity extends Activity implements OnClickListener {
+import android.content.Intent;
 
+public class JsonRequestActivity extends Activity// implements OnClickListener
+{
     private String TAG = JsonRequestActivity.class.getSimpleName();
     private Button btnJsonObj, btnJsonArray;
     private TextView msgResponse;
     private ProgressDialog pDialog;
+    TextView player_count;
 
     // These tags will be used to cancel the requests
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.json_request);
+        setContentView(R.layout.activity_lobby);
+//        VolleyLog.d(TAG, "/error Message"); //TESTING
+        makeJsonObjReq();
 
-        btnJsonObj = (Button) findViewById(R.id.btnJsonObj);
-        btnJsonArray = (Button) findViewById(R.id.btnJsonArray);
-        msgResponse = (TextView) findViewById(R.id.msgResponse);
-
-        pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Loading...");
-        pDialog.setCancelable(false);
-
-        btnJsonObj.setOnClickListener(this);
-        btnJsonArray.setOnClickListener(this);
+//        btnJsonObj = (Button) findViewById(R.id.btnJsonObj);
+//        btnJsonArray = (Button) findViewById(R.id.btnJsonArray);
+//        msgResponse = (TextView) findViewById(R.id.msgResponse);
+//
+//        pDialog = new ProgressDialog(this);
+//        pDialog.setMessage("Loading...");
+//        pDialog.setCancelable(false);
+//
+//        btnJsonObj.setOnClickListener(this);
+//        btnJsonArray.setOnClickListener(this);
     }
 
-    private void showProgressDialog() {
+    private void showProgressDialog()
+    {
         if (!pDialog.isShowing())
 
             pDialog.show();
     }
 
-    private void hideProgressDialog() {
+    private void hideProgressDialog()
+    {
         if (pDialog.isShowing())
             pDialog.hide();
     }
@@ -66,39 +74,50 @@ public class JsonRequestActivity extends Activity implements OnClickListener {
     /**
      * Making json object request
      * */
-    private void makeJsonObjReq() {
+    private void makeJsonObjReq()
+    {
         showProgressDialog();
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.GET,
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST,
                 Const.URL_JSON_OBJECT, null,
-                new Response.Listener<JSONObject>() {
-
+                new Response.Listener<JSONObject>()
+                {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d(TAG, response.toString());
-                        msgResponse.setText(response.toString());
+                    public void onResponse(JSONObject response)
+                    {
+                        player_count = findViewById(R.id.text_playercount);
+                        Intent intent = getIntent(); //creates get intent object
+                        String str = intent.getStringExtra("message_key"); //recieve value in getStringExtra
+                        player_count.setText(str); //display string
+
+//                        Log.d(TAG, response.toString());
+//                        msgResponse.setText(response.toString());
                         hideProgressDialog();
                     }
-                }, new Response.ErrorListener() {
-
+                }, new Response.ErrorListener()
+        {
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(VolleyError error)
+            {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 hideProgressDialog();
             }
-        }) {
+        })
+        {
 
             /**
              * Passing some request headers
              * */
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
+            public Map<String, String> getHeaders() throws AuthFailureError
+            {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Content-Type", "application/json");
                 return headers;
             }
 
             @Override
-            protected Map<String, String> getParams() {
+            protected Map<String, String> getParams()
+            {
                 Map<String, String> params = new HashMap<String, String>();
 //                params.put("name", "Androidhive");
 //                params.put("email", "abc@androidhive.info");
@@ -110,53 +129,57 @@ public class JsonRequestActivity extends Activity implements OnClickListener {
         };
 
         // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(jsonObjReq,
-                tag_json_obj);
+        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
 
         // Cancelling request
         // ApplicationController.getInstance().getRequestQueue().cancelAll(tag_json_obj);
     }
 
-    /**
-     * Making json array request
-     * */
-    private void makeJsonArryReq() {
-        showProgressDialog();
-        JsonArrayRequest req = new JsonArrayRequest(Const.URL_JSON_ARRAY,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d(TAG, response.toString());
-                        msgResponse.setText(response.toString());
-                        hideProgressDialog();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                hideProgressDialog();
-            }
-        });
+//    /**
+//     * Making json array request
+//     * */
+//    private void makeJsonArryReq()
+//    {
+//        showProgressDialog();
+//        JsonArrayRequest req = new JsonArrayRequest(Const.URL_JSON_ARRAY,
+//                new Response.Listener<JSONArray>()
+//                {
+//                    @Override
+//                    public void onResponse(JSONArray response)
+//                    {
+//                        Log.d(TAG, response.toString());
+//                        msgResponse.setText(response.toString());
+//                        hideProgressDialog();
+//                    }
+//                }, new Response.ErrorListener()
+//        {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                VolleyLog.d(TAG, "Error: " + error.getMessage());
+//                hideProgressDialog();
+//            }
+//        });
+//
+//
+//        // Adding request to request queue
+//        AppController.getInstance().addToRequestQueue(req,
+//                tag_json_arry);
+//
+//        // Cancelling request
+//        // ApplicationController.getInstance().getRequestQueue().cancelAll(tag_json_arry);
+//    }
 
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(req,
-                tag_json_arry);
-
-        // Cancelling request
-        // ApplicationController.getInstance().getRequestQueue().cancelAll(tag_json_arry);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnJsonObj:
-                makeJsonObjReq();
-                break;
-            case R.id.btnJsonArray:
-                makeJsonArryReq();
-                break;
-        }
-
-    }
-
+//    @Override
+//    public void onClick(View v)
+//    {
+//        switch (v.getId())
+//        {
+//            case R.id.btnJsonObj:
+//                makeJsonObjReq();
+//                break;
+//            case R.id.btnJsonArray:
+//                makeJsonArryReq();
+//                break;
+//        }
+//    }
 }

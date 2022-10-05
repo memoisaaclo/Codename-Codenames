@@ -4,6 +4,7 @@
     package="com.example.codenamesscreens">
 
     <application
+        android:name="com.example.codenamesscreens.AppController"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
