@@ -36,6 +36,9 @@
 ehthumbs.db
 Thumbs.db
 
+# Maven "Target" files #
+target/
+
 # IDE files #
 #############
 .idea/
