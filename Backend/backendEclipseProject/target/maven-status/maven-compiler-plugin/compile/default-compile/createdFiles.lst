@@ -3,8 +3,13 @@ onetoone/Main.class
 onetoone/User.class
 onetoone/PlayerController.class
 onetoone/Game.class
+<<<<<<< HEAD
 onetoone/Player.class
 onetoone/PlayerRepository.class
+=======
+onetoone/PlayerRepository.class
+onetoone/Player.class
+>>>>>>> 7d546ce97ce4a9ad87b4d1453dbe35c405cfc4f9
 onetoone/UserController.class
 onetoone/Role.class
 onetoone/UserRepository.class
