@@ -15,24 +15,30 @@ public class VolleyListener {
 
     public static void makeRequest(Context context, String path, RequestListener requestListener, JSONObject data, int method){
 
+        System.out.println("hello makeRequest");
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(method, baseUrl + path, data,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        System.out.println("onResponse");
                         requestListener.onSuccess(response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        System.out.println("onError");
+                        System.out.println(error.toString());
+
                         requestListener.onFailure(error.getMessage());
+                        System.out.println("onError pt 2");
                     }
                 });
         ApplicationScope.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
 
     public static void makeRequest(Context context, String path, RequestListener requestListener, int method){
-
         StringRequest stringRequest = new StringRequest(method, baseUrl + path,
                 new Response.Listener<String>() {
                     @Override
