@@ -1,30 +1,23 @@
 package com.example.screens;
 
+import static com.example.screens.utils.Const.URL_JSON_REGISTRATION;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.screens.app.AppController;
-import com.example.screens.utils.Const;
+import com.example.screens.services.RequestListener;
+import com.example.screens.services.VolleyListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class registration extends Activity implements OnClickListener {
 
@@ -46,122 +39,78 @@ public class registration extends Activity implements OnClickListener {
         setContentView(R.layout.activity_registration);
 
         //initialization
-        msgResponse = "";
         errorText = (TextView) findViewById(R.id.reg_error_text);
-        user = (EditText) findViewById(R.id.registration_user);
-        pass = (EditText) findViewById(R.id.registration_password);
-        pass2 = (EditText) findViewById(R.id.registration_password2);
-        msgResponse = "";
 
         //button
         register = (Button) findViewById(R.id.register);
 
         //button click listener
-        register.setOnClickListener(this);
-
-        //progress dialog
-        pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Loading...");
-        pDialog.setCancelable(false);
-    }
-
-    private void showProgressDialog() {
-        if (!pDialog.isShowing()) {
-            pDialog.show();
-        }
-    }
-
-    private void hideProgressDialog() {
-        if (pDialog.isShowing()) {
-            pDialog.hide();
-        }
-    }
-
-    /**
-     * Making json object request
-     */
-
-    private void makeJsonObjReq() {
-        showProgressDialog();
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                Const.URL_JSON_REGISTRATION, null,
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d(TAG, response.toString());
-                        msgResponse = response.toString();
-                        hideProgressDialog();
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if(error.getMessage() != null) {
-                    VolleyLog.d(TAG, "Error: " + error.getMessage());
-                    hideProgressDialog();
-                }
-            }
-        }) {
-
-            /**
-             * Passing some request headers
-             */
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json");
-                return headers;
-            }
-
-//            @Override
-//            protected Map<String, String> getParams() {
-//                Map<String, String> params = new HashMap<String, String>();
-//
-//                //JSON Request Parameters for registrations
-//                params.put("username", user.getText().toString());
-//                params.put("password", pass.getText().toString());
-//
-//                return params;
-//            }
-
-            JSONObject data;
-
-            {
-                try {
-                    data = new JSONObject("{\"username\":\"asdf\",\"password\":\"asdf\"}");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        };
-
-        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+        register.setOnClickListener(regListener);
 
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View v) {
+        if (v.getId() == R.id.register) {
+            //startActivity login
+        } else if(v.getId() == R.id.reg_exit) {
+            startActivity(new Intent(registration.this, login.class));
+        }
+    }
 
-//        makeJsonObjReq();
+    private View.OnClickListener regListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            user = (EditText) findViewById(R.id.registration_user);
+            pass = (EditText) findViewById(R.id.registration_password);
+            pass2 = (EditText) findViewById(R.id.registration_password2);
 
-
-
-        if (pass.getText().toString().equals(pass2.getText().toString())) {
-            // make JSON request
-            makeJsonObjReq();
-
-            if (msgResponse == "success") {
-                startActivity(new Intent(registration.this, menu.class));
-            } else {
-                //Output error message to say username already exists
-                errorText.setText(msgResponse);
+            if (!pass.getText().toString().equals(pass2.getText().toString())) {
+                errorText.setText("Passwords do not match");
+                return;
             }
 
-        } else {
-            errorText.setText("Passwords do not match");
-        }
+            try {
+                sendRegistrationInfo(user.getText().toString(), pass.getText().toString());
+            } catch (JSONException jsonException) {
+                jsonException.printStackTrace();
+            }
 
+        }
+    };
+
+    private void sendRegistrationInfo(String username, String password) throws JSONException {
+        RequestListener registerListener = new RequestListener() {
+            @Override
+            public void onSuccess(Object jsonObject) {
+
+                JSONObject object = (JSONObject) jsonObject;
+                System.out.println(object.toString());
+                Intent next = new Intent(getBaseContext(), login.class);
+
+                try {
+                    if (object.get("message").equals("success")) {
+                        startActivity(next);
+                    } else {
+                        errorText.setText(object.toString());
+                    }
+                } catch (JSONException jsonException) {
+                    jsonException.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+                System.out.println(error);
+            }
+        };
+
+        JSONObject data = new JSONObject();
+        data.put("username", username);
+        data.put("password", password);
+
+        VolleyListener.makeRequest(this, URL_JSON_REGISTRATION, registerListener, data, Request.Method.POST);
     }
+
+
 }

@@ -104,8 +104,6 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         data.put("username", username);
         data.put("password", password);
 
-//        System.out.println(data.toString() + "\n " + URL_JSON_LOGIN);
-
         VolleyListener.makeRequest(this, URL_JSON_LOGIN, loginListener, data, Request.Method.POST);
     }
 }
