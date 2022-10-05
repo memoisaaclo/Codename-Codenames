@@ -14,29 +14,20 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST, path = "/login/register")
     public @ResponseBody String createNewAccountRegister(@RequestBody User usr) {	// creates user object off of json body
 		if(Main.userRepo.findByusername(usr.getUsername()) != null){
-			return "username already exists";	
+			return "{\"message\":\"Username already in use\"}";	
 		}
 	
 		Main.userRepo.save(usr);	// if username does not already exist, save the account to the database
-		return "success";
+		return "{\"message\":\"success\"}";
     }
-	
-	@RequestMapping(method = RequestMethod.GET, path = "/login")
-    public @ResponseBody String loginToAccount(@RequestBody User usr) {	// creates user object off of json body
-		if(Main.userRepo.findByusername(usr.getUsername()) != null && Main.userRepo.findByusername(usr.getUsername()).getPassword().equals(usr.getPassword())){
-			return "success";	// checks if account exists and password is correct
-		}
-		
-        return "login failure";
-    }
-	
+
 	@RequestMapping(method = RequestMethod.POST, path = "/login")
     public @ResponseBody String loginToAccountPost(@RequestBody User usr) {	// creates user object off of json body
 		if(Main.userRepo.findByusername(usr.getUsername()) != null && Main.userRepo.findByusername(usr.getUsername()).getPassword().equals(usr.getPassword())){
-			return "success";	// checks if account exists and password is correct
+			return "{\"message\":\"success\"}";	// checks if account exists and password is correct
 		}
 		
-        return "login failure";
+        return "{\"message\":\"Incorrect Credentials\"}";
     }
 
 	
