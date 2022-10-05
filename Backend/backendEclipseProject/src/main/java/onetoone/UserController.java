@@ -30,6 +30,15 @@ public class UserController {
         return "login failure";
     }
 	
+	@RequestMapping(method = RequestMethod.POST, path = "/login")
+    public @ResponseBody String loginToAccountPost(@RequestBody User usr) {	// creates user object off of json body
+		if(Main.userRepo.findByusername(usr.getUsername()) != null && Main.userRepo.findByusername(usr.getUsername()).getPassword().equals(usr.getPassword())){
+			return "success";	// checks if account exists and password is correct
+		}
+		
+        return "login failure";
+    }
+
 	
     @GetMapping("/errorMessage")
     public @ResponseBody String errorMessage() {

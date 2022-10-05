@@ -16,9 +16,9 @@ public class User {
     //statistics:
     private Integer logins;
 
-//    @OneToOne(cascade = CascadeType.ALL);
-//    @JoinColumn(name = "playerID")
-//    private Player playerTableForeignKey;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "playerID")
+    private Player playerTableForeignKey;
     
     
     
