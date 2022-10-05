@@ -1,4 +1,4 @@
-package onetoone.Games;
+package onetoone;
 /***
  * Author: Isaac Lo
  */
@@ -7,6 +7,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+enum Role {
+    Spymaster,
+    Operative
+}
+
 @Entity
 public class Game {
     @Id
@@ -14,7 +19,7 @@ public class Game {
     @Column(name = "id", nullable = false)
     private int id;
 
-    private ArrayList<Card> cards;
+    //private ArrayList<Card> cards;
 
     private String moves;
 
@@ -28,13 +33,13 @@ public class Game {
         this.id = id;
     }
 
-    public ArrayList<Card> getCards() {
-        return cards;
-    }
+//    public ArrayList<Card> getCards() {
+//        return cards;
+//    }
 
-    public void setCards(ArrayList<Card> cards) {
-        this.cards = cards;
-    }
+//    public void setCards(ArrayList<Card> cards) {
+//        this.cards = cards;
+//    }
 
     public String getMoves() {
         return moves;

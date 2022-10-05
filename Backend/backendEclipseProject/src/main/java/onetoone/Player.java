@@ -1,4 +1,4 @@
-package onetoone.Users;
+package onetoone;
 /***
  * Author: Isaac Lo
  */

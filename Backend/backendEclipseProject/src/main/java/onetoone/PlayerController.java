@@ -1,4 +1,4 @@
-package onetoone.Users;
+package onetoone;
 
 import java.util.List;
 
@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import onetoone.Laptops.Laptop;
-import onetoone.Laptops.LaptopRepository;
 
 /**
  *
