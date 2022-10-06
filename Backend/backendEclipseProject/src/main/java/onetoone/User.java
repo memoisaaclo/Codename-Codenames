@@ -2,6 +2,12 @@ package onetoone;
 
 import javax.persistence.*;
 
+/**
+ * 
+ * @author Ben Kelly
+ *
+ */
+
 @Entity
 public class User {
 
@@ -11,8 +17,7 @@ public class User {
     
     //login information:
     private String username;
-	private String password;	// side note, are we going to bother actually hashing passwords?
-                                // I think we should eventually
+	private String password;	
     // Statistics
     private Integer logins;
 
@@ -26,12 +31,17 @@ public class User {
     public User(String username, String password) {
     	this.username = username;
     	this.password = password;
+    	logins = 0;
     }
     
     public User() {
     	super();
     }
 
+    public void addLogin() {
+    	logins++;
+    }
+    
 	public boolean validateCredentials(String username, String password) {
     	return this.username.equals(username) && password.equals(password);
     }
