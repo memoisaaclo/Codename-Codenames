@@ -30,17 +30,40 @@ public class GameController {
 
     @GetMapping(path = "/games/{id}/numPlayers")
     String getGamePlayerNumberById( @PathVariable int id) {
-        int playerNum = gameRepository.findById(id).getPlayers().size();
-        return String.format("{\"playerNum\": \"%s\"}", playerNum);
+    	if(gameRepository.findById(id) != null) {
+	        int playerNum = gameRepository.findById(id).getPlayers().size();
+	        return String.format("{\"playerNum\": \"%s\"}", playerNum);
+    	} else {
+    		return "{\"message\":\"Invalid lobby id\"}";
+    	}
     }
-
+    
     @PostMapping(path = "/games/{id}/addPlayer")
     String addPlayerToGame(@PathVariable int id, @RequestParam int player_id){
         PlayerRepository playerRepo = Main.playerRepo;
         if (playerRepo.findById(player_id) == null || gameRepository.findById(id) == null)
             return failure;
-        gameRepository.findById(id).addPlayer(playerRepo.findById(player_id));
+        Game g = gameRepository.findById(id);
+        if(g.getPlayers().contains(playerRepo.findById(player_id))) {
+        	return "{\"message\":\"error: duplicate player id\"}";
+        }
+        g.addPlayer(playerRepo.findById(player_id));
+        gameRepository.save(g);
         return success;
+    }
+    
+    @PostMapping(path = "/games/{id}/removePlayer")
+    String removePlayerFromGame(@PathVariable int id, @RequestParam int player_id){
+        PlayerRepository playerRepo = Main.playerRepo;
+        if (playerRepo.findById(player_id) == null || gameRepository.findById(id) == null)
+            return failure;
+        Game g = gameRepository.findById(id);
+        if(g.getPlayers().contains(playerRepo.findById(player_id))) {
+        	g.getPlayers().remove(playerRepo.findById(player_id));
+        	gameRepository.save(g);
+        	return success;
+        }
+        return "{\"message\":\"could not find player\"}";
     }
 
     @GetMapping(path = "/games")
