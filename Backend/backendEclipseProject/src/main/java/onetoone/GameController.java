@@ -20,7 +20,7 @@ public class GameController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/games/add")
     public @ResponseBody String createNewGame(@RequestBody Game game) {
-        if(gameRepository.findBygamelobbyname(game.getGameLobbyName()) != null){
+        if(gameRepository.findBygameLobbyName(game.getGameLobbyName()) != null){
             return "{\"message\":\"Lobby name already in use\"}";
         }
 

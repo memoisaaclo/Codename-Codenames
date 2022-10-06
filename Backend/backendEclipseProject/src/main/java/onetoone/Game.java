@@ -63,7 +63,7 @@ public class Game implements Serializable {
         this.moves = moves;
     }
 
-    @Column(name = "game_lobby_name", unique = true)
+    @Column(name = "gameLobbyName", unique = true)
     private String gameLobbyName;
 
     public String getGameLobbyName() {
