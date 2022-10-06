@@ -33,14 +33,26 @@ class Main {
     
  // Create 3 users with their machines
     /**
-     * 
+     * Isaac Lo and Ben Kelly
+     * Creates instances on run
      */
     @Bean
     CommandLineRunner initUser(UserRepository userRepository, GameRepository gameRepository, PlayerRepository playerRepository) {
         return args -> {
             Main.userRepo = userRepository;
 
-            Player p1 = new Player
+            Player p1 = new Player(1234, true);
+            Player p2 = new Player(4321, true);
+            Player p3 = new Player(7777, true);
+            playerRepository.save(p1);
+            playerRepository.save(p2);
+            playerRepository.save(p3);
+
+            Game game = new Game(1222, "Jimmy's Game");
+            game.addPlayer(p1);
+            game.addPlayer(p2);
+            game.addPlayer(p3);
+            gameRepository.save(game);
         };
     }
 
