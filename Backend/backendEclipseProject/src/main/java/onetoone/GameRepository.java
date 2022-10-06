@@ -15,5 +15,5 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     @Transactional
     void deleteById(int id);
 
-    Game findBygamelobbyname(String gameLobbyName);
+    Game findBygame_lobby_name(String gameLobbyName);
 }
