@@ -1,5 +1,7 @@
 package com.example.codenamesscreens;
 
+import static java.lang.Thread.sleep;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -45,6 +47,14 @@ public class LobbyActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
         postJsonObj();
+        try
+        {
+            sleep(100);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
         makeJsonObjReq();
     }
 
