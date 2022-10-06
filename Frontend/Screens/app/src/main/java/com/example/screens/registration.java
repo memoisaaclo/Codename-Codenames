@@ -3,7 +3,6 @@ package com.example.screens;
 import static com.example.screens.utils.Const.URL_JSON_REGISTRATION;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,9 +21,7 @@ import org.json.JSONObject;
 public class registration extends Activity implements OnClickListener {
 
     private Button register;
-    private String TAG;
-    private ProgressDialog pDialog;
-    private String msgResponse;
+    private Button exit;
     private TextView errorText;
     private EditText user;
     private EditText pass;
@@ -43,9 +40,11 @@ public class registration extends Activity implements OnClickListener {
 
         //button
         register = (Button) findViewById(R.id.register);
+        exit = (Button) findViewById(R.id.reg_exit);
 
         //button click listener
         register.setOnClickListener(regListener);
+        exit.setOnClickListener(this);
 
     }
 
