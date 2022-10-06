@@ -26,6 +26,10 @@ public class Game implements Serializable {
         return players;
     }
 
+    public void addPlayer(Player player) {
+        this.players.add(player);
+    }
+
     public void setPlayers(Set<Player> players) {
         this.players = players;
     }

@@ -31,6 +31,14 @@ public class GameController {
     @GetMapping(path = "/games/{id}/numPlayers")
     String getGamePlayerNumberById( @PathVariable int id) { return gameRepository.findById(id).getPlayers().size() + ""; }
 
+    @PostMapping(path = "/games/{id}/addPlayer")
+    String addPlayerToGame(@PathVariable int id, @RequestBody Player player){
+        if (player == null)
+            return failure;
+        gameRepository.findById(id).addPlayer(player);
+        return success;
+    }
+
     @GetMapping(path = "/games")
     List<Game> getAllPlayers(){
         return gameRepository.findAll();
