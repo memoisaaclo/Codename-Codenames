@@ -9,7 +9,7 @@ import java.util.List;
 public class GameController {
 
     @Autowired
-    GameRepository gameRepository;
+    GameRepository gameRepository = Main.gameRepo;
 
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";

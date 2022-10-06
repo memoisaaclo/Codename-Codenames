@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PlayerController {
 
     @Autowired
-    PlayerRepository playerRepository;
+    PlayerRepository playerRepository = Main.playerRepo;
 
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";

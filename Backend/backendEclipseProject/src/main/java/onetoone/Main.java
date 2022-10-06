@@ -25,6 +25,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 class Main {
 
 	public static UserRepository userRepo;
+
+    public static GameRepository gameRepo;
+
+    public static PlayerRepository playerRepo;
 	
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
@@ -40,6 +44,8 @@ class Main {
     CommandLineRunner initUser(UserRepository userRepository, GameRepository gameRepository, PlayerRepository playerRepository) {
         return args -> {
             Main.userRepo = userRepository;
+            Main.playerRepo = playerRepository;
+            Main.gameRepo = gameRepository;
 
             Player p1 = new Player(1234, true);
             Player p2 = new Player(4321, true);
