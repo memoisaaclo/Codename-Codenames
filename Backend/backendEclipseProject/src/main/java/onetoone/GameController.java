@@ -8,7 +8,7 @@ import java.util.List;
 @RestController
 public class GameController {
 
-    final
+    @Autowired
     GameRepository gameRepository;
 
     private String success = "{\"message\":\"success\"}";

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PlayerController {
 
-    final
+    @Autowired
     PlayerRepository playerRepository;
 
     private String success = "{\"message\":\"success\"}";
