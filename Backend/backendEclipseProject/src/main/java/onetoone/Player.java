@@ -10,6 +10,11 @@ enum Role {
 
 @Entity
 public class Player implements Serializable {
+    public Player(int id, boolean active) {
+        this.id = id;
+        this.active = active;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -24,6 +29,9 @@ public class Player implements Serializable {
     private Integer gamesPlayed;
 
     private Integer gamesWon;
+
+    public Player() {
+    }
 
     public Game getGame() {
         return game;

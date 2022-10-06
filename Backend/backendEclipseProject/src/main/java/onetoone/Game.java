@@ -22,6 +22,11 @@ public class Game implements Serializable {
     @OneToMany(mappedBy = "game", cascade = REFRESH, orphanRemoval = false)
     private Set<Player> players = new LinkedHashSet<>();
 
+    public Game(int id, String gameLobbyName) {
+        this.id = id;
+        this.gameLobbyName = gameLobbyName;
+    }
+
     public Set<Player> getPlayers() {
         return players;
     }

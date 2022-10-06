@@ -36,8 +36,12 @@ class Main {
      * 
      */
     @Bean
-    CommandLineRunner initUser(UserRepository userRepository) {
-        return args -> Main.userRepo = userRepository;
+    CommandLineRunner initUser(UserRepository userRepository, GameRepository gameRepository, PlayerRepository playerRepository) {
+        return args -> {
+            Main.userRepo = userRepository;
+
+            Player p1 = new Player
+        };
     }
 
     @Bean
