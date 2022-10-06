@@ -1,1 +1,10 @@
+onetoone/GameRepository.class
 onetoone/Main.class
+onetoone/User.class
+onetoone/PlayerController.class
+onetoone/Game.class
+onetoone/PlayerRepository.class
+onetoone/Player.class
+onetoone/UserController.class
+onetoone/Role.class
+onetoone/UserRepository.class
