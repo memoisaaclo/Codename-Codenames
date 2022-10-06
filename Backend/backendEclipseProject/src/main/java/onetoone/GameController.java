@@ -29,18 +29,22 @@ public class GameController {
     }
 
     @GetMapping(path = "/games/{id}/numPlayers")
-    String getGamePlayerNumberById( @PathVariable int id) { return gameRepository.findById(id).getPlayers().size() + ""; }
+    String getGamePlayerNumberById( @PathVariable int id) {
+        int playerNum = gameRepository.findById(id).getPlayers().size();
+        return String.format("{\"playerNum\": \"%s\"}", playerNum);
+    }
 
     @PostMapping(path = "/games/{id}/addPlayer")
-    String addPlayerToGame(@PathVariable int id, @RequestBody Player player){
-        if (player == null)
+    String addPlayerToGame(@PathVariable int id, @RequestParam int player_id){
+        PlayerRepository playerRepo = Main.playerRepo;
+        if (playerRepo.findById(player_id) == null || gameRepository.findById(id) == null)
             return failure;
-        gameRepository.findById(id).addPlayer(player);
+        gameRepository.findById(id).addPlayer(playerRepo.findById(player_id));
         return success;
     }
 
     @GetMapping(path = "/games")
-    List<Game> getAllPlayers(){
+    List<Game> getAllGames(){
         return gameRepository.findAll();
     }
 

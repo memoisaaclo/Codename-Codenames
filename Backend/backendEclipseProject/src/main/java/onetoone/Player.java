@@ -10,7 +10,7 @@ enum Role {
 
 @Entity
 public class Player implements Serializable {
-    public Player(int id, boolean active) {
+    public Player(boolean active) {
         this.id = id;
         this.active = active;
     }

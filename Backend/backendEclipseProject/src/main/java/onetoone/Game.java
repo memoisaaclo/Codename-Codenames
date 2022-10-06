@@ -2,7 +2,9 @@ package onetoone;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import static javax.persistence.CascadeType.REFRESH;
@@ -19,15 +21,15 @@ public class Game implements Serializable {
     @Column(name = "moves")
     private String moves;
 
-    @OneToMany(mappedBy = "game", cascade = REFRESH, orphanRemoval = false)
-    private Set<Player> players = new LinkedHashSet<>();
+    @OneToMany(cascade = REFRESH, orphanRemoval = false, fetch = FetchType.EAGER)
+    private List<Player> players = new ArrayList<Player>();
 
     public Game(int id, String gameLobbyName) {
         this.id = id;
         this.gameLobbyName = gameLobbyName;
     }
 
-    public Set<Player> getPlayers() {
+    public List<Player> getPlayers() {
         return players;
     }
 
@@ -35,7 +37,7 @@ public class Game implements Serializable {
         this.players.add(player);
     }
 
-    public void setPlayers(Set<Player> players) {
+    public void setPlayers(List<Player> players) {
         this.players = players;
     }
 
