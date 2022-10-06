@@ -98,11 +98,11 @@
 
     <TextView
         android:id="@+id/text_player"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="206dp"
+        android:layout_height="53dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:text="Player1"
+        android:text="When players join they will show up here"
         android:textColor="#000000"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="@+id/lobby_view"
@@ -186,8 +186,20 @@
         android:id="@+id/text_playercount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="64dp"
         android:text="#"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/lobby_header"
+        app:layout_constraintEnd_toEndOf="@+id/lobby_header"
+        app:layout_constraintTop_toTopOf="@+id/lobby_header" />
+
+    <TextView
+        android:id="@+id/text_playerlimit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="/12"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/lobby_header"

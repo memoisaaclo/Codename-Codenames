@@ -51,7 +51,7 @@ public class LobbyActivity extends Activity
     private void postJsonObj()
     {
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST,
-                Const.URL_JSON_OBJECT, null,
+                Const.URL_JSON_PLAYERNUM_POST, null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -59,9 +59,9 @@ public class LobbyActivity extends Activity
                     {
                         try
                         {
-                            Log.d(TAG, response.getString("username"));
+                            Log.d(TAG, response.getString("playerNum"));
                             player_count = findViewById(R.id.text_playercount);
-                            player_count.setText(response.getString("username")); //display string
+                            player_count.setText(response.getString("playerNum")); //display string
                         }
                         catch (JSONException e)
                         {
@@ -77,7 +77,6 @@ public class LobbyActivity extends Activity
             }
         })
         {
-
             /**
              * Passing some request headers
              * */
@@ -111,7 +110,7 @@ public class LobbyActivity extends Activity
     private void makeJsonObjReq()
     {
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.GET,
-                Const.URL_JSON_OBJECT, null,
+                Const.URL_JSON_PLAYERNUM_GET, null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -119,9 +118,9 @@ public class LobbyActivity extends Activity
                     {
                         try
                         {
-                            Log.d(TAG, response.getString("username"));
+                            Log.d(TAG, response.getString("playerNum"));
                             player_count = findViewById(R.id.text_playercount);
-                            player_count.setText(response.getString("username")); //display string
+                            player_count.setText(response.getString("playerNum")); //display string
                         }
                         catch (JSONException e)
                         {
