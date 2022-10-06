@@ -9,9 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 
-public interface GameRepository extends JpaRepository<Player, Long> {
-    Player findById(int id);
+public interface GameRepository extends JpaRepository<Game, Long> {
+    Game findById(int id);
 
     @Transactional
     void deleteById(int id);
+
+    Game findBygamelobbyname(String gameLobbyName);
 }
