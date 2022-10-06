@@ -11,21 +11,21 @@ public class User {
     
     //login information:
     private String username;
-    private String passwordHash;	// side note, are we going to bother actually hashing passwords?
-    
-    //statistics:
+	private String password;	// side note, are we going to bother actually hashing passwords?
+                                // I think we should eventually
+    // Statistics
     private Integer logins;
 
-//    @OneToOne(cascade = CascadeType.ALL);
-//    @JoinColumn(name = "playerID")
-//    private Player playerTableForeignKey;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "playerID")
+    private Player playerTableForeignKey;
     
     
     
     
     public User(String username, String password) {
     	this.username = username;
-    	this.passwordHash = password;
+    	this.password = password;
     }
     
     public User() {
@@ -33,7 +33,7 @@ public class User {
     }
 
 	public boolean validateCredentials(String username, String password) {
-    	return this.username.equals(username) && passwordHash.equals(password);
+    	return this.username.equals(username) && password.equals(password);
     }
     
     public String getUsername() {
@@ -41,6 +41,17 @@ public class User {
     }
     
     public String getPassword() {
-    	return passwordHash;
+    	return password;
     }
+    public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }

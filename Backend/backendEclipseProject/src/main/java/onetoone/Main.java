@@ -10,7 +10,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.Date;
 
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -22,23 +21,28 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories
+@EnableSwagger2
 class Main {
 
 	public static UserRepository userRepo;
+    public static GameRepository gameRepo;
+    public static PlayerRepository playerRepo;
 	
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
       
     }
     
- // Create 3 users with their machines
     /**
-     * 
+     * Isaac Lo and Ben Kelly
+     * Creates instances on run and save static versions
      */
     @Bean
-    CommandLineRunner initUser(UserRepository userRepository) {
+    CommandLineRunner initUser(UserRepository userRepository, GameRepository gameRepository, PlayerRepository playerRepository) {
         return args -> {
             Main.userRepo = userRepository;
+            Main.playerRepo = playerRepository;
+            Main.gameRepo = gameRepository;
         };
     }
 

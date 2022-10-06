@@ -1,6 +1,9 @@
 package onetoone;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,25 +11,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-	@GetMapping("/login/register/")
-    public @ResponseBody String createNewAccountRegister(@RequestParam(value = "newUsername") String newUsername, @RequestParam(value = "newPassword") String newPassword) {
-		if(Main.userRepo.findByusername(newUsername) != null){
-			return "username already exists";	
+	@RequestMapping(method = RequestMethod.POST, path = "/login/register")
+    public @ResponseBody String createNewAccountRegister(@RequestBody User usr) {	// creates user object off of json body
+		if(Main.userRepo.findByusername(usr.getUsername()) != null){
+			return "{\"message\":\"Username already in use\"}";	
 		}
 	
-		Main.userRepo.save(new User(newUsername, newPassword));
-		return "success: " + newUsername + " " + newPassword + " ";
+		Main.userRepo.save(usr);	// if username does not already exist, save the account to the database
+		return "{\"message\":\"success\"}";
     }
-	
-	@GetMapping("/login/")
-    public @ResponseBody String loginToAccount(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password) {
-		if(Main.userRepo.findByusername(username) != null && Main.userRepo.findByusername(username).getPassword().equals(password)){
-			return "success";
+
+	@RequestMapping(method = RequestMethod.POST, path = "/login")
+    public @ResponseBody String loginToAccountPost(@RequestBody User usr) {	// creates user object off of json body
+		if(Main.userRepo.findByusername(usr.getUsername()) != null && Main.userRepo.findByusername(usr.getUsername()).getPassword().equals(usr.getPassword())){
+			return "{\"message\":\"success\"}";	// checks if account exists and password is correct
 		}
 		
-        return "login failure";
+        return "{\"message\":\"Incorrect Credentials\"}";
     }
-	
+
 	
     @GetMapping("/errorMessage")
     public @ResponseBody String errorMessage() {
