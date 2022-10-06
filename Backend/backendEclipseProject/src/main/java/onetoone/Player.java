@@ -1,22 +1,45 @@
 package onetoone;
-/***
- * Author: Isaac Lo
- */
 
 import javax.persistence.*;
+import java.io.Serializable;
+
+enum Role {
+    Spymaster,
+    Operative
+}
 
 @Entity
-public class Player {
+public class Player implements Serializable {
+    public Player(boolean active) {
+        this.id = id;
+        this.active = active;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "game_id")
+    private Game game;
 
     private boolean active;
 
     private Integer gamesPlayed;
 
     private Integer gamesWon;
+
+    public Player() {
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     public int getId() {
         return id;

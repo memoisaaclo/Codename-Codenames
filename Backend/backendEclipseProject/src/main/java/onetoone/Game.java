@@ -1,29 +1,45 @@
 package onetoone;
-/***
- * Author: Isaac Lo
- */
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
-enum Role {
-    Spymaster,
-    Operative
-}
+import static javax.persistence.CascadeType.REFRESH;
 
 @Entity
-public class Game {
+public class Game implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
 
-    //private ArrayList<Card> cards;
+    //private Set<Card> cards;
 
+    @Column(name = "moves")
     private String moves;
 
-    private Hashtable<Long, Role> playerRoles;
+    @OneToMany(orphanRemoval = false, fetch = FetchType.EAGER)
+    private List<Player> players = new ArrayList<Player>();
+
+    public Game(int id, String gameLobbyName) {
+        this.id = id;
+        this.gameLobbyName = gameLobbyName;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void addPlayer(Player player) {
+        this.players.add(player);
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
 
     public int getId() {
         return id;
@@ -49,11 +65,17 @@ public class Game {
         this.moves = moves;
     }
 
-    public Hashtable<Long, Role> getPlayerRoles() {
-        return playerRoles;
+    public Game() {
     }
 
-    public void setPlayerRoles(Hashtable<Long, Role> playerRoles) {
-        this.playerRoles = playerRoles;
+    @Column(name = "gameLobbyName", unique = true)
+    private String gameLobbyName;
+
+    public String getGameLobbyName() {
+        return gameLobbyName;
+    }
+
+    public void setGameLobbyName(String gameLobbyName) {
+        this.gameLobbyName = gameLobbyName;
     }
 }
