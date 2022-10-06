@@ -1,7 +1,6 @@
 package com.example.codenamesscreens;
 
 import com.android.volley.toolbox.ImageLoader.ImageCache;
-
 import android.graphics.Bitmap;
 import android.util.LruCache;
 
