@@ -37,6 +37,7 @@ public class LobbyActivity extends Activity
 //    private TextView msgResponse;
 //    private ProgressDialog pDialog;
     private TextView player_count;
+    private TextView lobby_name;
 
     // These tags will be used to cancel the requests
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
@@ -55,7 +56,57 @@ public class LobbyActivity extends Activity
         {
             e.printStackTrace();
         }
+        showGameLobbyName();
         makeJsonObjReq();
+    }
+
+    private void showGameLobbyName()
+    {
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.GET,
+                Const.URL_JSON_GAMELOBBYNAME_GET, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response)
+                    {
+                        try
+                        {
+                            Log.d(TAG, response.getString("gameLobbyName"));
+                            lobby_name = findViewById(R.id.text_header);
+                            lobby_name.setText(response.getString("gameLobbyName")); //display string
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError
+            {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
 
     private void postJsonObj()
