@@ -1,29 +1,34 @@
 package onetoone;
-/***
- * Author: Isaac Lo
- */
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Hashtable;
+import java.io.Serializable;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-enum Role {
-    Spymaster,
-    Operative
-}
+import static javax.persistence.CascadeType.REFRESH;
 
 @Entity
-public class Game {
+public class Game implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
 
-    //private ArrayList<Card> cards;
+    //private Set<Card> cards;
 
+    @Column(name = "moves")
     private String moves;
 
-    private Hashtable<Long, Role> playerRoles;
+    @OneToMany(mappedBy = "game", cascade = REFRESH, orphanRemoval = false)
+    private Set<Player> players = new LinkedHashSet<>();
+
+    public Set<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Set<Player> players) {
+        this.players = players;
+    }
 
     public int getId() {
         return id;
@@ -49,11 +54,14 @@ public class Game {
         this.moves = moves;
     }
 
-    public Hashtable<Long, Role> getPlayerRoles() {
-        return playerRoles;
+    @Column(name = "game_lobby_name", unique = true)
+    private String gameLobbyName;
+
+    public String getGameLobbyName() {
+        return gameLobbyName;
     }
 
-    public void setPlayerRoles(Hashtable<Long, Role> playerRoles) {
-        this.playerRoles = playerRoles;
+    public void setGameLobbyName(String gameLobbyName) {
+        this.gameLobbyName = gameLobbyName;
     }
 }

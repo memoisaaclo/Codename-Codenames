@@ -12,8 +12,8 @@ public class User {
     //login information:
     private String username;
 	private String password;	// side note, are we going to bother actually hashing passwords?
-    
-    //statistics:
+                                // I think we should eventually
+    // Statistics
     private Integer logins;
 
     @OneToOne(cascade = CascadeType.ALL)

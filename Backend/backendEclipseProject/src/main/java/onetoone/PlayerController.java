@@ -20,11 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PlayerController {
 
-    @Autowired
+    final
     PlayerRepository playerRepository;
 
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
+
+    public PlayerController(PlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
+    }
 
     @GetMapping(path = "/players")
     List<Player> getAllPlayers(){
