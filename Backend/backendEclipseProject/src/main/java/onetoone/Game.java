@@ -21,7 +21,7 @@ public class Game implements Serializable {
     @Column(name = "moves")
     private String moves;
 
-    @OneToMany(cascade = REFRESH, orphanRemoval = false, fetch = FetchType.EAGER)
+    @OneToMany(orphanRemoval = false, fetch = FetchType.EAGER)
     private List<Player> players = new ArrayList<Player>();
 
     public Game(int id, String gameLobbyName) {
