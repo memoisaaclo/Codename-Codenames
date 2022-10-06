@@ -25,9 +25,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 class Main {
 
 	public static UserRepository userRepo;
-
     public static GameRepository gameRepo;
-
     public static PlayerRepository playerRepo;
 	
     public static void main(String[] args) {
@@ -35,10 +33,9 @@ class Main {
       
     }
     
- // Create 3 users with their machines
     /**
      * Isaac Lo and Ben Kelly
-     * Creates instances on run
+     * Creates instances on run and save static versions
      */
     @Bean
     CommandLineRunner initUser(UserRepository userRepository, GameRepository gameRepository, PlayerRepository playerRepository) {
