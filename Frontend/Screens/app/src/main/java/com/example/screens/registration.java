@@ -91,7 +91,7 @@ public class registration extends Activity implements OnClickListener {
                     if (object.get("message").equals("success")) {
                         startActivity(next);
                     } else {
-                        errorText.setText(object.toString());
+                        errorText.setText(object.get("message").toString());
                     }
                 } catch (JSONException jsonException) {
                     jsonException.printStackTrace();
