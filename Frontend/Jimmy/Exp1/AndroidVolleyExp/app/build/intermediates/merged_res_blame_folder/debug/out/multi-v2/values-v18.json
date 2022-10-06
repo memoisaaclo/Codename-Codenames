@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\jimmy\\Desktop\\COMS 309\\2_an_6\\Frontend\\Jimmy\\Exp1\\AndroidVolley\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v18\\values-v18.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\jimmy\\.gradle\\caches\\transforms-3\\2faa653cdba0a3fa223373f94d68332f\\transformed\\appcompat-v7-26.1.0\\res\\values-v18\\values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        }
+    ]
+}

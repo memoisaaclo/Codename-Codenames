@@ -11,6 +11,7 @@ import static javax.persistence.CascadeType.REFRESH;
 
 @Entity
 public class Game implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
