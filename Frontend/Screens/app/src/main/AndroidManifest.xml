@@ -6,8 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-
-        android:name="com.example.screens.app.AppController"
+        android:name=".app.AppController"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -18,6 +17,9 @@
         android:theme="@style/Theme.Screens"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".userInfo"
+            android:exported="false" />
         <activity
             android:name=".menu"
             android:exported="false" />

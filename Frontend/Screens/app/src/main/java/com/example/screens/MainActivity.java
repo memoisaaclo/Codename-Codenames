@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //startActivity(new Intent(MainActivity.this, FILL IN FROM JIMMY));
         } else if (v.getId() == R.id.menu_user) {
             // user info connection
+            //startActivity(new Intent(MainActivity.this, userInfo.class));
         } else if (v.getId() == R.id.menu_exit) {
             //exit app
             finish();
