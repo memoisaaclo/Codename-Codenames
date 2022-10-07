@@ -39,7 +39,11 @@ public class User {
     }
 
     public void addLogin() {
-    	logins++;
+    	if(logins != null) {
+    		logins++;
+    	} else {
+    		logins = 1;
+    	}
     }
     
 	public boolean validateCredentials(String username, String password) {

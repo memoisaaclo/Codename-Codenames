@@ -1,5 +1,7 @@
 package onetoone;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +23,11 @@ public class UserController {
 			return "{\"message\":\"Username already in use\"}";	
 		}
 	
-		Main.userRepo.save(usr);	// if username does not already exist, save the account to the database
+			// if username does not already exist, save the account to the database
+		
+		Main.userRepo.save(usr);
 		usr.addLogin();
+		Main.userRepo.save(usr);
 		return "{\"message\":\"success\"}";
     }
 
@@ -30,23 +35,31 @@ public class UserController {
     public @ResponseBody String loginToAccountPost(@RequestBody User usr) {	// creates user object off of json body
 		if(Main.userRepo.findByusername(usr.getUsername()) != null && Main.userRepo.findByusername(usr.getUsername()).getPassword().equals(usr.getPassword())){
 			usr.addLogin();
+			Main.userRepo.save(usr);
 			return "{\"message\":\"success\"}";	// checks if account exists and password is correct
 		}
 		
         return "{\"message\":\"Incorrect Credentials\"}";
     }
 	
-	@RequestMapping(method = RequestMethod.POST, path = "/users/{username}/playerID")
+	@RequestMapping(method = RequestMethod.GET, path = "/users/{username}/playerID")
     public @ResponseBody String getAttachedPlayer(@PathVariable String username) {	
 		
-        return "{\"message\":\"Not Implemented\"}";
+		Main.userRepo.findByusername(username);
+		
+        return "{\"message\":\"\"}";
     }
 	
-	@RequestMapping(method = RequestMethod.POST, path = "/users/{username}/{playerID}")
+	@RequestMapping(method = RequestMethod.GET, path = "/users/{username}/{playerID}")
     public @ResponseBody String setAttachedPlayer(@PathVariable String username, @PathVariable int playerID) {	
 		
 		
         return "{\"message\":\"Not Implemented\"}";
     }
 
+	@RequestMapping(method = RequestMethod.GET, path = "/getallusers")
+    public @ResponseBody List<User> getallUsers() {	// creates user object off of json body
+        return Main.userRepo.findAll();
+    }
+	
 }
