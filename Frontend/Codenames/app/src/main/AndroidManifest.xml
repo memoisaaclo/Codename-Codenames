@@ -26,8 +26,6 @@
         <activity
             android:name="com.example.codenames.registration"
             android:exported="false" />
-        <activity android:name=".MainActivity"
-            android:exported="false" />
         <activity android:name=".LobbyActivity"
             android:exported="false" />
         <activity

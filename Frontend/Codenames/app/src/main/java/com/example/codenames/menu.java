@@ -41,7 +41,7 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
             startActivity(new Intent(menu.this, login.class));
         } else if (v.getId() == R.id.menu_play) {
             // play game
-            startActivity(new Intent(menu.this, MainActivity.class));
+            startActivity(new Intent(menu.this, LobbyActivity.class));
         } else if (v.getId() == R.id.menu_user) {
             // user info connection
             startActivity(new Intent(menu.this, userInfo.class));

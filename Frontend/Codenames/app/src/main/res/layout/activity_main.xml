@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EDB902"
-    tools:context=".MainActivity">
+    tools:context="com.example.codenames.LobbyActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/title_header"
