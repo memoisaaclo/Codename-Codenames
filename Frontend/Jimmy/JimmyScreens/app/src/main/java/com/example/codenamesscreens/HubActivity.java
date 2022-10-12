@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity
+public class HubActivity extends AppCompatActivity
 {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_hub);
 
         Button btnNavToLobby1 = (Button) findViewById(R.id.button_lobby1);
 
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity
         {
             public void onClick(View view)
             {
-                Intent intent = new Intent(MainActivity.this, LobbyActivity.class);
+                Intent intent = new Intent(HubActivity.this, LobbyActivity.class);
                 startActivity(intent);
             }
         });
