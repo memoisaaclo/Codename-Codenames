@@ -1,4 +1,4 @@
-package com.example.screens;
+package com.example.codenames;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+public class menu extends AppCompatActivity implements View.OnClickListener{
 
     private Button play;
     private Button login;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         play = (Button) findViewById(R.id.menu_play);
         login = (Button) findViewById(R.id.menu_login);
         info = (Button) findViewById(R.id.menu_user);
-        exit = (Button) findViewById(R.id.menu_exit);
+        exit = (Button) findViewById(R.id.userInfo_exit);
 
         //button click listener
         play.setOnClickListener(this);
@@ -37,14 +38,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.menu_login) {
-            startActivity(new Intent(MainActivity.this, login.class));
+            startActivity(new Intent(menu.this, login.class));
         } else if (v.getId() == R.id.menu_play) {
             // play game
-            //startActivity(new Intent(MainActivity.this, FILL IN FROM JIMMY));
+            startActivity(new Intent(menu.this, MainActivity.class));
         } else if (v.getId() == R.id.menu_user) {
             // user info connection
-            startActivity(new Intent(MainActivity.this, userInfo.class));
-        } else if (v.getId() == R.id.menu_exit) {
+            startActivity(new Intent(menu.this, userInfo.class));
+        } else if (v.getId() == R.id.userInfo_exit) {
             //exit app
             finish();
         }
