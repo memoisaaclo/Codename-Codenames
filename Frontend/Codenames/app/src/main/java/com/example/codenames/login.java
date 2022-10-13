@@ -1,7 +1,6 @@
-package com.example.screens;
+package com.example.codenames;
 
-import static com.example.screens.utils.Const.URL_JSON_LOGIN;
-
+import static com.example.codenames.utils.Const.URL_JSON_LOGIN;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +12,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
-import com.example.screens.services.RequestListener;
-import com.example.screens.services.VolleyListener;
+import com.example.codenames.services.RequestListener;
+import com.example.codenames.services.VolleyListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
