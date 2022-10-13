@@ -1,4 +1,4 @@
-package onetoone;
+package codenames;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -84,14 +84,14 @@ public class GameController {
         return success;
     }
 
-    @PutMapping("/games/{id}")
-    Game updateGame(@PathVariable int id, @RequestBody Game request){
-        Game game = gameRepository.findById(id);
-        if(game == null)
-            return null;
-        gameRepository.save(request);
-        return gameRepository.findById(id);
-    }
+//    @PutMapping("/games/{id}")
+//    Game updateGame(@PathVariable int id, @RequestBody Game request){
+//        Game game = gameRepository.findById(id);
+//        if(game == null)
+//            return null;
+//        gameRepository.save(request);
+//        return gameRepository.findById(id);
+//    }
 
     @DeleteMapping(path = "/games/{id}")
     String deleteGame(@PathVariable int id){

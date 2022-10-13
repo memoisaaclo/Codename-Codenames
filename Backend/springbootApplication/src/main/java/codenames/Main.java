@@ -1,4 +1,4 @@
-package onetoone;
+package codenames;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

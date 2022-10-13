@@ -1,4 +1,4 @@
-package onetoone;
+package codenames;
 
 import javax.persistence.*;
 import java.io.Serializable;

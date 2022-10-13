@@ -42,3 +42,8 @@ target/
 # IDE files #
 #############
 .idea/
+.settings/
+
+.classpath
+.project
+.iml

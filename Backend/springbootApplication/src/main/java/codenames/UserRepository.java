@@ -1,6 +1,4 @@
-package onetoone;
-
-import java.util.List;
+package codenames;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;

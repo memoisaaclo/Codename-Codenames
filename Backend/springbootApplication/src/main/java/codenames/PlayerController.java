@@ -1,4 +1,4 @@
-package onetoone;
+package codenames;
 
 import java.util.List;
 
