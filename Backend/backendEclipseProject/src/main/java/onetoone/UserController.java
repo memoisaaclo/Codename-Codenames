@@ -25,8 +25,7 @@ public class UserController {
 	
 			// if username does not already exist, save the account to the database
 		
-		Main.userRepo.save(usr);
-		usr.addLogin();
+		//usr.addLogin();
 		Main.userRepo.save(usr);
 		return "{\"message\":\"success\"}";
     }
@@ -34,8 +33,8 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST, path = "/login")
     public @ResponseBody String loginToAccountPost(@RequestBody User usr) {	// creates user object off of json body
 		if(Main.userRepo.findByusername(usr.getUsername()) != null && Main.userRepo.findByusername(usr.getUsername()).getPassword().equals(usr.getPassword())){
-			usr.addLogin();
-			Main.userRepo.save(usr);
+			//usr.addLogin();
+			//Main.userRepo.save(usr);
 			return "{\"message\":\"success\"}";	// checks if account exists and password is correct
 		}
 		
