@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.codenames.userInfo"
+    android:background="#EDB902">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/info_gamebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#222222"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/gameName"
+        android:layout_width="120dp"
+        android:layout_height="50sp"
+        android:layout_marginStart="5dp"
+        android:text="Codename: Codenames"
+        android:textSize="20sp"
+        android:textColor="#B30000"
+        app:layout_constraintBottom_toBottomOf="@+id/info_gamebar"
+        app:layout_constraintStart_toStartOf="@+id/info_gamebar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <Button
+        android:id="@+id/userInfo_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#230959"
+        android:textColor="@color/white"
+        android:text="Exit"
+        app:layout_constraintBottom_toBottomOf="@+id/info_gamebar"
+        app:layout_constraintEnd_toEndOf="@+id/info_gamebar"
+        app:layout_constraintTop_toTopOf="@+id/info_gamebar" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar4"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#B30000"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_gamebar" />
+
+    <TextView
+        android:id="@+id/login_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="USERNAME HERE"
+        android:textSize="50sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/toolbar4"
+        app:layout_constraintTop_toTopOf="@+id/toolbar4" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/info_header"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="500dp"
+        android:background="#D9D9D9"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/info_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="50dp"
+        android:background="#ADADAD"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_header"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/info_stat_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Statistics"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/info_header"
+        app:layout_constraintEnd_toEndOf="@+id/info_header"
+        app:layout_constraintStart_toStartOf="@+id/info_header"
+        app:layout_constraintTop_toTopOf="@+id/info_header" />
+
+    <TextView
+        android:id="@+id/info_text_won"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Games Won"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/info_view"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/info_view"
+        app:layout_constraintTop_toBottomOf="@+id/info_header" />
+
+    <TextView
+        android:id="@+id/info_stat_won"
+        android:layout_width="150sp"
+        android:layout_height="30sp"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:background="#E8D100"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/info_view"
+        app:layout_constraintStart_toStartOf="@+id/info_view"
+        app:layout_constraintTop_toBottomOf="@+id/info_text_won" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info_text_played"
+        android:layout_marginTop="15dp"
+        android:text="Games Played"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/info_view"
+        app:layout_constraintTop_toBottomOf="@id/info_stat_won"
+        app:layout_constraintStart_toStartOf="@+id/info_view"
+        />
+
+    <TextView
+        android:id="@+id/info_stat_played"
+        android:layout_width="150sp"
+        android:layout_height="30sp"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:background="#E8D100"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/info_view"
+        app:layout_constraintStart_toStartOf="@+id/info_view"
+        app:layout_constraintTop_toBottomOf="@+id/info_text_played"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info_text_guessesMade"
+        android:layout_marginTop="15dp"
+        android:text="Guesses Made"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/info_view"
+        app:layout_constraintTop_toBottomOf="@+id/info_stat_played"
+        app:layout_constraintStart_toStartOf="@+id/info_view"/>
+
+    <TextView
+        android:id="@+id/info_stat_guesses"
+        android:layout_width="150sp"
+        android:layout_height="30sp"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:background="#E8D100"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/info_view"
+        app:layout_constraintStart_toStartOf="@+id/info_view"
+        app:layout_constraintTop_toBottomOf="@id/info_text_guessesMade"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info_text_clues"
+        android:layout_marginTop="15dp"
+        android:text="Clues Given"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/info_view"
+        app:layout_constraintTop_toBottomOf="@id/info_stat_guesses"
+        app:layout_constraintStart_toStartOf="@id/info_view"/>
+
+    <TextView
+        android:id="@+id/info_stat_clues"
+        android:layout_width="150sp"
+        android:layout_height="30sp"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:background="#E8D100"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@id/info_view"
+        app:layout_constraintStart_toStartOf="@id/info_view"
+        app:layout_constraintTop_toBottomOf="@+id/info_text_clues"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info_text_correct"
+        android:layout_marginTop="15dp"
+        android:text="Correct Guesses"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/info_view"
+        app:layout_constraintStart_toStartOf="@+id/info_view"
+        app:layout_constraintTop_toBottomOf="@id/info_stat_clues"/>
+
+    <TextView
+        android:id="@+id/info_stat_correct"
+        android:layout_width="150sp"
+        android:layout_height="30sp"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:background="#E8D100"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@id/info_view"
+        app:layout_constraintStart_toStartOf="@id/info_view"
+        app:layout_constraintTop_toBottomOf="@+id/info_text_correct"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

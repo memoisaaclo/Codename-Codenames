@@ -1,5 +1,11 @@
 package codenames;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Arrays;
+
 import javax.persistence.*;
 
 /**
@@ -26,11 +32,10 @@ public class User {
     private Player playerTableForeignKey;
     
     
-    
-    
     public User(String username, String password) {
     	this.username = username;
-    	this.password = password;
+		setPassword(password);
+    	
     	logins = 0;
     }
     
@@ -46,26 +51,32 @@ public class User {
     	}
     }
     
-	public boolean validateCredentials(String username, String password) {
-    	return this.username.equals(username) && password.equals(password);
+	public boolean validateCredentials(String username, String bs) {
+    	return this.username.equals(username) && password.equals(bs);
     }
     
-    public String getUsername() {
-    	return username;
-    }
-    
-    public String getPassword() {
-    	return password;
-    }
     public void setId(Long id) {
 		this.id = id;
 	}
+    
+    public int getLoginCount() {
+    	return logins;
+    }
 
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
+	
+	public String getUsername() {
+    	return username;
+    }
+	
+	public String getPassword() {
+		return password;
+	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 }

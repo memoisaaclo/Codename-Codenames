@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.codenamesscreens">
+    package="com.example.codenames">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.example.codenamesscreens.AppController"
+        android:name="com.example.codenames.app.AppController"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,11 +14,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CodenamesScreens"
+        android:theme="@style/Theme.Codenames"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".HubActivity"
+            android:name="com.example.codenames.userInfo"
+            android:exported="false" />
+        <activity
+            android:name="com.example.codenames.login"
+            android:exported="false" />
+        <activity
+            android:name="com.example.codenames.registration"
+            android:exported="false" />
+        <activity android:name=".LobbyActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.codenames.menu"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +37,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<activity android:name=".LobbyActivity"></activity>
     </application>
 
 </manifest>
