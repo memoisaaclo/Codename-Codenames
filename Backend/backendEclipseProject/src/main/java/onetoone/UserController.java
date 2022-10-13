@@ -22,8 +22,6 @@ public class UserController {
 		if(Main.userRepo.findByusername(usr.getUsername()) != null){
 			return "{\"message\":\"Username already in use\"}";	
 		}
-	
-			// if username does not already exist, save the account to the database
 		
 		usr.addLogin();
 		Main.userRepo.save(usr);
@@ -32,8 +30,8 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST, path = "/login")
     public @ResponseBody String loginToAccountPost(@RequestBody User usr) {	// creates user object off of json body
-		if(Main.userRepo.findByusername(usr.getUsername()) != null && Main.userRepo.findByusername(usr.getUsername()).getPassword().equals(usr.getPassword())){
-			User usrObj = Main.userRepo.findByusername(usr.getUsername());
+		User usrObj = Main.userRepo.findByusername(usr.getUsername());
+		if(usrObj != null && usrObj.validateCredentials(usr.getUsername(), usr.getPassword())){
 			usrObj.addLogin();
 			Main.userRepo.save(usrObj);
 			return "{\"message\":\"success\"}";	// checks if account exists and password is correct
@@ -49,22 +47,16 @@ public class UserController {
 		
         return "{\"message\":\"\"}";
     }
-	
-	@RequestMapping(method = RequestMethod.GET, path = "/users/{username}/{playerID}")
-    public @ResponseBody String setAttachedPlayer(@PathVariable String username, @PathVariable int playerID) {	
-		
-		
-        return "{\"message\":\"Not Implemented\"}";
-    }
 
 	@RequestMapping(method = RequestMethod.GET, path = "/getallusers")
     public @ResponseBody List<User> getallUsers() {	// creates user object off of json body
         return Main.userRepo.findAll();
     }
 	
-	@RequestMapping(method = RequestMethod.GET, path = "/clearUsers/75362")
-    public void clearUsers() {	// creates user object off of json body
+	@RequestMapping(method = RequestMethod.DELETE, path = "/clearUsers/75362")
+    public void clearUsers() {	// removes all objects
         Main.userRepo.deleteAllInBatch();
 	}
     
+	
 }
