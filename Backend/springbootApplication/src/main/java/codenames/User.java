@@ -26,10 +26,12 @@ public class User {
 	private String password;	
     // Statistics
     private Integer logins;
+    private Integer gamesPlayed;
+	private Integer gamesWon;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "playerID")
-    private Player playerTableForeignKey;
+    private Player attachedPlayer;
     
     
     public User(String username, String password) {
@@ -49,6 +51,15 @@ public class User {
     	} else {
     		logins = 1;
     	}
+    }
+    
+    public void attachPlayer(Player p) {
+    	this.attachedPlayer = p;
+    	p.setUserId(id);
+    }
+    
+    public void startGame() {
+    	gamesPlayed++;
     }
     
 	public boolean validateCredentials(String username, String bs) {
@@ -79,4 +90,19 @@ public class User {
 		this.password = password;
 	}
 
+	public Integer getGamesPlayed() {
+		return gamesPlayed;
+	}
+
+	public void setGamesPlayed(Integer gamesPlayed) {
+		this.gamesPlayed = gamesPlayed;
+	}
+
+	public Integer getGamesWon() {
+		return gamesWon;
+	}
+
+	public void setGamesWon(Integer gamesWon) {
+		this.gamesWon = gamesWon;
+	}
 }

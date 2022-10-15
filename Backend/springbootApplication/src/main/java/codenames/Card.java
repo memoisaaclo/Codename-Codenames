@@ -1,17 +1,19 @@
 package codenames;
 
+import java.io.Serializable;
+
 /**
  * Isaaclo
  */
-public class Game implements Serializable {
+public class Card implements Serializable {
     private String word;
 
     private boolean revealed;
 
-    public Game() {
+    public Card() {
     }
 
-    public Game(String word, boolean revealed) {
+    public Card(String word, boolean revealed) {
         this.word = word;
         this.revealed = revealed;
     }

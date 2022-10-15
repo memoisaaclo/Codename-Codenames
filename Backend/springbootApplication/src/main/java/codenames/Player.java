@@ -11,7 +11,6 @@ enum Role {
 @Entity
 public class Player implements Serializable {
     public Player(boolean active) {
-        this.id = id;
         this.active = active;
     }
 
@@ -23,12 +22,10 @@ public class Player implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "game_id")
     private Game game;
+    
+    private Long userId;
 
     private boolean active;
-
-    private Integer gamesPlayed;
-
-    private Integer gamesWon;
 
     public Player() {
     }
@@ -37,8 +34,11 @@ public class Player implements Serializable {
         return game;
     }
 
-    public void setGame(Game game) {
+    public void setGame(Game game) {	// attach game to this object, and increment statistics
         this.game = game;
+        User u = Main.userRepo.findById(userId).get();
+        u.startGame();
+        Main.userRepo.save(u);
     }
 
     public int getId() {
@@ -57,19 +57,7 @@ public class Player implements Serializable {
         this.active = active;
     }
 
-    public Integer getGamesPlayed() {
-        return gamesPlayed;
-    }
-
-    public void setGamesPlayed(Integer gamesPlayed) {
-        this.gamesPlayed = gamesPlayed;
-    }
-
-    public Integer getGamesWon() {
-        return gamesWon;
-    }
-
-    public void setGamesWon(Integer gamesWon) {
-        this.gamesWon = gamesWon;
-    }
+	public void setUserId(Long UserId) {
+		userId = UserId;
+	}
 }
