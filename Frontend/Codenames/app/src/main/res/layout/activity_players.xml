@@ -6,21 +6,56 @@
     android:layout_height="match_parent"
 	android:background="#FFFFFF">
 
+    <Button
+        android:id="@+id/reg_exit4"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="#230959"
+        android:text="Back"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gameToolbar3" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/gameToolbar4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#222222"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/reg_gameName4"
+        android:layout_width="120dp"
+        android:layout_height="50sp"
+        android:layout_marginStart="5dp"
+        android:text="Codename:\nCodenames"
+        android:textColor="#B30000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gameToolbar2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gameToolbar2" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/header_players"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="640dp"
+        android:layout_marginBottom="600dp"
         android:background="@color/gray_2"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/gameToolbar4" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/box_players"
