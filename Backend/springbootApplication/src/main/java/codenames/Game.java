@@ -13,7 +13,8 @@ public class Game implements Serializable {
     @Column(name = "id", nullable = false)
     private int id;
 
-    //private Set<Card> cards;
+    @ManyToMany(orphanRemoval = false, fetch = FetchType.EAGER)
+    private List<Card> cards = new ArrayList<Card>();
 
     @Column(name = "moves")
     private String moves;
@@ -46,13 +47,9 @@ public class Game implements Serializable {
         this.id = id;
     }
 
-//    public ArrayList<Card> getCards() {
-//        return cards;
-//    }
+    public ArrayList<Card> getCards() {   return cards; }
 
-//    public void setCards(ArrayList<Card> cards) {
-//        this.cards = cards;
-//    }
+    public void setCards(ArrayList<Card> cards) {   this.cards = cards; }
 
     public String getMoves() {
         return moves;
