@@ -1,4 +1,4 @@
-package com.example.codenamesscreens;
+package com.example.codenames;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;

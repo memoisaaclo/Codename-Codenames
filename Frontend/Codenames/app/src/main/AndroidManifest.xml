@@ -28,6 +28,8 @@
             android:exported="false" />
         <activity android:name=".LobbyActivity"
             android:exported="false" />
+        <activity android:name=".HubActivity"
+            android:exported="false" />
         <activity
             android:name="com.example.codenames.menu"
             android:exported="true">
