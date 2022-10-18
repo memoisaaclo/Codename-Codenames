@@ -3,13 +3,17 @@ stages:
   - maventry
   - androidtry
 
-maven-build:   #this is a JOB
-  stage: maventry
+autoDeploy:
+  stage: mavenDeploy  
   tags:
-    - springboot_tag                      # this is LINK to the shell runner on the remote-server 
+   - springboot_tag
   script:
-    - cd Backend/springbootApplication                    #change directory to where you have your springboot application
+    - cd Backend/springbootApplication
     - mvn package
+    - sudo mv target/*.jar /target/web-demo.jar 
+    - sudo systemctl stop system-web-demo
+    - sudo systemctl start system-web-demo
+
 
 android-build: #this is another job
   image:  gjandres/android-ci:latest              # this is a directive to DOCKER
