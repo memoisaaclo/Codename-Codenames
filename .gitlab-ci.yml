@@ -26,3 +26,4 @@ android-build: #this is another job
   script:
     - cd Frontend                    #change directory to where you have your android application
     - ./gradlew assemble
+
