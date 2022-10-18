@@ -6,7 +6,7 @@ stages:
 autoDeploy:
   stage: maventry  
   tags:
-   - springboot_tag
+   - backend_tag, benjamin_runner, end_server_process_tag, springboot_tag, start_server_process_tag
   script:
     - cd Backend/springbootApplication
     - mvn package
