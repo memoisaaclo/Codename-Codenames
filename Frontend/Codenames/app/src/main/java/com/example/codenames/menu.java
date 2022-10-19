@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.w3c.dom.Text;
+
 
 public class menu extends AppCompatActivity implements View.OnClickListener{
 
@@ -16,11 +18,20 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
     private Button info;
     private Button exit;
     private TextView account;
+    private TextView menuUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        Intent intent = getIntent();
+
+
+        menuUser = (TextView) findViewById(R.id.menu_username);
+
+        menuUser.setText(intent.getStringExtra("username"));
 
         //buttons
         play = (Button) findViewById(R.id.menu_play);
