@@ -17,6 +17,7 @@ public class userInfo extends AppCompatActivity implements View.OnClickListener 
     private TextView guessesMade;
     private TextView cluesGiven;
     private TextView correctGuesses;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +28,14 @@ public class userInfo extends AppCompatActivity implements View.OnClickListener 
 
         exit.setOnClickListener(this);
 
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.userInfo_exit) {
-            startActivity(new Intent(userInfo.this, menu.class));
+            startActivity(new Intent(userInfo.this, menu.class).putExtra("username", username));
         }
     }
 }

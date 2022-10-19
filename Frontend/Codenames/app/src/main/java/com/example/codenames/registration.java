@@ -26,6 +26,7 @@ public class registration extends Activity implements OnClickListener {
     private EditText user;
     private EditText pass;
     private EditText pass2;
+    private String username;
 
     //tags to cancel request
     private String tag_json_obj = "jobj_req";
@@ -46,6 +47,10 @@ public class registration extends Activity implements OnClickListener {
         register.setOnClickListener(regListener);
         exit.setOnClickListener(this);
 
+        Intent intent = getIntent();
+
+        username = intent.getStringExtra("username");
+
     }
 
     @Override
@@ -53,7 +58,7 @@ public class registration extends Activity implements OnClickListener {
         if (v.getId() == R.id.register) {
             //startActivity login
         } else if(v.getId() == R.id.reg_exit) {
-            startActivity(new Intent(registration.this, login.class));
+            startActivity(new Intent(registration.this, login.class).putExtra("username", username));
         }
     }
 
@@ -85,7 +90,7 @@ public class registration extends Activity implements OnClickListener {
 
                 JSONObject object = (JSONObject) jsonObject;
                 System.out.println(object.toString());
-                Intent next = new Intent(getBaseContext(), login.class);
+                Intent next = new Intent(getBaseContext(), login.class).putExtra("username", username);
 
                 try {
                     if (object.get("message").equals("success")) {

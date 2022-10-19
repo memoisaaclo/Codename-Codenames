@@ -19,7 +19,7 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
     private Button exit;
     private TextView account;
     private TextView menuUser;
-
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +28,9 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
 
         Intent intent = getIntent();
 
-
         menuUser = (TextView) findViewById(R.id.menu_username);
-
-        menuUser.setText(intent.getStringExtra("username"));
+        username = intent.getStringExtra("username");
+        menuUser.setText(username);
 
         //buttons
         play = (Button) findViewById(R.id.menu_play);
@@ -49,13 +48,13 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.menu_login) {
-            startActivity(new Intent(menu.this, login.class));
+            startActivity(new Intent(menu.this, login.class).putExtra("username", username));
         } else if (v.getId() == R.id.menu_play) {
             // play game
-            startActivity(new Intent(menu.this, HubActivity.class));
+            startActivity(new Intent(menu.this, HubActivity.class).putExtra("username", username));
         } else if (v.getId() == R.id.menu_user) {
             // user info connection
-            startActivity(new Intent(menu.this, userInfo.class));
+            startActivity(new Intent(menu.this, userInfo.class).putExtra("username", username));
         } else if (v.getId() == R.id.userInfo_exit) {
             //exit app
             finish();
