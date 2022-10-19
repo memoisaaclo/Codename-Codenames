@@ -1,18 +1,15 @@
 # Example  .gitlab-ci.yml file
 stages:
-  - mavenDeploy
   - androidtry
+  - mavenbuild
 
-autoDeploy:
-  stage: mavenDeploy
+maven-build:
+  stage: mavenbuild
   tags:
-   - springboot_tag
+    - springboot_tag
   script:
     - cd Backend/springbootApplication
     - mvn package
-    - sudo mv target/*.jar /target/web-demo.jar 
-    - sudo systemctl stop system-web-demo
-    - sudo systemctl start system-web-demo
 
 android-build: #this is another job
   image:  gjandres/android-ci:latest              # this is a directive to DOCKER
