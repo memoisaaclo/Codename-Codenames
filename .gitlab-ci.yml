@@ -17,8 +17,8 @@ maven-test:
   tags:
     - springboot_tag
   script:
-    - cd Backend/springbootApplication
-    - mvn test
+    - cd Backend/springbootApplication/target
+    - 
   artifacts:
     paths:
       - Backend/target/*.jar
