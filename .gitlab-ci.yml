@@ -22,7 +22,7 @@ maven-test:
   artifacts:
     paths:
       - Backend/target/*.jar
-
+ 
 
 android-build: #this is another job
   image:  gjandres/android-ci:latest              # this is a directive to DOCKER
