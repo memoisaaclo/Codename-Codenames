@@ -21,6 +21,9 @@ public class Game implements Serializable {
     )
     private ArrayList<Card> cards = new ArrayList<>();
 
+    @Column(name = "clues")
+    private String clues = "";
+
     @Column(name = "moves")
     private String moves;
 
@@ -80,5 +83,23 @@ public class Game implements Serializable {
 
     public void setGameLobbyName(String gameLobbyName) {
         this.gameLobbyName = gameLobbyName;
+    }
+
+    public String getClues() {
+        return clues;
+    }
+
+    public void setClues(String clues) {
+        this.clues = clues;
+    }
+
+    /**
+     * Add clue to list of clues
+     * Clue should be in the specified form:
+     * {one word clue}{#of cards that it applies to}
+     * @param clue
+     */
+    public void addClue(String clue) {
+        this.clues += " " +  clue.strip();
     }
 }
