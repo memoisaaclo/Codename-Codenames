@@ -8,14 +8,11 @@ import java.io.Serializable;
 public class Card implements Serializable {
     private String word;
 
-    private boolean revealed;
-
     public Card() {
     }
 
-    public Card(String word, boolean revealed) {
+    public Card(String word) {
         this.word = word;
-        this.revealed = revealed;
     }
 
     public String getWord() {
@@ -24,13 +21,5 @@ public class Card implements Serializable {
 
     public void setWord(String word) {
         this.word = word;
-    }
-
-    public boolean isRevealed() {
-        return revealed;
-    }
-
-    public void setRevealed(boolean revealed) {
-        this.revealed = revealed;
     }
 }

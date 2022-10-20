@@ -13,8 +13,13 @@ public class Game implements Serializable {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @ManyToMany(orphanRemoval = false, fetch = FetchType.EAGER)
-    private List<Card> cards = new ArrayList<Card>();
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "id")
+    @JoinTable(
+            name = "game_cards",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "card_id")
+    )
+    private List<Card> cards;
 
     @Column(name = "moves")
     private String moves;
@@ -47,10 +52,6 @@ public class Game implements Serializable {
         this.id = id;
     }
 
-    public ArrayList<Card> getCards() {   return cards; }
-
-    public void setCards(ArrayList<Card> cards) {   this.cards = cards; }
-
     public String getMoves() {
         return moves;
     }
@@ -64,6 +65,14 @@ public class Game implements Serializable {
 
     @Column(name = "gameLobbyName", unique = true)
     private String gameLobbyName;
+
+    public ArrayList<ArrayList<Card>> getCards() {
+        return cards;
+    }
+
+    public void setCards(ArrayList<ArrayList<Card>> cards) {
+        this.cards = cards;
+    }
 
     public String getGameLobbyName() {
         return gameLobbyName;
