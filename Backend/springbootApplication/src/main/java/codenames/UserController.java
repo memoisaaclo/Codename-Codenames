@@ -31,13 +31,19 @@ public class UserController {
 	@RequestMapping(method = RequestMethod.POST, path = "/login")
     public @ResponseBody String loginToAccountPost(@RequestBody User usr) {	// creates user object off of json body
 		User usrObj = Main.userRepo.findByusername(usr.getUsername());
-		if(usrObj != null && usrObj.validateCredentials(usr.getUsername(), usr.getPassword())){
+		if(usrObj != null && usrObj.validateCredentials(usr)){
 			usrObj.addLogin();
 			Main.userRepo.save(usrObj);
 			return "{\"message\":\"success\"}";	// checks if account exists and password is correct
 		}
 		
         return "{\"message\":\"Incorrect Credentials\"}";
+    }
+	
+	@RequestMapping(method = RequestMethod.POST, path = "/users/{username}")
+    public @ResponseBody User loginToAccountPost(@PathVariable String username) {	// creates user object off of json body
+		User usrObj = Main.userRepo.findByusername(username);
+		return usrObj;
     }
 	
 	@RequestMapping(method = RequestMethod.GET, path = "/users/{username}/playerID")

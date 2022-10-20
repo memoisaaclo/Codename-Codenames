@@ -28,6 +28,9 @@ public class User {
     private Integer logins;
     private Integer gamesPlayed;
 	private Integer gamesWon;
+	private Integer guessesMade;
+	private Integer cluesGiven;
+	private Integer correctGuesses;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "playerID")
@@ -62,8 +65,8 @@ public class User {
     	gamesPlayed++;
     }
     
-	public boolean validateCredentials(String username, String bs) {
-    	return this.username.equals(username) && password.equals(bs);
+	public boolean validateCredentials(User usr) {
+    	return this.username.equals(usr.username) && password.equals(usr.password);
     }
     
     public void setId(Long id) {
@@ -82,9 +85,9 @@ public class User {
     	return username;
     }
 	
-	public String getPassword() {
-		return password;
-	}
+	//public String getPassword() {
+//		return password;
+//	}
 	
 	public void setPassword(String password) {
 		this.password = password;
@@ -104,5 +107,29 @@ public class User {
 
 	public void setGamesWon(Integer gamesWon) {
 		this.gamesWon = gamesWon;
+	}
+	
+	public Integer getGuessesMade() {
+		return guessesMade;
+	}
+
+	public void setGuessesMade(Integer guessesMade) {
+		this.guessesMade = guessesMade;
+	}
+
+	public Integer getCluesGiven() {
+		return cluesGiven;
+	}
+
+	public void setCluesGiven(Integer cluesGiven) {
+		this.cluesGiven = cluesGiven;
+	}
+
+	public Integer getCorrectGuesses() {
+		return correctGuesses;
+	}
+
+	public void setCorrectGuesses(Integer correctGuesses) {
+		this.correctGuesses = correctGuesses;
 	}
 }
