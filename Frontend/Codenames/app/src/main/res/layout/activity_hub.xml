@@ -7,6 +7,41 @@
     android:background="#EDB902"
     tools:context=".HubActivity">
 
+    <Button
+        android:id="@+id/reg_exit6"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="#230959"
+        android:text="Back"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gameToolbar3" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/gameToolbar6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#222222"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/reg_gameName6"
+        android:layout_width="120dp"
+        android:layout_height="50sp"
+        android:layout_marginStart="5dp"
+        android:text="Codename:\nCodenames"
+        android:textColor="#B30000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gameToolbar2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gameToolbar2" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/title_header"
         android:layout_width="0dp"
@@ -19,8 +54,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/gameToolbar6"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/lobby_header"
@@ -77,7 +112,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/title_header"
         app:layout_constraintEnd_toEndOf="@+id/title_header"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/gameToolbar6" />
 
     <Button
         android:id="@+id/button_lobby1"
