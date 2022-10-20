@@ -5,6 +5,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Game object that represents one instance of a code names board game.
+ * Each individual game can be seen as a "Lobby" in certain screens.
+ */
 @Entity
 public class Game implements Serializable {
     /*
