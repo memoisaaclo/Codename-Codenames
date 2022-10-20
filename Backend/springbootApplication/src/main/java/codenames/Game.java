@@ -19,7 +19,7 @@ public class Game implements Serializable {
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "card_id")
     )
-    private List<Card> cards;
+    private ArrayList<Card> cards = new ArrayList<>();
 
     @Column(name = "moves")
     private String moves;
