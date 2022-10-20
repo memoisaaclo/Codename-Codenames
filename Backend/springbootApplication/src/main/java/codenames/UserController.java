@@ -40,7 +40,7 @@ public class UserController {
         return "{\"message\":\"Incorrect Credentials\"}";
     }
 	
-	@RequestMapping(method = RequestMethod.POST, path = "/users/{username}")
+	@RequestMapping(method = RequestMethod.GET, path = "/users/{username}")
     public @ResponseBody User loginToAccountPost(@PathVariable String username) {	// creates user object off of json body
 		User usrObj = Main.userRepo.findByusername(username);
 		return usrObj;
