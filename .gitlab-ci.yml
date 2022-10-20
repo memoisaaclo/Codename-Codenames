@@ -1,26 +1,19 @@
 # Example  .gitlab-ci.yml file
 stages:
   - mavenbuild
-  - maventest
-  - androidtry
+  - mavenDeploy
 
-maven-build:
-  stage: mavenbuild
+autoDeploy:
+  stage: mavenDeploy  #do make a stage with same name!
   tags:
-    - springboot_tag
+   - springboot_tag
   script:
-    - cd Backend/springbootApplication
+    - cd Backend
     - mvn package
+    - sudo mv target/*.jar /target/web-demo.jar 
+    - sudo systemctl stop system-web-demo
+    - sudo systemctl start system-web-demo
 
-maven-test:
-  stage: maventest
-  tags:
-    - springboot_tag
-  script:
-    - cd Backend/springbootApplication/target
-  artifacts:
-    paths:
-      - Backend/target/*.jar
  
 
 android-build: #this is another job
