@@ -66,11 +66,11 @@ public class Game implements Serializable {
     @Column(name = "gameLobbyName", unique = true)
     private String gameLobbyName;
 
-    public ArrayList<ArrayList<Card>> getCards() {
+    public ArrayList<Card> getCards() {
         return cards;
     }
 
-    public void setCards(ArrayList<ArrayList<Card>> cards) {
+    public void setCards(ArrayList<Card> cards) {
         this.cards = cards;
     }
 
