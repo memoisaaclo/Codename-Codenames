@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import org.w3c.dom.Text;
 
@@ -43,6 +44,10 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
         login.setOnClickListener(this);
         info.setOnClickListener(this);
         exit.setOnClickListener(this);
+
+        if(username == null) {
+            info.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -54,6 +59,7 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
             startActivity(new Intent(menu.this, HubActivity.class).putExtra("username", username));
         } else if (v.getId() == R.id.menu_user) {
             // user info connection
+
             startActivity(new Intent(menu.this, userInfo.class).putExtra("username", username));
         } else if (v.getId() == R.id.userInfo_exit) {
             //exit app
