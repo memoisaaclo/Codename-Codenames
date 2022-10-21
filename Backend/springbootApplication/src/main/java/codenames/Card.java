@@ -1,21 +1,35 @@
 package codenames;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * Isaaclo
  */
+@Entity
 public class Card implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @Column(name = "word")
     private String word;
 
-    private boolean revealed;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
     public Card() {
     }
 
-    public Card(String word, boolean revealed) {
+    public Card(String word) {
         this.word = word;
-        this.revealed = revealed;
     }
 
     public String getWord() {
@@ -24,13 +38,5 @@ public class Card implements Serializable {
 
     public void setWord(String word) {
         this.word = word;
-    }
-
-    public boolean isRevealed() {
-        return revealed;
-    }
-
-    public void setRevealed(boolean revealed) {
-        this.revealed = revealed;
     }
 }
