@@ -30,6 +30,10 @@
             android:exported="false" />
         <activity android:name=".HubActivity"
             android:exported="false" />
+        <activity android:name=".OperativeGameActivity"
+            android:exported="false" />
+        <activity android:name=".SpymasterGameActivity"
+            android:exported="false" />
         <activity
             android:name="com.example.codenames.menu"
             android:exported="true">
