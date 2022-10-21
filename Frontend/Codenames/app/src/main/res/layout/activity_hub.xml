@@ -17,7 +17,7 @@
         android:text="Back"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gameToolbar3" />
+        app:layout_constraintTop_toTopOf="@+id/gameToolbar6" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/gameToolbar6"
@@ -38,9 +38,20 @@
         android:text="Codename:\nCodenames"
         android:textColor="#B30000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/gameToolbar2"
+        app:layout_constraintBottom_toBottomOf="@+id/gameToolbar6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gameToolbar2" />
+        app:layout_constraintTop_toTopOf="@+id/gameToolbar6" />
+
+    <TextView
+        android:id="@+id/hub_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/gameToolbar6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/gameToolbar6"
+        app:layout_constraintTop_toTopOf="@+id/gameToolbar6" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/title_header"

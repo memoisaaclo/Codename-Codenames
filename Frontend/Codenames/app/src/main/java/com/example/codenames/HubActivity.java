@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class HubActivity extends AppCompatActivity implements OnClickListener
 {
     private Button btnLobby1,btnExit;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -22,6 +24,13 @@ public class HubActivity extends AppCompatActivity implements OnClickListener
 
         btnLobby1.setOnClickListener(this);
         btnExit.setOnClickListener(this);
+
+        //Getting username and any other info that may need sent from previous activity
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
+        //Setting username textview
+        ((TextView) findViewById(R.id.hub_username)).setText(username);
+
     }
 
     @Override

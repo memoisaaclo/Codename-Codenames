@@ -47,6 +47,7 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
 
         if(username == null) {
             info.setVisibility(View.GONE);
+            play.setText("Spectate");
         }
     }
 
@@ -56,7 +57,14 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
             startActivity(new Intent(menu.this, login.class).putExtra("username", username));
         } else if (v.getId() == R.id.menu_play) {
             // play game
-            startActivity(new Intent(menu.this, HubActivity.class).putExtra("username", username));
+            if (username != null) {
+                startActivity(new Intent(menu.this, HubActivity.class).putExtra("username", username));
+            } else {
+                /*
+                Add Viewer Functionality, only access to join game lobby not at user.
+                 */
+                //startActivity(new Intent(menu.this, HubActivity.class)
+            }
         } else if (v.getId() == R.id.menu_user) {
             // user info connection
 
