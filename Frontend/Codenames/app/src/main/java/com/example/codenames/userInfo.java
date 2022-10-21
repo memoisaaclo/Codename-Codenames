@@ -1,5 +1,7 @@
 package com.example.codenames;
 
+import static com.example.codenames.utils.Const.URL_JSON_STATISTICS;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +9,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class userInfo extends AppCompatActivity implements View.OnClickListener {
@@ -17,6 +29,9 @@ public class userInfo extends AppCompatActivity implements View.OnClickListener 
     private TextView guessesMade;
     private TextView cluesGiven;
     private TextView correctGuesses;
+    private TextView logins;
+    private String username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +42,67 @@ public class userInfo extends AppCompatActivity implements View.OnClickListener 
 
         exit.setOnClickListener(this);
 
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
+
+        ((TextView) findViewById(R.id.info_username)).setText(username);
+
+        //TextView Initialization for the statistics
+        gamesWon = (TextView) findViewById(R.id.info_stat_won);
+        gamesPlayed = (TextView) findViewById(R.id.info_stat_played);
+        guessesMade = (TextView) findViewById(R.id.info_stat_guesses);
+        cluesGiven = (TextView) findViewById(R.id.info_stat_clues);
+        correctGuesses = (TextView) findViewById(R.id.info_stat_correct);
+        logins = (TextView) findViewById(R.id.info_stat_login);
+
+        getUserInfo();
+
+    }
+
+    private void updateInfo(JSONObject stats) {
+        try {
+            gamesWon.setText(stats.get("gamesWon").toString());
+            gamesPlayed.setText(stats.get("gamesPlayed").toString());
+            guessesMade.setText(stats.get("guessesMade").toString());
+            cluesGiven.setText(stats.get("cluesGiven").toString());
+            correctGuesses.setText(stats.get("correctGuesses").toString());
+            logins.setText(stats.get("loginCount").toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.userInfo_exit) {
-            startActivity(new Intent(userInfo.this, menu.class));
+            startActivity(new Intent(userInfo.this, menu.class).putExtra("username", username));
         }
     }
+
+    private void getUserInfo() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest request = new StringRequest(Request.Method.GET, URL_JSON_STATISTICS+username,
+                new Response.Listener<String> () {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            updateInfo(object);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error.toString());
+                    }
+                });
+        queue.add(request);
+
+    }
+
 }

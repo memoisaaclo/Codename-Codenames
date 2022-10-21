@@ -3,8 +3,11 @@ package com.example.codenames;
 import static java.lang.Thread.sleep;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -22,7 +25,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LobbyActivity extends Activity
+public class LobbyActivity extends Activity implements View.OnClickListener
 {
     private String TAG = LobbyActivity.class.getSimpleName();
 //    private Button btnJsonObj, btnJsonArray;
@@ -30,6 +33,7 @@ public class LobbyActivity extends Activity
 //    private ProgressDialog pDialog;
     private TextView player_count;
     private TextView lobby_name;
+    private Button to_lobby;
 
     // These tags will be used to cancel the requests
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
@@ -39,6 +43,11 @@ public class LobbyActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
+
+        to_lobby = (Button) findViewById(R.id.reg_exit3);
+
+        to_lobby.setOnClickListener(this);
+
         postJsonObj();
         try
         {
@@ -218,5 +227,12 @@ public class LobbyActivity extends Activity
 
         // Cancelling request
         // ApplicationController.getInstance().getRequestQueue().cancelAll(tag_json_obj);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.reg_exit3) {
+            startActivity(new Intent(LobbyActivity.this, HubActivity.class));
+        }
     }
 }

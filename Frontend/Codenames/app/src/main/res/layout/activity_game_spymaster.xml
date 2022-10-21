@@ -7,6 +7,43 @@
 	android:background="#EDB902">
 
 	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/gameToolbar8"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="#222222"
+		android:minHeight="?attr/actionBarSize"
+		android:theme="?attr/actionBarTheme"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/reg_gameName8"
+		android:layout_width="120dp"
+		android:layout_height="50sp"
+		android:layout_marginStart="5dp"
+		android:text="Codename:\nCodenames"
+		android:textColor="#B30000"
+		android:textSize="20sp"
+		app:layout_constraintBottom_toBottomOf="@+id/gameToolbar"
+		app:layout_constraintStart_toStartOf="@+id/gameToolbar"
+		app:layout_constraintTop_toTopOf="@id/gameToolbar" />
+
+	<Button
+		android:id="@+id/reg_exit8"
+		android:layout_width="wrap_content"
+		android:layout_height="50dp"
+		android:layout_marginTop="5dp"
+		android:layout_marginEnd="5dp"
+		android:layout_marginBottom="5dp"
+		android:backgroundTint="#230959"
+		android:text="Back"
+		android:textColor="@color/white"
+		app:layout_constraintBottom_toBottomOf="@+id/gameToolbar"
+		app:layout_constraintEnd_toEndOf="@+id/gameToolbar8"
+		app:layout_constraintTop_toTopOf="@+id/gameToolbar" />
+
+	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/header_red"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
@@ -102,8 +139,7 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintVertical_bias="1.0" />
+		app:layout_constraintTop_toBottomOf="@+id/gameToolbar8" />
 
 	<TextView
 		android:id="@+id/text_header"
@@ -115,7 +151,7 @@
 		app:layout_constraintBottom_toBottomOf="@+id/title_header"
 		app:layout_constraintEnd_toEndOf="@+id/title_header"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+		app:layout_constraintTop_toBottomOf="@+id/gameToolbar8" />
 
 	<Button
 		android:id="@+id/button_card1"

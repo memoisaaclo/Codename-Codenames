@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import org.w3c.dom.Text;
 
 
 public class menu extends AppCompatActivity implements View.OnClickListener{
@@ -16,11 +19,19 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
     private Button info;
     private Button exit;
     private TextView account;
+    private TextView menuUser;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        Intent intent = getIntent();
+
+        menuUser = (TextView) findViewById(R.id.menu_username);
+        username = intent.getStringExtra("username");
+        menuUser.setText(username);
 
         //buttons
         play = (Button) findViewById(R.id.menu_play);
@@ -33,18 +44,23 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
         login.setOnClickListener(this);
         info.setOnClickListener(this);
         exit.setOnClickListener(this);
+
+        if(username == null) {
+            info.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.menu_login) {
-            startActivity(new Intent(menu.this, login.class));
+            startActivity(new Intent(menu.this, login.class).putExtra("username", username));
         } else if (v.getId() == R.id.menu_play) {
             // play game
-            startActivity(new Intent(menu.this, LobbyActivity.class));
+            startActivity(new Intent(menu.this, HubActivity.class).putExtra("username", username));
         } else if (v.getId() == R.id.menu_user) {
             // user info connection
-            startActivity(new Intent(menu.this, userInfo.class));
+
+            startActivity(new Intent(menu.this, userInfo.class).putExtra("username", username));
         } else if (v.getId() == R.id.userInfo_exit) {
             //exit app
             finish();

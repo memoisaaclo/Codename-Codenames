@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-	android:background="#FFFFFF">
+    android:background="#EDB902"
+    tools:context=".HubActivity">
 
     <Button
-        android:id="@+id/reg_exit5"
+        android:id="@+id/reg_exit6"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
@@ -19,7 +20,7 @@
         app:layout_constraintTop_toTopOf="@+id/gameToolbar3" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/gameToolbar5"
+        android:id="@+id/gameToolbar6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#222222"
@@ -30,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/reg_gameName5"
+        android:id="@+id/reg_gameName6"
         android:layout_width="120dp"
         android:layout_height="50sp"
         android:layout_marginStart="5dp"
@@ -42,105 +43,103 @@
         app:layout_constraintTop_toTopOf="@+id/gameToolbar2" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/header_words"
+        android:id="@+id/title_header"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="600dp"
+        android:background="@color/cardinal"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameToolbar6"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/lobby_header"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="600dp"
+        android:layout_marginBottom="500dp"
+        android:background="@color/gray_1"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_header" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/lobby_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
         android:background="@color/gray_2"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_back"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameToolbar5" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/box_words"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        android:background="@color/gray_1"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/button_add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_words" />
-
-    <Button
-        android:id="@+id/button_delete"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/gray_1"
-        android:text="DELETE WORD"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button_change"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/gray_1"
-        android:text="CHANGE WORD"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_delete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button_add"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/gray_1"
-        android:text="ADD WORD"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_change"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/text_wordsearch"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:hint="Search for a word"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/header_words"
-        app:layout_constraintEnd_toEndOf="@+id/header_words"
-        app:layout_constraintStart_toStartOf="@+id/header_words"
-        app:layout_constraintTop_toTopOf="@+id/header_words" />
+        app:layout_constraintTop_toBottomOf="@+id/lobby_header" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_lobby_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Available Games"
+        android:textColor="#000000"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/lobby_header"
+        app:layout_constraintEnd_toEndOf="@+id/lobby_header"
+        app:layout_constraintStart_toStartOf="@+id/lobby_header"
+        app:layout_constraintTop_toTopOf="@+id/lobby_header" />
+
+    <TextView
+        android:id="@+id/text_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOBBY SELECT"
+        android:textColor="#000000"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/title_header"
+        app:layout_constraintEnd_toEndOf="@+id/title_header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameToolbar6" />
+
+    <Button
+        android:id="@+id/button_lobby1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Word"
+        android:background="#00000000"
+        android:text="LOBBY 1"
         android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="@+id/box_words"
-        app:layout_constraintTop_toBottomOf="@+id/header_words" />
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/lobby_view"
+        app:layout_constraintTop_toBottomOf="@+id/lobby_header" />
+
+    <Button
+        android:id="@+id/button_back"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/gray_1"
+        android:text="BACK TO MENU"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -80,7 +80,8 @@ public class login extends AppCompatActivity implements View.OnClickListener {
 
                 JSONObject object = (JSONObject) jsonObject;
                 System.out.println(object.toString());
-                Intent next = new Intent(getBaseContext(), menu.class);
+
+                Intent next = new Intent(login.this, menu.class).putExtra("username", username);
 
                 try {
                     if(object.get("message").equals("success")) {
