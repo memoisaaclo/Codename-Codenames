@@ -11,7 +11,7 @@ autoDeploy:
   script:
     - cd Backend/springbootApplication
     - mvn package
-    - sudo mv target/*.jar /target/web-demo.jar 
+    - sudo mv target/codenames.jar /target/web-demo.jar 
     - sudo systemctl stop system-web-demo
     - sudo systemctl start system-web-demo
 
