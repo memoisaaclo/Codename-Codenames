@@ -5,7 +5,7 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>coms309</groupId>
-  <artifactId>codenames</artifactId>
+  <artifactId>one-to-one</artifactId>
   <version>1.0.0</version>
 
   <!-- To make it a spring boot project -->
@@ -15,7 +15,7 @@
     <version>2.4.0</version>
   </parent>
 
-  <name>codenames</name>
+  <name>one-to-one</name>
 
   <properties>
 
