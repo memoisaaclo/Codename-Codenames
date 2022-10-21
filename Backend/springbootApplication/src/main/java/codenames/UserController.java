@@ -36,7 +36,6 @@ public class UserController {
 			Main.userRepo.save(usrObj);
 			return "{\"message\":\"success\"}";	// checks if account exists and password is correct
 		}
-		
         return "{\"message\":\"Incorrect Credentials\"}";
     }
 	
