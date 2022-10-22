@@ -63,7 +63,7 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
                 /*
                 Add Viewer Functionality, only access to join game lobby not at user.
                  */
-                //startActivity(new Intent(menu.this, HubActivity.class)
+                startActivity(new Intent(menu.this, spectatorHub.class));
             }
         } else if (v.getId() == R.id.menu_user) {
             // user info connection

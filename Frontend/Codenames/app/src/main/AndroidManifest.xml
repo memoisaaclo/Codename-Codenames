@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.example.codenames.app.AppController"
+        android:name=".app.AppController"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -18,24 +18,31 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="com.example.codenames.userInfo"
+            android:name=".spectatorHub"
             android:exported="false" />
         <activity
-            android:name="com.example.codenames.login"
+            android:name=".userInfo"
             android:exported="false" />
         <activity
-            android:name="com.example.codenames.registration"
-            android:exported="false" />
-        <activity android:name=".LobbyActivity"
-            android:exported="false" />
-        <activity android:name=".HubActivity"
-            android:exported="false" />
-        <activity android:name=".OperativeGameActivity"
-            android:exported="false" />
-        <activity android:name=".SpymasterGameActivity"
+            android:name=".login"
             android:exported="false" />
         <activity
-            android:name="com.example.codenames.menu"
+            android:name=".registration"
+            android:exported="false" />
+        <activity
+            android:name=".LobbyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HubActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OperativeGameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SpymasterGameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".menu"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
