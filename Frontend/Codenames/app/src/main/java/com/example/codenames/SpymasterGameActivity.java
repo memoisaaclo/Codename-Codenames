@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +55,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements OnClickL
         //Cards
 
         cards = new ArrayList<Button>(CARD_IDS.length);
-        
+
         for(int id : CARD_IDS)
         {
             Button card = (Button)findViewById(id);
