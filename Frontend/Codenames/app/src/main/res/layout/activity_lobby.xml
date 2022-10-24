@@ -18,6 +18,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gameToolbar3" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lobby_username"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gameToolbar3"
+        app:layout_constraintStart_toEndOf="@id/reg_gameName3"
+        app:layout_constraintTop_toTopOf="@+id/gameToolbar3" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/gameToolbar3"
         android:layout_width="match_parent"
@@ -37,9 +48,9 @@
         android:text="Codename:\nCodenames"
         android:textColor="#B30000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/gameToolbar2"
+        app:layout_constraintBottom_toBottomOf="@+id/gameToolbar3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gameToolbar2" />
+        app:layout_constraintTop_toTopOf="@+id/gameToolbar3" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/title_header"

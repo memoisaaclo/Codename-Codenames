@@ -39,10 +39,10 @@ public class HubActivity extends AppCompatActivity implements OnClickListener
         switch (v.getId())
         {
             case R.id.button_lobby1:
-                startActivity(new Intent(HubActivity.this, LobbyActivity.class));
+                startActivity(new Intent(HubActivity.this, LobbyActivity.class).putExtra("username", username));
                 break;
             case R.id.reg_exit6:
-                startActivity(new Intent(HubActivity.this, menu.class));
+                startActivity(new Intent(HubActivity.this, menu.class).putExtra("username", username));
                 break;
             default:
                 break;

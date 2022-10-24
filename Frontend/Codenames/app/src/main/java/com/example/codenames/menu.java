@@ -37,7 +37,7 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
         play = (Button) findViewById(R.id.menu_play);
         login = (Button) findViewById(R.id.menu_login);
         info = (Button) findViewById(R.id.menu_user);
-        exit = (Button) findViewById(R.id.userInfo_exit);
+        exit = (Button) findViewById(R.id.menu_exit);
 
         //button click listener
         play.setOnClickListener(this);
@@ -45,21 +45,30 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
         info.setOnClickListener(this);
         exit.setOnClickListener(this);
 
+
+
         if(username == null) {
             info.setVisibility(View.GONE);
             play.setText("Spectate");
+        } else {
+            login.setText("Logout");
         }
+        System.out.println("USERNAME: " + username);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.menu_login) {
-            startActivity(new Intent(menu.this, login.class).putExtra("username", username));
+            if (username == null) {
+                startActivity(new Intent(menu.this, login.class).putExtra("username", username));
+            } else {
+                startActivity(new Intent(menu.this, menu.class));
+            }
         } else if (v.getId() == R.id.menu_play) {
             // play game
             if (username != null) {
                 startActivity(new Intent(menu.this, HubActivity.class).putExtra("username", username));
-            } else {
+            } else if (username == null){
                 /*
                 Add Viewer Functionality, only access to join game lobby not at user.
                  */
@@ -69,7 +78,7 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
             // user info connection
 
             startActivity(new Intent(menu.this, userInfo.class).putExtra("username", username));
-        } else if (v.getId() == R.id.userInfo_exit) {
+        } else if (v.getId() == R.id.menu_exit) {
             //exit app
             finish();
         }

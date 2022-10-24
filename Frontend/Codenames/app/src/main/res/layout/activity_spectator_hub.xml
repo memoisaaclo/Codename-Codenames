@@ -42,21 +42,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/specHubToolbar6" />
 
-    <TextView
-        android:id="@+id/spechub_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="50sp"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/specHubToolbar6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/specHubToolbar6"
-        app:layout_constraintTop_toTopOf="@+id/specHubToolbar6" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/spechub_title_header"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="70dp"
         android:layout_marginBottom="600dp"
         android:background="@color/cardinal"
         android:minHeight="?attr/actionBarSize"
@@ -67,6 +56,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/specHubToolbar6"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/specHub_title"
+        android:textColor="@color/black"
+        android:text="Spectate Games"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/spechub_title_header"
+        app:layout_constraintEnd_toEndOf="@+id/spechub_title_header"
+        app:layout_constraintTop_toTopOf="@+id/spechub_title_header"
+        app:layout_constraintStart_toStartOf="@+id/spechub_title_header" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/specHub_header"
