@@ -85,22 +85,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spechub_title_header" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/spechub_lobby_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
-        android:background="@color/gray_2"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/specHub_header" />
-
     <TextView
         android:id="@+id/specHub_text_lobby_header"
         android:layout_width="wrap_content"
@@ -113,30 +97,31 @@
         app:layout_constraintStart_toStartOf="@+id/specHub_header"
         app:layout_constraintTop_toTopOf="@+id/specHub_header" />
 
-    <TextView
-        android:id="@+id/spec_text_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LOBBY SELECT"
-        android:textColor="#000000"
-        android:textSize="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/spechub_title_header"
-        app:layout_constraintEnd_toEndOf="@+id/spechub_title_header"
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="50dp"
+        android:background="#ADADAD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/specHubToolbar6" />
+        app:layout_constraintTop_toBottomOf="@+id/specHub_header"
+        app:flow_verticalBias="0.0">
 
-    <Button
-        android:id="@+id/button_lobby1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="#00000000"
-        android:text="LOBBY 1"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/spechub_lobby_view"
-        app:layout_constraintTop_toBottomOf="@+id/specHub_text_lobby_header" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spec_view"
+            android:orientation="vertical">
+
+            <!-- Place to get and then put active lobbies -->
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 <!--    <Button-->
 <!--        android:id="@+id/button_back"-->

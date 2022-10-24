@@ -85,6 +85,53 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_header" />
 
+    <TextView
+        android:id="@+id/text_lobby_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Available Games"
+        android:textColor="#000000"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/lobby_header"
+        app:layout_constraintEnd_toEndOf="@+id/lobby_header"
+        app:layout_constraintStart_toStartOf="@+id/lobby_header"
+        app:layout_constraintTop_toTopOf="@+id/lobby_header" />
+
+
+<!--    <ScrollView-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="32dp"-->
+<!--        android:layout_marginEnd="32dp"-->
+<!--        android:layout_marginBottom="50dp"-->
+<!--        android:background="#ADADAD"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_ToBottomOf="lobbyHeader"-->
+<!--        app:layout_constraintVertical_bias="0.0">-->
+<!--        -->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/hub_view"-->
+<!--            android:orientation="vertical">-->
+<!--            -->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/hub_lobby1"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="20sp"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/hub_view" />-->
+<!--            -->
+<!--            -->
+<!--        </LinearLayout>            -->
+<!--      -->
+<!--    </ScrollView> -->
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/lobby_view"
         android:layout_width="0dp"
@@ -100,18 +147,6 @@
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lobby_header" />
-
-    <TextView
-        android:id="@+id/text_lobby_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Available Games"
-        android:textColor="#000000"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/lobby_header"
-        app:layout_constraintEnd_toEndOf="@+id/lobby_header"
-        app:layout_constraintStart_toStartOf="@+id/lobby_header"
-        app:layout_constraintTop_toTopOf="@+id/lobby_header" />
 
     <TextView
         android:id="@+id/text_header"
