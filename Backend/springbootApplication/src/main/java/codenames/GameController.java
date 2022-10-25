@@ -111,6 +111,7 @@ public class GameController {
     @GetMapping(path = "/games/{id}/words")
     String getWords(@PathVariable int id) {
         Game g = gameRepository.findById(id);
+
         if(g != null) {
             String rstring = "{";
             int i = 0;
