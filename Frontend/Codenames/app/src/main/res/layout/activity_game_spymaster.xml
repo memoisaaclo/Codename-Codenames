@@ -47,32 +47,36 @@
 		android:id="@+id/header_red"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
+		android:layout_marginTop="410dp"
 		android:layout_marginBottom="32dp"
 		android:background="@color/cardinal"
 		android:minHeight="?attr/actionBarSize"
 		android:theme="?attr/actionBarTheme"
 		app:layout_constraintBottom_toTopOf="@+id/header_clue"
 		app:layout_constraintEnd_toStartOf="@+id/header_blue"
-		app:layout_constraintStart_toStartOf="parent" />
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/header_clue"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="32dp"
+		android:layout_marginTop="500dp"
 		android:background="@color/gray_1"
 		android:minHeight="?attr/actionBarSize"
 		android:theme="?attr/actionBarTheme"
 		app:layout_constraintEnd_toStartOf="@+id/header_applies"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toStartOf="parent"
-		tools:layout_editor_absoluteY="499dp" />
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/header_applies"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="260dp"
+		android:layout_marginTop="500dp"
 		android:layout_marginEnd="32dp"
 		android:background="@color/gray_2"
 		android:minHeight="?attr/actionBarSize"
@@ -80,7 +84,7 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toStartOf="parent"
-		tools:layout_editor_absoluteY="499dp" />
+		app:layout_constraintTop_toTopOf="@+id/gameToolbar8" />
 
 	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/header_guesses"
@@ -119,13 +123,15 @@
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="200dp"
+		android:layout_marginTop="410dp"
 		android:layout_marginBottom="32dp"
 		android:background="@color/blue"
 		android:minHeight="?attr/actionBarSize"
 		android:theme="?attr/actionBarTheme"
 		app:layout_constraintBottom_toTopOf="@+id/header_clue"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent" />
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/title_header"

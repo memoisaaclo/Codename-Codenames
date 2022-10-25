@@ -8,4 +8,7 @@ public class Const {
 	public static final String URL_JSON_PLAYERNUM_POST = "/games/3/addPlayer?player_id=4";
 	public static final String URL_JSON_GAMELOBBYNAME_GET = "/games/3";
 	public static final String URL_JSON_STATISTICS = "/users";
+
+	public static final String URL_JSON_CARD_GET = "/games/{id}/words";
+	public static final String URL_JSON_CARD_POST = "/games/{id}/words";
 }
