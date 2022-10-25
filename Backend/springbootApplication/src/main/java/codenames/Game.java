@@ -27,6 +27,7 @@ public class Game implements Serializable {
 
     @Column(name = "gameLobbyName", unique = true)
     private String gameLobbyName;
+
     @OneToMany(orphanRemoval = false, fetch = FetchType.EAGER)
     private List<Player> players = new ArrayList<Player>();
 

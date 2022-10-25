@@ -98,4 +98,31 @@ public class GameController {
         gameRepository.deleteById(id);
         return success;
     }
+
+    /**
+     * Method to get status of board
+     * Used by frontend to refresh game
+     */
+    @GetMapping(path = "/games/{id}/status")
+    String getGameStatus(@PathVariable int id) {
+        return ;
+    }
+
+    @GetMapping(path = "/games/{id}/words")
+    String getWords(@PathVariable int id) {
+        Game g = gameRepository.findById(id);
+        if(g != null) {
+            String rstring = "{";
+            int i = 0;
+
+            for (Card c : g.getCards()) {
+                rstring += "\"" + i + "\": \"" + c.word + "\"";
+                i++;
+            }
+
+            return rstring + "}";
+        } else {
+            return "{\"message\":\"Invalid Lobby ID\"}";
+        };
+    }
 }
