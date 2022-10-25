@@ -28,9 +28,6 @@ public class registration extends Activity implements OnClickListener {
     private EditText pass2;
     private String username;
 
-    //tags to cancel request
-    private String tag_json_obj = "jobj_req";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +87,7 @@ public class registration extends Activity implements OnClickListener {
 
                 JSONObject object = (JSONObject) jsonObject;
                 System.out.println(object.toString());
-                Intent next = new Intent(getBaseContext(), login.class).putExtra("username", username);
+                Intent next = new Intent(getBaseContext(), menu.class).putExtra("username", username);
 
                 try {
                     if (object.get("message").equals("success")) {

@@ -110,13 +110,13 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_ToBottomOf="lobbyHeader"-->
 <!--        app:layout_constraintVertical_bias="0.0">-->
-<!--        -->
+
 <!--        <LinearLayout-->
+<!--            android:id="@+id/hub_view"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/hub_view"-->
 <!--            android:orientation="vertical">-->
-<!--            -->
+
 <!--            <TextView-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"-->
@@ -125,11 +125,11 @@
 <!--                android:textColor="@color/black"-->
 <!--                android:textSize="20sp"-->
 <!--                app:layout_constraintEnd_toEndOf="@+id/hub_view" />-->
-<!--            -->
-<!--            -->
-<!--        </LinearLayout>            -->
-<!--      -->
-<!--    </ScrollView> -->
+
+
+<!--        </LinearLayout>-->
+
+<!--    </ScrollView>-->
 
 
     <androidx.appcompat.widget.Toolbar
@@ -138,11 +138,11 @@
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="60dp"
         android:background="@color/gray_2"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/button_back"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
@@ -174,15 +174,15 @@
         app:layout_constraintTop_toBottomOf="@+id/lobby_header" />
 
     <Button
-        android:id="@+id/button_back"
+        android:id="@+id/createLobby"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/gray_1"
-        android:text="BACK TO MENU"
-        android:textColor="#000000"
+        android:backgroundTint="#230959"
+        android:text="CREATE LOBBY"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -60,18 +60,18 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View v) {
         if (v.getId() == R.id.menu_login) {
             if (username == null) {
-                startActivity(new Intent(menu.this, login.class).putExtra("username", username));
+                //
+                startActivity(new Intent(menu.this, login.class));
             } else {
                 startActivity(new Intent(menu.this, menu.class));
             }
         } else if (v.getId() == R.id.menu_play) {
             // play game
             if (username != null) {
+                //go to game hub
                 startActivity(new Intent(menu.this, HubActivity.class).putExtra("username", username));
-            } else if (username == null){
-                /*
-                Add Viewer Functionality, only access to join game lobby not at user.
-                 */
+            } else if (username == null) {
+                //go to spectator hub
                 startActivity(new Intent(menu.this, spectatorHub.class));
             }
         } else if (v.getId() == R.id.menu_user) {
@@ -80,7 +80,7 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
             startActivity(new Intent(menu.this, userInfo.class).putExtra("username", username));
         } else if (v.getId() == R.id.menu_exit) {
             //exit app
-            finish();
+            System.exit(0);
         }
     }
 }
