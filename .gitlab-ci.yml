@@ -1,7 +1,7 @@
 # Example  .gitlab-ci.yml file
 stages:
 #  - androidbuild 
-#  - androidtest 
+#  - androidtest
   - mavenDeploy 
 
 autoDeploy:
