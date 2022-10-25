@@ -108,6 +108,12 @@ public class GameController {
         return ;
     }
 
+    /**
+     * Get list of words (25) of a certain game
+     * Used to initially get words
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/games/{id}/words")
     String getWords(@PathVariable int id) {
         Game g = gameRepository.findById(id);
@@ -125,5 +131,16 @@ public class GameController {
         } else {
             return "{\"message\":\"Invalid Lobby ID\"}";
         };
+    }
+
+    /**
+     * Get all active game information
+     * Used to populate lobby with game names and player nums
+     * @return JSON string of name and num players
+     */
+    @GetMapping(path = "/games/lobbyinfo")
+    String getGameLobbyName() {
+        List<Game> games = getAllGames();
+
     }
 }

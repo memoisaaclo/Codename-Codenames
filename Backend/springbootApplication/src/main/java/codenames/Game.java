@@ -80,4 +80,22 @@ public class Game implements Serializable {
     public void setPlayers(List<Player> players) { this.players = players; }
     public String getClues() { return clues; }
     public void setClues(String clues) { this.clues = clues; }
+
+    class Lobby {
+        private String lobbyName;
+        private int numPlayers;
+
+        Lobby() {
+            this.numPlayers = players.length();
+            this.lobbyName = gameLobbyName;
+        }
+
+        public String getLobbyName() {
+            return lobbyName;
+        }
+
+        public int getNumPlayers() {
+            return numPlayers;
+        }
+    }
 }
