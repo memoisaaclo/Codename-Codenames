@@ -41,28 +41,37 @@ public class GameController {
     @PostMapping(path = "/games/{id}/addPlayer")
     String addPlayerToGame(@PathVariable int id, @RequestParam int player_id){
         PlayerRepository playerRepo = Main.playerRepo;
+
         if (playerRepo.findById(player_id) == null || gameRepository.findById(id) == null)
             return failure;
+
         Game g = gameRepository.findById(id);
+
         if(g.getPlayers().contains(playerRepo.findById(player_id))) {
         	return "{\"message\":\"error: duplicate player id\"}";
         }
+
         g.addPlayer(playerRepo.findById(player_id));
         gameRepository.save(g);
+
         return success;
     }
     
     @PostMapping(path = "/games/{id}/removePlayer")
     String removePlayerFromGame(@PathVariable int id, @RequestParam int player_id){
         PlayerRepository playerRepo = Main.playerRepo;
+
         if (playerRepo.findById(player_id) == null || gameRepository.findById(id) == null)
             return failure;
+
         Game g = gameRepository.findById(id);
+
         if(g.getPlayers().contains(playerRepo.findById(player_id))) {
         	g.getPlayers().remove(playerRepo.findById(player_id));
         	gameRepository.save(g);
         	return success;
         }
+
         return "{\"message\":\"could not find player\"}";
     }
 
@@ -76,13 +85,6 @@ public class GameController {
         return gameRepository.findById(id);
     }
 
-    @PostMapping(path = "/games")
-    String createGame(@RequestBody Game game){
-        if (game == null)
-            return failure;
-        gameRepository.save(game);
-        return success;
-    }
 
 //    @PutMapping("/games/{id}")
 //    Game updateGame(@PathVariable int id, @RequestBody Game request){
