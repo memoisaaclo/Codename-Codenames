@@ -3,6 +3,7 @@ package codenames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -50,7 +51,7 @@ public class GameController {
         g.addPlayer(playerRepo.findById(player_id));
         gameRepository.save(g);
         return success;
-    }
+    } 
     
     @PostMapping(path = "/games/{id}/removePlayer")
     String removePlayerFromGame(@PathVariable int id, @RequestParam int player_id){
@@ -139,9 +140,11 @@ public class GameController {
      * @return JSON string of name and num players
      */
     @GetMapping(path = "/games/lobbyinfo")
-    String getGameLobbyName() {
-        List<Game> games = getAllGames();
-
-        return null;
+    public List<Game.Lobby> getGameLobbyName() {
+        List<Game.Lobby> l = new ArrayList<Game.Lobby>();
+    	for(Game g : getAllGames()) {
+        	l.add(g.getLobby());
+        }
+        return l;
     }
 }

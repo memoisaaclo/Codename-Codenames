@@ -48,7 +48,6 @@ public class Game implements Serializable {
     }
 
     public Game(int id, String gameLobbyName) {
-        this.id = id;
         this.gameLobbyName = gameLobbyName;
     }
 
@@ -82,7 +81,10 @@ public class Game implements Serializable {
     public void setPlayers(List<Player> players) { this.players = players; }
     public String getClues() { return clues; }
     public void setClues(String clues) { this.clues = clues; }
-
+    public Lobby getLobby() {
+    	return new Lobby();
+    }
+    
     class Lobby {
         private String lobbyName;
         private int numPlayers;
