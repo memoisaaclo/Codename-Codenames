@@ -103,10 +103,10 @@ public class GameController {
      * Method to get status of board
      * Used by frontend to refresh game
      */
-    @GetMapping(path = "/games/{id}/status")
-    String getGameStatus(@PathVariable int id) {
-        return ;
-    }
+//    @GetMapping(path = "/games/{id}/status")
+//    String getGameStatus(@PathVariable int id) {
+//        return ;
+//    }
 
     /**
      * Get list of words (25) of a certain game
@@ -123,14 +123,14 @@ public class GameController {
             int i = 0;
 
             for (Card c : g.getCards()) {
-                rstring += "\"" + i + "\": \"" + c.word + "\"";
+                rstring += "\"" + i + "\": \"" + c.getWord() + "\"";
                 i++;
             }
 
             return rstring + "}";
         } else {
             return "{\"message\":\"Invalid Lobby ID\"}";
-        };
+        }
     }
 
     /**
@@ -142,5 +142,6 @@ public class GameController {
     String getGameLobbyName() {
         List<Game> games = getAllGames();
 
+        return null;
     }
 }
