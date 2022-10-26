@@ -57,7 +57,7 @@
         android:id="@+id/title_header"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="600dp"
+        android:layout_marginBottom="650dp"
         android:background="@color/cardinal"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
@@ -98,80 +98,74 @@
         app:layout_constraintTop_toTopOf="@+id/lobby_header" />
 
 
-<!--    <ScrollView-->
+
+
+
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/lobby_view"-->
 <!--        android:layout_width="0dp"-->
 <!--        android:layout_height="0dp"-->
 <!--        android:layout_marginStart="32dp"-->
 <!--        android:layout_marginEnd="32dp"-->
-<!--        android:layout_marginBottom="50dp"-->
-<!--        android:background="#ADADAD"-->
+<!--        android:layout_marginBottom="60dp"-->
+<!--        android:background="@color/gray_2"-->
+<!--        android:minHeight="?attr/actionBarSize"-->
+<!--        android:theme="?attr/actionBarTheme"-->
 <!--        app:layout_constraintBottom_toBottomOf="parent"-->
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.483"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_ToBottomOf="lobbyHeader"-->
-<!--        app:layout_constraintVertical_bias="0.0">-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/lobby_header" />-->
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/hub_view"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical">-->
+<!--    <TextView-->
+<!--        android:id="@+id/text_header"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="LOBBY SELECT"-->
+<!--        android:textColor="#000000"-->
+<!--        android:textSize="32dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/title_header"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/title_header"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/gameToolbar6" />-->
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:id="@+id/hub_lobby1"-->
-<!--                android:layout_marginTop="15dp"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="20sp"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/hub_view" />-->
+<!--    <Button-->
+<!--        android:id="@+id/button_lobby1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:background="#00000000"-->
+<!--        android:text="LOBBY 1"-->
+<!--        android:textColor="#000000"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/lobby_view"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/lobby_header" />-->
 
-
-<!--        </LinearLayout>-->
-
-<!--    </ScrollView>-->
-
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/lobby_view"
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="60dp"
-        android:background="@color/gray_2"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="308dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lobby_header" />
+        app:layout_constraintTop_toBottomOf="@+id/lobby_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="80dp"
+        android:background="@color/gray_2">
 
-    <TextView
-        android:id="@+id/text_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LOBBY SELECT"
-        android:textColor="#000000"
-        android:textSize="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/title_header"
-        app:layout_constraintEnd_toEndOf="@+id/title_header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameToolbar6" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/button_lobby1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="#00000000"
-        android:text="LOBBY 1"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/lobby_view"
-        app:layout_constraintTop_toBottomOf="@+id/lobby_header" />
+
+
+        </LinearLayout>
+        
+    </ScrollView>
 
     <Button
         android:id="@+id/createLobby"
@@ -187,5 +181,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

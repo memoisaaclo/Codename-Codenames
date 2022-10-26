@@ -21,6 +21,6 @@ public class Const {
 
 	public static final String URL_JSON_LOBBY = "http://10.90.75.56:8080/games";
 
-	public static final String URL_JSON_CREATE = "/games";
+	public static final String URL_JSON_CREATE = "/games/add";
 
 }
