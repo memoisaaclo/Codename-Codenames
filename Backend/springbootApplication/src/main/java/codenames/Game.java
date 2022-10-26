@@ -47,7 +47,7 @@ public class Game implements Serializable {
     public Game() {
     }
 
-    public Game(int id, String gameLobbyName) {
+    public Game(String gameLobbyName) {
         this.gameLobbyName = gameLobbyName;
     }
 
