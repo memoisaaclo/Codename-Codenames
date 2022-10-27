@@ -62,7 +62,7 @@ public class AdminController {
 				+ "/admin/paths                 : get this list" + "<br>" 
 				+ "/admin/cards/removeall/98765 : remove all cards from the database" + "<br>"
 				+ "/admin/cards/remove          : remove a single card" + "<br>"
-				+ "/admin/cards/add	            : add a card" + "<br>"
+				+ "/admin/cards/add             : add a card" + "<br>"
 				+ "/admin/cards/all             : list all cards" + "<br>" + "<br>"
 				
 				+ "/games/lobbyinfo             : return all names and ids of lobbies" + "<br>"
