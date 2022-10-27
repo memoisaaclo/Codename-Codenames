@@ -31,13 +31,21 @@ public class AdminController {
     }
 	
 	@PutMapping(path = "/admin/cards/add")
-	public void addCard(@RequestBody Card card) {
-		Main.cardRepo.save(card);
+	public String addCard(@RequestBody Card card) {
+		if(Main.cardRepo.findById(card.getId()) == null) {
+			Main.cardRepo.save(card);
+			return success;
+		}
+		return failure;
 	}
 	
 	@DeleteMapping(path = "/admin/cards/remove")
-	public void removeCard(@RequestBody Card card) {
-		Main.cardRepo.deleteByword(card.getWord());
+	public String removeCard(@RequestBody Card card) {
+		if(Main.cardRepo.findById(card.getId()) != null) {
+			Main.cardRepo.deleteByword(card.getWord());
+			return success;
+		}
+		return failure;
 	}
 	
 }
