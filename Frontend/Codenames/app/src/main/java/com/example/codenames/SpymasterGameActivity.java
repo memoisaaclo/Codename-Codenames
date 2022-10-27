@@ -36,33 +36,33 @@ public class SpymasterGameActivity extends AppCompatActivity implements OnClickL
 
     private Button cards[];
 //    private List<Button> cards;
-//    private static final int[] CARD_IDS = {
-//        R.id.button_card1,
-//        R.id.button_card2,
-//        R.id.button_card3,
-//        R.id.button_card4,
-//        R.id.button_card5,
-//        R.id.button_card6,
-//        R.id.button_card7,
-//        R.id.button_card8,
-//        R.id.button_card9,
-//        R.id.button_card10,
-//        R.id.button_card11,
-//        R.id.button_card12,
-//        R.id.button_card13,
-//        R.id.button_card14,
-//        R.id.button_card15,
-//        R.id.button_card16,
-//        R.id.button_card17,
-//        R.id.button_card18,
-//        R.id.button_card19,
-//        R.id.button_card20,
-//        R.id.button_card21,
-//        R.id.button_card22,
-//        R.id.button_card23,
-//        R.id.button_card24,
-//        R.id.button_card25,
-//    };
+    private static final int[] CARD_IDS = {
+        R.id.button_card1,
+        R.id.button_card2,
+        R.id.button_card3,
+        R.id.button_card4,
+        R.id.button_card5,
+        R.id.button_card6,
+        R.id.button_card7,
+        R.id.button_card8,
+        R.id.button_card9,
+        R.id.button_card10,
+        R.id.button_card11,
+        R.id.button_card12,
+        R.id.button_card13,
+        R.id.button_card14,
+        R.id.button_card15,
+        R.id.button_card16,
+        R.id.button_card17,
+        R.id.button_card18,
+        R.id.button_card19,
+        R.id.button_card20,
+        R.id.button_card21,
+        R.id.button_card22,
+        R.id.button_card23,
+        R.id.button_card24,
+        R.id.button_card25,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -77,33 +77,33 @@ public class SpymasterGameActivity extends AppCompatActivity implements OnClickL
 
         //Cards
 
-        Button cards[] = new Button[25];
-
-        cards[0] = (Button)findViewById(R.id.button_card1);
-        cards[1] = (Button)findViewById(R.id.button_card2);
-        cards[2] = (Button)findViewById(R.id.button_card3);
-        cards[3] = (Button)findViewById(R.id.button_card4);
-        cards[4] = (Button)findViewById(R.id.button_card5);
-        cards[5] = (Button)findViewById(R.id.button_card6);
-        cards[6] = (Button)findViewById(R.id.button_card7);
-        cards[7] = (Button)findViewById(R.id.button_card8);
-        cards[8] = (Button)findViewById(R.id.button_card9);
-        cards[9] = (Button)findViewById(R.id.button_card10);
-        cards[10] = (Button)findViewById(R.id.button_card11);
-        cards[11] = (Button)findViewById(R.id.button_card12);
-        cards[12] = (Button)findViewById(R.id.button_card13);
-        cards[13] = (Button)findViewById(R.id.button_card14);
-        cards[14] = (Button)findViewById(R.id.button_card15);
-        cards[15] = (Button)findViewById(R.id.button_card16);
-        cards[16] = (Button)findViewById(R.id.button_card17);
-        cards[17] = (Button)findViewById(R.id.button_card18);
-        cards[18] = (Button)findViewById(R.id.button_card19);
-        cards[19] = (Button)findViewById(R.id.button_card20);
-        cards[20] = (Button)findViewById(R.id.button_card21);
-        cards[21] = (Button)findViewById(R.id.button_card22);
-        cards[22] = (Button)findViewById(R.id.button_card23);
-        cards[23] = (Button)findViewById(R.id.button_card24);
-        cards[24] = (Button)findViewById(R.id.button_card25);
+//        Button cards[] = new Button[25];
+//
+//        cards[0] = (Button)findViewById(R.id.button_card1);
+//        cards[1] = (Button)findViewById(R.id.button_card2);
+//        cards[2] = (Button)findViewById(R.id.button_card3);
+//        cards[3] = (Button)findViewById(R.id.button_card4);
+//        cards[4] = (Button)findViewById(R.id.button_card5);
+//        cards[5] = (Button)findViewById(R.id.button_card6);
+//        cards[6] = (Button)findViewById(R.id.button_card7);
+//        cards[7] = (Button)findViewById(R.id.button_card8);
+//        cards[8] = (Button)findViewById(R.id.button_card9);
+//        cards[9] = (Button)findViewById(R.id.button_card10);
+//        cards[10] = (Button)findViewById(R.id.button_card11);
+//        cards[11] = (Button)findViewById(R.id.button_card12);
+//        cards[12] = (Button)findViewById(R.id.button_card13);
+//        cards[13] = (Button)findViewById(R.id.button_card14);
+//        cards[14] = (Button)findViewById(R.id.button_card15);
+//        cards[15] = (Button)findViewById(R.id.button_card16);
+//        cards[16] = (Button)findViewById(R.id.button_card17);
+//        cards[17] = (Button)findViewById(R.id.button_card18);
+//        cards[18] = (Button)findViewById(R.id.button_card19);
+//        cards[19] = (Button)findViewById(R.id.button_card20);
+//        cards[20] = (Button)findViewById(R.id.button_card21);
+//        cards[21] = (Button)findViewById(R.id.button_card22);
+//        cards[22] = (Button)findViewById(R.id.button_card23);
+//        cards[23] = (Button)findViewById(R.id.button_card24);
+//        cards[24] = (Button)findViewById(R.id.button_card25);
 
         for (int i=0; i<25; i++)
         {
@@ -133,9 +133,9 @@ public class SpymasterGameActivity extends AppCompatActivity implements OnClickL
                     {
                         for (int i = 0; i<25; i++) 
                         {
-                            Log.d(TAG, response.getString("gameLobbyName")); //backend in ()
+                            Log.d(TAG, response.getString(Integer.toString(i))); //backend in ()
                             card_name = findViewById(CARD_IDS[i]);
-                            card_name.setText(response.getString("gameLobbyName")); //display string
+                            card_name.setText(response.getString(Integer.toString(i))); //display string
                         }
                     }
                     catch (JSONException e)
