@@ -32,7 +32,7 @@ public class AdminController {
 	
 	@PutMapping(path = "/admin/cards/add")
 	public String addCard(@RequestBody Card card) {
-		if(Main.cardRepo.findById(card.getId()) == null) {
+		if(Main.cardRepo.findByword(card.getWord()) == null) {
 			Main.cardRepo.save(card);
 			return success;
 		}
