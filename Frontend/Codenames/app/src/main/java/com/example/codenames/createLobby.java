@@ -18,9 +18,10 @@ import com.example.codenames.services.VolleyListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class createLobby extends AppCompatActivity {
+public class createLobby extends AppCompatActivity implements View.OnClickListener {
 
     private Button create;
+    private Button back;
     private EditText name;
     private String username;
     private String lobbyName;
@@ -31,6 +32,7 @@ public class createLobby extends AppCompatActivity {
         setContentView(R.layout.activity_create_lobby);
 
         create = (Button) findViewById(R.id.create_create);
+        back = (Button) findViewById(R.id.create_exit);
         name = (EditText) findViewById(R.id.create_name);
 
         Intent intent = getIntent();
@@ -38,6 +40,7 @@ public class createLobby extends AppCompatActivity {
         ((TextView) findViewById(R.id.create_username)).setText(username);
 
         create.setOnClickListener(nameListener);
+        back.setOnClickListener(this);
     }
 
     private View.OnClickListener nameListener = new View.OnClickListener() {
@@ -86,5 +89,12 @@ public class createLobby extends AppCompatActivity {
         data.put("gameLobbyName", name);
 
         VolleyListener.makeRequest(this, URL_JSON_CREATE, lobbyListener, data, Request.Method.POST);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.create_exit) {
+            startActivity(new Intent(createLobby.this, HubActivity.class).putExtra("username", username));
+        }
     }
 }

@@ -16,12 +16,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class spectatorHub extends AppCompatActivity implements View.OnClickListener {
 
     Button exit;
+    JSONArray lobbies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +34,8 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
 
         exit.setOnClickListener(this);
 
-//        while(true) {
-//            try {
-//                getLobbys();
-//                Thread.sleep(10000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        getLobbys();
+
     }
 
     @Override
@@ -47,7 +43,7 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
         startActivity(new Intent(spectatorHub.this, menu.class));
     }
 
-    private void addLobbys(JSONObject lobbys) {
+    private void addLobbies(Object lobbys) {
 //        try {
 //            //add lobbys
 //        } catch (JSONException e) {
@@ -64,7 +60,11 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
                     public void onResponse(String response) {
                         try {
                             JSONObject object = new JSONObject(response);
-                            addLobbys(object);
+                            lobbies = object.getJSONArray("l");
+                            for(int i = 0; i < lobbies.length(); i++) {
+                                System.out.println(lobbies.get(i));
+                                addLobbies(lobbies.get(i));
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
