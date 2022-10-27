@@ -73,6 +73,7 @@ public class AdminController {
 				+ "/games/{id}/removePlayer     : remove a player from a game" + "<br>"
 				+ "/games/{id}/addPlayer        : add a player to a game" + "<br>"
 				+ "/games/{id}/numPlayers       : get the number of players in a game" + "<br>"
+				+ "/games/{id}/generatewords    : generate the wordset for a game" + "<br>"
 				+ "/games/add                   : create a game" + "<br>" + "<br>"
 				
 				+ "/players/{id}                : delete a player" + "<br>"

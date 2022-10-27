@@ -54,7 +54,6 @@ public class Game implements Serializable {
     }
     
     public void generateWordList() {
-    	
     	List<Card> allCards = Main.cardRepo.findAll();
     	Random rand = new Random();
     	Card add;
