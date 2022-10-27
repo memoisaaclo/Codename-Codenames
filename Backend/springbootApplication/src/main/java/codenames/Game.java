@@ -64,7 +64,7 @@ public class Game implements Serializable {
     	
     	if(allCards.size() >= 25) {
 	    	for(int i = 0; i < 25; i++) {
-	    		add = allCards.get(rand.nextInt(0, allCards.size()));
+	    		add = allCards.get(rand.nextInt(allCards.size()));
 	    		allCards.remove(add);
 	    		cards.add(add);
 	    	}
