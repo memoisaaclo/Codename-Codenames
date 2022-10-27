@@ -47,6 +47,15 @@ public class Game implements Serializable {
     public Game(int id, String gameLobbyName) {
         this.id = id;
         this.gameLobbyName = gameLobbyName;
+        
+        
+        
+        
+        
+    }
+    
+    private void generateWordList() {
+    	//TODO
     }
 
     /*

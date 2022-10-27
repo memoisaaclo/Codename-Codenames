@@ -27,6 +27,7 @@ class Main {
 	public static UserRepository userRepo;
     public static GameRepository gameRepo;
     public static PlayerRepository playerRepo;
+    public static CardRepository cardRepo;
 	
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
