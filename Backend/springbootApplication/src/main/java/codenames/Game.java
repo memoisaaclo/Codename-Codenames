@@ -61,12 +61,14 @@ public class Game implements Serializable {
     	Random rand = new Random();
     	Card add;
     	
-    	for(int i = 0; i < 25; i++) {
-    		add = allCards.get(rand.nextInt(0, allCards.size()));
-    		allCards.remove(add);
-    		cards.add(add);
+    	if(allCards.size() >= 25) {
+	    	for(int i = 0; i < 25; i++) {
+	    		add = allCards.get(rand.nextInt(0, allCards.size()));
+	    		allCards.remove(add);
+	    		cards.add(add);
+	    	}
+	    	Main.gameRepo.save(this);
     	}
-    	Main.gameRepo.save(this);
     }
 
     /*
