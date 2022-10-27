@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -50,14 +51,22 @@ public class Game implements Serializable {
     public Game(String gameLobbyName) {
         this.gameLobbyName = gameLobbyName;
         
-        
-        
-        
+        generateWordList();
         
     }
     
     private void generateWordList() {
-    	//TODO
+    	
+    	List<Card> allCards = Main.cardRepo.findAll();
+    	Random rand = new Random();
+    	Card add;
+    	
+    	for(int i = 0; i < 25; i++) {
+    		add = allCards.get(rand.nextInt(0, allCards.size()));
+    		allCards.remove(add);
+    		cards.add(add);
+    	}
+    	Main.gameRepo.save(this);
     }
 
     /*
