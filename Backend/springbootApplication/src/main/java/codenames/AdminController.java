@@ -57,7 +57,9 @@ public class AdminController {
 	
 	@GetMapping(path="/admin/paths")
 	public String getAllEndpoints() {
-		return "/admin/paths 					: get this list" + "<br>" 
+		
+		return "<style>.tab {tab-size: 2;}</style><pre class = \"tab\">"
+				+ "/admin/paths 					: get this list" + "<br>" 
 				+ "/admin/cards/removeall/98765 : remove all cards from the database" + "<br>"
 				+ "/admin/cards/remove 			: remove a single card" + "<br>"
 				+ "/admin/cards/add				: add a card" + "<br>"
@@ -83,8 +85,8 @@ public class AdminController {
 				+ "/users/getallusers			: get all userdata for all users" + "<br>"
 				+ "/users/{username}			: get all data for a single user" + "<br>"
 				+ "/users/login					: validate login info for a user" + "<br>"
-				+ "/users/register				: register a user's data";
-				
+				+ "/users/register				: register a user's data"
+				+ "</pre>";
 	}
 	
 }
