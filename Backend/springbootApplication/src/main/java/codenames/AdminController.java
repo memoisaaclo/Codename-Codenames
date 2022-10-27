@@ -49,4 +49,10 @@ public class AdminController {
 		return failure;
 	}
 	
+	@DeleteMapping(path = "/admin/cards/removeall/98765")
+	public String removeCards() {
+		Main.cardRepo.deleteAll();
+		return success;
+	}
+	
 }
