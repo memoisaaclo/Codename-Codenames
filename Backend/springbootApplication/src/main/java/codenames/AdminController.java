@@ -82,7 +82,7 @@ public class AdminController {
 				+ "/users/clearUsers/75362		: remove all users from the database" + "\n"
 				+ "/users/getallusers			: get all userdata for all users" + "\n"
 				+ "/users/{username}			: get all data for a single user" + "\n"
-				+ "/users/login						: validate login info for a user" + "\n"
+				+ "/users/login					: validate login info for a user" + "\n"
 				+ "/users/register				: register a user's data";
 				
 	}
