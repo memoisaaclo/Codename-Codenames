@@ -15,8 +15,5 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     @Transactional
     void deleteById(int id);
     
-    @Transactional
-    void deleteByword(String word);
-    
     Card findByword(String word);
 }

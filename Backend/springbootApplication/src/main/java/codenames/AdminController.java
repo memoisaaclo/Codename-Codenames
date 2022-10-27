@@ -41,8 +41,9 @@ public class AdminController {
 	
 	@DeleteMapping(path = "/admin/cards/remove")
 	public String removeCard(@RequestBody Card card) {
-		if(Main.cardRepo.findByword(card.getWord()) != null) {
-			Main.cardRepo.deleteByword(card.getWord());
+		Card delete;
+		if((delete = Main.cardRepo.findByword(card.getWord())) != null) {
+			Main.cardRepo.deleteById(delete.getId());
 			return success;
 		}
 		return failure;
