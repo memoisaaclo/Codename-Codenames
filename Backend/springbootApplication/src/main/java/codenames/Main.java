@@ -39,11 +39,12 @@ class Main {
      * Creates instances on run and save static versions
      */
     @Bean
-    CommandLineRunner initUser(UserRepository userRepository, GameRepository gameRepository, PlayerRepository playerRepository) {
+    CommandLineRunner initUser(UserRepository userRepository, GameRepository gameRepository, PlayerRepository playerRepository, CardRepository cardRepository) {
         return args -> {
             Main.userRepo = userRepository;
             Main.playerRepo = playerRepository;
             Main.gameRepo = gameRepository;
+            Main.cardRepo = cardRepository;
         };
     }
 
