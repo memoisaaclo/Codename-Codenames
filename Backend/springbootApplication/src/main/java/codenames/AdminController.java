@@ -58,7 +58,7 @@ public class AdminController {
 	@GetMapping(path="/admin/paths")
 	public String getAllEndpoints() {
 		
-		return "<style>.tab {tab-size: 2;}</style><pre class = \"tab\">"
+		return "<style>.tab {tab-size: 16;}</style><pre class = \"tab\">"
 				+ "/admin/paths 					: get this list" + "<br>" 
 				+ "/admin/cards/removeall/98765 : remove all cards from the database" + "<br>"
 				+ "/admin/cards/remove 			: remove a single card" + "<br>"
