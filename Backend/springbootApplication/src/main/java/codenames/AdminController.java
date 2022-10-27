@@ -55,4 +55,36 @@ public class AdminController {
 		return success;
 	}
 	
+	@GetMapping(path="/admin/paths")
+	public String getAllEndpoints() {
+		return "/admin/paths 					: get this list" + "\n" 
+				+ "/admin/cards/removeall/98765 : remove all cards from the database" + "\n"
+				+ "/admin/cards/remove 			: remove a single card" + "\n"
+				+ "/admin/cards/add				: add a card" + "\n"
+				+ "/admin/cards/all				: list all cards" + "\n" + "\n"
+				
+				+ "/games/lobbyinfo				: return all names and ids of lobbies" + "\n"
+				+ "/games/{id}/words			: get all words for a given game id" + "\n"
+				+ "/games/delete/{id}			: delete the given game" + "\n"
+				+ "/games/{id}					: get a single game's data" + "\n"
+				+ "/games						: list all data for all games" + "\n"
+				+ "/games/{id}/removePlayer		: remove a player from a game" + "\n"
+				+ "/games/{id}/addPlayer		: add a player to a game" + "\n"
+				+ "/games/{id}/numPlayers		: get the number of players in a game" + "\n"
+				+ "/games/add					: create a game" + "\n" + "\n"
+				
+				+ "/players/{id}				: delete a player" + "\n"
+				+ "/players/{id}				: broken, don't use" + "\n"
+				+ "/players						: some of these paths should be cleaned up" + "\n"
+				+ "/players/{id}				: " + "\n"
+				+ "/players						: no really" + "\n" + "\n"
+				
+				+ "/users/clearUsers/75362		: remove all users from the database" + "\n"
+				+ "/users/getallusers			: get all userdata for all users" + "\n"
+				+ "/users/{username}			: get all data for a single user" + "\n"
+				+ "/users/login						: validate login info for a user" + "\n"
+				+ "/users/register				: register a user's data";
+				
+	}
+	
 }
