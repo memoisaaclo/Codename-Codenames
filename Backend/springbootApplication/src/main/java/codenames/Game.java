@@ -46,6 +46,7 @@ public class Game implements Serializable {
      * Constructors *
      */
     public Game() {
+    	generateWordList();
     }
 
     public Game(String gameLobbyName) {
