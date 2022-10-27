@@ -39,6 +39,12 @@ public class GameController {
     	}
     }
     
+    @PutMapping(path = "/games/{id}/generatewords")
+    void genWords(@PathVariable int id) {
+    	Game g = Main.gameRepo.findById(id);
+    	g.generateWordList();
+    }
+    
     @PostMapping(path = "/games/{id}/addPlayer")
     String addPlayerToGame(@PathVariable int id, @RequestParam int player_id){
         PlayerRepository playerRepo = Main.playerRepo;

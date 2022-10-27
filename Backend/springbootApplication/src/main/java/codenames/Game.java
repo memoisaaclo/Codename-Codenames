@@ -46,17 +46,14 @@ public class Game implements Serializable {
      * Constructors *
      */
     public Game() {
-    	generateWordList();
     }
 
     public Game(String gameLobbyName) {
         this.gameLobbyName = gameLobbyName;
         
-        generateWordList();
-        
     }
     
-    private void generateWordList() {
+    public void generateWordList() {
     	
     	List<Card> allCards = Main.cardRepo.findAll();
     	Random rand = new Random();
