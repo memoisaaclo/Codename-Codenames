@@ -96,7 +96,7 @@ public class GameController {
 //        return gameRepository.findById(id);
 //    }
 
-    @DeleteMapping(path = "/games/{id}")
+    @DeleteMapping(path = "/games/delete/{id}")
     String deleteGame(@PathVariable int id){
         gameRepository.deleteById(id);
         return success;
