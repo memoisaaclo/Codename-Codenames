@@ -20,6 +20,10 @@ public class Card implements Serializable {
         return id;
     }
 
+    public Card() {
+    	
+    }
+    
     public Card(String word) {
         this.word = word;
     }
