@@ -49,6 +49,15 @@ public class Game implements Serializable {
 
     public Game(String gameLobbyName) {
         this.gameLobbyName = gameLobbyName;
+        
+        
+        
+        
+        
+    }
+    
+    private void generateWordList() {
+    	//TODO
     }
 
     /*

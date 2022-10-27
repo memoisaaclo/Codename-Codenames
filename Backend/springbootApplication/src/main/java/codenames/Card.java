@@ -41,8 +41,9 @@ public class Card implements Serializable {
     }
 
     public Card() {
+    	
     }
-
+    
     public Card(String word) {
         this.word = word;
     }
