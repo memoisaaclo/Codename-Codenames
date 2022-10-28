@@ -39,7 +39,7 @@ public class GameController {
     	}
     }
     
-    @PutMapping(path = "/games/{id}/generatewords")
+    @GetMapping(path = "/games/{id}/generatewords")
     void genWords(@PathVariable int id) {
     	Game g = Main.gameRepo.findById(id);
     	g.generateWordList();
