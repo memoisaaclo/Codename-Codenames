@@ -39,6 +39,16 @@ public class AdminController {
 		return failure;
 	}
 	
+	@PutMapping(path = "/admin/cards/addBulk")
+	public String addCard(@RequestBody Card[] card) {
+		for (Card c : card) {
+			if(Main.cardRepo.findByword(c.getWord()) == null) {
+				Main.cardRepo.save(c);
+			}
+		}
+		return success;
+	}
+	
 	@DeleteMapping(path = "/admin/cards/remove")
 	public String removeCard(@RequestBody Card card) {
 		Card delete;
@@ -64,6 +74,7 @@ public class AdminController {
 				+ "/admin/cards/removeall/98765 : DELETE : remove all cards from the database" + "<br>"
 				+ "/admin/cards/remove          : DELETE : remove a single card" + "<br>"
 				+ "/admin/cards/add             : PUT    : add a card" + "<br>"
+				+ "/admin/cards/addBulk         : PUT    : add array of cards" + "<br>"
 				+ "/admin/cards/all             : GET    : list all cards" + "<br>" + "<br>"
 				
 				+ "/games/lobbyinfo             : GET    : return all names and ids of lobbies" + "<br>"
