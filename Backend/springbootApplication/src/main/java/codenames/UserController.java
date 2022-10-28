@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-	@RequestMapping(method = RequestMethod.POST, path = "/login/register")
+	@RequestMapping(method = RequestMethod.POST, path = "/users/register")
     public @ResponseBody String createNewAccountRegister(@RequestBody User usr) {	// creates user object off of json body
 		if(Main.userRepo.findByusername(usr.getUsername()) != null){
 			return "{\"message\":\"Username already in use\"}";	
@@ -28,7 +28,7 @@ public class UserController {
 		return "{\"message\":\"success\"}";
     }
 
-	@RequestMapping(method = RequestMethod.POST, path = "/login")
+	@RequestMapping(method = RequestMethod.POST, path = "/users/login")
     public @ResponseBody String loginToAccountPost(@RequestBody User usr) {	// creates user object off of json body
 		User usrObj = Main.userRepo.findByusername(usr.getUsername());
 		if(usrObj != null && usrObj.validateCredentials(usr)){
@@ -45,20 +45,12 @@ public class UserController {
 		return usrObj;
     }
 	
-	@RequestMapping(method = RequestMethod.GET, path = "/users/{username}/playerID")
-    public @ResponseBody String getAttachedPlayer(@PathVariable String username) {	
-		
-		Main.userRepo.findByusername(username);
-		
-        return "{\"message\":\"\"}";
-    }
-
-	@RequestMapping(method = RequestMethod.GET, path = "/getallusers")
+	@RequestMapping(method = RequestMethod.GET, path = "/users/getallusers")
     public @ResponseBody List<User> getallUsers() {	// creates user object off of json body
         return Main.userRepo.findAll();
     }
 	
-	@RequestMapping(method = RequestMethod.DELETE, path = "/clearUsers/75362")
+	@RequestMapping(method = RequestMethod.DELETE, path = "/users/clearUsers/75362")
     public void clearUsers() {	// removes all objects
         Main.userRepo.deleteAllInBatch();
 	}

@@ -39,6 +39,12 @@ public class GameController {
     	}
     }
     
+    @PutMapping(path = "/games/{id}/generatewords")
+    void genWords(@PathVariable int id) {
+    	Game g = Main.gameRepo.findById(id);
+    	g.generateWordList();
+    }
+    
     @PostMapping(path = "/games/{id}/addPlayer")
     String addPlayerToGame(@PathVariable int id, @RequestParam int player_id){
         PlayerRepository playerRepo = Main.playerRepo;
@@ -96,7 +102,7 @@ public class GameController {
 //        return gameRepository.findById(id);
 //    }
 
-    @DeleteMapping(path = "/games/{id}")
+    @DeleteMapping(path = "/games/delete/{id}")
     String deleteGame(@PathVariable int id){
         gameRepository.deleteById(id);
         return success;
