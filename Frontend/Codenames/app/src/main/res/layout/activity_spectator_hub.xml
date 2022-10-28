@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDB902"
+    tools:context=".HubActivity">
+
+    <Button
+        android:id="@+id/specHub_exit6"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="#230959"
+        android:text="Back"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/specHubToolbar6" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/specHubToolbar6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#222222"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/specHub_gameName6"
+        android:layout_width="120dp"
+        android:layout_height="50sp"
+        android:layout_marginStart="5dp"
+        android:text="Codename:\nCodenames"
+        android:textColor="#B30000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/specHubToolbar6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/specHubToolbar6" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/spechub_title_header"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="600dp"
+        android:background="@color/cardinal"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/specHubToolbar6"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/specHub_title"
+        android:textColor="@color/black"
+        android:text="Spectate Games"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/spechub_title_header"
+        app:layout_constraintEnd_toEndOf="@+id/spechub_title_header"
+        app:layout_constraintTop_toTopOf="@+id/spechub_title_header"
+        app:layout_constraintStart_toStartOf="@+id/spechub_title_header" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/specHub_header"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="500dp"
+        android:background="@color/gray_1"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spechub_title_header" />
+
+    <TextView
+        android:id="@+id/specHub_text_lobby_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Available Games"
+        android:textColor="#000000"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/specHub_header"
+        app:layout_constraintEnd_toEndOf="@+id/specHub_header"
+        app:layout_constraintStart_toStartOf="@+id/specHub_header"
+        app:layout_constraintTop_toTopOf="@+id/specHub_header" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="50dp"
+        android:background="#ADADAD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/specHub_header"
+        app:flow_verticalBias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spec_view"
+            android:orientation="vertical">
+
+            <!-- Place to get and then put active lobbies -->
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+<!--    <Button-->
+<!--        android:id="@+id/button_back"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="32dp"-->
+<!--        android:layout_marginEnd="32dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:background="@color/gray_1"-->
+<!--        android:text="BACK TO MENU"-->
+<!--        android:textColor="#000000"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

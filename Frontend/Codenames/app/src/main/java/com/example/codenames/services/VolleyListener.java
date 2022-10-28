@@ -15,13 +15,10 @@ public class VolleyListener {
 
     public static void makeRequest(Context context, String path, RequestListener requestListener, JSONObject data, int method){
 
-        System.out.println("hello makeRequest");
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(method, baseUrl + path, data,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        System.out.println("onResponse");
                         requestListener.onSuccess(response);
                     }
                 },
