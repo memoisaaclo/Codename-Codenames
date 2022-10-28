@@ -57,15 +57,21 @@ public class Game implements Serializable {
     	List<Card> allCards = Main.cardRepo.findAll();
     	Random rand = new Random();
     	Card add;
-    	
-    	if(allCards.size() >= 25) {
-	    	for(int i = 0; i < 25; i++) {
-	    		add = allCards.get(rand.nextInt(allCards.size()));
-	    		allCards.remove(add);
-	    		cards.add(add);
-	    	}
-	    	Main.gameRepo.save(this);
-    	}
+
+        // Logic test, must be enough cards in card repo
+    	if(allCards.size() < 25)
+            return;
+
+        // Get rid of existing cards tied to game
+        cards.clear();
+
+        for(int i = 0; i < 25; i++) {
+            add = allCards.get(rand.nextInt(allCards.size()));
+            allCards.remove(add);
+            cards.add(add);
+        }
+
+        Main.gameRepo.save(this);
     }
 
     /*
