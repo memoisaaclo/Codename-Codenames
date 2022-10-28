@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +32,7 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
     private String username;
     private JSONArray lobbies;
     private LinearLayout lobbyDisplay;
+
     private LinearLayout.LayoutParams buttonLayout;
     private LinearLayout.LayoutParams textViewLayout;
 
@@ -53,19 +55,14 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
         ((TextView) findViewById(R.id.hub_username)).setText(username);
 
         lobbyDisplay = (LinearLayout) findViewById(R.id.hub_list);
-        buttonLayout = new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT,
-                ActionBar.LayoutParams.WRAP_CONTENT);
-        textViewLayout = new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT,
-                ActionBar.LayoutParams.WRAP_CONTENT);
+
+        buttonLayout = new LinearLayout.LayoutParams(650,150);
+        buttonLayout.setMarginStart(20);
+        textViewLayout = new LinearLayout.LayoutParams(300,150);
+        textViewLayout.setMarginStart(100);
 
         getLobbies();
 
-//        try {
-//            Thread.sleep(20000);
-//            startActivity(new Intent(HubActivity.this, HubActivity.class).putExtra("username", username));
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
     }
 
     @Override
@@ -87,29 +84,49 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    private void addLobbies(lobby addLobby, int lobbyNum) {
+    private void addLobbies(lobby addLobby) {
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
 
         //Creating button
         Button a = new Button(this);
         a.setText(addLobby.getName());
         a.setLayoutParams(buttonLayout);
-        a.setId(lobbyNum);
+        a.setTextSize(20);
+        //adding to row
+        row.addView(a);
 
-        a.setOnClickListener(joinListener);
+        a.setOnClickListener(new ClickListener(addLobby.getName()));
 
         //Create TextView to show numPlayers
         TextView t = new TextView(this);
         t.setText(addLobby.getNumPlayers() + "/12");
-        a.setLayoutParams(textViewLayout);
+        t.setTextSize(20);
+        t.setTextColor(Color.BLACK);
+        t.setLayoutParams(textViewLayout);
+
+        //adding to row
+        row.addView(t);
+
+        lobbyDisplay.addView(row);
 
     }
 
-    private View.OnClickListener joinListener = new OnClickListener() {
+    class ClickListener implements OnClickListener {
+        private String lobby;
+
+        public ClickListener(String lobbyName){
+            this.lobby = lobbyName;
+        }
+
         @Override
         public void onClick(View v) {
-            startActivity(new Intent(HubActivity.this, LobbyActivity.class).putExtra("username", username));
+            startActivity(new Intent(HubActivity.this, LobbyActivity.class).putExtra("username", username).putExtra("lobbyName", lobby));
         }
-    };
+    }
 
     private void getLobbies() {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -121,14 +138,11 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
                         try {
                             JSONArray object = new JSONArray(response);
                             lobbies = object;
-                            for (int i = 1; i < lobbies.length() - 1; i++) {
+                            for (int i = 0; i < lobbies.length(); i++) {
                                 JSONObject o = (JSONObject) lobbies.get(i);
                                 String name = o.get("lobbyName").toString();
-                                System.out.println(name);
-//                                int numPlayer = 1;
                                 int numPlayer = (int) o.get("numPlayers");
-                                System.out.println(numPlayer);
-                                addLobbies(new lobby(name, numPlayer), i);
+                                addLobbies(new lobby(name, numPlayer));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

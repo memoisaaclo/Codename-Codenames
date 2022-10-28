@@ -5,9 +5,12 @@ import static com.example.codenames.utils.Const.URL_JSON_LOBBY;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,8 +25,11 @@ import org.json.JSONObject;
 
 public class spectatorHub extends AppCompatActivity implements View.OnClickListener {
 
-    Button exit;
-    JSONArray lobbies;
+    private Button exit;
+    private JSONArray lobbies;
+    private LinearLayout lobbyDisplay;
+    private LinearLayout.LayoutParams buttonLayout;
+    private LinearLayout.LayoutParams textViewLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +40,14 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
 
         exit.setOnClickListener(this);
 
-        getLobbys();
+        lobbyDisplay = (LinearLayout) findViewById(R.id.spec_view);
+
+        buttonLayout = new LinearLayout.LayoutParams(650,150);
+        buttonLayout.setMarginStart(20);
+        textViewLayout = new LinearLayout.LayoutParams(300,150);
+        textViewLayout.setMarginStart(100);
+
+        getLobbies();
 
     }
 
@@ -43,27 +56,65 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
         startActivity(new Intent(spectatorHub.this, menu.class));
     }
 
-    private void addLobbies(Object lobbys) {
-//        try {
-//            //add lobbys
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+    private void addLobbies(lobby addLobby) {
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+
+        //Creating button
+        Button a = new Button(this);
+        a.setText(addLobby.getName());
+        a.setLayoutParams(buttonLayout);
+        a.setTextSize(20);
+        //adding to row
+        row.addView(a);
+
+        a.setOnClickListener(new ClickListener(addLobby.getName()));
+
+        //Create TextView to show numPlayers
+        TextView t = new TextView(this);
+        t.setText(addLobby.getNumPlayers() + "/12");
+        t.setTextSize(20);
+        t.setTextColor(Color.BLACK);
+        t.setLayoutParams(textViewLayout);
+
+        //adding to row
+        row.addView(t);
+
+        lobbyDisplay.addView(row);
+
     }
 
-    private void getLobbys() {
+    class ClickListener implements View.OnClickListener {
+        private String lobby;
+
+        public ClickListener(String lobbyName){
+            this.lobby = lobbyName;
+        }
+
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(spectatorHub.this, LobbyActivity.class).putExtra("lobbyName", lobby));
+        }
+    }
+
+    private void getLobbies() {
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest request = new StringRequest(Request.Method.GET, URL_JSON_LOBBY,
-                new Response.Listener<String>() {
+                new Response.Listener<String> () {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject object = new JSONObject(response);
-                            lobbies = object.getJSONArray("l");
-                            for(int i = 0; i < lobbies.length(); i++) {
-                                System.out.println(lobbies.get(i));
-                                addLobbies(lobbies.get(i));
+                            JSONArray object = new JSONArray(response);
+                            lobbies = object;
+                            for (int i = 0; i < lobbies.length(); i++) {
+                                JSONObject o = (JSONObject) lobbies.get(i);
+                                String name = o.get("lobbyName").toString();
+                                int numPlayer = (int) o.get("numPlayers");
+                                addLobbies(new lobby(name, numPlayer));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -71,11 +122,13 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
                     }
                 },
                 new Response.ErrorListener() {
+
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         System.out.println(error.toString());
                     }
                 });
+
         queue.add(request);
     }
 }
