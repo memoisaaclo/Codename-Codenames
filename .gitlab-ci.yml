@@ -1,6 +1,6 @@
 # Example  .gitlab-ci.yml file
 stages:
-#  - androidbuild 
+#  - androidbuild  
 #  - androidtest
   - mavenDeploy  
 
