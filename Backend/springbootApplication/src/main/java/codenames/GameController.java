@@ -64,7 +64,7 @@ public class GameController {
         return success;
     } 
     
-    @PostMapping(path = "/games/{id}/removePlayer")
+    @DeleteMapping(path = "/games/{id}/removePlayer")
     String removePlayerFromGame(@PathVariable int id, @RequestParam int player_id){
         PlayerRepository playerRepo = Main.playerRepo;
 

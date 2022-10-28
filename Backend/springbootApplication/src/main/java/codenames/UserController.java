@@ -45,14 +45,6 @@ public class UserController {
 		return usrObj;
     }
 	
-	@RequestMapping(method = RequestMethod.GET, path = "/users/{username}/playerID")
-    public @ResponseBody String getAttachedPlayer(@PathVariable String username) {	
-		
-		Main.userRepo.findByusername(username);
-		
-        return "{\"message\":\"\"}";
-    }
-
 	@RequestMapping(method = RequestMethod.GET, path = "/users/getallusers")
     public @ResponseBody List<User> getallUsers() {	// creates user object off of json body
         return Main.userRepo.findAll();
