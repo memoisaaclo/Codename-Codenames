@@ -132,11 +132,11 @@ public class GameController {
             int i = 0;
 
             for (Card c : g.getCards()) {
-                rstring += "\"" + i + "\": \"" + c.getWord() + "\"";
+                rstring += "\"" + i + "\": \"" + c.getWord() + "\", ";
                 i++;
             }
 
-            return rstring + "}";
+            return rstring.substring(0, rstring.length()-2)+ "}";
         } else {
             return "{\"message\":\"Invalid Lobby ID\"}";
         }
