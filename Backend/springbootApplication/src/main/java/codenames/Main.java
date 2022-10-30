@@ -27,6 +27,7 @@ class Main {
     public static GameRepository gameRepo;
     public static PlayerRepository playerRepo;
     public static CardRepository cardRepo;
+    public static CardStateRepository cardStateRepo;
 	
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
@@ -38,12 +39,13 @@ class Main {
      * Creates instances on run and save static versions
      */
     @Bean
-    CommandLineRunner initUser(UserRepository userRepository, GameRepository gameRepository, PlayerRepository playerRepository, CardRepository cardRepository) {
+    CommandLineRunner initUser(UserRepository userRepository, GameRepository gameRepository, PlayerRepository playerRepository, CardRepository cardRepository, CardStateRepository cardStateRepository) {
         return args -> {
             Main.userRepo = userRepository;
             Main.playerRepo = playerRepository;
             Main.gameRepo = gameRepository;
             Main.cardRepo = cardRepository;
+            Main.cardStateRepo = cardStateRepository;
         };
     }
 
