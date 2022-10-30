@@ -49,7 +49,7 @@ public class GameController {
      * Generate the cardState array for 25 cards in a parallel array to a game's cards.
      * @param id
      */
-    @GetMapping(path = "games/{id}/generateCardState")
+    @GetMapping(path = "games/{id}/generateStates")
     void generateCardStates(@PathVariable int id) {
         Main.gameRepo.findById(id).generateCardStates();
     }
