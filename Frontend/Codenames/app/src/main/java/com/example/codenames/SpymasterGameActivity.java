@@ -34,7 +34,8 @@ public class SpymasterGameActivity extends AppCompatActivity implements OnClickL
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
-    private Button cards[];
+    private Button cards[] = new Button[25];
+    //cards[] = new Button[25];
 
     private static final int[] CARD_IDS = {
         R.id.button_card1,
@@ -74,8 +75,6 @@ public class SpymasterGameActivity extends AppCompatActivity implements OnClickL
         btnExit.setOnClickListener(this);
 
         //Cards
-
-        Button cards[] = new Button[25];
 
         cards[0] = (Button)findViewById(R.id.button_card1);
         cards[1] = (Button)findViewById(R.id.button_card2);
@@ -125,7 +124,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements OnClickL
                         for (int i = 0; i<25; i++) 
                         {
                             Log.d(TAG, response.getString(Integer.toString(i))); //backend in ()
-                            //card_name = findViewById(CARD_IDS[i]);
+                            card_name = findViewById(CARD_IDS[i]); //DISCARD
                             cards[i].setText(response.getString(Integer.toString(i))); //display string
                         }
                     }
