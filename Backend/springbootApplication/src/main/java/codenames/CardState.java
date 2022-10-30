@@ -1,6 +1,9 @@
 package codenames;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * codenames
@@ -21,6 +24,18 @@ public class CardState {
     private boolean revealed;
 
     private CardColor color;
+
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private Game game;
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     /*
         Constructors
@@ -50,5 +65,18 @@ public class CardState {
 
     public void setColor(CardColor color) {
         this.color = color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        CardState cardState = (CardState) o;
+        return id != null && Objects.equals(id, cardState.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

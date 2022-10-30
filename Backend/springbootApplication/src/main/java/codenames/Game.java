@@ -42,6 +42,9 @@ public class Game implements Serializable {
     )
     private Set<Card> cards = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "game", orphanRemoval = true)
+    private Set<CardState> cardStates = new LinkedHashSet<>();
+
     /*
      * Constructors *
      */
@@ -106,7 +109,12 @@ public class Game implements Serializable {
     public Lobby getLobby() {
     	return new Lobby();
     }
-    
+    public Set<CardState> getCardStates() { return cardStates; }
+    public void setCardStates(Set<CardState> cardStates) { this.cardStates = cardStates; }
+
+    /*
+        Baby classes (inner classes)
+     */
     class Lobby {
         private String lobbyName;
         private int numPlayers;
