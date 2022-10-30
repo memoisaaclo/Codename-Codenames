@@ -17,9 +17,9 @@ public class CardState {
         Field Variables
      */
     @Id
-    private int id;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    private int id;
 
     private boolean revealed;
 
@@ -72,7 +72,7 @@ public class CardState {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         CardState cardState = (CardState) o;
-        return id != null && Objects.equals(id, cardState.id);
+        return Objects.equals(id, cardState.id);
     }
 
     @Override
