@@ -152,7 +152,7 @@ public class GameController {
             String rstring = "{";
             int i = 0;
 
-            for (Card c : g.getCards()) {
+            for (GameCard c : g.getGameCards()) {
                 rstring += "\"" + i + "\": \"" + c.getWord() + "\", ";
                 i++;
             }

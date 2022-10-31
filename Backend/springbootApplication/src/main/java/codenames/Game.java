@@ -134,6 +134,10 @@ public class Game implements Serializable {
         }
 
         // Go through the list of words allotted for the game and apply to Cards
+        int i = 0;
+        for (Card c : getCards())
+            gameCards.get(i++).setWord(c.getWord());
+
 
         // Save to main repo
         Main.gameRepo.save(this);
