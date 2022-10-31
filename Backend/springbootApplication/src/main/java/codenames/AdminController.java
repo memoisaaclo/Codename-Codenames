@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +31,20 @@ public class AdminController {
 	public @ResponseBody List<Card> getAllCards(){
         return Main.cardRepo.findAll();
     }
+	
+	@GetMapping(path = "/admin/get/{username}")
+	public @ResponseBody String isAdmin(@PathVariable String username) {
+		if(Main.userRepo.findByusername(username).isAdmin()) {
+			return success;
+		}
+		return failure;
+	}
+	
+	@PostMapping(path = "/admin/set/{username}")
+	public @ResponseBody String setAdmin(@PathVariable String username) {
+		Main.userRepo.findByusername(username).setAdmin(true);
+		return success;
+	}
 	
 	@PutMapping(path = "/admin/cards/add")
 	public String addCard(@RequestBody Card card) {
@@ -76,6 +92,8 @@ public class AdminController {
 				+ "/admin/cards/add             : PUT    : add a card" + "<br>"
 				+ "/admin/cards/addBulk         : PUT    : add array of cards" + "<br>"
 				+ "/admin/cards/all             : GET    : list all cards" + "<br>" + "<br>"
+				+ "/admin/get/{username}        : GET    : checks if the given user is an admin<br>"
+				+ "/admin/set/{username}        : POST   : sets an account as an admin"
 				
 				+ "/games/lobbyinfo             : GET    : return all names and ids of lobbies" + "<br>"
 				+ "/games/{id}/words            : GET    : get all words for a given game id" + "<br>"

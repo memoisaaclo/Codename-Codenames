@@ -24,6 +24,7 @@ public class User {
     //login information:
     private String username;
 	private String password;	
+	private boolean isAdmin;
     // Statistics
     private Integer logins = 0;
     private Integer gamesPlayed = 0;
@@ -131,5 +132,13 @@ public class User {
 
 	public void setCorrectGuesses(Integer correctGuesses) {
 		this.correctGuesses = correctGuesses;
+	}
+	
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean b) {
+		isAdmin = b;
 	}
 }
