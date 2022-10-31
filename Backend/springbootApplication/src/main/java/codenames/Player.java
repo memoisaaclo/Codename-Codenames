@@ -3,11 +3,6 @@ package codenames;
 import javax.persistence.*;
 import java.io.Serializable;
 
-enum Role {
-    Spymaster,
-    Operative
-}
-
 @Entity
 public class Player implements Serializable {
     public Player(boolean active) {

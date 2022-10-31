@@ -70,7 +70,7 @@ public class AdminController {
 		
 		return "<style>.tab {tab-size: 16;}</style><pre class = \"tab\">"
 				+ "PATH                         : Method : Description <br>"
-				+ "/admin/paths                 : GET    : get this list" + "<br>" 
+				+ "/admin/paths                 : GET    : get this list" + "<br>"
 				+ "/admin/cards/removeall/98765 : DELETE : remove all cards from the database" + "<br>"
 				+ "/admin/cards/remove          : DELETE : remove a single card" + "<br>"
 				+ "/admin/cards/add             : PUT    : add a card" + "<br>"
@@ -86,6 +86,7 @@ public class AdminController {
 				+ "/games/{id}/addPlayer        : POST   : add a player to a game" + "<br>"
 				+ "/games/{id}/numPlayers       : GET    : get the number of players in a game" + "<br>"
 				+ "/games/{id}/generatewords    : GET    : generate the wordset for a game" + "<br>"
+				+ "/games/{id}/generateStates	: GET    : generate the card states for a game" + "<br>"
 				+ "/games/add                   : POST   : create a game" + "<br>" + "<br>"
 				
 				+ "/players/{id}                : DELETE : delete a player" + "<br>"

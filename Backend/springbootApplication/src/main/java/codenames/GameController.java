@@ -44,6 +44,15 @@ public class GameController {
     	Game g = Main.gameRepo.findById(id);
     	g.generateWordList();
     }
+
+    /**
+     * Generate the cardState array for 25 cards in a parallel array to a game's cards.
+     * @param id
+     */
+    @GetMapping(path = "games/{id}/generateStates")
+    void generateCardStates(@PathVariable int id) {
+        Main.gameRepo.findById(id).generateCardStates();
+    }
     
     @PostMapping(path = "/games/{id}/addPlayer")
     String addPlayerToGame(@PathVariable int id, @RequestParam int player_id){

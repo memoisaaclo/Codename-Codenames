@@ -2,11 +2,10 @@ package codenames;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.lang.reflect.Array;
+import java.util.*;
+
+import static codenames.CardColor.*;
 
 /**
  * Game object that represents one instance of a code names board game.
@@ -42,6 +41,9 @@ public class Game implements Serializable {
     )
     private Set<Card> cards = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "game", orphanRemoval = true)
+    private ArrayList<CardState> cardStates = new ArrayList<>();
+
     /*
      * Constructors *
      */
@@ -50,7 +52,6 @@ public class Game implements Serializable {
 
     public Game(String gameLobbyName) {
         this.gameLobbyName = gameLobbyName;
-        
     }
     
     public void generateWordList() {
@@ -71,6 +72,33 @@ public class Game implements Serializable {
             cards.add(add);
         }
 
+        Main.gameRepo.save(this);
+    }
+
+    public void generateCardStates() {
+        // Clear cardState arrayList
+        cardStates.clear();
+
+        // Array of card colors that will need to be applied
+        ArrayList<CardColor> colors = new ArrayList<>(Arrays.asList(
+            // ONE BLACK CARD
+            BLACK,
+            // EIGHT YELLOW CARDS
+            YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,
+            // NINE RED CARDS
+            RED, RED, RED, RED, RED, RED, RED, RED, RED,
+            // SEVEN GREY CARDS
+            GREY, GREY, GREY, GREY, GREY, GREY, GREY
+        ));
+
+        // Shuffle
+        Collections.shuffle(colors);
+
+        // Go through colors and apply them to cardState objects
+        for(int i = 25; i > 0; i--)
+            cardStates.add( new CardState(colors.remove(i)) );
+
+        // Save to main repo
         Main.gameRepo.save(this);
     }
 
@@ -107,7 +135,12 @@ public class Game implements Serializable {
     public Lobby getLobby() {
     	return new Lobby();
     }
-    
+    public ArrayList<CardState> getCardStates() { return cardStates; }
+    public void setCardStates(ArrayList<CardState> cardStates) { this.cardStates = cardStates; }
+
+    /*
+        Baby classes (inner classes)
+     */
     class Lobby {
         private String lobbyName;
         private int numPlayers;
