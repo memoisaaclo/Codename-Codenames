@@ -57,9 +57,16 @@ public class User {
     	}
     }
     
-    public void attachPlayer(Player p) {
+    public void addToGame(int id) {
+    	Game g = Main.gameRepo.findById(id);
+    	
+    	Player p = new Player();
     	this.attachedPlayer = p;
-    	p.setUserId(id);
+    	p.attachUser(this);
+    	
+    	Main.userRepo.save(this);
+    	Main.playerRepo.save(p);
+    	Main.gameRepo.save(g);
     }
     
     public void startGame() {

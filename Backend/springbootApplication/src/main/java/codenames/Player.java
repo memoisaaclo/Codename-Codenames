@@ -18,8 +18,9 @@ public class Player implements Serializable {
     @JoinColumn(name = "game_id")
     private Game game;
     
-    private Long userId;
-
+    @OneToOne
+    private User user;
+    
     private boolean active;
 
     public Player() {
@@ -28,12 +29,9 @@ public class Player implements Serializable {
     public Game getGame() {
         return game;
     }
-
-    public void setGame(Game game) {	// attach game to this object, and increment statistics
-        this.game = game;
-        User u = Main.userRepo.findById(userId).get();
-        u.startGame();
-        Main.userRepo.save(u);
+    
+    public void attachUser(User user) {
+    	this.user = user;
     }
 
     public int getId() {
@@ -51,8 +49,4 @@ public class Player implements Serializable {
     public void setActive(boolean active) {
         this.active = active;
     }
-
-	public void setUserId(Long UserId) {
-		userId = UserId;
-	}
 }

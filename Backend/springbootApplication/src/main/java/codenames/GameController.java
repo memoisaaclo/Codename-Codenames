@@ -54,22 +54,13 @@ public class GameController {
         Main.gameRepo.findById(id).generateCardStates();
     }
     
-    @PostMapping(path = "/games/{id}/addPlayer")
-    String addPlayerToGame(@PathVariable int id, @RequestParam int player_id){
-        PlayerRepository playerRepo = Main.playerRepo;
-
-        if (playerRepo.findById(player_id) == null || gameRepository.findById(id) == null)
-            return failure;
-
-        Game g = gameRepository.findById(id);
-
-        if(g.getPlayers().contains(playerRepo.findById(player_id))) {
-        	return "{\"message\":\"error: duplicate player id\"}";
-        }
-
-        g.addPlayer(playerRepo.findById(player_id));
-        gameRepository.save(g);
-
+    @PostMapping(path = "/games/{id}/addPlayer/{username}")
+    String addPlayerToGame(@PathVariable int id, @PathVariable String username) {
+        
+    	User add = Main.userRepo.findByusername(username);
+    	if(add ==null) return "{\"message\":\"player does not exist\"}";
+    	add.addToGame(id); 
+    	
         return success;
     } 
     
