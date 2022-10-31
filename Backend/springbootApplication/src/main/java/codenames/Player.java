@@ -14,9 +14,12 @@ public class Player implements Serializable {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "game_id")
     private Game game;
+    
+    @OneToOne
+    private User user;
     
     private Long userId;
 

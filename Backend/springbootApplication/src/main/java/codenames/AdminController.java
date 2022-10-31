@@ -86,14 +86,15 @@ public class AdminController {
 		
 		return "<style>.tab {tab-size: 16;}</style><pre class = \"tab\">"
 				+ "PATH                         : Method : Description <br>"
+				+ "---------------------------------------------------------------------------<br>"
 				+ "/admin/paths                 : GET    : get this list" + "<br>"
 				+ "/admin/cards/removeall/98765 : DELETE : remove all cards from the database" + "<br>"
 				+ "/admin/cards/remove          : DELETE : remove a single card" + "<br>"
 				+ "/admin/cards/add             : PUT    : add a card" + "<br>"
 				+ "/admin/cards/addBulk         : PUT    : add array of cards" + "<br>"
-				+ "/admin/cards/all             : GET    : list all cards" + "<br>" + "<br>"
+				+ "/admin/cards/all             : GET    : list all cards" + "<br>"
 				+ "/admin/get/{username}        : GET    : checks if the given user is an admin<br>"
-				+ "/admin/set/{username}        : POST   : sets an account as an admin"
+				+ "/admin/set/{username}        : POST   : sets an account as an admin<br><br>"
 				
 				+ "/games/lobbyinfo             : GET    : return all names and ids of lobbies" + "<br>"
 				+ "/games/{id}/words            : GET    : get all words for a given game id" + "<br>"
