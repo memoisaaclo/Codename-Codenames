@@ -97,6 +97,8 @@ public class AdminController {
 				
 				+ "/games/lobbyinfo             : GET    : return all names and ids of lobbies" + "<br>"
 				+ "/games/{id}/words            : GET    : get all words for a given game id" + "<br>"
+				+ "/games/{id}/colors           : GET    : get all colors for a given game id" + "<br>"
+				+ "/games/{id}/isRevealed      	: GET    : get all card's revealed status for a given game id" + "<br>"
 				+ "/games/delete/{id}           : DELETE : delete the given game" + "<br>"
 				+ "/games/{id}                  : GET    : get a single game's data" + "<br>"
 				+ "/games                       : GET    : list all data for all games" + "<br>"

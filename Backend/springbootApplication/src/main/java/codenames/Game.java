@@ -2,7 +2,6 @@ package codenames;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.*;
 
 import static codenames.CardColor.*;
@@ -13,9 +12,7 @@ import static codenames.CardColor.*;
  */
 @Entity
 public class Game implements Serializable {
-    /*
-     * Field variables *
-     */
+        /* Field variables */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -42,92 +39,15 @@ public class Game implements Serializable {
     private Set<Card> cards = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "game", orphanRemoval = true)
-    private Set<CardState> cardStates = new LinkedHashSet<>();
+    private List<GameCard> gameCards = new ArrayList<>();
 
-    /*
-     * Constructors *
-     */
-    public Game() {
-    }
+        /* Constructors */
+    public Game() { }
 
-    public Game(String gameLobbyName) {
-        this.gameLobbyName = gameLobbyName;
-    }
-    
-    public void generateWordList() {
-    	List<Card> allCards = Main.cardRepo.findAll();
-    	Random rand = new Random();
-    	Card add;
+    public Game(String gameLobbyName) { this.gameLobbyName = gameLobbyName; }
 
-        // Logic test, must be enough cards in card repo
-    	if(allCards.size() < 25)
-            return;
-
-        // Get rid of existing cards tied to game
-        cards.clear();
-
-        for(int i = 0; i < 25; i++) {
-            add = allCards.get(rand.nextInt(allCards.size()));
-            allCards.remove(add);
-            cards.add(add);
-        }
-
-        Main.gameRepo.save(this);
-    }
-
-    public void generateCardStates() {
-        CardState card;
-        // Clear cardState arrayList
-        if (cardStates != null)
-            cardStates.clear();
-
-        // Array of card colors that will need to be applied
-        ArrayList<CardColor> colors = new ArrayList<>(Arrays.asList(
-            // ONE BLACK CARD
-            BLACK,
-            // EIGHT YELLOW CARDS
-            BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE,
-            // NINE RED CARDS
-            RED, RED, RED, RED, RED, RED, RED, RED, RED,
-            // SEVEN GREY CARDS
-            GREY, GREY, GREY, GREY, GREY, GREY, GREY
-        ));
-
-        // Shuffle
-        Collections.shuffle(colors);
-
-        // Go through colors and apply them to cardState objects
-        for(int i = 0; i < 25; i++) {
-            card = new CardState(i, colors.remove(0), this);
-
-            Main.cardStateRepo.save(card);
-            cardStates.add(card);
-        }
-
-        // Save to main repo
-        Main.gameRepo.save(this);
-    }
-
-    /*
-     * Special methods *
-     */
-    /**
-     * Add clue to list of clues
-     * Clue should be in the specified form:
-     * {one word clue}{#of cards that it applies to}
-     * @param clue
-     */
-    public void addClue(String clue) {
-        this.clues += " " +  clue.strip();
-    }
-
+        /* Getters and setters */
     public void addPlayer(Player player) { this.players.add(player); }
-
-    /*
-     * Getters and setters *
-     */
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
     public String getMoves() { return moves; }
     public void setMoves(String moves) { this.moves = moves; }
     public Set<Card> getCards() { return cards; }
@@ -139,12 +59,88 @@ public class Game implements Serializable {
     public String getClues() { return clues; }
     public void setClues(String clues) { this.clues = clues; }
     public Lobby getLobby() { return new Lobby(); }
-    public Set<CardState> getCardStates() { return cardStates; }
-    public void setCardStates(Set<CardState> cardStates) { this.cardStates = cardStates; }
+    public List<GameCard> getGameCards() {
+        Collections.sort(gameCards);
 
-    /*
-        Baby classes (inner classes)
+        return gameCards;
+    }
+    public void setGameCards(List<GameCard> GameCards) { this.gameCards = GameCards; }
+
+
+        /* Special methods */
+    /**
+     * Add clue to list of clues
+     * Clue should be in the specified form:
+     * {one word clue}{#of cards that it applies to}
+     * @param clue
      */
+    public void addClue(String clue) { this.clues += "," +  clue.strip(); }
+
+    public void generateWordList() {
+        List<Card> allCards = Main.cardRepo.findAll();
+        Random rand = new Random();
+        Card add;
+
+        // Logic test, must be enough cards in card repo
+        if(allCards.size() < 25)
+            return;
+
+        // Get rid of existing cards tied to game
+        cards.clear();
+
+        for(int i = 0; i < 25; i++) {
+            add = allCards.get(rand.nextInt(allCards.size()));
+            allCards.remove(add);
+            cards.add(add);
+
+            try {
+                if (gameCards != null)
+                    gameCards.get(i).setWord(add.getWord());
+            } catch (IndexOutOfBoundsException e) {
+                // Do nothing
+            }
+        }
+
+        Main.gameRepo.save(this);
+    }
+
+    public void generateGameCards() {
+        GameCard card;
+        // Clear GameCard arrayList
+        if (gameCards != null)
+            gameCards.clear();
+
+        // Array of card colors that will need to be applied
+        ArrayList<CardColor> colors = new ArrayList<>(Arrays.asList(
+                // ONE BLACK CARD
+                BLACK,
+                // EIGHT YELLOW CARDS
+                BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE,
+                // NINE RED CARDS
+                RED, RED, RED, RED, RED, RED, RED, RED, RED,
+                // SEVEN GREY CARDS
+                GREY, GREY, GREY, GREY, GREY, GREY, GREY
+        ));
+
+        // Shuffle
+        Collections.shuffle(colors);
+
+        // Go through colors and apply them to GameCard objects
+        for(int i = 0; i < 25; i++) {
+            card = new GameCard(i, colors.remove(0), this);
+
+            Main.gameCardRepo.save(card);
+            gameCards.add(card);
+        }
+
+        // Go through the list of words allotted for the game and apply to Cards
+
+        // Save to main repo
+        Main.gameRepo.save(this);
+    }
+
+
+        /* Baby classes (inner classes) */
     class Lobby {
         private String lobbyName;
         private int numPlayers;
@@ -153,7 +149,6 @@ public class Game implements Serializable {
         Lobby() {
             this.numPlayers = players.size();
             this.lobbyName = gameLobbyName;
-            this.id = getId();
         }
 
         public String getLobbyName() {
