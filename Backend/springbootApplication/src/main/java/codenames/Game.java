@@ -76,8 +76,10 @@ public class Game implements Serializable {
     }
 
     public void generateCardStates() {
+        CardState card;
         // Clear cardState arrayList
-        cardStates.clear();
+        if (cardStates != null)
+            cardStates.clear();
 
         // Array of card colors that will need to be applied
         ArrayList<CardColor> colors = new ArrayList<>(Arrays.asList(
@@ -95,8 +97,12 @@ public class Game implements Serializable {
         Collections.shuffle(colors);
 
         // Go through colors and apply them to cardState objects
-        for(int i = 0; i < 25; i++)
-            cardStates.add( new CardState(i, colors.remove(0), this) );
+        for(int i = 0; i < 25; i++) {
+            card = new CardState(i, colors.remove(0), this);
+
+            Main.cardStateRepo.save(card);
+            cardStates.add(card);
+        }
 
         // Save to main repo
         Main.gameRepo.save(this);
@@ -132,9 +138,7 @@ public class Game implements Serializable {
     public void setPlayers(List<Player> players) { this.players = players; }
     public String getClues() { return clues; }
     public void setClues(String clues) { this.clues = clues; }
-    public Lobby getLobby() {
-    	return new Lobby();
-    }
+    public Lobby getLobby() { return new Lobby(); }
     public Set<CardState> getCardStates() { return cardStates; }
     public void setCardStates(Set<CardState> cardStates) { this.cardStates = cardStates; }
 

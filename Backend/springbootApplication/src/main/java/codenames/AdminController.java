@@ -103,7 +103,7 @@ public class AdminController {
 				+ "/games/{id}/removePlayer     : DELETE : remove a player from a game" + "<br>"
 				+ "/games/{id}/addPlayer        : POST   : add a player to a game" + "<br>"
 				+ "/games/{id}/numPlayers       : GET    : get the number of players in a game" + "<br>"
-				+ "/games/{id}/generatewords    : GET    : generate the wordset for a game" + "<br>"
+				+ "/games/{id}/generateWords    : GET    : generate the wordset for a game" + "<br>"
 				+ "/games/{id}/generateStates	: GET    : generate the card states for a game" + "<br>"
 				+ "/games/add                   : POST   : create a game" + "<br>" + "<br>"
 				

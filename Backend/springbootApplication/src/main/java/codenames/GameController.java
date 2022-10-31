@@ -39,10 +39,12 @@ public class GameController {
     	}
     }
     
-    @GetMapping(path = "/games/{id}/generatewords")
+    @GetMapping(path = "/games/{id}/generateWords")
     void genWords(@PathVariable int id) {
     	Game g = Main.gameRepo.findById(id);
-    	g.generateWordList();
+
+        if (g != null)
+    	    g.generateWordList();
     }
 
     /**
@@ -51,7 +53,10 @@ public class GameController {
      */
     @GetMapping(path = "games/{id}/generateStates")
     void generateCardStates(@PathVariable int id) {
-        Main.gameRepo.findById(id).generateCardStates();
+        Game g = Main.gameRepo.findById(id);
+
+        if (g != null)
+            g.generateCardStates();
     }
     
     @PostMapping(path = "/games/{id}/addPlayer")
@@ -121,7 +126,7 @@ public class GameController {
      * Method to get status of board
      * Used by frontend to refresh game
      */
-//    @GetMapping(path = "/games/{id}/status")
+//    @GetMapping(path = "/games/{id}/getBoard")
 //    String getGameStatus(@PathVariable int id) {
 //        return ;
 //    }
@@ -142,6 +147,31 @@ public class GameController {
 
             for (Card c : g.getCards()) {
                 rstring += "\"" + i + "\": \"" + c.getWord() + "\", ";
+                i++;
+            }
+
+            return rstring.substring(0, rstring.length()-2)+ "}";
+        } else {
+            return "{\"message\":\"Invalid Lobby ID\"}";
+        }
+    }
+
+    /**
+     * Get list of words (25) of a certain game
+     * Used to initially get words
+     * @param id
+     * @return
+     */
+    @GetMapping(path = "/games/{id}/colors")
+    String getColors(@PathVariable int id) {
+        Game g = gameRepository.findById(id);
+
+        if(g != null) {
+            String rstring = "{";
+            int i = 0;
+
+            for (CardState c : g.getCardStates()) {
+                rstring += "\"" + i + "\": \"" + c.getColor().name() + "\", ";
                 i++;
             }
 
