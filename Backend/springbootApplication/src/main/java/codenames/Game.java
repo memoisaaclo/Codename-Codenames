@@ -144,10 +144,12 @@ public class Game implements Serializable {
     class Lobby {
         private String lobbyName;
         private int numPlayers;
+        private int id;
 
         Lobby() {
             this.numPlayers = players.size();
             this.lobbyName = gameLobbyName;
+            this.id = getId();
         }
 
         public String getLobbyName() {
@@ -156,6 +158,10 @@ public class Game implements Serializable {
 
         public int getNumPlayers() {
             return numPlayers;
+        }
+        
+        public int getId() {
+        	return id;
         }
     }
 }
