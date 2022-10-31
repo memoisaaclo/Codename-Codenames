@@ -160,7 +160,7 @@ public class Game implements Serializable {
             return numPlayers;
         }
         
-        public int getId() {
+        public int getIdentity() {
         	return id;
         }
     }
