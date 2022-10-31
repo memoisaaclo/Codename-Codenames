@@ -84,7 +84,7 @@ public class Game implements Serializable {
             // ONE BLACK CARD
             BLACK,
             // EIGHT YELLOW CARDS
-            YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,
+            BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE,
             // NINE RED CARDS
             RED, RED, RED, RED, RED, RED, RED, RED, RED,
             // SEVEN GREY CARDS
