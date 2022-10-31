@@ -84,7 +84,7 @@ public class Game implements Serializable {
             // ONE BLACK CARD
             BLACK,
             // EIGHT YELLOW CARDS
-            YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,
+            BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE,
             // NINE RED CARDS
             RED, RED, RED, RED, RED, RED, RED, RED, RED,
             // SEVEN GREY CARDS
@@ -95,8 +95,8 @@ public class Game implements Serializable {
         Collections.shuffle(colors);
 
         // Go through colors and apply them to cardState objects
-        for(int i = 25; i > 0; i--)
-            cardStates.add( new CardState(colors.remove(i)) );
+        for(int i = 0; i < 25; i++)
+            cardStates.add( new CardState(i, colors.remove(0), this) );
 
         // Save to main repo
         Main.gameRepo.save(this);

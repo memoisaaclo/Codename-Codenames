@@ -21,6 +21,8 @@ public class CardState {
     @Column(name = "id", nullable = false)
     private int id;
 
+    private int gamePosition;
+
     private boolean revealed;
 
     private CardColor color;
@@ -44,9 +46,29 @@ public class CardState {
         color = CardColor.GREY;
     }
 
+    public CardState(int gamePosition, CardColor color) {
+        this.gamePosition = gamePosition;
+        this.color = color;
+    }
+
+    public CardState(int gamePosition, CardColor color, Game game) {
+        this.gamePosition = gamePosition;
+        this.color = color;
+        this.game = game;
+    }
+
     /*
         Getters and Setters
      */
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
+
+    public int getGamePosition() { return gamePosition; }
+
+    public void setGamePosition(int gamePosition) { this.gamePosition = gamePosition; }
+
     public CardState(CardColor color) {
         this.color = color;
     }
