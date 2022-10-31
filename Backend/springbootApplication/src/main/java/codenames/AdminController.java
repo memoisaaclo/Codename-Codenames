@@ -98,14 +98,16 @@ public class AdminController {
 				
 				+ "/games/lobbyinfo             : GET    : return all names and ids of lobbies" + "<br>"
 				+ "/games/{id}/words            : GET    : get all words for a given game id" + "<br>"
+				+ "/games/{id}/colors           : GET    : get all colors for a given game id" + "<br>"
+				+ "/games/{id}/isRevealed      	: GET    : get all card's revealed status for a given game id" + "<br>"
 				+ "/games/delete/{id}           : DELETE : delete the given game" + "<br>"
 				+ "/games/{id}                  : GET    : get a single game's data" + "<br>"
 				+ "/games                       : GET    : list all data for all games" + "<br>"
 				+ "/games/{id}/removePlayer     : DELETE : remove a player from a game" + "<br>"
 				+ "/games/{id}/addPlayer        : POST   : add a player to a game" + "<br>"
 				+ "/games/{id}/numPlayers       : GET    : get the number of players in a game" + "<br>"
-				+ "/games/{id}/generatewords    : GET    : generate the wordset for a game" + "<br>"
-				+ "/games/{id}/generateStates   : GET    : generate the card states for a game" + "<br>"
+				+ "/games/{id}/generateWords    : GET    : generate the wordset for a game" + "<br>"
+				+ "/games/{id}/generateStates	: GET    : generate the card states for a game" + "<br>"
 				+ "/games/add                   : POST   : create a game" + "<br>" + "<br>"
 				
 				+ "/players/{id}                : DELETE : delete a player" + "<br>"

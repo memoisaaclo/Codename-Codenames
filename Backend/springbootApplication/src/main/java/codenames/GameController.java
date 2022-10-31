@@ -14,6 +14,7 @@ public class GameController {
 
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
+    private String invalid ="{\"message\":\"Invalid lobby ID\"}";
 
     public GameController(GameRepository gameRepository) {
         this.gameRepository = gameRepository;
@@ -35,23 +36,34 @@ public class GameController {
 	        int playerNum = gameRepository.findById(id).getPlayers().size();
 	        return String.format("{\"playerNum\": \"%s\"}", playerNum);
     	} else {
-    		return "{\"message\":\"Invalid lobby id\"}";
+    		return invalid;
     	}
     }
     
-    @GetMapping(path = "/games/{id}/generatewords")
-    void genWords(@PathVariable int id) {
+    @GetMapping(path = "/games/{id}/generateWords")
+    String genWords(@PathVariable int id) {
     	Game g = Main.gameRepo.findById(id);
-    	g.generateWordList();
+
+        if (g == null)
+            return invalid;
+
+        g.generateWordList();
+        return success;
     }
 
     /**
-     * Generate the cardState array for 25 cards in a parallel array to a game's cards.
+     * Generate the GameCard array for 25 cards in a parallel array to a game's cards.
      * @param id
      */
     @GetMapping(path = "games/{id}/generateStates")
-    void generateCardStates(@PathVariable int id) {
-        Main.gameRepo.findById(id).generateCardStates();
+    String generateGameCards(@PathVariable int id) {
+        Game g = Main.gameRepo.findById(id);
+
+        if (g == null)
+            return invalid;
+
+        g.generateGameCards();
+        return success;
     }
     
     @PostMapping(path = "/games/{id}/addPlayer")
@@ -121,7 +133,7 @@ public class GameController {
      * Method to get status of board
      * Used by frontend to refresh game
      */
-//    @GetMapping(path = "/games/{id}/status")
+//    @GetMapping(path = "/games/{id}/getBoard")
 //    String getGameStatus(@PathVariable int id) {
 //        return ;
 //    }
@@ -140,14 +152,73 @@ public class GameController {
             String rstring = "{";
             int i = 0;
 
-            for (Card c : g.getCards()) {
+            for (GameCard c : g.getGameCards()) {
                 rstring += "\"" + i + "\": \"" + c.getWord() + "\", ";
                 i++;
             }
 
+            if (g.getCards() == null)
+                return "{\"message\":\"Invalid Game State\"}";
+
             return rstring.substring(0, rstring.length()-2)+ "}";
         } else {
-            return "{\"message\":\"Invalid Lobby ID\"}";
+            return invalid;
+        }
+    }
+
+    /**
+     * Get list of colors (25) of a certain game
+     * Used to refresh view colors
+     * @param id
+     * @return
+     */
+    @GetMapping(path = "/games/{id}/colors")
+    String getColors(@PathVariable int id) {
+        Game g = gameRepository.findById(id);
+
+        if(g != null) {
+            String rstring = "{";
+            int i = 0;
+
+            for (GameCard c : g.getGameCards()) {
+                rstring += "\"" + i + "\": \"" + c.getColor().name() + "\", ";
+                i++;
+            }
+
+            if (g.getGameCards() == null)
+                return "{\"message\":\"Invalid Game State\"}";
+
+            return rstring.substring(0, rstring.length()-2)+ "}";
+        } else {
+            return invalid;
+        }
+    }
+
+    /**
+     * Get list of revealed status (25) of a certain game
+     * Used to refresh view colors
+     * @param id
+     * @return
+     */
+    @GetMapping(path = "/games/{id}/isRevealed")
+    String getRevealed(@PathVariable int id) {
+        Game g = gameRepository.findById(id);
+
+        if(g != null) {
+            String rstring = "{";
+            int i = 0;
+
+            for (GameCard c : g.getGameCards()) {
+                rstring += "\"" + i + "\": \"" + c.isRevealed() + "\", ";
+                i++;
+            }
+
+            if (g.getGameCards() == null)
+                return "{\"message\":\"Invalid Game State\"}";
+
+            return rstring.substring(0, rstring.length()-2)+ "}";
+        } else {
+            return invalid;
         }
     }
 
