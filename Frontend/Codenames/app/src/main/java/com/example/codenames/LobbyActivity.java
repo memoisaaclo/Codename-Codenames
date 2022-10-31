@@ -54,8 +54,10 @@ public class LobbyActivity extends Activity implements View.OnClickListener
 
 
         to_lobby = (Button) findViewById(R.id.reg_exit3);
+        to_game = (Button) findViewById(R.id.button_ready);
 
         to_lobby.setOnClickListener(this);
+        to_game.setOnClickListener(this);
 
         postJsonObj();
         try
@@ -242,6 +244,11 @@ public class LobbyActivity extends Activity implements View.OnClickListener
     public void onClick(View view) {
         if (view.getId() == R.id.reg_exit3) {
             startActivity(new Intent(LobbyActivity.this, HubActivity.class).putExtra("username", username));
+        }
+
+        if (view.getId() == R.id.button_ready)
+        {
+            startActivity(new Intent(LobbyActivity.this, SpymasterGameActivity.class));
         }
     }
 }
