@@ -25,12 +25,12 @@ public class User {
     private String username;
 	private String password;	
     // Statistics
-    private Integer logins;
-    private Integer gamesPlayed;
-	private Integer gamesWon;
-	private Integer guessesMade;
-	private Integer cluesGiven;
-	private Integer correctGuesses;
+    private Integer logins = 0;
+    private Integer gamesPlayed = 0;
+	private Integer gamesWon = 0;
+	private Integer guessesMade = 0;
+	private Integer cluesGiven = 0;
+	private Integer correctGuesses = 0;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "playerID")

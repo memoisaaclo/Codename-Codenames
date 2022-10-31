@@ -33,8 +33,9 @@ public class LobbyActivity extends Activity implements View.OnClickListener
 //    private ProgressDialog pDialog;
     private TextView player_count;
     private TextView lobby_name;
+    private TextView user;
     private Button to_lobby;
-    private Button to_game;
+    private String username;
 
     // These tags will be used to cancel the requests
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
@@ -44,6 +45,13 @@ public class LobbyActivity extends Activity implements View.OnClickListener
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lobby);
+
+        //setting and saving username
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
+        user = (TextView) findViewById(R.id.lobby_username);
+        user.setText(username);
+
 
         to_lobby = (Button) findViewById(R.id.reg_exit3);
         to_game = (Button) findViewById(R.id.button_ready);
@@ -233,11 +241,9 @@ public class LobbyActivity extends Activity implements View.OnClickListener
     }
 
     @Override
-    public void onClick(View view)
-    {
-        if (view.getId() == R.id.reg_exit3)
-        {
-            startActivity(new Intent(LobbyActivity.this, HubActivity.class));
+    public void onClick(View view) {
+        if (view.getId() == R.id.reg_exit3) {
+            startActivity(new Intent(LobbyActivity.this, HubActivity.class).putExtra("username", username));
         }
 
         if (view.getId() == R.id.button_ready)

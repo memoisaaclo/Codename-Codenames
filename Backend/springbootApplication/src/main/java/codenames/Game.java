@@ -2,8 +2,10 @@ package codenames;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
+
+import static codenames.CardColor.*;
 
 /**
  * Game object that represents one instance of a code names board game.
@@ -27,16 +29,20 @@ public class Game implements Serializable {
 
     @Column(name = "gameLobbyName", unique = true)
     private String gameLobbyName;
+
     @OneToMany(orphanRemoval = false, fetch = FetchType.EAGER)
     private List<Player> players = new ArrayList<Player>();
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "id")
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "game_cards",
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "card_id")
     )
-    private ArrayList<Card> cards = new ArrayList<>();
+    private Set<Card> cards = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "game", orphanRemoval = true)
+    private ArrayList<CardState> cardStates = new ArrayList<>();
 
     /*
      * Constructors *
@@ -44,9 +50,56 @@ public class Game implements Serializable {
     public Game() {
     }
 
-    public Game(int id, String gameLobbyName) {
-        this.id = id;
+    public Game(String gameLobbyName) {
         this.gameLobbyName = gameLobbyName;
+    }
+    
+    public void generateWordList() {
+    	List<Card> allCards = Main.cardRepo.findAll();
+    	Random rand = new Random();
+    	Card add;
+
+        // Logic test, must be enough cards in card repo
+    	if(allCards.size() < 25)
+            return;
+
+        // Get rid of existing cards tied to game
+        cards.clear();
+
+        for(int i = 0; i < 25; i++) {
+            add = allCards.get(rand.nextInt(allCards.size()));
+            allCards.remove(add);
+            cards.add(add);
+        }
+
+        Main.gameRepo.save(this);
+    }
+
+    public void generateCardStates() {
+        // Clear cardState arrayList
+        cardStates.clear();
+
+        // Array of card colors that will need to be applied
+        ArrayList<CardColor> colors = new ArrayList<>(Arrays.asList(
+            // ONE BLACK CARD
+            BLACK,
+            // EIGHT YELLOW CARDS
+            YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,
+            // NINE RED CARDS
+            RED, RED, RED, RED, RED, RED, RED, RED, RED,
+            // SEVEN GREY CARDS
+            GREY, GREY, GREY, GREY, GREY, GREY, GREY
+        ));
+
+        // Shuffle
+        Collections.shuffle(colors);
+
+        // Go through colors and apply them to cardState objects
+        for(int i = 25; i > 0; i--)
+            cardStates.add( new CardState(colors.remove(i)) );
+
+        // Save to main repo
+        Main.gameRepo.save(this);
     }
 
     /*
@@ -71,12 +124,38 @@ public class Game implements Serializable {
     public void setId(int id) { this.id = id; }
     public String getMoves() { return moves; }
     public void setMoves(String moves) { this.moves = moves; }
-    public ArrayList<Card> getCards() { return cards; }
-    public void setCards(ArrayList<Card> cards) { this.cards = cards; }
+    public Set<Card> getCards() { return cards; }
+    public void setCards(Set<Card> cards) { this.cards = cards; }
     public String getGameLobbyName() { return gameLobbyName; }
     public void setGameLobbyName(String gameLobbyName) { this.gameLobbyName = gameLobbyName; }
     public List<Player> getPlayers() { return players; }
     public void setPlayers(List<Player> players) { this.players = players; }
     public String getClues() { return clues; }
     public void setClues(String clues) { this.clues = clues; }
+    public Lobby getLobby() {
+    	return new Lobby();
+    }
+    public ArrayList<CardState> getCardStates() { return cardStates; }
+    public void setCardStates(ArrayList<CardState> cardStates) { this.cardStates = cardStates; }
+
+    /*
+        Baby classes (inner classes)
+     */
+    class Lobby {
+        private String lobbyName;
+        private int numPlayers;
+
+        Lobby() {
+            this.numPlayers = players.size();
+            this.lobbyName = gameLobbyName;
+        }
+
+        public String getLobbyName() {
+            return lobbyName;
+        }
+
+        public int getNumPlayers() {
+            return numPlayers;
+        }
+    }
 }

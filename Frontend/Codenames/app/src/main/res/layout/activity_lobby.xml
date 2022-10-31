@@ -18,6 +18,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gameToolbar3" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lobby_username"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/gameToolbar3"
+        app:layout_constraintStart_toEndOf="@id/reg_gameName3"
+        app:layout_constraintTop_toTopOf="@+id/gameToolbar3" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/gameToolbar3"
         android:layout_width="match_parent"
@@ -37,9 +48,9 @@
         android:text="Codename:\nCodenames"
         android:textColor="#B30000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/gameToolbar2"
+        app:layout_constraintBottom_toBottomOf="@+id/gameToolbar3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gameToolbar2" />
+        app:layout_constraintTop_toTopOf="@+id/gameToolbar3" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/title_header"
@@ -95,7 +106,6 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
-        android:background="@color/gray_1"
         android:backgroundTint="@color/gray_1"
         android:text="READY?"
         android:textColor="#000000"
@@ -150,7 +160,7 @@
         android:layout_marginEnd="224dp"
         android:layout_marginBottom="64dp"
         android:text="Spymaster"
-		android:background="@color/cardinal"
+		android:backgroundTint="@color/cardinal"
         app:layout_constraintBottom_toTopOf="@+id/button_ready"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -164,7 +174,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="64dp"
         android:text="Spymaster"
-		android:background="@color/blue"
+		android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toTopOf="@+id/button_ready"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -194,7 +204,7 @@
         android:layout_marginEnd="224dp"
         android:layout_marginBottom="8dp"
         android:text="Operative"
-		android:background="@color/cardinal"
+		android:backgroundTint="@color/cardinal"
         app:layout_constraintBottom_toTopOf="@+id/button_ready"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -209,7 +219,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
         android:text="Operative"
-		android:background="@color/blue"
+		android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toTopOf="@+id/button_ready"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

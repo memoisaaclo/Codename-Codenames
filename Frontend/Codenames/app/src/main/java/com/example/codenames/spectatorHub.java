@@ -4,12 +4,10 @@ import static com.example.codenames.utils.Const.URL_JSON_LOBBY;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,36 +23,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class HubActivity extends AppCompatActivity implements OnClickListener {
+public class spectatorHub extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnLobby1,btnExit;
-    private Button create;
-    private String username;
+    private Button exit;
     private JSONArray lobbies;
     private LinearLayout lobbyDisplay;
-
     private LinearLayout.LayoutParams buttonLayout;
     private LinearLayout.LayoutParams textViewLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hub);
+        setContentView(R.layout.activity_spectator_hub);
 
-        btnExit = (Button) findViewById(R.id.reg_exit6);
-        create = (Button) findViewById(R.id.createLobby);
+        exit = (Button) findViewById(R.id.specHub_exit6);
 
-        btnExit.setOnClickListener(this);
-        create.setOnClickListener(this);
+        exit.setOnClickListener(this);
 
-        //Getting username and any other info that may need sent from previous activity
-        Intent intent = getIntent();
-        username = intent.getStringExtra("username");
-        //Setting username textview
-        ((TextView) findViewById(R.id.hub_username)).setText(username);
-
-        lobbyDisplay = (LinearLayout) findViewById(R.id.hub_list);
+        lobbyDisplay = (LinearLayout) findViewById(R.id.spec_view);
 
         buttonLayout = new LinearLayout.LayoutParams(650,150);
         buttonLayout.setMarginStart(20);
@@ -66,22 +52,8 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
     }
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
-            case R.id.button_lobby1:
-                startActivity(new Intent(HubActivity.this, LobbyActivity.class).putExtra("username", username));
-                break;
-            case R.id.reg_exit6:
-                startActivity(new Intent(HubActivity.this, menu.class).putExtra("username", username));
-                break;
-            case R.id.createLobby:
-                startActivity(new Intent(HubActivity.this, createLobby.class).putExtra("username", username));
-                break;
-            default:
-                break;
-        }
+    public void onClick(View v) {
+        startActivity(new Intent(spectatorHub.this, menu.class));
     }
 
     private void addLobbies(lobby addLobby) {
@@ -115,7 +87,7 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
 
     }
 
-    class ClickListener implements OnClickListener {
+    class ClickListener implements View.OnClickListener {
         private String lobby;
 
         public ClickListener(String lobbyName){
@@ -124,7 +96,7 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
 
         @Override
         public void onClick(View v) {
-            startActivity(new Intent(HubActivity.this, LobbyActivity.class).putExtra("username", username).putExtra("lobbyName", lobby));
+            startActivity(new Intent(spectatorHub.this, LobbyActivity.class).putExtra("lobbyName", lobby));
         }
     }
 
@@ -159,5 +131,4 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
 
         queue.add(request);
     }
-
 }
