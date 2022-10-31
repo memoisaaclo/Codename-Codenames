@@ -164,4 +164,8 @@ public class Game implements Serializable {
         	return id;
         }
     }
+
+	public void removePlayer(Player attachedPlayer) {
+		players.remove(attachedPlayer);
+	}
 }

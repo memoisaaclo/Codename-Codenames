@@ -33,7 +33,7 @@ public class Player implements Serializable {
     public void attachUser(User user) {
     	this.user = user;
     }
-
+    
     public int getId() {
         return id;
     }

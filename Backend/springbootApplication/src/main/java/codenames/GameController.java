@@ -58,27 +58,20 @@ public class GameController {
     String addPlayerToGame(@PathVariable int id, @PathVariable String username) {
         
     	User add = Main.userRepo.findByusername(username);
-    	if(add ==null) return "{\"message\":\"player does not exist\"}";
+    	if(add ==null) return "{\"message\":\"could not find player\"}";
     	add.addToGame(id); 
     	
         return success;
     } 
     
     @DeleteMapping(path = "/games/{id}/removePlayer")
-    String removePlayerFromGame(@PathVariable int id, @RequestParam int player_id){
-        PlayerRepository playerRepo = Main.playerRepo;
-
-        if (playerRepo.findById(player_id) == null || gameRepository.findById(id) == null)
-            return failure;
-
-        Game g = gameRepository.findById(id);
-
-        if(g.getPlayers().contains(playerRepo.findById(player_id))) {
-        	g.getPlayers().remove(playerRepo.findById(player_id));
-        	gameRepository.save(g);
-        	return success;
-        }
-
+    String removePlayerFromGame(@PathVariable int id, @PathVariable String username){
+    	User remove = Main.userRepo.findByusername(username);
+    	if(remove ==null) return "{\"message\":\"could not find player\"}";
+    	
+    	remove.removeFromGame(id);
+    	
+    	
         return "{\"message\":\"could not find player\"}";
     }
 
