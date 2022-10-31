@@ -86,6 +86,7 @@ public class AdminController {
 		
 		return "<style>.tab {tab-size: 16;}</style><pre class = \"tab\">"
 				+ "PATH                         : Method : Description <br>"
+				+ "---------------------------------------------------------------------------<br>"
 				+ "/admin/paths                 : GET    : get this list" + "<br>"
 				+ "/admin/cards/removeall/98765 : DELETE : remove all cards from the database" + "<br>"
 				+ "/admin/cards/remove          : DELETE : remove a single card" + "<br>"
