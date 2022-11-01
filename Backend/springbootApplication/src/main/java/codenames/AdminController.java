@@ -114,7 +114,7 @@ public class AdminController {
 				+ "/games/{id}/isrevealed              : GET    : get all revealed stats for a given game id<br>"
 				+ "/games/{id}/removeplayer/{username} : DELETE : remove a player from a game<br>"
 				+ "/games/{id}/addplayer/{username}    : POST   : add a player to a game<br>"
-				+ "/games/{id}/numplayers              : GET    : get the number of players in a game<br>"
+				+ "/games/{id}/numlayers              : GET    : get the number of players in a game<br>"
 				+ "/games/{id}/generatewords           : GET    : generate the wordset for a game<br>"
 				+ "/games/{id}/generateStates          : GET    : generate the card states for a game<br>"
 				+ "/games/{id}/players                 : GET    : get all players and info for the game<br><br>"
@@ -122,12 +122,14 @@ public class AdminController {
 				+ "<a href = http://10.90.75.56:8080/players>/players</a>"
 				+ "                            : GET    : Get all players<br>"
 				+ "/players/create                     : POST   : create a given player from JSON<br>"
+				+ "/players/clearplayers/75362         : DELETE : clears all players<br>"
 				+ "/players/{id}                       : GET    : get all data about a specific player<br>"
 				+ "/players/{id}/delete                : DELETE : deletes a player<br>"
 				+ "/players/{username}/setteam/{team}  : POST   : sets a players team<br>"
 				+ "/players/{username}/setrole/{role}  : POST   : sets a players role<br>"
 				+ "/players/{username}/getteam         : GET    : returns the players current team<br>"
 				+ "/players/{username}/getrole         : GET    : returns the players current role<br><br>"
+				
 				
 				
 				+ "/users/clearUsers/75362             : DELETE : remove all users from the database<br>"

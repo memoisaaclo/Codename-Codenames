@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -85,4 +87,9 @@ public class PlayerController {
         playerRepository.deleteById(id);
         return success;
     }
+    
+    @RequestMapping(method = RequestMethod.DELETE, path = "/players/clearplayers/75362")
+    public void clearUsers() {	// removes all objects
+        Main.userRepo.deleteAllInBatch();
+	}
 }
