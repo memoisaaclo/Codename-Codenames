@@ -63,6 +63,7 @@ public class User {
     	Player p = new Player();
     	this.attachedPlayer = p;
     	p.attachUser(this);
+    	g.addPlayer(p);
     	
     	Main.userRepo.save(this);
     	Main.playerRepo.save(p);

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -56,7 +57,7 @@ public class GameController {
      * Generate the GameCard array for 25 cards in a parallel array to a game's cards.
      * @param id
      */
-    @GetMapping(path = "games/{id}/generateStates")
+    @GetMapping(path = "/games/{id}/generateStates")
     String generateGameCards(@PathVariable int id) {
         Game g = Main.gameRepo.findById(id);
 
@@ -71,7 +72,9 @@ public class GameController {
     String addPlayerToGame(@PathVariable int id, @PathVariable String username) {
         
     	User add = Main.userRepo.findByusername(username);
+    	Game check = Main.gameRepo.findById(id);
     	if(add ==null) return "{\"message\":\"could not find player\"}";
+    	if(check ==null) return "{\"message\":\"could not find game\"}";
     	add.addToGame(id); 
     	
         return success;
@@ -80,7 +83,9 @@ public class GameController {
     @DeleteMapping(path = "/games/{id}/removePlayer/{username}")
     String removePlayerFromGame(@PathVariable int id, @PathVariable String username){
     	User remove = Main.userRepo.findByusername(username);
+    	Game check = Main.gameRepo.findById(id);
     	if(remove ==null) return "{\"message\":\"could not find player\"}";
+    	if(check ==null) return "{\"message\":\"could not find game\"}";
     	
     	remove.removeFromGame(id);
     	
@@ -90,6 +95,8 @@ public class GameController {
     
     @GetMapping(path = "/games/{id}/players")
     Set<Player> getPlayers(@PathVariable int id){
+    	Game check = Main.gameRepo.findById(id);
+    	if(check ==null) return new HashSet<Player>();
     	return Main.gameRepo.findById(id).getPlayers();
     }
 
