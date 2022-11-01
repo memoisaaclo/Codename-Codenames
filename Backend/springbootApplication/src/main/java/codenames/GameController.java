@@ -231,6 +231,49 @@ public class GameController {
         g.setGuessesAvailable(numGuesses);
         g.addClue(clue);
 
+        gameRepository.save(g);
+
+        return success;
+    }
+
+    /**
+     * Get list of current team color of a certain game
+     * @param id
+     * @return
+     */
+    @GetMapping(path = "/games/{id}/turncolor")
+    String getCurrentTeamColor(@PathVariable int id) {
+        Game g = gameRepository.findById(id);
+        if(g == null)
+            return invalid;
+
+        return "{\"turnColor\": \"" + g.getTurnColor() + "\"}";
+    }
+
+    @PutMapping(path = "/games/{id}/guess/{card_position}")
+    @ResponseBody String receiveGuess(@PathVariable int id, @PathVariable int card_position, @RequestBody Player player) {
+        Game g = gameRepository.findById(id);
+        if(g == null)
+            return invalid;
+
+        if (!g.getTurnColor().equals(player.getTeam()))
+            return "{\"message\":\"Incorrect team guess\"}";
+
+        // Data Validation
+        if (card_position < 0 || card_position > 24)
+            return failure;
+
+        int numGuesses = g.getGuessesAvailable();
+        if(numGuesses > 1) {
+
+            g.setGuessesAvailable(numGuesses - 1);
+        } else if (g.getGuessesAvailable() == 1){
+
+        } else {
+
+        }
+
+        gameRepository.save(g);
         return success;
     }
 

@@ -27,6 +27,9 @@ public class Game implements Serializable {
     @Column(name = "guessesAvailable")
     private int guessesAvailable = 0;
 
+    @Column(name = "turnColor")
+    private Color turnColor = RED;
+
     @Column(name = "moves")
     private String moves;
 
@@ -67,9 +70,10 @@ public class Game implements Serializable {
     public String getClues() { return clues; }
     public void setClues(String clues) { this.clues = clues; }
     public Lobby getLobby() { return new Lobby(); }
+    public String getTurnColor() { return turnColor.name(); }
+    public void setTurnColor(Color turnColor) { this.turnColor = turnColor; }
     public List<GameCard> getGameCards() {
         Collections.sort(gameCards);
-
         return gameCards;
     }
     public void setGameCards(List<GameCard> GameCards) { this.gameCards = GameCards; }
