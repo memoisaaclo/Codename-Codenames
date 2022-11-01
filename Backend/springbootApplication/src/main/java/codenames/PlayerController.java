@@ -48,7 +48,7 @@ public class PlayerController {
         return success;
     }
     
-    @PostMapping(path = "/players/{username}/setTeam/{team}")
+    @PostMapping(path = "/players/{username}/setteam/{team}")
     String setTeam(@PathVariable String username, @PathVariable String team) {
     	User usr = Main.userRepo.findByusername(username);
     	if(usr==null)return "{\"message\":\"could not find player\"}";
@@ -57,7 +57,7 @@ public class PlayerController {
     	return success;
     }
     
-    @PostMapping(path = "/players/{username}/setTeam/{role}")
+    @PostMapping(path = "/players/{username}/setrole/{role}")
     String setRole(@PathVariable String username, @PathVariable String role) {
     	User usr = Main.userRepo.findByusername(username);
     	if(usr==null)return "{\"message\":\"could not find player\"}";
