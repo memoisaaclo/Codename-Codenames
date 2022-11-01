@@ -29,7 +29,7 @@ public class GameController {
         }
 
         gameRepository.save(game);
-        return "{\"id\":\"" + game.getLobby().getIdentity() + "\"}";
+        return "{\"message\":\"success\", \"id\":\"" + game.getLobby().getIdentity() + "\"}";
     }
 
     @GetMapping(path = "/games/{id}/numPlayers")
