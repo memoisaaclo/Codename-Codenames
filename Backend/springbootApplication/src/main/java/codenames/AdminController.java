@@ -114,7 +114,7 @@ public class AdminController {
 				+ "/games/{id}/isrevealed              : GET    : get all revealed stats for a given game id<br>"
 				+ "/games/{id}/removeplayer/{username} : DELETE : remove a player from a game<br>"
 				+ "/games/{id}/addplayer/{username}    : POST   : add a player to a game<br>"
-				+ "/games/{id}/numlayers              : GET    : get the number of players in a game<br>"
+				+ "/games/{id}/numplayers              : GET    : get the number of players in a game<br>"
 				+ "/games/{id}/generatewords           : GET    : generate the wordset for a game<br>"
 				+ "/games/{id}/generateStates          : GET    : generate the card states for a game<br>"
 				+ "/games/{id}/players                 : GET    : get all players and info for the game<br><br>"
