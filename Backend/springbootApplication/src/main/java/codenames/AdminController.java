@@ -55,7 +55,7 @@ public class AdminController {
 		return failure;
 	}
 	
-	@PutMapping(path = "/admin/cards/addBulk")
+	@PutMapping(path = "/admin/cards/addbulk")
 	public String addCard(@RequestBody Card[] card) {
 		for (Card c : card) {
 			if(Main.cardRepo.findByword(c.getWord()) == null) {
@@ -135,7 +135,7 @@ public class AdminController {
 				+ "                  : GET    : get all userdata for all users<br>"
 				+ "/users/{username}                   : GET    : get all data for a single user<br>"
 				+ "/users/login                        : POST   : validate login info for a user<br>"
-				+ "/users/register                     : POST   : register a user's data"
+				+ "/users/register                     : POST   : register a user's data<br><br><br><br><br>"
 				+ "</pre>";
 	}
 	

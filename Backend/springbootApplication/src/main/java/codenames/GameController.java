@@ -32,7 +32,7 @@ public class GameController {
         return "{\"message\":\"success\", \"id\":\"" + game.getLobby().getIdentity() + "\"}";
     }
 
-    @GetMapping(path = "/games/{id}/numPlayers")
+    @GetMapping(path = "/games/{id}/numplayers")
     String getGamePlayerNumberById( @PathVariable int id) {
     	if(gameRepository.findById(id) != null) {
 	        int playerNum = gameRepository.findById(id).getPlayers().size();
@@ -42,7 +42,7 @@ public class GameController {
     	}
     }
     
-    @GetMapping(path = "/games/{id}/generateWords")
+    @GetMapping(path = "/games/{id}/generatewords")
     String genWords(@PathVariable int id) {
     	Game g = Main.gameRepo.findById(id);
 
@@ -57,7 +57,7 @@ public class GameController {
      * Generate the GameCard array for 25 cards in a parallel array to a game's cards.
      * @param id
      */
-    @GetMapping(path = "/games/{id}/generateStates")
+    @GetMapping(path = "/games/{id}/generatestates")
     String generateGameCards(@PathVariable int id) {
         Game g = Main.gameRepo.findById(id);
 
@@ -204,7 +204,7 @@ public class GameController {
      * @param id
      * @return
      */
-    @GetMapping(path = "/games/{id}/isRevealed")
+    @GetMapping(path = "/games/{id}/isrevealed")
     String getRevealed(@PathVariable int id) {
         Game g = gameRepository.findById(id);
 
