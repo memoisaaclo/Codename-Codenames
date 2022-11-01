@@ -6,6 +6,8 @@ import java.io.Serializable;
 @Entity
 public class Player implements Serializable {
 	
+	public boolean active = true; 	// literally just here as a test
+	
 	private Role role = Role.OPERATIVE;
 	private Color team = Color.RED;
 	
