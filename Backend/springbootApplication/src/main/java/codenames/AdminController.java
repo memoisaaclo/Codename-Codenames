@@ -84,7 +84,7 @@ public class AdminController {
 	@GetMapping(path="/admin/paths")
 	public String getAllEndpoints() {
 		
-		return "<style>.tab {tab-size: 16;}</style><pre class = \"tab\">"
+		return  "<style>.tab {tab-size: 16;}</style><pre class = \"tab\">"
 				+ "PATH                                : Method : Description <br>"
 				+ "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>"
 				+ "/admin/paths                        : GET    : get this list<br>"
@@ -96,7 +96,8 @@ public class AdminController {
 				+ "/admin/get/{username}               : GET    : checks if the given user is an admin<br>"
 				+ "/admin/set/{username}               : POST   : sets an account as an admin<br><br>"
 				
-				+ "/games                              : GET    : list all data for all games<br>"
+				+ "<a href = http://10.90.75.56:8080/games>/games</a>"
+				+ "                              : GET    : list all data for all games<br>"
 				+ "/games/add                          : POST   : create a game<br>"
 				+ "/games/lobbyinfo                    : GET    : return all names and ids of lobbies<br>"
 				+ "/games/{id}                         : GET    : get a single game's data<br>"
@@ -116,7 +117,9 @@ public class AdminController {
 				+ "/players/{id}                       : GET    : get all data about a specific player<br>"
 				+ "/players/{id}/delete                : DELETE : deletes a player<br>"
 				+ "/players/{username}/setteam/{team}  : POST   : sets a players team<br>"
-				+ "/players/{username}/setrole/{role}  : POST   : sets a players role<br><br>"
+				+ "/players/{username}/setrole/{role}  : POST   : sets a players role<br>"
+				+ "/players/{username}/getteam         : GET    : returns the players current team<br>"
+				+ "/players/{username}/getrole         : GET    : returns the players current role<br><br>"
 				
 				
 				+ "/users/clearUsers/75362             : DELETE : remove all users from the database<br>"
