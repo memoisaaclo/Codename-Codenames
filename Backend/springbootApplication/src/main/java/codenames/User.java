@@ -60,13 +60,14 @@ public class User {
     public void addToGame(int id) {
     	Game g = Main.gameRepo.findById(id);
     	
-    	Player p = new Player();
+    	Player p = new Player();		// the order of the lines in this method is very deliberate. don't change it
     	this.attachedPlayer = p;
     	p.attachUser(this);
-    	g.addPlayer(p);
     	
-    	Main.userRepo.save(this);
+    	
     	Main.playerRepo.save(p);
+    	g.addPlayer(p);
+    	Main.userRepo.save(this);
     	Main.gameRepo.save(g);
     }
     
