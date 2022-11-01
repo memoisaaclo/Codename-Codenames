@@ -83,26 +83,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_header" />
 
-    <androidx.appcompat.widget.Toolbar
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/lobby_view"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="32dp"-->
+<!--        android:layout_marginEnd="32dp"-->
+<!--        android:layout_marginBottom="64dp"-->
+<!--        android:background="@color/gray_2"-->
+<!--        android:minHeight="?attr/actionBarSize"-->
+<!--        android:theme="?attr/actionBarTheme"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/button_red_spymaster"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/lobby_header" />-->
+
+    <ScrollView
         android:id="@+id/lobby_view"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="64dp"
+        android:layout_height="325dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:background="@color/gray_2"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/button_red_spymaster"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lobby_header" />
+        app:layout_constraintTop_toBottomOf="@+id/lobby_header">
+
+        <LinearLayout
+            android:id="@+id/player_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
 
     <Button
         android:id="@+id/button_ready"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
@@ -140,17 +163,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gameToolbar3" />
 
-    <TextView
-        android:id="@+id/text_player"
-        android:layout_width="206dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:text="When players join they will show up here"
-        android:textColor="#000000"
-        android:textSize="18dp"
-        app:layout_constraintStart_toStartOf="@+id/lobby_view"
-        app:layout_constraintTop_toBottomOf="@+id/lobby_header" />
+<!--    <TextView-->
+<!--        android:id="@+id/text_player"-->
+<!--        android:layout_width="206dp"-->
+<!--        android:layout_height="53dp"-->
+<!--        android:layout_marginStart="32dp"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:text="When players join they will show up here"-->
+<!--        android:textColor="#000000"-->
+<!--        android:textSize="18dp"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/lobby_view"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/lobby_header" />-->
 
     <Button
         android:id="@+id/button_red_spymaster"
@@ -184,7 +207,6 @@
         android:id="@+id/text_choose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:shadowColor="#000000"
         android:text="Select Team/Role"
         android:textColor="#000000"
@@ -249,5 +271,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/lobby_header"
         app:layout_constraintEnd_toEndOf="@+id/lobby_header"
         app:layout_constraintTop_toTopOf="@+id/lobby_header" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

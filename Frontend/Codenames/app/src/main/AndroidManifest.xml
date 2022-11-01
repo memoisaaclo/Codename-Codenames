@@ -18,6 +18,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".spectatorViewing"
+            android:exported="false" />
+        <activity
             android:name=".createLobby"
             android:exported="false" />
         <activity
