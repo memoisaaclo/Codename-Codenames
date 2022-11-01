@@ -208,7 +208,7 @@ public class GameController {
         return "{\"clue\": \"" + g.getCurrentClue() + "\"}";
     }
 
-    @GetMapping(path = "/games/{id}/clue/{clue}/{numGuesses}")
+    @PutMapping(path = "/games/{id}/clue/{clue}/{numGuesses}")
     @ResponseBody String sendCurrentClue(@PathVariable int id, @PathVariable String clue, @PathVariable int numGuesses) {
         Game g = gameRepository.findById(id);
 
