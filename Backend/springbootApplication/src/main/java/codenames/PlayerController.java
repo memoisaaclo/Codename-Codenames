@@ -53,7 +53,9 @@ public class PlayerController {
     	User usr = Main.userRepo.findByusername(username);
     	if(usr==null)return "{\"message\":\"could not find player\"}";
     	if(!(team.toLowerCase().equals("red") || team.toLowerCase().equals("blue")))return "{\"message\":\"invalid team color\"}";
-    	Main.userRepo.findByusername(username).getAttachedPlayer().setTeam(team.toLowerCase().equals("red") ? Color.RED : Color.BLUE);
+    	usr.getAttachedPlayer().setTeam(team.toLowerCase().equals("red") ? Color.RED : Color.BLUE);
+    	Main.userRepo.save(usr);
+    	Main.playerRepo.save(usr.getAttachedPlayer());
     	return success;
     }
     
@@ -62,7 +64,9 @@ public class PlayerController {
     	User usr = Main.userRepo.findByusername(username);
     	if(usr==null)return "{\"message\":\"could not find player\"}";
     	if(!(role.toLowerCase().equals("spymaster") || role.toLowerCase().equals("operative")))return "{\"message\":\"invalid role name\"}";
-    	Main.userRepo.findByusername(username).getAttachedPlayer().setRole(role.toLowerCase().equals("spymaster") ? Role.SPYMASTER : Role.OPERATIVE);
+    	usr.getAttachedPlayer().setRole(role.toLowerCase().equals("spymaster") ? Role.SPYMASTER : Role.OPERATIVE);
+    	Main.userRepo.save(usr);
+    	Main.playerRepo.save(usr.getAttachedPlayer());
     	return success;
     }
 
