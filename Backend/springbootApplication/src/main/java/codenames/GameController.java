@@ -103,22 +103,14 @@ public class GameController {
         return gameRepository.findById(id);
     }
 
-
-//    @PutMapping("/games/{id}")
-//    Game updateGame(@PathVariable int id, @RequestBody Game request){
-//        Game game = gameRepository.findById(id);
-//        if(game == null)
-//            return null;
-//        gameRepository.save(request);
-//        return gameRepository.findById(id);
-//    }
-
     @DeleteMapping(path = "/games/{id}/delete")
     String deleteGame(@PathVariable int id){
         gameRepository.deleteById(id);
         return success;
     }
 
+
+        /* Special Methods */
     /**
      * Method to get status of board
      * Used by frontend to refresh game
@@ -214,6 +206,32 @@ public class GameController {
             return invalid;
 
         return "{\"clue\": \"" + g.getCurrentClue() + "\"}";
+    }
+
+    @GetMapping(path = "/games/{id}/clue/{clue}/{numGuesses}")
+    @ResponseBody String sendCurrentClue(@PathVariable int id, @PathVariable String clue, @PathVariable int numGuesses) {
+        Game g = gameRepository.findById(id);
+
+        if(g == null)
+            return invalid;
+
+        if(clue.strip().equals(""))
+            return failure;
+
+        // Data Validation
+        if (numGuesses < 0)
+            return failure;
+        else if (numGuesses > 25)
+            numGuesses = 25;
+        else
+            numGuesses += 1;
+        if (clue.strip().trim().contains(" "))
+            return failure;
+
+        g.setGuessesAvailable(numGuesses);
+        g.addClue(clue);
+
+        return success;
     }
 
     /**

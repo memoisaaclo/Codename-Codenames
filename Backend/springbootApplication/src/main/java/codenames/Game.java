@@ -24,6 +24,9 @@ public class Game implements Serializable {
     @Column(name = "currentClue")
     private String currentClue = "";
 
+    @Column(name = "guessesAvailable")
+    private int guessesAvailable = 0;
+
     @Column(name = "moves")
     private String moves;
 
@@ -71,9 +74,12 @@ public class Game implements Serializable {
     }
     public void setGameCards(List<GameCard> GameCards) { this.gameCards = GameCards; }
     public String getCurrentClue() { return currentClue; }
+    public void setCurrentClue(String currentClue) { this.currentClue = currentClue; }
+    public int getGuessesAvailable() { return guessesAvailable; }
+    public void setGuessesAvailable(int guessesAvailable) { this.guessesAvailable = guessesAvailable; }
 
 
-        /* Special methods */
+    /* Special methods */
     /**
      * Add clue to list of clues
      * Clue should be in the specified form:
