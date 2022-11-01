@@ -41,10 +41,12 @@ public class Game implements Serializable {
     @OneToMany(mappedBy = "game", orphanRemoval = true)
     private List<GameCard> gameCards = new ArrayList<>();
 
+
         /* Constructors */
     public Game() { }
 
     public Game(String gameLobbyName) { this.gameLobbyName = gameLobbyName; }
+
 
         /* Getters and setters */
     public void addPlayer(Player player) { this.players.add(player); }
@@ -143,6 +145,13 @@ public class Game implements Serializable {
         // Save to main repo
         Main.gameRepo.save(this);
     }
+
+    public String getCurrentClue() {
+        String[] cluesList = generateClueList();
+        return cluesList[cluesList.length];
+    }
+
+    public String[] generateClueList() { return clues.split(","); }
 
 
         /* Baby classes (inner classes) */
