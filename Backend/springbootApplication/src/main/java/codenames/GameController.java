@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class GameController {
@@ -66,41 +67,30 @@ public class GameController {
         return success;
     }
     
-    @PostMapping(path = "/games/{id}/addPlayer")
-    String addPlayerToGame(@PathVariable int id, @RequestParam int player_id){
-        PlayerRepository playerRepo = Main.playerRepo;
-
-        if (playerRepo.findById(player_id) == null || gameRepository.findById(id) == null)
-            return failure;
-
-        Game g = gameRepository.findById(id);
-
-        if(g.getPlayers().contains(playerRepo.findById(player_id))) {
-        	return "{\"message\":\"error: duplicate player id\"}";
-        }
-
-        g.addPlayer(playerRepo.findById(player_id));
-        gameRepository.save(g);
-
+    @PostMapping(path = "/games/{id}/addPlayer/{username}")
+    String addPlayerToGame(@PathVariable int id, @PathVariable String username) {
+        
+    	User add = Main.userRepo.findByusername(username);
+    	if(add ==null) return "{\"message\":\"could not find player\"}";
+    	add.addToGame(id); 
+    	
         return success;
     } 
     
-    @DeleteMapping(path = "/games/{id}/removePlayer")
-    String removePlayerFromGame(@PathVariable int id, @RequestParam int player_id){
-        PlayerRepository playerRepo = Main.playerRepo;
-
-        if (playerRepo.findById(player_id) == null || gameRepository.findById(id) == null)
-            return failure;
-
-        Game g = gameRepository.findById(id);
-
-        if(g.getPlayers().contains(playerRepo.findById(player_id))) {
-        	g.getPlayers().remove(playerRepo.findById(player_id));
-        	gameRepository.save(g);
-        	return success;
-        }
-
+    @DeleteMapping(path = "/games/{id}/removePlayer/{username}")
+    String removePlayerFromGame(@PathVariable int id, @PathVariable String username){
+    	User remove = Main.userRepo.findByusername(username);
+    	if(remove ==null) return "{\"message\":\"could not find player\"}";
+    	
+    	remove.removeFromGame(id);
+    	
+    	
         return "{\"message\":\"could not find player\"}";
+    }
+    
+    @GetMapping(path = "/games/{id}/players")
+    Set<Player> getPlayers(@PathVariable int id){
+    	return Main.gameRepo.findById(id).getPlayers();
     }
 
     @GetMapping(path = "/games")
@@ -123,7 +113,7 @@ public class GameController {
 //        return gameRepository.findById(id);
 //    }
 
-    @DeleteMapping(path = "/games/delete/{id}")
+    @DeleteMapping(path = "/games/{id}/delete")
     String deleteGame(@PathVariable int id){
         gameRepository.deleteById(id);
         return success;

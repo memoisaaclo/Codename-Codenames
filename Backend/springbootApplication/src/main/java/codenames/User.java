@@ -57,9 +57,27 @@ public class User {
     	}
     }
     
-    public void attachPlayer(Player p) {
+    public void addToGame(int id) {
+    	Game g = Main.gameRepo.findById(id);
+    	
+    	Player p = new Player();
     	this.attachedPlayer = p;
-    	p.setUserId(id);
+    	p.attachUser(this);
+    	
+    	Main.userRepo.save(this);
+    	Main.playerRepo.save(p);
+    	Main.gameRepo.save(g);
+    }
+    
+    public void removeFromGame(int id) {
+    	Game g = Main.gameRepo.findById(id);
+    	g.removePlayer(this.attachedPlayer);	// remove player from game
+    	
+    	Main.playerRepo.delete(attachedPlayer);
+    	Main.gameRepo.save(g);
+    	attachedPlayer = null;	// remove reference from this class
+    	Main.userRepo.save(this);	// save everything
+    	// at this point, Player should be orphaned and can be ignored
     }
     
     public void startGame() {

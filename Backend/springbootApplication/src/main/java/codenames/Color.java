@@ -5,7 +5,7 @@ package codenames;
  * 10/29/22
  * isaaclo
  **/
-public enum CardColor {
+public enum Color {
     RED,
     BLUE,
     BLACK,
