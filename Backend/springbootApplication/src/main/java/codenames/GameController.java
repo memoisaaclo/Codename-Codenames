@@ -28,7 +28,7 @@ public class GameController {
         }
 
         gameRepository.save(game);
-        return "{\"message\":\"success\"}";
+        return "{\"id\":\"" + game.getLobby().getIdentity() + "\"}";
     }
 
     @GetMapping(path = "/games/{id}/numPlayers")
