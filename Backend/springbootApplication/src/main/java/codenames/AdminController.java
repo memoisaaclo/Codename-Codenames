@@ -88,8 +88,7 @@ public class AdminController {
 				+ "PATH                                : Method : Description <br>"
 				+ "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>"
 				+ "/admin/paths                        : GET    : get this list<br>"
-				+ "<a href = http://10.90.75.56:8080/admin/cards/removeall/98765>/admin/cards/removeall/98765</a>"
-				+ "        : DELETE : remove all cards from the database<br>"
+				+ "/admin/cards/removeall/98765        : DELETE : remove all cards from the database<br>"
 				+ "/admin/get/{username}               : GET    : checks if the given user is an admin<br>"
 				+ "/admin/set/{username}               : POST   : sets an account as an admin<br><br>"
 				
@@ -107,8 +106,7 @@ public class AdminController {
 				+ "/games/add                          : POST   : create a game<br>"
 				+ "<a href = http://10.90.75.56:8080/games/lobbyinfo>/games/lobbyinfo</a>"
 				+ "                    : GET    : return all names and ids of lobbies<br>"
-				+ "<a href = http://10.90.75.56:8080/games/removeall/98765>/games/removeall/98765</a>"
-				+ "                    : DELETE : delete all lobbies<br>"
+				+ "/games/removeall/98765              : DELETE : delete all lobbies<br>"
 				+ "/games/{id}                         : GET    : get a single game's data<br>"
 				+ "/games/{id}/words                   : GET    : get all words for a given game id<br>"
 				+ "/games/{id}/delete                  : DELETE : delete the given game<br>"
@@ -132,8 +130,7 @@ public class AdminController {
 				+ "/players/{username}/getrole         : GET    : returns the players current role<br><br>"
 				
 				
-				+ "<a href = http://10.90.75.56:8080/users/clearUsers/75362>/users/clearUsers/75362</a>"
-				+ "             : DELETE : remove all users from the database<br>"
+				+ "/users/clearUsers/75362             : DELETE : remove all users from the database<br>"
 				+ "<a href = http://10.90.75.56:8080/users/getallusers>/users/getallusers<a>"
 				+ "                  : GET    : get all userdata for all users<br>"
 				+ "/users/{username}                   : GET    : get all data for a single user<br>"
