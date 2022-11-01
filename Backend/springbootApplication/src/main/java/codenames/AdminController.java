@@ -104,6 +104,8 @@ public class AdminController {
 				+ "/games/{id}/delete                  : DELETE : delete the given game" + "<br>"
 				+ "/games/{id}/colors                  : GET    : get all colors for a given game id" + "<br>"
 				+ "/games/{id}/isRevealed              : GET    : get all revealed stats for a given game id" + "<br>"
+				+ "/games/{id}/clue                    : GET    : get current clue for a given game id" + "<br>"
+				+ "/games/{id}/clueList                : GET    : get all live clues for a given game id" + "<br>"
 				+ "/games/{id}/removePlayer/{username} : DELETE : remove a player from a game" + "<br>"
 				+ "/games/{id}/addPlayer/{username}    : POST   : add a player to a game" + "<br>"
 				+ "/games/{id}/numPlayers              : GET    : get the number of players in a game" + "<br>"

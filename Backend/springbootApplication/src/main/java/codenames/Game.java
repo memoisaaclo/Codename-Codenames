@@ -21,6 +21,9 @@ public class Game implements Serializable {
     @Column(name = "clues")
     private String clues = "";
 
+    @Column(name = "currentClue")
+    private String currentClue = "";
+
     @Column(name = "moves")
     private String moves;
 
@@ -67,6 +70,7 @@ public class Game implements Serializable {
         return gameCards;
     }
     public void setGameCards(List<GameCard> GameCards) { this.gameCards = GameCards; }
+    public String getCurrentClue() { return currentClue; }
 
 
         /* Special methods */
@@ -76,7 +80,10 @@ public class Game implements Serializable {
      * {one word clue}{#of cards that it applies to}
      * @param clue
      */
-    public void addClue(String clue) { this.clues += "," +  clue.strip(); }
+    public void addClue(String clue) {
+        this.clues += "," +  clue.strip();
+        currentClue = clue;
+    }
 
     public void generateWordList() {
         List<Card> allCards = Main.cardRepo.findAll();
@@ -144,11 +151,6 @@ public class Game implements Serializable {
 
         // Save to main repo
         Main.gameRepo.save(this);
-    }
-
-    public String getCurrentClue() {
-        String[] cluesList = generateClueList();
-        return cluesList[cluesList.length];
     }
 
     public String[] generateClueList() { return clues.split(","); }

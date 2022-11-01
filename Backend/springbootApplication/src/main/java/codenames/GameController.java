@@ -185,7 +185,7 @@ public class GameController {
      * @return
      */
     @GetMapping(path = "/games/{id}/clueList")
-    String getRevealed(@PathVariable int id) {
+    String getClueList(@PathVariable int id) {
         Game g = gameRepository.findById(id);
 
         if(g == null)
@@ -207,7 +207,7 @@ public class GameController {
      * @return
      */
     @GetMapping(path = "/games/{id}/clue")
-    String getCluesList(@PathVariable int id) {
+    String getCurrentClue(@PathVariable int id) {
         Game g = gameRepository.findById(id);
 
         if(g == null)
