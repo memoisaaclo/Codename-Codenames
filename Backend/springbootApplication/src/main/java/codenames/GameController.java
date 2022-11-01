@@ -11,31 +11,27 @@ import java.util.Set;
 @RestController
 public class GameController {
 
-    @Autowired
-    GameRepository gameRepository = Main.gameRepo;
-
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
     private String invalid ="{\"message\":\"Invalid lobby ID\"}";
 
-    public GameController(GameRepository gameRepository) {
-        this.gameRepository = gameRepository;
+    public GameController() {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/games/add")
     public @ResponseBody String createNewGame(@RequestBody Game game) {
-        if(gameRepository.findBygameLobbyName(game.getGameLobbyName()) != null){
+        if(Main.gameRepo.findBygameLobbyName(game.getGameLobbyName()) != null){
             return "{\"message\":\"Lobby name already in use\"}";
         }
 
-        gameRepository.save(game);
+        Main.gameRepo.save(game);
         return "{\"message\":\"success\", \"id\":\"" + game.getLobby().getIdentity() + "\"}";
     }
 
     @GetMapping(path = "/games/{id}/numplayers")
     String getGamePlayerNumberById( @PathVariable int id) {
-    	if(gameRepository.findById(id) != null) {
-	        int playerNum = gameRepository.findById(id).getPlayers().size();
+    	if(Main.gameRepo.findById(id) != null) {
+	        int playerNum = Main.gameRepo.findById(id).getPlayers().size();
 	        return String.format("{\"playerNum\": \"%s\"}", playerNum);
     	} else {
     		return invalid;
@@ -109,7 +105,7 @@ public class GameController {
 
     @GetMapping(path = "/games/{id}")
     Game getGameById( @PathVariable int id){
-        return gameRepository.findById(id);
+        return Main.gameRepo.findById(id);
     }
     
     @DeleteMapping(path = "/games/deleteall")
@@ -129,7 +125,7 @@ public class GameController {
 
     @DeleteMapping(path = "/games/{id}/delete")
     String deleteGame(@PathVariable int id){
-        gameRepository.deleteById(id);
+    	Main.gameRepo.deleteById(id);
         return success;
     }
 
@@ -150,7 +146,7 @@ public class GameController {
      */
     @GetMapping(path = "/games/{id}/words")
     String getWords(@PathVariable int id) {
-        Game g = gameRepository.findById(id);
+        Game g = Main.gameRepo.findById(id);
 
         if(g != null) {
             String rstring = "{";
@@ -178,7 +174,7 @@ public class GameController {
      */
     @GetMapping(path = "/games/{id}/colors")
     String getColors(@PathVariable int id) {
-        Game g = gameRepository.findById(id);
+        Game g = Main.gameRepo.findById(id);
 
         if(g != null) {
             String rstring = "{";
@@ -206,7 +202,7 @@ public class GameController {
      */
     @GetMapping(path = "/games/{id}/isrevealed")
     String getRevealed(@PathVariable int id) {
-        Game g = gameRepository.findById(id);
+        Game g = Main.gameRepo.findById(id);
 
         if(g != null) {
             String rstring = "{";
