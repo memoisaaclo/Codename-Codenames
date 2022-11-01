@@ -161,4 +161,8 @@ public class User {
 	public void setAdmin(boolean b) {
 		isAdmin = b;
 	}
+
+	public Player getAttachedPlayer() {
+		return attachedPlayer;
+	}
 }

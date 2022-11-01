@@ -75,6 +75,7 @@ public class GameController {
     	Game check = Main.gameRepo.findById(id);
     	if(add ==null) return "{\"message\":\"could not find player\"}";
     	if(check ==null) return "{\"message\":\"could not find game\"}";
+    	if(check.getPlayers().contains(add.getAttachedPlayer())) return "{\"message\":\"player is already in game\"}";
     	add.addToGame(id); 
     	
         return success;
@@ -86,6 +87,7 @@ public class GameController {
     	Game check = Main.gameRepo.findById(id);
     	if(remove ==null) return "{\"message\":\"could not find player\"}";
     	if(check ==null) return "{\"message\":\"could not find game\"}";
+    	if(!check.getPlayers().contains(remove.getAttachedPlayer())) return "{\"message\":\"player is already not in game\"}";
     	
     	remove.removeFromGame(id);
     	
