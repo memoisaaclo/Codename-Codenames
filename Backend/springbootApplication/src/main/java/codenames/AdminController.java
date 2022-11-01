@@ -132,7 +132,7 @@ public class AdminController {
 				
 				
 				
-				+ "/users/clearUsers/75362             : DELETE : remove all users from the database<br>"
+				+ "/users/clearusers/75362             : DELETE : remove all users from the database<br>"
 				+ "<a href = http://10.90.75.56:8080/users/getallusers>/users/getallusers<a>"
 				+ "                  : GET    : get all userdata for all users<br>"
 				+ "/users/{username}                   : GET    : get all data for a single user<br>"

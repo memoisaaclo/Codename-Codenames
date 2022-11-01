@@ -22,31 +22,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PlayerController {
 
-    @Autowired
-    PlayerRepository playerRepository = Main.playerRepo;
-
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
 
     public PlayerController(PlayerRepository playerRepository) {
-        this.playerRepository = playerRepository;
+        Main.playerRepo = playerRepository;
     }
 
     @GetMapping(path = "/players")
     List<Player> getAllPlayers(){
-        return playerRepository.findAll();
+        return Main.playerRepo.findAll();
     }
 
     @GetMapping(path = "/players/{id}")
     Player getPlayerById( @PathVariable int id){
-        return playerRepository.findById(id);
+        return Main.playerRepo.findById(id);
     }
 
     @PostMapping(path = "/players/create")
     String createPlayer(@RequestBody Player player){
         if (player == null)
             return failure;
-        playerRepository.save(player);
+        Main.playerRepo.save(player);
         return success;
     }
     
@@ -84,7 +81,7 @@ public class PlayerController {
 
     @DeleteMapping(path = "/players/{id}")
     String deletePlayer(@PathVariable int id){
-        playerRepository.deleteById(id);
+    	Main.playerRepo.deleteById(id);
         return success;
     }
     
