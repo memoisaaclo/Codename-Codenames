@@ -69,6 +69,16 @@ public class PlayerController {
     	Main.playerRepo.save(usr.getAttachedPlayer());
     	return success;
     }
+    
+    @GetMapping(path = "/players/{username}/getteam")
+    String getTeam(@PathVariable String username) {
+    	return "{\"team\":\"" + Main.userRepo.findByusername(username).getAttachedPlayer().getTeam() + "\"}";
+    }
+    
+    @GetMapping(path = "/players/{username}/getrole")
+    String getRole(@PathVariable String username) {
+    	return "{\"role\":\"" + Main.userRepo.findByusername(username).getAttachedPlayer().getRole() + "\"}";
+    }
 
     @DeleteMapping(path = "/players/{id}")
     String deletePlayer(@PathVariable int id){
