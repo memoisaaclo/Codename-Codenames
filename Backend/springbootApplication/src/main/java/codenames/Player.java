@@ -14,16 +14,24 @@ public class Player implements Serializable {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
-    
-    @OneToOne
+
+    @OneToOne(mappedBy = "attachedPlayer") //, orphanRemoval = true  <<< add this later?
     private User user;
-    
+
     private Long userId;
 
     private boolean active;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Player() {
     }

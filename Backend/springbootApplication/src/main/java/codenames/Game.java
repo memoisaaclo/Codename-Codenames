@@ -28,7 +28,7 @@ public class Game implements Serializable {
     private String gameLobbyName;
 
     @OneToMany(orphanRemoval = false, fetch = FetchType.EAGER)
-    private List<Player> players = new ArrayList<Player>();
+    private Set<Player> players = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -54,8 +54,8 @@ public class Game implements Serializable {
     public void setCards(Set<Card> cards) { this.cards = cards; }
     public String getGameLobbyName() { return gameLobbyName; }
     public void setGameLobbyName(String gameLobbyName) { this.gameLobbyName = gameLobbyName; }
-    public List<Player> getPlayers() { return players; }
-    public void setPlayers(List<Player> players) { this.players = players; }
+    public Set<Player> getPlayers() { return players; }
+    public void setPlayers(Set<Player> players) { this.players = players; }
     public String getClues() { return clues; }
     public void setClues(String clues) { this.clues = clues; }
     public Lobby getLobby() { return new Lobby(); }
