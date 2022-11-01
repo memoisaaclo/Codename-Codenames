@@ -90,7 +90,7 @@ public class GameController {
     	remove.removeFromGame(id);
     	
     	
-        return "{\"message\":\"could not find player\"}";
+        return success;
     }
     
     @GetMapping(path = "/games/{id}/players")
