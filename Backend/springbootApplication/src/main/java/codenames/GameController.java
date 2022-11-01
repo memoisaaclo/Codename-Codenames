@@ -104,7 +104,7 @@ public class GameController {
 
     @GetMapping(path = "/games")
     List<Game> getAllGames(){
-        return gameRepository.findAll();
+        return Main.gameRepo.findAll();
     }
 
     @GetMapping(path = "/games/{id}")
