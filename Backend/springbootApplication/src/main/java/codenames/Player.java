@@ -44,6 +44,10 @@ public class Player implements Serializable {
     	this.team = team;
     }
     
+    public void setRole(Role role) {
+    	this.role = role;
+    }
+    
     public String getRole() {
     	return role.toString();
     }
