@@ -35,7 +35,10 @@ public class LobbyActivity extends Activity implements View.OnClickListener
     private TextView lobby_name;
     private TextView user;
     private Button to_lobby;
+    private Button to_game;
     private String username;
+    private Button to_operative;
+    private Button to_spymaster;
 
     // These tags will be used to cancel the requests
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
@@ -55,9 +58,13 @@ public class LobbyActivity extends Activity implements View.OnClickListener
 
         to_lobby = (Button) findViewById(R.id.reg_exit3);
         to_game = (Button) findViewById(R.id.button_ready);
+        to_operative = (Button) findViewById(R.id.button_red_operative);
+        to_spymaster = (Button) findViewById(R.id.button_red_spymaster);
 
         to_lobby.setOnClickListener(this);
         to_game.setOnClickListener(this);
+        to_operative.setOnClickListener(this);
+        to_spymaster.setOnClickListener(this);
 
         postJsonObj();
         try
@@ -247,6 +254,16 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         }
 
         if (view.getId() == R.id.button_ready)
+        {
+            startActivity(new Intent(LobbyActivity.this, SpymasterGameActivity.class));
+        }
+
+        if (view.getId() == R.id.button_red_operative)
+        {
+            startActivity(new Intent(LobbyActivity.this, OperativeGameActivity.class));
+        }
+
+        if (view.getId() == R.id.button_red_spymaster)
         {
             startActivity(new Intent(LobbyActivity.this, SpymasterGameActivity.class));
         }

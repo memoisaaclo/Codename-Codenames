@@ -164,7 +164,7 @@
 		android:layout_width="0dp"
 		android:layout_height="0dp"
 		android:layout_marginBottom="256dp"
-		android:background="@color/cardinal"
+		android:background="@color/blue"
 		android:text="WORD"
 		android:textSize="10sp"
 		app:layout_constraintBottom_toTopOf="@+id/header_red"
