@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
-import static codenames.CardColor.*;
+import static codenames.Color.*;
 
 /**
  * Game object that represents one instance of a code names board game.
@@ -111,15 +111,15 @@ public class Game implements Serializable {
             gameCards.clear();
 
         // Array of card colors that will need to be applied
-        ArrayList<CardColor> colors = new ArrayList<>(Arrays.asList(
-                // ONE BLACK CARD
-                BLACK,
-                // EIGHT YELLOW CARDS
-                BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE,
-                // NINE RED CARDS
-                RED, RED, RED, RED, RED, RED, RED, RED, RED,
-                // SEVEN GREY CARDS
-                GREY, GREY, GREY, GREY, GREY, GREY, GREY
+        ArrayList<Color> colors = new ArrayList<>(Arrays.asList(
+            // ONE BLACK CARD
+            BLACK,
+            // EIGHT YELLOW CARDS
+            BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE,
+            // NINE RED CARDS
+            RED, RED, RED, RED, RED, RED, RED, RED, RED,
+            // SEVEN GREY CARDS
+            GREY, GREY, GREY, GREY, GREY, GREY, GREY
         ));
 
         // Shuffle
@@ -167,4 +167,8 @@ public class Game implements Serializable {
         	return id;
         }
     }
+
+	public void removePlayer(Player attachedPlayer) {
+		players.remove(attachedPlayer);
+	}
 }

@@ -25,27 +25,27 @@ public class GameCard implements Comparable<GameCard> {
 
     private boolean revealed;
 
-    private CardColor color;
+    private Color color;
 
     @ManyToOne
     @JoinColumn(name = "game_id")
     private Game game;
 
         /* Constructors */
-    public GameCard() { color = CardColor.GREY; }
+    public GameCard() { color = Color.GREY; }
 
-    public GameCard(int gamePosition, CardColor color) {
+    public GameCard(int gamePosition, Color color) {
         this.gamePosition = gamePosition;
         this.color = color;
     }
 
-    public GameCard(int gamePosition, CardColor color, Game game) {
+    public GameCard(int gamePosition, Color color, Game game) {
         this.gamePosition = gamePosition;
         this.color = color;
         this.game = game;
     }
 
-    public GameCard(int gamePosition, String word, CardColor color, Game game) {
+    public GameCard(int gamePosition, String word, Color color, Game game) {
         this.gamePosition = gamePosition;
         this.word = word;
         this.color = color;
@@ -65,15 +65,15 @@ public class GameCard implements Comparable<GameCard> {
 
     public void setWord(String word) { this.word = word; }
 
-    public GameCard(CardColor color) { this.color = color; }
+    public GameCard(Color color) { this.color = color; }
 
     public boolean isRevealed() { return revealed; }
 
     public void setRevealed(boolean revealed) { this.revealed = revealed; }
 
-    public CardColor getColor() { return color; }
+    public Color getColor() { return color; }
 
-    public void setColor(CardColor color) { this.color = color; }
+    public void setColor(Color color) { this.color = color; }
 
     public Game getGame() { return game; }
 
