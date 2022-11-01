@@ -40,21 +40,30 @@ public class PlayerController {
         return playerRepository.findById(id);
     }
 
-    @PostMapping(path = "/players")
+    @PostMapping(path = "/players/create")
     String createPlayer(@RequestBody Player player){
         if (player == null)
             return failure;
         playerRepository.save(player);
         return success;
     }
-
-    @PutMapping("/players/{id}")
-    Player updatePlayer(@PathVariable int id, @RequestBody Player request){
-        Player player = playerRepository.findById(id);
-        if(player == null)
-            return null;
-        playerRepository.save(request);
-        return playerRepository.findById(id);
+    
+    @PostMapping(path = "/players/{username}/setTeam/{team}")
+    String setTeam(@PathVariable String username, @PathVariable String team) {
+    	User usr = Main.userRepo.findByusername(username);
+    	if(usr==null)return "{\"message\":\"could not find player\"}";
+    	if(!(team.toLowerCase().equals("red") || team.toLowerCase().equals("blue")))return "{\"message\":\"invalid team color\"}";
+    	Main.userRepo.findByusername(username).getAttachedPlayer().setTeam(team.toLowerCase().equals("red") ? Color.RED : Color.BLUE);
+    	return success;
+    }
+    
+    @PostMapping(path = "/players/{username}/setTeam/{role}")
+    String setRole(@PathVariable String username, @PathVariable String role) {
+    	User usr = Main.userRepo.findByusername(username);
+    	if(usr==null)return "{\"message\":\"could not find player\"}";
+    	if(!(role.toLowerCase().equals("spymaster") || role.toLowerCase().equals("operative")))return "{\"message\":\"invalid role name\"}";
+    	Main.userRepo.findByusername(username).getAttachedPlayer().setRole(role.toLowerCase().equals("spymaster") ? Role.SPYMASTER : Role.OPERATIVE);
+    	return success;
     }
 
     @DeleteMapping(path = "/players/{id}")
