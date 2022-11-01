@@ -68,7 +68,7 @@ public class GameController {
         return success;
     }
     
-    @PostMapping(path = "/games/{id}/addPlayer/{username}")
+    @PostMapping(path = "/games/{id}/addplayer/{username}")
     String addPlayerToGame(@PathVariable int id, @PathVariable String username) {
         
     	User add = Main.userRepo.findByusername(username);
@@ -81,7 +81,7 @@ public class GameController {
         return success;
     } 
     
-    @DeleteMapping(path = "/games/{id}/removePlayer/{username}")
+    @DeleteMapping(path = "/games/{id}/removeplayer/{username}")
     String removePlayerFromGame(@PathVariable int id, @PathVariable String username){
     	User remove = Main.userRepo.findByusername(username);
     	Game check = Main.gameRepo.findById(id);
@@ -238,5 +238,10 @@ public class GameController {
         	l.add(g.getLobby());
         }
         return l;
+    }
+    
+    @DeleteMapping(path = "/games/removeall/98765")
+    public void removeall() {
+    	Main.gameRepo.deleteAll();
     }
 }
