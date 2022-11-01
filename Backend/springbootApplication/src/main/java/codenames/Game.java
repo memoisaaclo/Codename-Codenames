@@ -163,8 +163,38 @@ public class Game implements Serializable {
         Main.gameRepo.save(this);
     }
 
+    public void getGuess(int card_position) {
+        // Assume Data is Valid
+        List<GameCard> cards = getGameCards();
+        GameCard card = cards.get(card_position);
+
+        if (card.isRevealed())
+            return;
+        else
+            card.setRevealed(true);
+
+        if (card.getColor() == turnColor)
+            guessesAvailable--;
+        else
+            setGuessesAvailable(0);
+
+        if (getGuessesAvailable() == 0) {
+            swapTeam();
+        }
+    }
+
     public String[] generateClueList() { return clues.split(","); }
 
+    public void swapTeam() {
+        switch (turnColor) {
+            case RED:
+                setTurnColor(BLUE);
+                break;
+            case BLUE:
+                setTurnColor(RED);
+                break;
+        }
+    }
 
         /* Baby classes (inner classes) */
     class Lobby {

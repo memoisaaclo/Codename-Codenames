@@ -256,22 +256,13 @@ public class GameController {
         if(g == null)
             return invalid;
 
-        if (!g.getTurnColor().equals(player.getTeam()))
-            return "{\"message\":\"Incorrect team guess\"}";
-
         // Data Validation
-        if (card_position < 0 || card_position > 24)
+        if (!g.getTurnColor().equals(player.getTeam()))
+            return "{\"message\":\"incorrect team guess\"}";
+        else if (card_position < 0 || card_position > 24)
             return failure;
 
-        int numGuesses = g.getGuessesAvailable();
-        if(numGuesses > 1) {
-
-            g.setGuessesAvailable(numGuesses - 1);
-        } else if (g.getGuessesAvailable() == 1){
-
-        } else {
-
-        }
+        g.getGuess(card_position);
 
         gameRepository.save(g);
         return success;
