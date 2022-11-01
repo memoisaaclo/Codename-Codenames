@@ -104,7 +104,7 @@ public class AdminController {
 				+ "/games/{id}/delete                  : DELETE : delete the given game<br>"
 				+ "/games/{id}/colors                  : GET    : get all colors for a given game id<br>"
 				+ "/games/{id}/isRevealed              : GET    : get all revealed stats for a given game id<br>"
-				+ "/games/{id}/removePlayer/{username} : DELETE : remove a player from a game<br>"
+				+ "/games/{id}/removeplayer/{username} : DELETE : remove a player from a game<br>"
 				+ "/games/{id}/addPlayer/{username}    : POST   : add a player to a game<br>"
 				+ "/games/{id}/numPlayers              : GET    : get the number of players in a game<br>"
 				+ "/games/{id}/generatewords           : GET    : generate the wordset for a game<br>"
@@ -114,7 +114,9 @@ public class AdminController {
 				+ "/players                            : GET    : Get all players<br>"
 				+ "/players/create                     : POST   : create a given player from JSON<br>"
 				+ "/players/{id}                       : GET    : get all data about a specific player<br>"
-				+ "/players/{id}/delete                : DELETE : deletes a player<br><br>"
+				+ "/players/{id}/delete                : DELETE : deletes a player<br>"
+				+ "/players/{username}/setteam/{team}  : POST   : sets a players team<br>"
+				+ "/players/{username}/setrole/{role}  : POST   : sets a players role<br><br>"
 				
 				
 				+ "/users/clearUsers/75362             : DELETE : remove all users from the database<br>"
