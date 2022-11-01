@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.*;
 
-import static codenames.CardColor.*;
+import static codenames.Color.*;
 
 /**
  * Game object that represents one instance of a code names board game.
@@ -80,7 +80,7 @@ public class Game implements Serializable {
         cardStates.clear();
 
         // Array of card colors that will need to be applied
-        ArrayList<CardColor> colors = new ArrayList<>(Arrays.asList(
+        ArrayList<Color> colors = new ArrayList<>(Arrays.asList(
             // ONE BLACK CARD
             BLACK,
             // EIGHT YELLOW CARDS

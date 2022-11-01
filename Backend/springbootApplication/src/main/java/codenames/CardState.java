@@ -25,7 +25,7 @@ public class CardState {
 
     private boolean revealed;
 
-    private CardColor color;
+    private Color color;
 
     @ManyToOne
     @JoinColumn(name = "game_id")
@@ -43,15 +43,15 @@ public class CardState {
         Constructors
      */
     public CardState() {
-        color = CardColor.GREY;
+        color = Color.GREY;
     }
 
-    public CardState(int gamePosition, CardColor color) {
+    public CardState(int gamePosition, Color color) {
         this.gamePosition = gamePosition;
         this.color = color;
     }
 
-    public CardState(int gamePosition, CardColor color, Game game) {
+    public CardState(int gamePosition, Color color, Game game) {
         this.gamePosition = gamePosition;
         this.color = color;
         this.game = game;
@@ -69,7 +69,7 @@ public class CardState {
 
     public void setGamePosition(int gamePosition) { this.gamePosition = gamePosition; }
 
-    public CardState(CardColor color) {
+    public CardState(Color color) {
         this.color = color;
     }
 
@@ -81,11 +81,11 @@ public class CardState {
         this.revealed = revealed;
     }
 
-    public CardColor getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(CardColor color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 

@@ -64,7 +64,7 @@ public class GameController {
         return success;
     } 
     
-    @DeleteMapping(path = "/games/{id}/removePlayer")
+    @DeleteMapping(path = "/games/{id}/removePlayer/{username}")
     String removePlayerFromGame(@PathVariable int id, @PathVariable String username){
     	User remove = Main.userRepo.findByusername(username);
     	if(remove ==null) return "{\"message\":\"could not find player\"}";
@@ -73,6 +73,11 @@ public class GameController {
     	
     	
         return "{\"message\":\"could not find player\"}";
+    }
+    
+    @GetMapping(path = "/games/{id}/players")
+    List<Player> getPlayers(@PathVariable int id){
+    	return Main.gameRepo.findById(id).getPlayers();
     }
 
     @GetMapping(path = "/games")
@@ -95,7 +100,7 @@ public class GameController {
 //        return gameRepository.findById(id);
 //    }
 
-    @DeleteMapping(path = "/games/delete/{id}")
+    @DeleteMapping(path = "/games/{id}/delete")
     String deleteGame(@PathVariable int id){
         gameRepository.deleteById(id);
         return success;

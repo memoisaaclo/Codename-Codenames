@@ -5,10 +5,10 @@ import java.io.Serializable;
 
 @Entity
 public class Player implements Serializable {
-    public Player(boolean active) {
-        this.active = active;
-    }
-
+	
+	private Role role;
+	private Color team;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -21,15 +21,9 @@ public class Player implements Serializable {
     @OneToOne
     private User user;
     
-    private boolean active;
-
     public Player() {
     }
 
-    public Game getGame() {
-        return game;
-    }
-    
     public void attachUser(User user) {
     	this.user = user;
     }
@@ -42,11 +36,20 @@ public class Player implements Serializable {
         this.id = id;
     }
 
-    public boolean isActive() {
-        return active;
+    public String getTeam() {
+    	return team.toString();
     }
-
-    public void setActive(boolean active) {
-        this.active = active;
+    
+    public void setTeam(Color team) {
+    	this.team = team;
     }
+    
+    public String getRole() {
+    	return role.toString();
+    }
+    
+    public String getUsername() {
+    	return user.getUsername();
+    }
+    
 }
