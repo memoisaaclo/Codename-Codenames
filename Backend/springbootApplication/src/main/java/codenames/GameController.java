@@ -136,7 +136,6 @@ public class GameController {
             return invalid;
 
         String rstring = "[";
-        int i = 0;
 
         for (GameCard c : g.getGameCards())
             rstring += c.displayInfo();
