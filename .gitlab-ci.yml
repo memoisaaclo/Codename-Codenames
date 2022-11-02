@@ -3,7 +3,7 @@ stages:
 #  - androidbuild   
 #  - androidtest
   - mavenDeploy
-
+ 
 workflow: 
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" || $CI_COMMIT_BRANCH == "main"
