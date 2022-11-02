@@ -1,5 +1,6 @@
 package codenames;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class GameCard implements Comparable<GameCard>, Serializable {
     private Color color;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JsonBackReference
     @JoinColumn(name = "game_id")
     private Game game;
 

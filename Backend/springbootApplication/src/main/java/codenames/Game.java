@@ -1,5 +1,6 @@
 package codenames;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -50,6 +51,7 @@ public class Game implements Serializable {
     private Set<Card> cards = new LinkedHashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "game", orphanRemoval = true)
+    @JsonManagedReference
     private List<GameCard> gameCards = new ArrayList<>();
 
 
