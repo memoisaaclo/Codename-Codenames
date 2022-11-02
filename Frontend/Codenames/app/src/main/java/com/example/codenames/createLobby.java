@@ -1,6 +1,8 @@
 package com.example.codenames;
 
 import static com.example.codenames.utils.Const.URL_JSON_CREATE;
+import static com.example.codenames.utils.Const.URL_JSON_PLAYERNUM_POST_FIRST;
+import static com.example.codenames.utils.Const.URL_JSON_PLAYERNUM_POST_SECOND;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -69,6 +71,9 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
 
                 try {
                     if(object.get("message").equals("success")) {
+                        next.putExtra("identity", object.get("id").toString());
+                        next.putExtra("lobbyName", lobbyName);
+                        addPlayer(name, object.get("id").toString());
                         startActivity(next);
                     } else {
                         ((TextView) findViewById(R.id.create_error)).setText(object.get("message").toString());
@@ -96,5 +101,35 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
         if (v.getId() == R.id.create_exit) {
             startActivity(new Intent(createLobby.this, HubActivity.class).putExtra("username", username));
         }
+    }
+
+    private void addPlayer (String lobby, String id) throws JSONException {
+        RequestListener addListener = new RequestListener() {
+            @Override
+            public void onSuccess(Object response) throws JSONException {
+
+                JSONObject object = (JSONObject) response;
+
+                try {
+                    if (object.get("message").equals("success")) {
+                        startActivity(new Intent(createLobby.this, LobbyActivity.class)
+                                .putExtra("username", username).putExtra("lobbyName", lobby).putExtra("id", id));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                System.out.println("error");
+                System.out.println(errorMessage);
+            }
+        };
+
+        JSONObject data = new JSONObject();
+
+        String url = URL_JSON_PLAYERNUM_POST_FIRST + id + URL_JSON_PLAYERNUM_POST_SECOND + username;
+        VolleyListener.makeRequest(this, url, addListener, data, Request.Method.POST);
     }
 }

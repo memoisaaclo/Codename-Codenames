@@ -55,29 +55,39 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/title_header"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="80dp"
         android:layout_marginBottom="600dp"
         android:background="@color/cardinal"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gameToolbar3" />
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:id="@+id/lobby_error"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_header"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/lobby_header"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="80dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="500dp"
         android:background="@color/gray_1"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +115,9 @@
         android:layout_height="325dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginBottom="200dp"
         android:background="@color/gray_2"
+        app:layout_constraintBottom_toBottomOf="@+id/button_ready"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lobby_header">
@@ -155,10 +167,10 @@
         android:id="@+id/text_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="LOBBY 1"
         android:textColor="#000000"
         android:textSize="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/title_header"
         app:layout_constraintEnd_toEndOf="@+id/title_header"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gameToolbar3" />
@@ -207,15 +219,18 @@
         android:id="@+id/text_choose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="140dp"
         android:shadowColor="#000000"
         android:text="Select Team/Role"
         android:textColor="#000000"
         android:textSize="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_red_spymaster"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.432"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lobby_view"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button_red_operative"
