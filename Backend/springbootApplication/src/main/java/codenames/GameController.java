@@ -11,8 +11,6 @@ import java.util.Set;
 @RestController
 public class GameController {
 
-    private GameRepository gameRepository = Main.gameRepo;
-
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
     private String invalid ="{\"message\":\"Invalid lobby ID\"}";
@@ -219,7 +217,7 @@ public class GameController {
      */
     @GetMapping(path = "/games/{id}/clueList")
     String getClueList(@PathVariable int id) {
-        Game g = gameRepository.findById(id);
+        Game g = Main.gameRepo.findById(id);
 
         if(g == null)
             return invalid;
@@ -241,7 +239,7 @@ public class GameController {
      */
     @GetMapping(path = "/games/{id}/clue")
     String getCurrentClue(@PathVariable int id) {
-        Game g = gameRepository.findById(id);
+        Game g = Main.gameRepo.findById(id);
 
         if(g == null)
             return invalid;
@@ -251,7 +249,7 @@ public class GameController {
 
     @PutMapping(path = "/games/{id}/clue/{clue}/{numGuesses}")
     @ResponseBody String sendCurrentClue(@PathVariable int id, @PathVariable String clue, @PathVariable int numGuesses) {
-        Game g = gameRepository.findById(id);
+        Game g = Main.gameRepo.findById(id);
 
         if(g == null)
             return invalid;
@@ -274,7 +272,7 @@ public class GameController {
         g.setGuessesAvailable(numGuesses);
         g.addClue(clue);
 
-        gameRepository.save(g);
+        Main.gameRepo.save(g);
 
         return success;
     }
@@ -286,7 +284,7 @@ public class GameController {
      */
     @GetMapping(path = "/games/{id}/turncolor")
     String getCurrentTeamColor(@PathVariable int id) {
-        Game g = gameRepository.findById(id);
+        Game g = Main.gameRepo.findById(id);
         if(g == null)
             return invalid;
 
@@ -295,7 +293,7 @@ public class GameController {
 
     @PutMapping(path = "/games/{id}/guess/{card_position}")
     @ResponseBody String receiveGuess(@PathVariable int id, @PathVariable int card_position, @RequestBody Player player) {
-        Game g = gameRepository.findById(id);
+        Game g = Main.gameRepo.findById(id);
         if(g == null)
             return invalid;
 
@@ -307,7 +305,7 @@ public class GameController {
 
         g.getGuess(card_position);
 
-        gameRepository.save(g);
+        Main.gameRepo.save(g);
         return success;
     }
 
