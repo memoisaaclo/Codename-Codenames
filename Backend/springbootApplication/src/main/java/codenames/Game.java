@@ -21,27 +21,21 @@ public class Game implements Serializable {
     private int id;
 
     @Column(name = "clues")
-    @Nullable
     private String clues = "";
 
     @Column(name = "currentClue")
-    @Nullable
     private String currentClue = "";
 
     @Column(name = "guessesAvailable")
-    @Nullable
     private int guessesAvailable = 0;
 
     @Column(name = "turnColor")
-    @Nullable
     private Color turnColor = RED;
 
     @Column(name = "moves")
-    @Nullable
     private String moves = "";
 
     @Column(name = "gameLobbyName", unique = true)
-    @Nullable
     private String gameLobbyName;
 
     @OneToMany(orphanRemoval = false, fetch = FetchType.EAGER)
@@ -133,9 +127,9 @@ public class Game implements Serializable {
 
     public void generateGameCards() {
         GameCard card;
+
         // Clear GameCard arrayList
-        if (gameCards != null)
-            gameCards.clear();
+        gameCards.clear();
 
         // Array of card colors that will need to be applied
 
@@ -157,7 +151,6 @@ public class Game implements Serializable {
         for(int i = 0; i < 25; i++) {
             card = new GameCard(i, colors.remove(0), this);
 
-            Main.gameCardRepo.save(card);
             gameCards.add(card);
         }
 

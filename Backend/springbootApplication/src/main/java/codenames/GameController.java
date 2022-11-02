@@ -129,10 +129,23 @@ public class GameController {
      * Method to get status of board
      * Used by frontend to refresh game
      */
-//    @GetMapping(path = "/games/{id}/getBoard")
-//    String getGameStatus(@PathVariable int id) {
-//        return ;
-//    }
+    @GetMapping(path = "/games/{id}/getboard")
+    String getGameStatus(@PathVariable int id) {
+        Game g = Main.gameRepo.findById(id);
+        if (g == null)
+            return invalid;
+
+        String rstring = "[";
+        int i = 0;
+
+        for (GameCard c : g.getGameCards())
+            rstring += c.displayInfo();
+
+        if (g.getCards() == null)
+            return "{\"message\":\"Invalid Game State\"}";
+
+        return rstring.substring(0, rstring.length()-2)+ "]";
+    }
 
     /**
      * Get list of words (25) of a certain game

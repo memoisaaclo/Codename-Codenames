@@ -79,6 +79,12 @@ public class GameCard implements Comparable<GameCard> {
 
     public void setGame(Game game) { this.game = game; }
 
+    public String displayInfo() {
+        return "{\"position\": \"" + gamePosition + "\", " +
+                "\"color\": \"" + color + "\", " +
+                "\"revealed\": \"" + revealed + "\"}";
+    }
+
         /* Other Methods */
     @Override
     public boolean equals(Object o) {
