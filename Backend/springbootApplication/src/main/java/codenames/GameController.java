@@ -227,6 +227,8 @@ public class GameController {
             numGuesses += 1;
         if (clue.strip().trim().contains(" "))
             return failure;
+        if (g.getGuessesAvailable() != 0)
+            return failure; // Check if game state is valid
 
         g.setGuessesAvailable(numGuesses);
         g.addClue(clue);
