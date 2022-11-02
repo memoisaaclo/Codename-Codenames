@@ -138,7 +138,7 @@ public class GameController {
         String rstring = "[";
 
         for (GameCard c : g.getGameCards())
-            rstring += c.displayInfo();
+            rstring += c.displayInfo() + ", ";
 
         if (g.getCards() == null)
             return "{\"message\":\"Invalid Game State\"}";
