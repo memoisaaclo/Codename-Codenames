@@ -171,6 +171,31 @@ public class GameController {
     }
 
     /**
+     * Get list of revealed statuses of a certain game
+     * Used to refresh view
+     * @param id
+     * @return
+     */
+    @GetMapping(path = "/games/{id}/isrevealed")
+    String getRevealed(@PathVariable int id) {
+        Game g = gameRepository.findById(id);
+
+        if(g == null)
+            return invalid;
+
+        String rstring = "{";
+        int i = 0;
+
+        for (GameCard c : g.getGameCards())
+            rstring += "\"" + i++ + "\": \"" + c.isRevealed() + "\", ";
+
+        if (g.getGameCards() == null)
+            return "{\"message\":\"Invalid Game State\"}";
+
+        return rstring.substring(0, rstring.length()-2)+ "}";
+    }
+
+    /**
      * Get list of live clues of a certain game
      * Used to refresh view
      * @param id
