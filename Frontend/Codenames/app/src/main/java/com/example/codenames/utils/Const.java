@@ -56,7 +56,7 @@ public class Const {
 	public static final String URL_JSON_REMOVEPLAYER_SECOND = "/removeplayer/";
 
 	//Get Cards for Game
-	public static final String URL_JSON_GETALLCARDS_SPECTATOR_FIRST = "games/id/";
-	public static final String URL_JSON_GETALLcARDS_SPECTATOR_SECOND = "/";
+	public static final String URL_JSON_GETALLCARDS_SPECTATOR_FIRST = "http://10.90.75.56:8080/games/";
+	public static final String URL_JSON_GETALLCARDS_SPECTATOR_SECOND = "/getboard";
 
 }

@@ -72,6 +72,7 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
                 startActivity(new Intent(menu.this, HubActivity.class).putExtra("username", username));
             } else if (username == null) {
                 //go to spectator hub
+//                startActivity(new Intent(menu.this, spectatorViewing.class).putExtra("id", "34"));
                 startActivity(new Intent(menu.this, spectatorHub.class));
             }
         } else if (v.getId() == R.id.menu_user) {

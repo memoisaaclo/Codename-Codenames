@@ -89,9 +89,9 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
 
     class ClickListener implements View.OnClickListener {
         private String lobby;
-        int id;
+        private String id;
 
-        public ClickListener(String lobbyName, int id){
+        public ClickListener(String lobbyName, String id){
             this.lobby = lobbyName;
             this.id = id;
         }
@@ -116,7 +116,7 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
                                 JSONObject o = (JSONObject) lobbies.get(i);
                                 String name = o.get("lobbyName").toString();
                                 int numPlayer = (int) o.get("numPlayers");
-                                int id = (int) o.get("identity");
+                                String id = o.get("identity").toString();
                                 addLobbies(new lobby(name, numPlayer, id));
                             }
                         } catch (JSONException e) {

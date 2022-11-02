@@ -4,9 +4,9 @@ public class lobby {
 
     private String name;
     private int numPlayers;
-    private int id;
+    private String id;
 
-    public lobby(String name, int numPlayers, int id) {
+    public lobby(String name, int numPlayers, String id) {
         this.name = name;
         this.numPlayers = numPlayers;
         this.id = id;
@@ -20,6 +20,6 @@ public class lobby {
         return numPlayers;
     }
 
-    public int getId() { return id; }
+    public String getId() { return id; }
 
 }

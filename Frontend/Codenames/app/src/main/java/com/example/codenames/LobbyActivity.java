@@ -151,9 +151,9 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 150));
 
         LinearLayout.LayoutParams name = new LinearLayout.LayoutParams(500, 150);
-        name.setMarginStart(100);
+        name.setMargins(100, 20, 0, 20);
         LinearLayout.LayoutParams pRole = new LinearLayout.LayoutParams(500, 150);
-        pRole.setMarginEnd(100);
+        pRole.setMargins(0, 20, 100, 20);
 
         //Change background on row to player team
         if(team.toLowerCase(Locale.ROOT).equals("red")) {
@@ -166,7 +166,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         TextView t = new TextView(this);
         t.setText(pName);
         t.setTextSize(20);
-        t.setTextColor(Color.BLACK);
+        t.setTextColor(Color.WHITE);
         t.setLayoutParams(name);
 
         row.addView(t);
@@ -175,7 +175,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         TextView r = new TextView(this);
         r.setText(role);
         r.setTextSize(20);
-        r.setTextColor(Color.BLACK);
+        r.setTextColor(Color.WHITE);
         r.setLayoutParams(pRole);
 
         row.addView(r);

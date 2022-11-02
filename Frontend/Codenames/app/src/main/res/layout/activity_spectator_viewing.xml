@@ -74,6 +74,8 @@
         app:layout_constraintTop_toBottomOf="@+id/specGame_title_tool"
         app:layout_constraintBottom_toTopOf="@+id/specGame_score_blue_tool"
         android:layout_marginBottom="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:orientation="vertical">
 
 

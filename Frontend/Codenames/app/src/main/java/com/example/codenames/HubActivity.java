@@ -121,9 +121,9 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
         private String lobby;
         private String id;
 
-        public ClickListener(String lobbyName, int id){
+        public ClickListener(String lobbyName, String id){
             this.lobby = lobbyName;
-            this.id = Integer.toString(id);
+            this.id = id;
         }
 
         @Override
@@ -152,7 +152,7 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
                                 JSONObject o = (JSONObject) lobbies.get(i);
                                 String name = o.get("lobbyName").toString();
                                 int numPlayer = (int) o.get("numPlayers");
-                                int id = (int) o.get("identity");
+                                String id = o.get("identity").toString();
                                 addLobbies(new lobby(name, numPlayer, id));
                             }
                         } catch (JSONException e) {

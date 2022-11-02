@@ -32,6 +32,7 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
     private TextView error_text;
     private TextView player_count;
     private Button exit;
+    private Button toGame;
     private LinearLayout pList;
     private String id;
     private String lobbyName;
@@ -56,6 +57,11 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
 
         exit = (Button) findViewById(R.id.specLobby_exit);
         exit.setOnClickListener(this);
+
+        toGame = (Button) findViewById(R.id.specLobby_toGame);
+        toGame.setOnClickListener(this);
+
+        getPlayers();
     }
 
     private void getPlayers() {
@@ -73,6 +79,7 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
                             JSONArray object = new JSONArray(response);
                             players = object;
                             player_count.setText(Integer.toString(players.length()));
+                            System.out.println(response);
                             for (int i = 0; i < players.length(); i++) {
                                 JSONObject o = (JSONObject) players.get(i);
                                 String name = o.get("username").toString();
@@ -97,14 +104,16 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
     }
 
     private void addPlayer(String pName, String role, String team) {
+
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 150));
 
-        LinearLayout.LayoutParams name = new LinearLayout.LayoutParams(500, 150);
+        LinearLayout.LayoutParams name = new LinearLayout.LayoutParams(500, 125);
         name.setMarginStart(100);
-        LinearLayout.LayoutParams pRole = new LinearLayout.LayoutParams(500, 150);
-        pRole.setMarginEnd(100);
+        name.setMargins(100, 20, 0, 20);
+        LinearLayout.LayoutParams pRole = new LinearLayout.LayoutParams(500, 125);
+        pRole.setMargins(0, 20, 150, 20);
 
         //Change background on row to player team
         if(team.toLowerCase(Locale.ROOT).equals("red")) {
@@ -117,8 +126,9 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
         TextView t = new TextView(this);
         t.setText(pName);
         t.setTextSize(20);
-        t.setTextColor(Color.BLACK);
+        t.setTextColor(Color.WHITE);
         t.setLayoutParams(name);
+
 
         row.addView(t);
 
@@ -126,7 +136,7 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
         TextView r = new TextView(this);
         r.setText(role);
         r.setTextSize(20);
-        r.setTextColor(Color.BLACK);
+        r.setTextColor(Color.WHITE);
         r.setLayoutParams(pRole);
 
         row.addView(r);
