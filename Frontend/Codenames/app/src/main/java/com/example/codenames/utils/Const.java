@@ -55,4 +55,8 @@ public class Const {
 	public static final String URL_JSON_REMOVEPLAYER_FIRST = "/games/";
 	public static final String URL_JSON_REMOVEPLAYER_SECOND = "/removeplayer/";
 
+	//Get Cards for Game
+	public static final String URL_JSON_GETALLCARDS_SPECTATOR_FIRST = "games/id/";
+	public static final String URL_JSON_GETALLcARDS_SPECTATOR_SECOND = "/";
+
 }

@@ -43,6 +43,116 @@
         app:layout_constraintBottom_toBottomOf="@+id/specGame_top_tool"
         app:layout_constraintEnd_toEndOf="@+id/specGame_top_tool" />
 
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:id="@+id/specGame_title_tool"
+        android:background="@color/cardinal"
+        app:layout_constraintTop_toBottomOf="@+id/specGame_top_tool"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/specGame_lobbyName"
+        android:text="Lobby Name"
+        android:textSize="40sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@id/specGame_title_tool"
+        app:layout_constraintEnd_toEndOf="@id/specGame_title_tool"
+        app:layout_constraintTop_toTopOf="@id/specGame_title_tool"
+        app:layout_constraintBottom_toBottomOf="@id/specGame_title_tool" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/specGame_cardView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/specGame_title_tool"
+        app:layout_constraintBottom_toTopOf="@+id/specGame_score_blue_tool"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical">
+
+
+    </LinearLayout>
+
+    <Toolbar
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:id="@+id/specGame_score_red_tool"
+        android:background="@color/cardinal"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/specGame_score_blue_tool"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:id="@+id/specGame_score_text_red"
+        android:text="Score:"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:layout_marginStart="20sp"
+        app:layout_constraintStart_toStartOf="@+id/specGame_score_red_tool"
+        app:layout_constraintTop_toTopOf="@id/specGame_score_red_tool"
+        app:layout_constraintBottom_toBottomOf="@id/specGame_score_red_tool"
+        app:layout_constraintEnd_toStartOf="@id/specGame_score_red" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/specGame_score_red"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="125dp"
+        app:layout_constraintEnd_toEndOf="@id/specGame_score_red_tool"
+        app:layout_constraintTop_toTopOf="@id/specGame_score_red_tool"
+        app:layout_constraintBottom_toBottomOf="@id/specGame_score_red_tool"
+        app:layout_constraintStart_toStartOf="@id/specGame_score_red_tool"/>
+
+    <Toolbar
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:id="@+id/specGame_score_blue_tool"
+        android:background="@color/blue"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintStart_toEndOf="@+id/specGame_score_red_tool"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:id="@+id/specGame_score_text_blue"
+        android:text="Score:"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:layout_marginStart="20sp"
+        app:layout_constraintStart_toStartOf="@+id/specGame_score_blue_tool"
+        app:layout_constraintTop_toTopOf="@id/specGame_score_blue_tool"
+        app:layout_constraintBottom_toBottomOf="@id/specGame_score_blue_tool"
+        app:layout_constraintEnd_toStartOf="@id/specGame_score_blue" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/specGame_score_blue"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="125dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/specGame_score_blue_tool"
+        app:layout_constraintBottom_toBottomOf="@id/specGame_score_blue_tool"
+        app:layout_constraintStart_toStartOf="@id/specGame_score_blue_tool"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

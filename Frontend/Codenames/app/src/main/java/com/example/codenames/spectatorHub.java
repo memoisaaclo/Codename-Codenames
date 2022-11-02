@@ -98,7 +98,7 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onClick(View v) {
-            startActivity(new Intent(spectatorHub.this, LobbyActivity.class).putExtra("lobbyName", lobby).putExtra("id", id));
+            startActivity(new Intent(spectatorHub.this, spectatorLobby.class).putExtra("lobbyName", lobby).putExtra("id", id));
         }
     }
 

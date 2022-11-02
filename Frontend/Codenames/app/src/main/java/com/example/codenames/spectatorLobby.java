@@ -136,6 +136,10 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-
+        if (v.getId() == R.id.specLobby_exit) {
+            startActivity(new Intent(spectatorLobby.this, spectatorHub.class));
+        } else if (v.getId() == R.id.specLobby_toGame) {
+            startActivity(new Intent(spectatorLobby.this, spectatorViewing.class).putExtra("lobbyName", lobbyName).putExtra("id", id));
+        }
     }
 }

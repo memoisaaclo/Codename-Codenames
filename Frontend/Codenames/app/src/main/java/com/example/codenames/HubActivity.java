@@ -129,7 +129,9 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
         @Override
         public void onClick(View v) {
             try {
-                addPlayer(lobby, id);
+                if (username != null) {
+                    addPlayer(lobby, id);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
