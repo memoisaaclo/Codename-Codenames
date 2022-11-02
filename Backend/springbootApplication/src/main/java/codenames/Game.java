@@ -200,11 +200,12 @@ public class Game implements Serializable {
     class Lobby {
         private String lobbyName;
         private int numPlayers;
-        private int id;
-
+        private int identity;
+        
         Lobby() {
             this.numPlayers = players.size();
             this.lobbyName = gameLobbyName;
+            this.identity = id;
         }
 
         public String getLobbyName() {
@@ -216,7 +217,7 @@ public class Game implements Serializable {
         }
         
         public int getIdentity() {
-        	return id;
+        	return identity;
         }
     }
 

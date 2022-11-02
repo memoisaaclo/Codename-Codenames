@@ -50,7 +50,7 @@ public class UserController {
         return Main.userRepo.findAll();
     }
 	
-	@RequestMapping(method = RequestMethod.DELETE, path = "/users/clearUsers/75362")
+	@RequestMapping(method = RequestMethod.DELETE, path = "/users/clearusers/75362")
     public void clearUsers() {	// removes all objects
         Main.userRepo.deleteAllInBatch();
 	}

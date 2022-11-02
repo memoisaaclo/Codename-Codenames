@@ -6,8 +6,10 @@ import java.io.Serializable;
 @Entity
 public class Player implements Serializable {
 	
-	private Role role;
-	private Color team;
+	public boolean active = true; 	// literally just here as a test
+	
+	private Role role = Role.OPERATIVE;
+	private Color team = Color.RED;
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +44,10 @@ public class Player implements Serializable {
     
     public void setTeam(Color team) {
     	this.team = team;
+    }
+    
+    public void setRole(Role role) {
+    	this.role = role;
     }
     
     public String getRole() {
