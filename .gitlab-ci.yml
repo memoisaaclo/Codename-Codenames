@@ -4,6 +4,10 @@ stages:
 #  - androidtest
   - mavenDeploy  
 
+workflow: 
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" || $CI_COMMIT_BRANCH == "main"
+
 autoDeploy:
   stage: mavenDeploy  #do make a stage with same name!
   tags:
