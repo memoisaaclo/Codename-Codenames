@@ -4,44 +4,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @RestController
 public class GameController {
 
-    @Autowired
-    GameRepository gameRepository = Main.gameRepo;
+    private GameRepository gameRepository = Main.gameRepo;
 
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
     private String invalid ="{\"message\":\"Invalid lobby ID\"}";
 
+    public GameController() {
+    }
+
     public GameController(GameRepository gameRepository) {
-        this.gameRepository = gameRepository;
+        Main.gameRepo = gameRepository;
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/games/add")
     public @ResponseBody String createNewGame(@RequestBody Game game) {
-        if(gameRepository.findBygameLobbyName(game.getGameLobbyName()) != null){
+        if(Main.gameRepo.findBygameLobbyName(game.getGameLobbyName()) != null){
             return "{\"message\":\"Lobby name already in use\"}";
         }
 
-        gameRepository.save(game);
-        return "{\"message\":\"success\"}";
+        Main.gameRepo.save(game);
+        return "{\"message\":\"success\", \"id\":\"" + game.getLobby().getIdentity() + "\"}";
     }
 
-    @GetMapping(path = "/games/{id}/numPlayers")
+    @GetMapping(path = "/games/{id}/numplayers")
     String getGamePlayerNumberById( @PathVariable int id) {
-    	if(gameRepository.findById(id) != null) {
-	        int playerNum = gameRepository.findById(id).getPlayers().size();
+    	if(Main.gameRepo.findById(id) != null) {
+	        int playerNum = Main.gameRepo.findById(id).getPlayers().size();
 	        return String.format("{\"playerNum\": \"%s\"}", playerNum);
     	} else {
     		return invalid;
     	}
     }
     
-    @GetMapping(path = "/games/{id}/generateWords")
+    @GetMapping(path = "/games/{id}/generatewords")
     String genWords(@PathVariable int id) {
     	Game g = Main.gameRepo.findById(id);
 
@@ -56,7 +59,7 @@ public class GameController {
      * Generate the GameCard array for 25 cards in a parallel array to a game's cards.
      * @param id
      */
-    @GetMapping(path = "games/{id}/generateStates")
+    @GetMapping(path = "/games/{id}/generatestates")
     String generateGameCards(@PathVariable int id) {
         Game g = Main.gameRepo.findById(id);
 
@@ -67,45 +70,58 @@ public class GameController {
         return success;
     }
     
-    @PostMapping(path = "/games/{id}/addPlayer/{username}")
+    @PostMapping(path = "/games/{id}/addplayer/{username}")
     String addPlayerToGame(@PathVariable int id, @PathVariable String username) {
         
     	User add = Main.userRepo.findByusername(username);
+    	Game check = Main.gameRepo.findById(id);
     	if(add ==null) return "{\"message\":\"could not find player\"}";
+    	if(check ==null) return "{\"message\":\"could not find game\"}";
+    	if(check.getPlayers().contains(add.getAttachedPlayer())) return "{\"message\":\"player is already in game\"}";
     	add.addToGame(id); 
     	
         return success;
     } 
     
-    @DeleteMapping(path = "/games/{id}/removePlayer/{username}")
+    @DeleteMapping(path = "/games/{id}/removeplayer/{username}")
     String removePlayerFromGame(@PathVariable int id, @PathVariable String username){
     	User remove = Main.userRepo.findByusername(username);
+    	Game check = Main.gameRepo.findById(id);
     	if(remove ==null) return "{\"message\":\"could not find player\"}";
+    	if(check ==null) return "{\"message\":\"could not find game\"}";
+    	if(!check.getPlayers().contains(remove.getAttachedPlayer())) return "{\"message\":\"player is already not in game\"}";
     	
     	remove.removeFromGame(id);
     	
     	
-        return "{\"message\":\"could not find player\"}";
+        return success;
     }
     
     @GetMapping(path = "/games/{id}/players")
     Set<Player> getPlayers(@PathVariable int id){
+    	Game check = Main.gameRepo.findById(id);
+    	if(check ==null) return new HashSet<Player>();
     	return Main.gameRepo.findById(id).getPlayers();
     }
 
     @GetMapping(path = "/games")
     List<Game> getAllGames(){
-        return gameRepository.findAll();
+        return Main.gameRepo.findAll();
     }
 
     @GetMapping(path = "/games/{id}")
     Game getGameById( @PathVariable int id){
-        return gameRepository.findById(id);
+        return Main.gameRepo.findById(id);
+    }
+    
+    @DeleteMapping(path = "/games/deleteall")
+    void deleteAllGames() {
+    	Main.gameRepo.deleteAll();
     }
 
     @DeleteMapping(path = "/games/{id}/delete")
     String deleteGame(@PathVariable int id){
-        gameRepository.deleteById(id);
+    	Main.gameRepo.deleteById(id);
         return success;
     }
 
@@ -128,7 +144,7 @@ public class GameController {
      */
     @GetMapping(path = "/games/{id}/words")
     String getWords(@PathVariable int id) {
-        Game g = gameRepository.findById(id);
+        Game g = Main.gameRepo.findById(id);
 
         if(g == null)
             return invalid;
@@ -153,7 +169,7 @@ public class GameController {
      */
     @GetMapping(path = "/games/{id}/colors")
     String getColors(@PathVariable int id) {
-        Game g = gameRepository.findById(id);
+        Game g = Main.gameRepo.findById(id);
 
         if(g == null)
             return invalid;
@@ -178,7 +194,7 @@ public class GameController {
      */
     @GetMapping(path = "/games/{id}/isrevealed")
     String getRevealed(@PathVariable int id) {
-        Game g = gameRepository.findById(id);
+        Game g = Main.gameRepo.findById(id);
 
         if(g == null)
             return invalid;
@@ -310,4 +326,9 @@ public class GameController {
     }
 
     // Smile :>
+    
+    @DeleteMapping(path = "/games/removeall/98765")
+    public void removeall() {
+    	Main.gameRepo.deleteAll();
+    }
 }
