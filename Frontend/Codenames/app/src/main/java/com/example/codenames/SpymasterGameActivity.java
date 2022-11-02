@@ -152,7 +152,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements OnClickL
 
     public void showColors()
     {
-        cards[0].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
+        //cards[0].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 Const.URL_JSON_COLOR_GET, null,
@@ -171,7 +171,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements OnClickL
                             {
                                 Log.d(TAG, response.getString("colors")); //backend in ()
 
-                                //cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
+                                cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
 
                                 switch (response.getString("colors"))
                                 {
