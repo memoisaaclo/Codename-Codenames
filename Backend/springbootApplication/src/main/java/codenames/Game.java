@@ -129,7 +129,7 @@ public class Game implements Serializable {
         GameCard card;
 
         // Clear GameCard arrayList
-        setCards(new LinkedHashSet<>());
+        gameCards.clear();
 
         // Array of card colors that will need to be applied
 

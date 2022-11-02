@@ -155,7 +155,6 @@ public class GameController {
     @GetMapping(path = "/games/{id}/words")
     String getWords(@PathVariable int id) {
         Game g = Main.gameRepo.findById(id);
-
         if(g == null)
             return invalid;
 

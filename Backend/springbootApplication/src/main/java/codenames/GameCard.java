@@ -3,6 +3,7 @@ package codenames;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Objects;
  **/
 
 @Entity
-public class GameCard implements Comparable<GameCard> {
+public class GameCard implements Comparable<GameCard>, Serializable {
         /* Field Variables */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
