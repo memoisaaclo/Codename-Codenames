@@ -84,6 +84,7 @@ public class GameCard implements Comparable<GameCard>, Serializable {
 
     public String displayInfo() {
         return "{\"position\": \"" + gamePosition + "\", " +
+                "\"word\": \"" + word + "\", " +
                 "\"color\": \"" + color + "\", " +
                 "\"revealed\": \"" + revealed + "\"}";
     }
