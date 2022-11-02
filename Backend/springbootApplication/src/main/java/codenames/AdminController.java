@@ -91,7 +91,6 @@ public class AdminController {
 				+ "/admin/cards/removeall/98765        : DELETE : remove all cards from the database<br>"
 				+ "/admin/get/{username}               : GET    : checks if the given user is an admin<br>"
 				+ "/admin/set/{username}               : POST   : sets an account as an admin<br><br>"
-				
 				+ "/admin/cards/remove                 : DELETE : remove a single card<br>"
 				+ "/admin/cards/add                    : PUT    : add a card<br>"
 				+ "/admin/cards/addBulk                : PUT    : add array of cards<br>"
@@ -111,6 +110,10 @@ public class AdminController {
 				+ "/games/{id}/words                   : GET    : get all words for a given game id<br>"
 				+ "/games/{id}/delete                  : DELETE : delete the given game<br>"
 				+ "/games/{id}/colors                  : GET    : get all colors for a given game id<br>"
+				+ "/games/{id}/clue                    : GET    : get current clue for a given game id" + "<br>"
+				+ "/games/{id}/turncolor               : GET    : return current turn color for a given game id" + "<br>"
+				+ "/games/{id}/clue/{clue}/{numGuesses}: PUT    : Send current clue and clue num for a given game id" + "<br>"
+				+ "/games/{id}/guess/{card_position}   : PUT    : Send a new guess to a given game id" + "<br>"
 				+ "/games/{id}/isrevealed              : GET    : get all revealed stats for a given game id<br>"
 				+ "/games/{id}/removeplayer/{username} : DELETE : remove a player from a game<br>"
 				+ "/games/{id}/addplayer/{username}    : POST   : add a player to a game<br>"

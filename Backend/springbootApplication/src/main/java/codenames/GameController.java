@@ -11,11 +11,17 @@ import java.util.Set;
 @RestController
 public class GameController {
 
+    private GameRepository gameRepository = Main.gameRepo;
+
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
     private String invalid ="{\"message\":\"Invalid lobby ID\"}";
 
     public GameController() {
+    }
+
+    public GameController(GameRepository gameRepository) {
+        Main.gameRepo = gameRepository;
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/games/add")
@@ -113,22 +119,14 @@ public class GameController {
     	Main.gameRepo.deleteAll();
     }
 
-
-//    @PutMapping("/games/{id}")
-//    Game updateGame(@PathVariable int id, @RequestBody Game request){
-//        Game game = gameRepository.findById(id);
-//        if(game == null)
-//            return null;
-//        gameRepository.save(request);
-//        return gameRepository.findById(id);
-//    }
-
     @DeleteMapping(path = "/games/{id}/delete")
     String deleteGame(@PathVariable int id){
     	Main.gameRepo.deleteById(id);
         return success;
     }
 
+
+        /* Special Methods */
     /**
      * Method to get status of board
      * Used by frontend to refresh game
@@ -148,22 +146,19 @@ public class GameController {
     String getWords(@PathVariable int id) {
         Game g = Main.gameRepo.findById(id);
 
-        if(g != null) {
-            String rstring = "{";
-            int i = 0;
-
-            for (GameCard c : g.getGameCards()) {
-                rstring += "\"" + i + "\": \"" + c.getWord() + "\", ";
-                i++;
-            }
-
-            if (g.getCards() == null)
-                return "{\"message\":\"Invalid Game State\"}";
-
-            return rstring.substring(0, rstring.length()-2)+ "}";
-        } else {
+        if(g == null)
             return invalid;
-        }
+
+        String rstring = "{";
+        int i = 0;
+
+        for (GameCard c : g.getGameCards())
+            rstring += "\"" + i++ + "\": \"" + c.getWord() + "\", ";
+
+        if (g.getCards() == null)
+            return "{\"message\":\"Invalid Game State\"}";
+
+        return rstring.substring(0, rstring.length()-2)+ "}";
     }
 
     /**
@@ -176,27 +171,24 @@ public class GameController {
     String getColors(@PathVariable int id) {
         Game g = Main.gameRepo.findById(id);
 
-        if(g != null) {
-            String rstring = "{";
-            int i = 0;
-
-            for (GameCard c : g.getGameCards()) {
-                rstring += "\"" + i + "\": \"" + c.getColor().name() + "\", ";
-                i++;
-            }
-
-            if (g.getGameCards() == null)
-                return "{\"message\":\"Invalid Game State\"}";
-
-            return rstring.substring(0, rstring.length()-2)+ "}";
-        } else {
+        if(g == null)
             return invalid;
-        }
+
+        String rstring = "{";
+        int i = 0;
+
+        for (GameCard c : g.getGameCards())
+            rstring += "\"" + i++ + "\": \"" + c.getColor().name() + "\", ";
+
+        if (g.getGameCards() == null)
+            return "{\"message\":\"Invalid Game State\"}";
+
+        return rstring.substring(0, rstring.length()-2)+ "}";
     }
 
     /**
-     * Get list of revealed status (25) of a certain game
-     * Used to refresh view colors
+     * Get list of revealed statuses of a certain game
+     * Used to refresh view
      * @param id
      * @return
      */
@@ -204,22 +196,119 @@ public class GameController {
     String getRevealed(@PathVariable int id) {
         Game g = Main.gameRepo.findById(id);
 
-        if(g != null) {
-            String rstring = "{";
-            int i = 0;
-
-            for (GameCard c : g.getGameCards()) {
-                rstring += "\"" + i + "\": \"" + c.isRevealed() + "\", ";
-                i++;
-            }
-
-            if (g.getGameCards() == null)
-                return "{\"message\":\"Invalid Game State\"}";
-
-            return rstring.substring(0, rstring.length()-2)+ "}";
-        } else {
+        if(g == null)
             return invalid;
+
+        String rstring = "{";
+        int i = 0;
+
+        for (GameCard c : g.getGameCards())
+            rstring += "\"" + i++ + "\": \"" + c.isRevealed() + "\", ";
+
+        if (g.getGameCards() == null)
+            return "{\"message\":\"Invalid Game State\"}";
+
+        return rstring.substring(0, rstring.length()-2)+ "}";
+    }
+
+    /**
+     * Get list of live clues of a certain game
+     * Used to refresh view
+     * @param id
+     * @return
+     */
+    @GetMapping(path = "/games/{id}/clueList")
+    String getClueList(@PathVariable int id) {
+        Game g = gameRepository.findById(id);
+
+        if(g == null)
+            return invalid;
+
+        String rstring = "{";
+        int i = 0;
+
+        for (String clue : g.generateClueList()) {
+            rstring += "\"" + i++ + "\": \"" + clue + "\", ";
         }
+
+        return rstring.substring(0, rstring.length()-2)+ "}";
+    }
+
+    /**
+     * Get list of current clue of a certain game
+     * @param id
+     * @return
+     */
+    @GetMapping(path = "/games/{id}/clue")
+    String getCurrentClue(@PathVariable int id) {
+        Game g = gameRepository.findById(id);
+
+        if(g == null)
+            return invalid;
+
+        return "{\"clue\": \"" + g.getCurrentClue() + "\"}";
+    }
+
+    @PutMapping(path = "/games/{id}/clue/{clue}/{numGuesses}")
+    @ResponseBody String sendCurrentClue(@PathVariable int id, @PathVariable String clue, @PathVariable int numGuesses) {
+        Game g = gameRepository.findById(id);
+
+        if(g == null)
+            return invalid;
+
+        if(clue.strip().equals(""))
+            return failure;
+
+        // Data Validation
+        if (numGuesses < 0)
+            return failure;
+        else if (numGuesses > 25)
+            numGuesses = 25;
+        else
+            numGuesses += 1;
+        if (clue.strip().trim().contains(" "))
+            return failure;
+        if (g.getGuessesAvailable() != 0)
+            return failure; // Check if game state is valid
+
+        g.setGuessesAvailable(numGuesses);
+        g.addClue(clue);
+
+        gameRepository.save(g);
+
+        return success;
+    }
+
+    /**
+     * Get list of current team color of a certain game
+     * @param id
+     * @return
+     */
+    @GetMapping(path = "/games/{id}/turncolor")
+    String getCurrentTeamColor(@PathVariable int id) {
+        Game g = gameRepository.findById(id);
+        if(g == null)
+            return invalid;
+
+        return "{\"turnColor\": \"" + g.getTurnColor() + "\"}";
+    }
+
+    @PutMapping(path = "/games/{id}/guess/{card_position}")
+    @ResponseBody String receiveGuess(@PathVariable int id, @PathVariable int card_position, @RequestBody Player player) {
+        Game g = gameRepository.findById(id);
+        if(g == null)
+            return invalid;
+
+        // Data Validation
+        if (!g.getTurnColor().equals(player.getTeam()))
+            return "{\"message\":\"incorrect team guess\"}";
+        else if (card_position < 0 || card_position > 24)
+            return failure;
+
+        g.getGuess(card_position);
+
+        gameRepository.save(g);
+        return success;
     }
 
     /**
@@ -235,6 +324,8 @@ public class GameController {
         }
         return l;
     }
+
+    // Smile :>
     
     @DeleteMapping(path = "/games/removeall/98765")
     public void removeall() {

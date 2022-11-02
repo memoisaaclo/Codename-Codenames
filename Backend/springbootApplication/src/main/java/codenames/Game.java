@@ -21,6 +21,15 @@ public class Game implements Serializable {
     @Column(name = "clues")
     private String clues = "";
 
+    @Column(name = "currentClue")
+    private String currentClue = "";
+
+    @Column(name = "guessesAvailable")
+    private int guessesAvailable = 0;
+
+    @Column(name = "turnColor")
+    private Color turnColor = RED;
+
     @Column(name = "moves")
     private String moves;
 
@@ -41,10 +50,12 @@ public class Game implements Serializable {
     @OneToMany(mappedBy = "game", orphanRemoval = true)
     private List<GameCard> gameCards = new ArrayList<>();
 
+
         /* Constructors */
     public Game() { }
 
     public Game(String gameLobbyName) { this.gameLobbyName = gameLobbyName; }
+
 
         /* Getters and setters */
     public void addPlayer(Player player) { this.players.add(player); }
@@ -59,22 +70,30 @@ public class Game implements Serializable {
     public String getClues() { return clues; }
     public void setClues(String clues) { this.clues = clues; }
     public Lobby getLobby() { return new Lobby(); }
+    public String getTurnColor() { return turnColor.name(); }
+    public void setTurnColor(Color turnColor) { this.turnColor = turnColor; }
     public List<GameCard> getGameCards() {
         Collections.sort(gameCards);
-
         return gameCards;
     }
     public void setGameCards(List<GameCard> GameCards) { this.gameCards = GameCards; }
+    public String getCurrentClue() { return currentClue; }
+    public void setCurrentClue(String currentClue) { this.currentClue = currentClue; }
+    public int getGuessesAvailable() { return guessesAvailable; }
+    public void setGuessesAvailable(int guessesAvailable) { this.guessesAvailable = guessesAvailable; }
 
 
-        /* Special methods */
+    /* Special methods */
     /**
      * Add clue to list of clues
      * Clue should be in the specified form:
      * {one word clue}{#of cards that it applies to}
      * @param clue
      */
-    public void addClue(String clue) { this.clues += "," +  clue.strip(); }
+    public void addClue(String clue) {
+        this.clues += "," +  clue.strip();
+        currentClue = clue;
+    }
 
     public void generateWordList() {
         List<Card> allCards = Main.cardRepo.findAll();
@@ -144,6 +163,38 @@ public class Game implements Serializable {
         Main.gameRepo.save(this);
     }
 
+    public void getGuess(int card_position) {
+        // Assume Data is Valid
+        List<GameCard> cards = getGameCards();
+        GameCard card = cards.get(card_position);
+
+        if (card.isRevealed())
+            return;
+        else
+            card.setRevealed(true);
+
+        if (card.getColor() == turnColor)
+            guessesAvailable--;
+        else
+            setGuessesAvailable(0);
+
+        if (getGuessesAvailable() == 0) {
+            swapTeam();
+        }
+    }
+
+    public String[] generateClueList() { return clues.split(","); }
+
+    public void swapTeam() {
+        switch (turnColor) {
+            case RED:
+                setTurnColor(BLUE);
+                break;
+            case BLUE:
+                setTurnColor(RED);
+                break;
+        }
+    }
 
         /* Baby classes (inner classes) */
     class Lobby {
