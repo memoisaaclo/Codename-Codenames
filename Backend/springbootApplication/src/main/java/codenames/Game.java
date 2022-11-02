@@ -1,5 +1,7 @@
 package codenames;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -19,21 +21,27 @@ public class Game implements Serializable {
     private int id;
 
     @Column(name = "clues")
+    @Nullable
     private String clues = "";
 
     @Column(name = "currentClue")
+    @Nullable
     private String currentClue = "";
 
     @Column(name = "guessesAvailable")
+    @Nullable
     private int guessesAvailable = 0;
 
     @Column(name = "turnColor")
+    @Nullable
     private Color turnColor = RED;
 
     @Column(name = "moves")
-    private String moves;
+    @Nullable
+    private String moves = "";
 
     @Column(name = "gameLobbyName", unique = true)
+    @Nullable
     private String gameLobbyName;
 
     @OneToMany(orphanRemoval = false, fetch = FetchType.EAGER)
