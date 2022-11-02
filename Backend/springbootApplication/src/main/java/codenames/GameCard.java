@@ -28,11 +28,11 @@ public class GameCard implements Comparable<GameCard>, Serializable {
 
     private Color color;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "game_id")
     private Game game;
 
-        /* Constructors */
+    /* Constructors */
     public GameCard() { color = Color.GREY; }
 
     public GameCard(int gamePosition, Color color) {

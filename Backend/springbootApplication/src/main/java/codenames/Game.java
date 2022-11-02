@@ -49,7 +49,7 @@ public class Game implements Serializable {
     )
     private Set<Card> cards = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "game", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "game", orphanRemoval = true)
     private List<GameCard> gameCards = new ArrayList<>();
 
 
@@ -115,7 +115,7 @@ public class Game implements Serializable {
             cards.add(add);
 
             try {
-                if (gameCards != null)
+                if (gameCards.size() != 0)
                     gameCards.get(i).setWord(add.getWord());
             } catch (IndexOutOfBoundsException e) {
                 // Do nothing
@@ -129,6 +129,8 @@ public class Game implements Serializable {
         GameCard card;
 
         // Clear GameCard arrayList
+        for (GameCard gc : gameCards)
+            Main.gameCardRepo.delete(gc);
         gameCards.clear();
 
         // Array of card colors that will need to be applied
@@ -152,6 +154,7 @@ public class Game implements Serializable {
             card = new GameCard(i, colors.remove(0), this);
 
             gameCards.add(card);
+            Main.gameCardRepo.save(card);
         }
 
         // Go through the list of words allotted for the game and apply to Cards
