@@ -28,7 +28,7 @@ public class Game implements Serializable {
     private String currentClue = "";
 
     @Column(name = "guessesAvailable")
-    private int guessesAvailable = 0;
+    private Integer guessesAvailable = 0;
 
     @Column(name = "turnColor")
     private Color turnColor = RED;
