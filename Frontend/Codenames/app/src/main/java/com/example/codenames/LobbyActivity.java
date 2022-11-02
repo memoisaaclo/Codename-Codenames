@@ -74,7 +74,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         lobbyName = intent.getStringExtra("lobbyName");
         lobby_name.setText(lobbyName);
 
-        errortext = (TextView) findViewById(R.id.lobby_error);
+        errortext = (TextView) findViewById(R.id.lobby_errormessage);
 
         pList = (LinearLayout) findViewById(R.id.player_list);
 
