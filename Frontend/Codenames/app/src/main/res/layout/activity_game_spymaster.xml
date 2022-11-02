@@ -523,28 +523,6 @@
 		app:layout_constraintTop_toTopOf="@+id/header_blue" />
 
 	<TextView
-		android:id="@+id/text_clue"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Current Clue Here"
-		android:textColor="#000000"
-		app:layout_constraintBottom_toBottomOf="@+id/header_clue"
-		app:layout_constraintEnd_toEndOf="@+id/header_clue"
-		app:layout_constraintStart_toStartOf="@+id/header_clue"
-		app:layout_constraintTop_toTopOf="@+id/header_clue" />
-
-	<TextView
-		android:id="@+id/text_applies"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Applies To: #"
-		android:textColor="#000000"
-		app:layout_constraintBottom_toBottomOf="@+id/header_applies"
-		app:layout_constraintEnd_toEndOf="@+id/header_applies"
-		app:layout_constraintStart_toEndOf="@+id/header_clue"
-		app:layout_constraintTop_toTopOf="@+id/header_applies" />
-
-	<TextView
 		android:id="@+id/text_guessesheader"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -565,5 +543,38 @@
 		android:textColor="#000000"
 		app:layout_constraintStart_toStartOf="@+id/box_guesses"
 		app:layout_constraintTop_toBottomOf="@+id/header_guesses" />
+
+	<Button
+		android:id="@+id/button"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Button"
+		app:layout_constraintEnd_toStartOf="@+id/reg_exit8"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/text_spy_guess"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:text="Clue"
+		app:layout_constraintBottom_toBottomOf="@+id/header_clue"
+		app:layout_constraintEnd_toEndOf="@+id/header_clue"
+		app:layout_constraintStart_toStartOf="@+id/header_clue"
+		app:layout_constraintTop_toTopOf="@+id/header_clue" />
+
+	<EditText
+		android:id="@+id/text_spy_applies"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:text="Applies To: #"
+		android:textSize="10sp"
+		app:layout_constraintBottom_toBottomOf="@+id/header_applies"
+		app:layout_constraintEnd_toEndOf="@+id/header_applies"
+		app:layout_constraintStart_toEndOf="@+id/header_clue"
+		app:layout_constraintTop_toTopOf="@+id/header_applies" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

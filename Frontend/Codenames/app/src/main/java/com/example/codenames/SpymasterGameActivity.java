@@ -161,17 +161,15 @@ public class SpymasterGameActivity extends AppCompatActivity implements OnClickL
                     @Override
                     public void onResponse(JSONObject response)
                     {
-                        //cards[0].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
-
                         try
                         {
-                            //cards[0].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
-
                             for (int i = 0; i<25; i++)
                             {
                                 Log.d(TAG, response.getString("colors")); //backend in ()
 
-                                cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
+                                cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.gray_2));
+
+                                cards[i].setText("SUCCESS");
 
                                 switch (response.getString("colors"))
                                 {
