@@ -45,6 +45,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 {
     private String TAG = SpymasterGameActivity.class.getSimpleName();
     private Button btnExit;
+    private Button btnSendClue;
     private TextView card_name;
     private String input;
     private String lobbyID;
@@ -91,6 +92,9 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
         Button btnExit = (Button) findViewById(R.id.reg_exit8);
         btnExit.setOnClickListener(this);
+
+        Button btnSendClue = (Button) findViewById(R.id.button_sendclue);
+        btnSendClue.setOnClickListener(this);
 
         text_edit = (EditText)findViewById(R.id.text_spy_guess);
 
