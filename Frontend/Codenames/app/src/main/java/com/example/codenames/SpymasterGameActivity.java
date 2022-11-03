@@ -28,12 +28,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.codenames.app.AppController;
-<<<<<<< HEAD
 import com.example.codenames.services.RequestListener;
 import com.example.codenames.services.VolleyListener;
 import com.example.codenames.utils.Const;
-=======
->>>>>>> 0cd3809a04bf9e318780ca8993543609ee656ece
 import static com.example.codenames.utils.Const.*;
 
 import org.json.JSONException;
@@ -50,6 +47,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     private Button btnExit;
     private TextView card_name;
     private String input;
+    private String lobbyID;
     private EditText text_edit;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
@@ -96,6 +94,9 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
         text_edit = (EditText)findViewById(R.id.text_spy_guess);
 
+        Intent intent = getIntent();
+        lobbyID = intent.getStringExtra("id");
+
         //Cards
 
         for (int i=0; i<25; i++)
@@ -109,8 +110,9 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
     public void showCards()
     {
+        String url = URL_JSON_CARD_GET + lobbyID + URL_JSON_CARD_GET_SECOND;
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-            Const.URL_JSON_CARD_GET, null,
+            url, null,
             new Response.Listener<JSONObject>()
             {
                 @Override
@@ -161,9 +163,9 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     public void showColors()
     {
         //cards[0].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
-
+        Strin url = URL_JSON_GETALLCARDS_SPECTATOR_FIRST + lobbyID + URL_JSON_GETALLCARDS_SPECTATOR_SECOND;
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                Const.URL_JSON_COLOR_REVEAL, null,
+                url, null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
