@@ -35,9 +35,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SpymasterGameActivity extends AppCompatActivity implements OnClickListener
+public class SpymasterGameActivity extends AppCompatActivity implements View.OnClickListener
 {
-    private String TAG = LobbyActivity.class.getSimpleName();
+    private String TAG = SpymasterGameActivity.class.getSimpleName();
     private Button btnExit;
     private TextView card_name;
 
@@ -155,7 +155,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements OnClickL
         //cards[0].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                Const.URL_JSON_COLOR_GET, null,
+                Const.URL_JSON_COLOR_REVEAL, null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -165,13 +165,10 @@ public class SpymasterGameActivity extends AppCompatActivity implements OnClickL
                         {
                             for (int i = 0; i<25; i++)
                             {
-                                Log.d(TAG, response.getString("colors")); //backend in ()
+                                Log.d(TAG, response.getString(Integer.toString(i))); //backend in ()
 
-                                cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.gray_2));
-
-                                cards[i].setText("SUCCESS");
-
-                                switch (response.getString("colors"))
+                                 //checks is revealed
+                                switch (response.getString(Integer.toString(i)))
                                 {
                                     case ("RED"):
                                         cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
@@ -182,8 +179,8 @@ public class SpymasterGameActivity extends AppCompatActivity implements OnClickL
                                     case ("BLACK"):
                                         cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.black));
                                         break;
-                                    case ("GRAY"):
-                                        cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.gray_4));
+                                    case ("GREY"):
+                                        cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.gray_2));
                                         break;
                                 }
                             }

@@ -24,9 +24,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OperativeGameActivity extends AppCompatActivity implements OnClickListener
+public class OperativeGameActivity extends AppCompatActivity implements View.OnClickListener
 {
-    private String TAG = LobbyActivity.class.getSimpleName();
+    private String TAG = OperativeGameActivity.class.getSimpleName();
     private Button btnExit;
     private TextView card_name;
 
@@ -208,6 +208,56 @@ public class OperativeGameActivity extends AppCompatActivity implements OnClickL
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
 
+
+
+    private void revealCard(int index)
+    {
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
+                Const.URL_JSON_REVEAL_GET, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response)
+                    {
+                        try
+                        {
+                            Log.d(TAG, response.getString("isRevealed"));
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError
+            {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+    }
+
+
     @Override
     public void onClick(View v)
     {
@@ -216,8 +266,24 @@ public class OperativeGameActivity extends AppCompatActivity implements OnClickL
             case R.id.reg_exit7:
                 startActivity(new Intent(OperativeGameActivity.this, menu.class));
                 break;
-//            case R.id.button_card1:
+
+//            case CARD_IDS[0]:
+//                revealCard(0);
 //                break;
+//            case CARD_IDS[1]:
+//                revealCard(1);
+//                break;
+//            case CARD_IDS[2]:
+//                revealCard(2);
+//                break;
+//            case CARD_IDS[3]:
+//                revealCard(3);
+//                break;
+//            case CARD_IDS[4]:
+//                revealCard(4);
+//                break;
+
+
             default:
                 break;
         }
