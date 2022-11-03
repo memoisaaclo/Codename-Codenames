@@ -194,6 +194,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
             if (view.getId() == R.id.button_red_spymaster) {
                 setPlayerTeam("red");
                 setPlayerRole("spymaster");
+                startActivity(new Intent(LobbyActivity.this, SpymasterGameActivity.class).putExtra("username", username).putExtra("id",id));
             } else if (view.getId() == R.id.button_red_operative) {
                 setPlayerTeam("red");
                 setPlayerRole("operative");
@@ -203,6 +204,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
             } else if (view.getId() == R.id.button_blue_operative) {
                 setPlayerTeam("blue");
                 setPlayerRole("operative");
+                startActivity(new Intent(LobbyActivity.this, OperativeGameActivity.class).putExtra("username", username).putExtra("id",id));
             }
 
             getPlayers();
