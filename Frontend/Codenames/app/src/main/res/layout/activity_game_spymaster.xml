@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/button_send"
 	android:layout_width="match_parent"
-    android:layout_height="match_parent"
+	android:layout_height="match_parent"
 	android:background="#EDB902">
 
 	<androidx.appcompat.widget.Toolbar
@@ -75,7 +76,7 @@
 		android:id="@+id/header_applies"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="260dp"
+		android:layout_marginStart="240dp"
 		android:layout_marginTop="500dp"
 		android:layout_marginEnd="32dp"
 		android:background="@color/gray_2"
@@ -136,12 +137,10 @@
 	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/title_header"
 		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:layout_marginBottom="640dp"
+		android:layout_height="40dp"
 		android:background="@color/cardinal"
 		android:minHeight="?attr/actionBarSize"
 		android:theme="?attr/actionBarTheme"
-		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toStartOf="parent"
@@ -164,7 +163,7 @@
 		android:layout_width="0dp"
 		android:layout_height="0dp"
 		android:layout_marginBottom="256dp"
-		android:background="@color/cardinal"
+		android:background="@color/blue"
 		android:text="WORD"
 		android:textSize="10sp"
 		app:layout_constraintBottom_toTopOf="@+id/header_red"
@@ -523,28 +522,6 @@
 		app:layout_constraintTop_toTopOf="@+id/header_blue" />
 
 	<TextView
-		android:id="@+id/text_clue"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Current Clue Here"
-		android:textColor="#000000"
-		app:layout_constraintBottom_toBottomOf="@+id/header_clue"
-		app:layout_constraintEnd_toEndOf="@+id/header_clue"
-		app:layout_constraintStart_toStartOf="@+id/header_clue"
-		app:layout_constraintTop_toTopOf="@+id/header_clue" />
-
-	<TextView
-		android:id="@+id/text_applies"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Applies To: #"
-		android:textColor="#000000"
-		app:layout_constraintBottom_toBottomOf="@+id/header_applies"
-		app:layout_constraintEnd_toEndOf="@+id/header_applies"
-		app:layout_constraintStart_toEndOf="@+id/header_clue"
-		app:layout_constraintTop_toTopOf="@+id/header_applies" />
-
-	<TextView
 		android:id="@+id/text_guessesheader"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -565,5 +542,40 @@
 		android:textColor="#000000"
 		app:layout_constraintStart_toStartOf="@+id/box_guesses"
 		app:layout_constraintTop_toBottomOf="@+id/header_guesses" />
+
+	<Button
+		android:id="@+id/button_sendclue"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="16dp"
+		android:layout_marginTop="5dp"
+		android:layout_marginEnd="16dp"
+		android:text="SEND CLUE"
+		app:layout_constraintEnd_toStartOf="@+id/reg_exit8"
+		app:layout_constraintStart_toEndOf="@+id/reg_gameName8"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/text_spy_guess"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:ems="10"
+		android:inputType="textPersonName"
+		app:layout_constraintBottom_toBottomOf="@+id/header_clue"
+		app:layout_constraintEnd_toEndOf="@+id/header_clue"
+		app:layout_constraintStart_toStartOf="@+id/header_clue"
+		app:layout_constraintTop_toTopOf="@+id/header_clue" />
+
+	<EditText
+		android:id="@+id/text_spy_applies"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:textSize="10sp"
+		app:layout_constraintBottom_toBottomOf="@+id/header_applies"
+		app:layout_constraintEnd_toEndOf="@+id/header_applies"
+		app:layout_constraintStart_toEndOf="@+id/header_clue"
+		app:layout_constraintTop_toTopOf="@+id/header_applies" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

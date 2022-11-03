@@ -65,9 +65,8 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
             play.setText("Spectate");
         } else {
             login.setText("Logout");
+            checkIfAdmin();
         }
-
-        checkIfAdmin();
 
     }
 
@@ -99,10 +98,16 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
             System.exit(0);
         } else if (v.getId() == R.id.menu_admin_words) {
             //go to admin words
-//            startActivity(new Intent(menu.this, AdminWordsActivity.class).putExtra("username", username));
+            startActivity(new Intent(menu.this, AdminWordsActivity.class).putExtra("username", username));
         } else if (v.getId() == R.id.menu_admin_users) {
             //go to admin users
-//            startActivity(new Intent(menu.this, AdminUsersActivity.class).putExtra("username", username));
+            startActivity(new Intent(menu.this, AdminUsersActivity.class).putExtra("username", username));
+        }
+        else if (v.getId() == R.id.button_words) {
+            startActivity(new Intent(menu.this, AdminWordsActivity.class));
+        }
+        else if (v.getId() == R.id.button_users) {
+            startActivity(new Intent(menu.this, AdminUsersActivity.class));
         }
     }
 

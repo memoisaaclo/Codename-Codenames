@@ -37,7 +37,15 @@ public class Const {
 
 	public static final String URL_JSON_LOBBY = "http://10.90.75.56:8080/games/lobbyinfo";
 
-	public static final String URL_JSON_CREATE = "/games/add";
+	public static final String URL_JSON_CREATE = "http://10.90.75.56:8080/games/add";
+
+	public static final String URL_JSON_WORD_ADD = "/admin/cards/add";
+	public static final String URL_JSON_WORD_DELETE = "/admin/cards/remove";
+
+	public static final String URL_JSON_CLUE_GET = "http://10.90.75.56:8080/games/38/clue";
+	public static final String URL_JSON_CLUE_PUT = "/games/38/clue/testing/123";
+
+
 
 	// Get players in lobby to add to player list
 	public static final String URL_JSON_GETPLAYERS_FIRST = "http://10.90.75.56:8080/games/";
@@ -61,5 +69,22 @@ public class Const {
 
 	//Check if User is Admin
 	public static final String URL_JSON_ISADMIN = "http://10.90.75.56:8080/admin/get/";
+
+	//Gen cards for game
+	public static final String URL_JSON_GENCARDS_FIRST = "http://10.90.75.56:8080/games/";
+	public static final String URL_JSON_GENCARDS_SECOND = "/generateboard";
+
+	//Jimmy copied and pasted this
+
+	public static final String URL_JSON_CARD_GET = "http://10.90.75.56:8080/games/38/words";
+	public static final String URL_JSON_COLOR_GET = "http://10.90.75.56:8080/games/38/colors";
+
+	public static final String URL_JSON_ALL_CARDS = "http://10.90.75.56:8080/cards/all";
+	public static final String URL_JSON_ALL_USERS = "http://10.90.75.56:8080/users/getallusers";
+
+	public static final String URL_JSON_COLOR_REVEAL = "http://10.90.75.56:8080/games/38/getboard";
+
+	public static final String URL_JSON_REVEAL_GET = "http://10.90.75.56:8080/games/38/isrevealed";
+	public static final String URL_JSON_CARD_POST = "/games/38/words";
 
 }
