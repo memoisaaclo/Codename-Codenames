@@ -137,12 +137,14 @@ public class AdminController {
 				+ "/games/{id}/turncolor               : GET    : return current turn color for a given game id" + "<br>"
 				+ "/games/{id}/clue/{clue}/{numGuesses}: PUT    : Send current clue and clue num for a given game id" + "<br>"
 				+ "/games/{id}/guess/{card_position}   : PUT    : Send a new guess to a given game id" + "<br>"
+
 				+ "/games/{id}/isrevealed              : GET    : get all revealed stats for a given game id<br>"
 				+ "/games/{id}/removeplayer/{username} : DELETE : remove a player from a game<br>"
 				+ "/games/{id}/addplayer/{username}    : POST   : add a player to a game<br>"
 				+ "/games/{id}/numplayers              : GET    : get the number of players in a game<br>"
-				+ "/games/{id}/generatewords           : GET    : generate the wordset for a game<br>"
-				+ "/games/{id}/generateStates          : GET    : generate the card states for a game<br>"
+				+ "/games/{id}/generatewords           : GET    : generate the word set for a game<br>"
+				+ "/games/{id}/generatestates          : GET    : generate the card states for a game<br>"
+				+ "/games/{id}/generateboard   		   : GET    : Create word and states for game, given a game id" + "<br>"
 				+ "/games/{id}/players                 : GET    : get all players and info for the game<br><br>"
 				
 				+ "<a href = http://10.90.75.56:8080/players>/players</a>"

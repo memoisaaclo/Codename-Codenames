@@ -74,7 +74,11 @@ public class Game implements Serializable {
     public String getClues() { return clues; }
     public void setClues(String clues) { this.clues = clues; }
     public Lobby getLobby() { return new Lobby(); }
-    public String getTurnColor() { return turnColor.name(); }
+    /**
+     * Get the current game turn's color
+     * @return Color string
+     */
+    public String getTurnColor() { return turnColor.toString(); }
     public void setTurnColor(Color turnColor) { this.turnColor = turnColor; }
     public List<GameCard> getGameCards() {
         Collections.sort(gameCards);
@@ -131,8 +135,7 @@ public class Game implements Serializable {
         GameCard card;
 
         // Clear GameCard arrayList
-        for (GameCard gc : gameCards)
-            Main.gameCardRepo.delete(gc);
+        Main.gameCardRepo.deleteAll(gameCards);
         gameCards.clear();
 
         // Array of card colors that will need to be applied
