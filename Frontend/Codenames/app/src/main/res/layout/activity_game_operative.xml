@@ -25,9 +25,9 @@
 		android:text="Codename:\nCodenames"
 		android:textColor="#B30000"
 		android:textSize="20sp"
-		app:layout_constraintBottom_toBottomOf="@+id/gameToolbar"
-		app:layout_constraintStart_toStartOf="@+id/gameToolbar"
-		app:layout_constraintTop_toTopOf="@id/gameToolbar" />
+		app:layout_constraintBottom_toBottomOf="@+id/gameToolbar7"
+		app:layout_constraintStart_toStartOf="@+id/gameToolbar7"
+		app:layout_constraintTop_toTopOf="@id/gameToolbar7" />
 
 	<Button
 		android:id="@+id/reg_exit7"
@@ -39,9 +39,9 @@
 		android:backgroundTint="#230959"
 		android:text="Back"
 		android:textColor="@color/white"
-		app:layout_constraintBottom_toBottomOf="@+id/gameToolbar"
+		app:layout_constraintBottom_toBottomOf="@+id/gameToolbar7"
 		app:layout_constraintEnd_toEndOf="@+id/gameToolbar7"
-		app:layout_constraintTop_toTopOf="@+id/gameToolbar" />
+		app:layout_constraintTop_toTopOf="@+id/gameToolbar7" />
 
 	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/header_red"
@@ -64,6 +64,8 @@
 		android:minHeight="?attr/actionBarSize"
 		android:theme="?attr/actionBarTheme"
 		app:layout_constraintEnd_toStartOf="@+id/header_applies"
+		app:layout_constraintTop_toBottomOf="@+id/header_red"
+		android:layout_marginTop="32dp"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toStartOf="parent"
 		tools:layout_editor_absoluteY="499dp" />
@@ -79,6 +81,8 @@
 		android:theme="?attr/actionBarTheme"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.0"
+		android:layout_marginTop="32dp"
+		app:layout_constraintTop_toBottomOf="@+id/header_blue"
 		app:layout_constraintStart_toStartOf="parent"
 		tools:layout_editor_absoluteY="499dp" />
 
