@@ -163,6 +163,7 @@ public class AdminController {
 				+ "                  : GET    : get all userdata for all users<br>"
 				+ "/users/{username}                   : GET    : get all data for a single user<br>"
 				+ "/users/login                        : POST   : validate login info for a user<br>"
+				+ "/users/removeuser/{username}        : DELETE : delete a user<br>"
 				+ "/users/register                     : POST   : register a user's data<br><br><br><br><br>"
 				+ "</pre>";
 	}
