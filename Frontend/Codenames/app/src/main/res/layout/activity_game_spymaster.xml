@@ -25,9 +25,9 @@
 		android:text="Codename:\nCodenames"
 		android:textColor="#B30000"
 		android:textSize="20sp"
-		app:layout_constraintBottom_toBottomOf="@+id/gameToolbar"
-		app:layout_constraintStart_toStartOf="@+id/gameToolbar"
-		app:layout_constraintTop_toTopOf="@id/gameToolbar" />
+		app:layout_constraintBottom_toBottomOf="@+id/gameToolbar8"
+		app:layout_constraintStart_toStartOf="@+id/gameToolbar8"
+		app:layout_constraintTop_toTopOf="@+id/gameToolbar8" />
 
 	<Button
 		android:id="@+id/reg_exit8"
@@ -39,9 +39,9 @@
 		android:backgroundTint="#230959"
 		android:text="Back"
 		android:textColor="@color/white"
-		app:layout_constraintBottom_toBottomOf="@+id/gameToolbar"
+		app:layout_constraintBottom_toBottomOf="@+id/gameToolbar8"
 		app:layout_constraintEnd_toEndOf="@+id/gameToolbar8"
-		app:layout_constraintTop_toTopOf="@+id/gameToolbar" />
+		app:layout_constraintTop_toTopOf="@+id/gameToolbar8" />
 
 	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/header_red"
