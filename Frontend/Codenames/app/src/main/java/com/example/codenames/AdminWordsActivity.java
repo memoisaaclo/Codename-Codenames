@@ -44,6 +44,7 @@ public class AdminWordsActivity extends AppCompatActivity implements View.OnClic
     private Button delete_word;
     private Button btnExit;
     private TextView word_list;
+    private String username;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -57,6 +58,9 @@ public class AdminWordsActivity extends AppCompatActivity implements View.OnClic
         add_word = (Button) findViewById(R.id.button_add);
         delete_word = (Button) findViewById(R.id.button_delete);
         btnExit = (Button) findViewById(R.id.reg_exit5);
+
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
 
         add_word.setOnClickListener(this);
         delete_word.setOnClickListener(this);
@@ -144,7 +148,7 @@ public class AdminWordsActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId())
         {
             case R.id.reg_exit5:
-                startActivity(new Intent(AdminWordsActivity.this, menu.class));
+                startActivity(new Intent(AdminWordsActivity.this, menu.class).putExtra("username", username));
                 break;
 
             case R.id.button_add:

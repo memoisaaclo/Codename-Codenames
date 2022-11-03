@@ -137,7 +137,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
     public void showColors()
     {
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                Const.URL_JSON_COLOR_GET, null,
+                Const.URL_JSON_COLOR_REVEAL, null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -147,31 +147,23 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                         {
                             for (int i = 0; i<25; i++)
                             {
-                                Log.d(TAG, response.getString("colors")); //backend in ()
-                                Log.d(TAG, String.valueOf(response.getBoolean("isRevealed")));
-                                //card_name = findViewById(CARD_IDS[i]); //DISCARD
+                                Log.d(TAG, response.getString(Integer.toString(i))); //backend in ()
 
-                                if (response.getBoolean("isRevealed"))
+                                //checks is revealed
+                                switch (response.getString(Integer.toString(i)))
                                 {
-                                    switch (response.getString("colors"))
-                                    {
-                                        case ("RED"):
-                                            cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
-                                            break;
-                                        case ("BLUE"):
-                                            cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.blue));
-                                            break;
-                                        case ("BLACK"):
-                                            cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.black));
-                                            break;
-                                        case ("GRAY"):
-                                            cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.gray_4));
-                                            break;
-                                    }
-                                }
-                                else
-                                {
-                                    cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.gray_2));
+                                    case ("RED"):
+                                        cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
+                                        break;
+                                    case ("BLUE"):
+                                        cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.blue));
+                                        break;
+                                    case ("BLACK"):
+                                        cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.black));
+                                        break;
+                                    case ("GREY"):
+                                        cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.gray_2));
+                                        break;
                                 }
                             }
                         }
@@ -255,6 +247,12 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         };
 
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+    }
+
+
+    private void getClue()
+    {
+
     }
 
 

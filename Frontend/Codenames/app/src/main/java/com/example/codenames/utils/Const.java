@@ -16,7 +16,7 @@ public class Const {
 
 	public static final String URL_JSON_COLOR_REVEAL = "http://10.90.75.56:8080/games/38/getboard";
 
-	public static final String URL_JSON_REVEAL_GET = "http://10.90.75.56:8080/games/38/isRevealed";
+	public static final String URL_JSON_REVEAL_GET = "http://10.90.75.56:8080/games/38/isrevealed";
 	public static final String URL_JSON_CARD_POST = "/games/38/words";
 
 	public static final String URL_JSON_STATISTICS = "http://10.90.75.56:8080/users/";

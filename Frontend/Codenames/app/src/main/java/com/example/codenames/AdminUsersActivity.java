@@ -32,6 +32,7 @@ public class AdminUsersActivity extends AppCompatActivity implements View.OnClic
     private Button delete_user;
     private Button btnExit;
     private TextView user_list;
+    private String username;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -44,6 +45,9 @@ public class AdminUsersActivity extends AppCompatActivity implements View.OnClic
         text_edit = (EditText)findViewById(R.id.text_wordsearch);
         delete_user = (Button) findViewById(R.id.button_delete);
         btnExit = (Button) findViewById(R.id.reg_exit4);
+
+        Intent intent = getIntent();
+        username = intent.getStringExtra("username");
 
         delete_user.setOnClickListener(this);
         btnExit.setOnClickListener(this);
@@ -100,9 +104,7 @@ public class AdminUsersActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId())
         {
             case R.id.reg_exit4:
-                //JSONObject data = new JSONObject();
-                //data.putExtra("username", username);
-                startActivity(new Intent(AdminUsersActivity.this, menu.class));
+                startActivity(new Intent(AdminUsersActivity.this, menu.class).putExtra("username", username));
                 break;
 
             case R.id.button_delete:
