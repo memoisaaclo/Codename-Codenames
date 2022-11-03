@@ -26,20 +26,6 @@ public class Card implements Serializable {
         this.id = id;
     }
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "card_games",
-            joinColumns = @JoinColumn(name = "card_id"),
-            inverseJoinColumns = @JoinColumn(name = "games_id"))
-    private Set<Game> games = new LinkedHashSet<>();
-
-    public Set<Game> getGames() {
-        return games;
-    }
-
-    public void setGames(Set<Game> games) {
-        this.games = games;
-    }
-
     public Card() {
     	
     }

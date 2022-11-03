@@ -25,7 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.codenames.app.AppController;
-import com.example.codenames.utils.Const;
+import static com.example.codenames.utils.Const.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;

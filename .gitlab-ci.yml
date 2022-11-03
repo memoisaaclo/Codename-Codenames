@@ -1,52 +1,67 @@
-# Example  .gitlab-ci.yml file
 stages:
-#  - androidbuild  
-#  - androidtest
-  - mavenDeploy  
+  - maventry 
+  - maventest
+  - mavendeploy  
+  - androidtry  
+  - androidtest
 
 workflow:
-  rules:
-    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" || $CI_COMMIT_BRANCH == "main"
+ rules:  
+   - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" || $CI_COMMIT_BRANCH == "main"
 
+maven-build:   
+  stage: maventry
+  tags:
+    - springboot_tag 
+  script:
+    - cd Backend
+    - mvn package
 
-autoDeploy:
-  stage: mavenDeploy  #do make a stage with same name!
+android-build:
+ image:  gjandres/android-ci:latest
+ stage: androidtry
+ tags:
+   - frontend
+ before_script:
+   - export GRADLE_USER_HOME=`pwd`/.gradle
+   - chmod +x ./Frontend/Codenames/gradlew
+ script:
+   - cd Frontend/Codenames
+   - ./gradlew assemble
+ artifacts:
+   paths:
+     - Android_test/app/build/outputs/
+
+maven-test:
+  stage: maventest
+  tags:
+    - springboot_tag
+  script:
+    - cd Backend
+    - mvn test
+  artifacts:
+    paths:
+      - Backend/target/*.jar
+
+android-test:
+ image:  gjandres/android-ci:latest
+ stage: androidtest
+ before_script:
+   - export GRADLE_USER_HOME=`pwd`/.gradle
+   - chmod +x ./Frontend/Codenames/gradlew
+ tags:
+   - frontend
+ script:
+   - cd Frontend/Codenames
+   - ./gradlew test
+
+auto-deploy:
+  stage: mavendeploy  #do make a stage with same name!
   tags:
    - springboot_tag
   script:
-    - cd Backend/springbootApplication
+    - cd Backend
     - mvn package
     - sudo mv target/*.jar /target/web-demo.jar 
     - sudo systemctl stop system-web-demo
     - sudo systemctl start system-web-demo
-
- 
-
-#android-build: #this is another job
-#  image:  gjandres/android-ci:latest              # this is a directive to DOCKER
-#  stage: androidbuild
-#  before_script:
-#    - export GRADLE_USER_HOME=`pwd`/.gradle
-#    - chmod +x ./Frontend/gradlew                #change directory to where you have ‘gradlew’ in your android directory
-#  tags:
-#    - android_tag                             #this is LINK to the docker runner on the remote-server        
-#  script:
-#    - cd Frontend                    #change directory to where you have your android application
-#    - ./gradlew assemble
-#  artifacts:
-#    paths:
-#      - Android_test/app/build/outputs/
-
-
-
-#android-test:
-#  image:  gjandres/android-ci:latest              # this is a directive to DOCKER
-#  stage: androidtest
-#  before_script:
-#    - export GRADLE_USER_HOME=`pwd`/.gradle
-#    - chmod +x ./Frontend/gradlew                #change directory to where you have ‘gradlew’ in your android directory
-#  tags:
-#    - android_tag                             #this is LINK to the docker runner on the remote-server   
-#  script:
-#    - cd Frontend                    #change directory to where you have your android application
-#    - ./gradlew test

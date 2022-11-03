@@ -67,6 +67,8 @@
 		android:minHeight="?attr/actionBarSize"
 		android:theme="?attr/actionBarTheme"
 		app:layout_constraintEnd_toStartOf="@+id/header_applies"
+		app:layout_constraintTop_toBottomOf="@+id/header_red"
+		android:layout_marginTop="32dp"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
@@ -83,6 +85,8 @@
 		android:theme="?attr/actionBarTheme"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.0"
+		android:layout_marginTop="32dp"
+		app:layout_constraintTop_toBottomOf="@+id/header_blue"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 

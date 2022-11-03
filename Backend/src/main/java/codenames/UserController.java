@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
+	@SuppressWarnings("unused")
+	private String success = "{\"message\":\"success\"}";
+    @SuppressWarnings("unused")
+	private String failure = "{\"message\":\"failure\"}";
+    
 	@RequestMapping(method = RequestMethod.POST, path = "/users/register")
     public @ResponseBody String createNewAccountRegister(@RequestBody User usr) {	// creates user object off of json body
 		if(Main.userRepo.findByusername(usr.getUsername()) != null){
@@ -25,7 +30,7 @@ public class UserController {
 		
 		usr.addLogin();
 		Main.userRepo.save(usr);
-		return "{\"message\":\"success\"}";
+		return success;
     }
 
 	@RequestMapping(method = RequestMethod.POST, path = "/users/login")
@@ -34,7 +39,7 @@ public class UserController {
 		if(usrObj != null && usrObj.validateCredentials(usr)){
 			usrObj.addLogin();
 			Main.userRepo.save(usrObj);
-			return "{\"message\":\"success\"}";	// checks if account exists and password is correct
+			return success;	// checks if account exists and password is correct
 		}
         return "{\"message\":\"Incorrect Credentials\"}";
     }
@@ -50,10 +55,16 @@ public class UserController {
         return Main.userRepo.findAll();
     }
 	
-	@RequestMapping(method = RequestMethod.DELETE, path = "/users/clearUsers/75362")
+	@RequestMapping(method = RequestMethod.DELETE, path = "/users/clearusers/75362")
     public void clearUsers() {	// removes all objects
         Main.userRepo.deleteAllInBatch();
 	}
-    
+	@RequestMapping(method = RequestMethod.DELETE, path = "/users/removeuser/{username}")
+    public String deleteUser(@PathVariable String username) {	// removes all objects
+		if(Main.userRepo.findByusername(username) == null) return failure;
+		User delete = Main.userRepo.findByusername(username);
+		Main.userRepo.delete(delete);
+		return success;
+	}
 	
 }
