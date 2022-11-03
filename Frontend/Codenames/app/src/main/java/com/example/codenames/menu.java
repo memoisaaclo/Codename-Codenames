@@ -19,6 +19,7 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
     private Button info;
     private Button exit;
     private Button words;
+    private Button users;
     private TextView account;
     private TextView menuUser;
     private String username;
@@ -40,6 +41,7 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
         info = (Button) findViewById(R.id.menu_user);
         exit = (Button) findViewById(R.id.menu_exit);
         words = (Button) findViewById(R.id.button_words);
+        users = (Button) findViewById(R.id.button_users);
 
         //button click listener
         play.setOnClickListener(this);
@@ -47,7 +49,7 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
         info.setOnClickListener(this);
         exit.setOnClickListener(this);
         words.setOnClickListener(this);
-
+        users.setOnClickListener(this);
 
 
         if(username == null) {
@@ -87,6 +89,9 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
         }
         else if (v.getId() == R.id.button_words) {
             startActivity(new Intent(menu.this, AdminWordsActivity.class));
+        }
+        else if (v.getId() == R.id.button_users) {
+            startActivity(new Intent(menu.this, AdminUsersActivity.class));
         }
     }
 }

@@ -92,11 +92,6 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         }
         showCards();
         showColors();
-
-//        for(int i=0; i<25; i++)
-//        {
-//            cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.gray_2));
-//        }
     }
 
     public void showCards()
@@ -226,12 +221,6 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
             case R.id.reg_exit8:
                 startActivity(new Intent(SpymasterGameActivity.this, menu.class));
                 break;
-
-//            for (int i=0; i<25;i++)
-//            {
-//                case CARD_IDS[i]:
-//                    break;
-//            }
 
             default:
                 break;

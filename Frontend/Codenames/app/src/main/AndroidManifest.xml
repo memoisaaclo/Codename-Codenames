@@ -48,6 +48,9 @@
             android:name=".AdminWordsActivity"
             android:exported="false" />
         <activity
+            android:name=".AdminUsersActivity"
+            android:exported="false" />
+        <activity
             android:name=".menu"
             android:exported="true">
             <intent-filter>

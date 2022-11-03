@@ -116,11 +116,11 @@
         app:layout_constraintTop_toBottomOf="@+id/menu_user" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button_users"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="PLAYERS"
+        android:text="USERS"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_words" />
