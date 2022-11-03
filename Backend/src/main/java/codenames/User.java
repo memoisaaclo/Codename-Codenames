@@ -24,6 +24,7 @@ public class User {
     //login information:
     private String username;
 	private String password;	
+	private boolean isAdmin;
     // Statistics
     private Integer logins = 0;
     private Integer gamesPlayed = 0;
@@ -56,9 +57,29 @@ public class User {
     	}
     }
     
-    public void attachPlayer(Player p) {
+    public void addToGame(int id) {
+    	Game g = Main.gameRepo.findById(id);
+    	
+    	Player p = new Player();		// the order of the lines in this method is very deliberate. don't change it
     	this.attachedPlayer = p;
-    	p.setUserId(id);
+    	p.attachUser(this);
+    	
+    	
+    	Main.playerRepo.save(p);
+    	g.addPlayer(p);
+    	Main.userRepo.save(this);
+    	Main.gameRepo.save(g);
+    }
+    
+    public void removeFromGame(int id) {
+    	Game g = Main.gameRepo.findById(id);
+    	g.removePlayer(this.attachedPlayer);	// remove player from game
+    	
+    	Main.playerRepo.delete(attachedPlayer);
+    	Main.gameRepo.save(g);
+    	attachedPlayer = null;	// remove reference from this class
+    	Main.userRepo.save(this);	// save everything
+    	// at this point, Player should be orphaned and can be ignored
     }
     
     public void startGame() {
@@ -131,5 +152,17 @@ public class User {
 
 	public void setCorrectGuesses(Integer correctGuesses) {
 		this.correctGuesses = correctGuesses;
+	}
+	
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean b) {
+		isAdmin = b;
+	}
+
+	public Player getAttachedPlayer() {
+		return attachedPlayer;
 	}
 }
