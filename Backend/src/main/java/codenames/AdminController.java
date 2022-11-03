@@ -116,7 +116,7 @@ public class AdminController {
 				+ "/admin/cards/add/{card}             : PUT    : add a card<br>"
 				+ "/admin/cards/add/                   : PUT    : add a card<br>"
 				+ "/admin/cards/addBulk                : PUT    : add array of cards<br>"
-				+ "<a href = http://10.90.75.56:8080/admin/cards/all>/cards/all</a>"
+				+ "<a href = http://10.90.75.56:8080/admin/cards/all>/admin/cards/all</a>"
 				+ "                          : GET    : list all cards<br>"
 				+ "/admin/cards/remove/{card}          : DELETE : deletes the given card<br>"
 				+ "/admin/cards/remove/                : DELETE : deletes the given card<br>"
