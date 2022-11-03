@@ -112,10 +112,12 @@ public class AdminController {
 				+ "/admin/set/{username}               : POST   : sets an account as an admin<br><br>"
 				+ "/admin/cards/remove                 : DELETE : remove a single card<br>"
 				+ "/admin/cards/add/{card}             : PUT    : add a card<br>"
+				+ "/admin/cards/add/                   : PUT    : add a card<br>"
 				+ "/admin/cards/addBulk                : PUT    : add array of cards<br>"
 				+ "<a href = http://10.90.75.56:8080/admin/cards/all>/cards/all</a>"
 				+ "                          : GET    : list all cards<br>"
 				+ "/admin/cards/remove/{card}          : DELETE : deletes the given card<br>"
+				+ "/admin/cards/remove/                : DELETE : deletes the given card<br>"
 				+ "/admin/cards/addBulk                : POST   : creates a json list of cards<br><br>"
 				
 				
