@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-
+import static com.example.codenames.utils.Const.*;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -30,6 +30,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
     private Button btnExit;
     private TextView card_name;
     private TextView clue;
+    private String lobbyID;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -73,6 +74,9 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         Button btnExit = (Button) findViewById(R.id.reg_exit7);
         btnExit.setOnClickListener(this);
 
+        Intent intent = getIntent();
+        lobbyID = intent.getStringExtra("id");
+
         //Cards
 
         for (int i=0; i<25; i++)
@@ -86,8 +90,9 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
 
     public void showCards()
     {
+        String url = URL_JSON_CARD_GET + lobbyID + URL_JSON_CARD_GET_SECOND;
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                Const.URL_JSON_CARD_GET, null,
+                url, null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -137,8 +142,9 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
 
     public void showColors()
     {
+        String url = URL_JSON_GETALLCARDS_SPECTATOR_FIRST + lobbyID + URL_JSON_GETALLCARDS_SPECTATOR_SECOND;
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                Const.URL_JSON_COLOR_REVEAL, null,
+                url, null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -205,8 +211,9 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
 
     private void revealCard(int index)
     {
+        String url = URL_JSON_REVEAL_GET + lobbyID + URL_JSON_REVEAL_GET_SECOND;
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                Const.URL_JSON_REVEAL_GET, null,
+                url, null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override

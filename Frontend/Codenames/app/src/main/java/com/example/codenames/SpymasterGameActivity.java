@@ -163,7 +163,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     public void showColors()
     {
         //cards[0].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
-        Strin url = URL_JSON_GETALLCARDS_SPECTATOR_FIRST + lobbyID + URL_JSON_GETALLCARDS_SPECTATOR_SECOND;
+        String url = URL_JSON_GETALLCARDS_SPECTATOR_FIRST + lobbyID + URL_JSON_GETALLCARDS_SPECTATOR_SECOND;
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 url, null,
                 new Response.Listener<JSONObject>()
@@ -230,6 +230,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
     private void sendClue()
     {
+        String url = URL_JSON_CLUE_PUT + lobbyID + URL_JSON_CLUE_PUT_SECOND + input + URL_JSON_CLUE_PUT_THIRD + "123";
         RequestListener addListener = new RequestListener() {
             @Override
             public void onSuccess(Object jsonObject)
@@ -252,7 +253,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        VolleyListener.makeRequest(this, URL_JSON_CLUE_PUT, addListener, data, Request.Method.PUT);
+        VolleyListener.makeRequest(this, url, addListener, data, Request.Method.PUT);
     }
 
     @Override
