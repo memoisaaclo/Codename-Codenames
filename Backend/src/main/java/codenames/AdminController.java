@@ -54,6 +54,14 @@ public class AdminController {
 		}
 		return failure;
 	}
+	@PutMapping(path = "/admin/cards/add/{card}")
+	public String addCardpath(@RequestBody Card card) {
+		if(Main.cardRepo.findByword(card.getWord()) == null) {
+			Main.cardRepo.save(card);
+			return success;
+		}
+		return failure;
+	}
 	
 	@PutMapping(path = "/admin/cards/addbulk")
 	public String addCard(@RequestBody Card[] card) {
@@ -67,6 +75,16 @@ public class AdminController {
 	
 	@DeleteMapping(path = "/admin/cards/remove")
 	public String removeCard(@RequestBody Card card) {
+		Card delete;
+		if((delete = Main.cardRepo.findByword(card.getWord())) != null) {
+			Main.cardRepo.deleteById(delete.getId());
+			return success;
+		}
+		return failure;
+	}
+	
+	@DeleteMapping(path = "/admin/cards/remove/{card}")
+	public String removeCardPath(@PathVariable Card card) {
 		Card delete;
 		if((delete = Main.cardRepo.findByword(card.getWord())) != null) {
 			Main.cardRepo.deleteById(delete.getId());
@@ -93,10 +111,12 @@ public class AdminController {
 				+ "/admin/set/{username}               : POST   : sets an account as an admin<br><br>"
 				+ "/admin/cards/remove                 : DELETE : remove a single card<br>"
 				+ "/admin/cards/add                    : PUT    : add a card<br>"
+				+ "/admin/cards/add/{card}             : PUT    : add a card<br>"
 				+ "/admin/cards/addBulk                : PUT    : add array of cards<br>"
 				+ "<a href = http://10.90.75.56:8080/admin/cards/all>/cards/all</a>"
 				+ "                          : GET    : list all cards<br>"
 				+ "/admin/cards/remove                 : DELETE : deletes the given card<br>"
+				+ "/admin/cards/remove/{card}          : DELETE : deletes the given card<br>"
 				+ "/admin/cards/addBulk                : POST   : creates a json list of cards<br><br>"
 				
 				
