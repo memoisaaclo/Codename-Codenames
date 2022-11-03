@@ -32,7 +32,7 @@ import java.util.Map;
 
 public class HubActivity extends AppCompatActivity implements OnClickListener {
 
-    private Button btnLobby1,btnExit;
+    private Button btnExit;
     private Button create;
     private String username;
     private JSONArray lobbies;
@@ -199,6 +199,8 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
 
         String url = URL_JSON_PLAYERNUM_POST_FIRST + id + URL_JSON_PLAYERNUM_POST_SECOND + username;
         VolleyListener.makeRequest(this, url, addListener, data, Request.Method.POST);
+
+
     }
 
 

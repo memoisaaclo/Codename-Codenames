@@ -16,7 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.codenames.app.AppController;
-import com.example.codenames.utils.Const;
+import static com.example.codenames.utils.Const.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -107,59 +107,59 @@ public class SpymasterGameActivity extends AppCompatActivity implements OnClickL
             cards[i] = (Button)findViewById(CARD_IDS[i]);
             cards[i].setOnClickListener(this);
         }
-        showCards();
+//        showCards();
     }
 
-    public void showCards()
-    {
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-            Const.URL_JSON_CARD_GET, null,
-            new Response.Listener<JSONObject>()
-            {
-                @Override
-                public void onResponse(JSONObject response)
-                {
-                    try
-                    {
-                        for (int i = 0; i<25; i++) 
-                        {
-                            Log.d(TAG, response.getString(Integer.toString(i))); //backend in ()
-                            card_name = findViewById(CARD_IDS[i]); //DISCARD
-                            cards[i].setText(response.getString(Integer.toString(i))); //display string
-                        }
-                    }
-                    catch (JSONException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-            }
-        })
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError
-            {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json");
-                return headers;
-            }
-
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String> params = new HashMap<String, String>();
-
-                return params;
-            }
-        };
-        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
-    }
+//    public void showCards()
+//    {
+//        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+//            URL_JSON_CARD_GET, null,
+//            new Response.Listener<JSONObject>()
+//            {
+//                @Override
+//                public void onResponse(JSONObject response)
+//                {
+//                    try
+//                    {
+//                        for (int i = 0; i<25; i++)
+//                        {
+//                            Log.d(TAG, response.getString(Integer.toString(i))); //backend in ()
+//                            card_name = findViewById(CARD_IDS[i]); //DISCARD
+//                            cards[i].setText(response.getString(Integer.toString(i))); //display string
+//                        }
+//                    }
+//                    catch (JSONException e)
+//                    {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }, new Response.ErrorListener()
+//        {
+//            @Override
+//            public void onErrorResponse(VolleyError error)
+//            {
+//                VolleyLog.d(TAG, "Error: " + error.getMessage());
+//            }
+//        })
+//        {
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError
+//            {
+//                HashMap<String, String> headers = new HashMap<String, String>();
+//                headers.put("Content-Type", "application/json");
+//                return headers;
+//            }
+//
+//            @Override
+//            protected Map<String, String> getParams()
+//            {
+//                Map<String, String> params = new HashMap<String, String>();
+//
+//                return params;
+//            }
+//        };
+//        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+//    }
 
     @Override
     public void onClick(View v)

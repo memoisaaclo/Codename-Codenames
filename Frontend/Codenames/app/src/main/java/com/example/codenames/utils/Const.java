@@ -59,4 +59,7 @@ public class Const {
 	public static final String URL_JSON_GETALLCARDS_SPECTATOR_FIRST = "http://10.90.75.56:8080/games/";
 	public static final String URL_JSON_GETALLCARDS_SPECTATOR_SECOND = "/getboard";
 
+	//Check if User is Admin
+	public static final String URL_JSON_ISADMIN = "http://10.90.75.56:8080/admin/get/";
+
 }
