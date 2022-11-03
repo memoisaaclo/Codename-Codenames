@@ -67,6 +67,17 @@ public class GameController {
         g.generateGameCards();
         return success;
     }
+
+    @GetMapping(path = "games/{id}/generateboard")
+    String generateWordsAndStates(@PathVariable int id) {
+        Game g = Main.gameRepo.findById(id);
+        if(g == null)
+            return invalid;
+
+        g.generateWordList();
+        g.generateGameCards();
+        return success;
+    }
     
     @PostMapping(path = "/games/{id}/addplayer/{username}")
     String addPlayerToGame(@PathVariable int id, @PathVariable String username) {
@@ -135,10 +146,10 @@ public class GameController {
         if (g == null)
             return invalid;
 
-        String rstring = "[";
+        StringBuilder rstring = new StringBuilder("[");
 
         for (GameCard c : g.getGameCards())
-            rstring += c.displayInfo() + ", ";
+            rstring.append(c.displayInfo()).append(", ");
 
         if (g.getCards() == null)
             return "{\"message\":\"Invalid Game State\"}";
@@ -158,11 +169,11 @@ public class GameController {
         if(g == null)
             return invalid;
 
-        String rstring = "{";
+        StringBuilder rstring = new StringBuilder("{");
         int i = 0;
 
         for (GameCard c : g.getGameCards())
-            rstring += "\"" + i++ + "\": \"" + c.getWord() + "\", ";
+            rstring.append("\"").append(i++).append("\": \"").append(c.getWord()).append("\", ");
 
         if (g.getCards() == null)
             return "{\"message\":\"Invalid Game State\"}";
@@ -183,11 +194,11 @@ public class GameController {
         if(g == null)
             return invalid;
 
-        String rstring = "{";
+        StringBuilder rstring = new StringBuilder("{");
         int i = 0;
 
         for (GameCard c : g.getGameCards())
-            rstring += "\"" + i++ + "\": \"" + c.getColor().name() + "\", ";
+            rstring.append("\"").append(i++).append("\": \"").append(c.getColor().name()).append("\", ");
 
         if (g.getGameCards() == null)
             return "{\"message\":\"Invalid Game State\"}";
@@ -208,11 +219,11 @@ public class GameController {
         if(g == null)
             return invalid;
 
-        String rstring = "{";
+        StringBuilder rstring = new StringBuilder("{");
         int i = 0;
 
         for (GameCard c : g.getGameCards())
-            rstring += "\"" + i++ + "\": \"" + c.isRevealed() + "\", ";
+            rstring.append("\"").append(i++).append("\": \"").append(c.isRevealed()).append("\", ");
 
         if (g.getGameCards() == null)
             return "{\"message\":\"Invalid Game State\"}";
@@ -233,11 +244,11 @@ public class GameController {
         if(g == null)
             return invalid;
 
-        String rstring = "{";
+        StringBuilder rstring = new StringBuilder("{");
         int i = 0;
 
         for (String clue : g.generateClueList()) {
-            rstring += "\"" + i++ + "\": \"" + clue + "\", ";
+            rstring.append("\"").append(i++).append("\": \"").append(clue).append("\", ");
         }
 
         return rstring.substring(0, rstring.length()-2)+ "}";

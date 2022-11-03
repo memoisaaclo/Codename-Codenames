@@ -131,8 +131,7 @@ public class Game implements Serializable {
         GameCard card;
 
         // Clear GameCard arrayList
-        for (GameCard gc : gameCards)
-            Main.gameCardRepo.delete(gc);
+        Main.gameCardRepo.deleteAll(gameCards);
         gameCards.clear();
 
         // Array of card colors that will need to be applied
