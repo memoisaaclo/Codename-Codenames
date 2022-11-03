@@ -62,4 +62,8 @@ public class Const {
 	//Check if User is Admin
 	public static final String URL_JSON_ISADMIN = "http://10.90.75.56:8080/admin/get/";
 
+	//Gen cards for game
+	public static final String URL_JSON_GENCARDS_FIRST = "http://10.90.75.56:8080/games/";
+	public static final String URL_JSON_GENCARDS_SECOND = "/generateboard";
+
 }

@@ -65,9 +65,8 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
             play.setText("Spectate");
         } else {
             login.setText("Logout");
+            checkIfAdmin();
         }
-
-        checkIfAdmin();
 
     }
 
