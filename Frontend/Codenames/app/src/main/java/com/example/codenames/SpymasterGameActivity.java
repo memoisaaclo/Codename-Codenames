@@ -167,7 +167,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     public void showColors()
     {
         //cards[0].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
-        Strin url = URL_JSON_GETALLCARDS_SPECTATOR_FIRST + lobbyID + URL_JSON_GETALLCARDS_SPECTATOR_SECOND;
+        String url = URL_JSON_GETALLCARDS_SPECTATOR_FIRST + lobbyID + URL_JSON_GETALLCARDS_SPECTATOR_SECOND;
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 url, null,
                 new Response.Listener<JSONObject>()
