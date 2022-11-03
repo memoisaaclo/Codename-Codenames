@@ -1,6 +1,6 @@
 package com.example.codenames;
 
-import static com.example.codenames.utils.Const.URL_JSON_LOBBY;
+import static com.example.codenames.utils.Const.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,10 +20,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.codenames.services.RequestListener;
+import com.example.codenames.services.VolleyListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.sql.SQLOutput;
+import java.util.Map;
 
 public class HubActivity extends AppCompatActivity implements OnClickListener {
 
@@ -70,9 +75,6 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
     {
         switch (v.getId())
         {
-            case R.id.button_lobby1:
-                startActivity(new Intent(HubActivity.this, LobbyActivity.class).putExtra("username", username));
-                break;
             case R.id.reg_exit6:
                 startActivity(new Intent(HubActivity.this, menu.class).putExtra("username", username));
                 break;
@@ -99,7 +101,7 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
         //adding to row
         row.addView(a);
 
-        a.setOnClickListener(new ClickListener(addLobby.getName()));
+        a.setOnClickListener(new ClickListener(addLobby.getName(), addLobby.getId()));
 
         //Create TextView to show numPlayers
         TextView t = new TextView(this);
@@ -117,14 +119,22 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
 
     class ClickListener implements OnClickListener {
         private String lobby;
+        private String id;
 
-        public ClickListener(String lobbyName){
+        public ClickListener(String lobbyName, String id){
             this.lobby = lobbyName;
+            this.id = id;
         }
 
         @Override
         public void onClick(View v) {
-            startActivity(new Intent(HubActivity.this, LobbyActivity.class).putExtra("username", username).putExtra("lobbyName", lobby));
+            try {
+                if (username != null) {
+                    addPlayer(lobby, id);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -142,7 +152,8 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
                                 JSONObject o = (JSONObject) lobbies.get(i);
                                 String name = o.get("lobbyName").toString();
                                 int numPlayer = (int) o.get("numPlayers");
-                                addLobbies(new lobby(name, numPlayer));
+                                String id = o.get("identity").toString();
+                                addLobbies(new lobby(name, numPlayer, id));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -159,5 +170,36 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
 
         queue.add(request);
     }
+
+    private void addPlayer (String lobby, String id) throws JSONException {
+        RequestListener addListener = new RequestListener() {
+            @Override
+            public void onSuccess(Object response) throws JSONException {
+
+                JSONObject object = (JSONObject) response;
+
+                try {
+                    if (object.get("message").equals("success")) {
+                        startActivity(new Intent(HubActivity.this, LobbyActivity.class)
+                                .putExtra("username", username).putExtra("lobbyName", lobby).putExtra("id", id));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                System.out.println("error");
+                System.out.println(errorMessage);
+            }
+        };
+
+        JSONObject data = new JSONObject();
+
+        String url = URL_JSON_PLAYERNUM_POST_FIRST + id + URL_JSON_PLAYERNUM_POST_SECOND + username;
+        VolleyListener.makeRequest(this, url, addListener, data, Request.Method.POST);
+    }
+
 
 }

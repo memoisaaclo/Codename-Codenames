@@ -7,6 +7,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class VolleyListener {
@@ -19,7 +20,11 @@ public class VolleyListener {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        requestListener.onSuccess(response);
+                        try {
+                            requestListener.onSuccess(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -40,7 +45,11 @@ public class VolleyListener {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        requestListener.onSuccess(response);
+                        try {
+                            requestListener.onSuccess(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {

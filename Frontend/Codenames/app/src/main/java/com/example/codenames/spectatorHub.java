@@ -71,7 +71,7 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
         //adding to row
         row.addView(a);
 
-        a.setOnClickListener(new ClickListener(addLobby.getName()));
+        a.setOnClickListener(new ClickListener(addLobby.getName(), addLobby.getId()));
 
         //Create TextView to show numPlayers
         TextView t = new TextView(this);
@@ -89,14 +89,16 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
 
     class ClickListener implements View.OnClickListener {
         private String lobby;
+        private String id;
 
-        public ClickListener(String lobbyName){
+        public ClickListener(String lobbyName, String id){
             this.lobby = lobbyName;
+            this.id = id;
         }
 
         @Override
         public void onClick(View v) {
-            startActivity(new Intent(spectatorHub.this, LobbyActivity.class).putExtra("lobbyName", lobby));
+            startActivity(new Intent(spectatorHub.this, spectatorLobby.class).putExtra("lobbyName", lobby).putExtra("id", id));
         }
     }
 
@@ -114,7 +116,8 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
                                 JSONObject o = (JSONObject) lobbies.get(i);
                                 String name = o.get("lobbyName").toString();
                                 int numPlayer = (int) o.get("numPlayers");
-                                addLobbies(new lobby(name, numPlayer));
+                                String id = o.get("identity").toString();
+                                addLobbies(new lobby(name, numPlayer, id));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

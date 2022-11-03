@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDB902"
+    tools:context=".spectatorLobby">
+
+    <Button
+        android:id="@+id/specLobby_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="#230959"
+        android:text="Back"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/specLobby_tool" />
+
+    <Toolbar
+        android:id="@+id/specLobby_tool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#222222"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="50sp"
+        android:id="@+id/specLobby_gameTitle"
+        android:layout_marginStart="5dp"
+        android:text="Codenames:\nCodnames"
+        android:textColor="#B30000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/specLobby_tool"
+        app:layout_constraintTop_toTopOf="@+id/specLobby_tool" />
+
+    <Toolbar
+        android:id="@+id/specLobby_title_header"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="600dp"
+        android:background="@color/cardinal"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/specLobby_tool" />
+
+    <TextView
+        android:id="@+id/specLobby_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lobby Name"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/specLobby_title_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/specLobby_tool" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:id="@+id/specLobby_error"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/specLobby_title_header"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp" />
+
+    <Toolbar
+        android:id="@+id/specLobby_header"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="530dp"
+        android:background="@color/gray_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/specLobby_title_header"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/specLobby_text_lobby_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Waiting Users"
+        android:textColor="#000000"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/specLobby_header"
+        app:layout_constraintEnd_toEndOf="@+id/specLobby_header"
+        app:layout_constraintStart_toStartOf="@+id/specLobby_header"
+        app:layout_constraintTop_toTopOf="@+id/specLobby_header" />
+
+    <TextView
+        android:id="@+id/specLobby_text_playercount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:text="0"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/specLobby_header"
+        app:layout_constraintEnd_toEndOf="@+id/specLobby_header"
+        app:layout_constraintTop_toTopOf="@+id/specLobby_header" />
+
+    <TextView
+        android:id="@+id/specLobby_text_playerlimit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="/12"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/specLobby_header"
+        app:layout_constraintEnd_toEndOf="@+id/specLobby_header"
+        app:layout_constraintTop_toTopOf="@+id/specLobby_header" />
+
+    <ScrollView
+        android:id="@+id/specLobby_scrollview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32.5dp"
+        android:layout_marginEnd="32.5dp"
+        android:layout_marginBottom="60dp"
+        android:background="@color/gray_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/specLobby_header"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:id="@+id/specLobby_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+<!--
+Temporary until websockets are configured to tell lobby to send spectator to spectatorViewing
+-->
+    <Button
+        android:id="@+id/specLobby_toGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="To Game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/specLobby_tool" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
