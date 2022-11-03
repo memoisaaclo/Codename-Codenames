@@ -42,7 +42,9 @@ public class AdminController {
 	
 	@PostMapping(path = "/admin/set/{username}")
 	public @ResponseBody String setAdmin(@PathVariable String username) {
-		Main.userRepo.findByusername(username).setAdmin(true);
+		User u = Main.userRepo.findByusername(username);
+		u.setAdmin(true);
+		Main.userRepo.save(u);
 		return success;
 	}
 	
