@@ -28,6 +28,9 @@ public class Const {
 	public static final String URL_JSON_WORD_ADD = "/admin/cards/add";
 	public static final String URL_JSON_WORD_DELETE = "/admin/cards/remove";
 
+	public static final String URL_JSON_CLUE_GET = "http://10.90.75.56:8080/games/38/clue";
+	public static final String URL_JSON_CLUE_PUT = "/games/38/clue/testing/123";
+
 
 
 }

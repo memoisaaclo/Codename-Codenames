@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,7 @@ public class AdminUsersActivity extends AppCompatActivity implements View.OnClic
     private Button btnExit;
     private TextView user_list;
     private String username;
+    private LinearLayout user_scroll;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -45,6 +47,8 @@ public class AdminUsersActivity extends AppCompatActivity implements View.OnClic
         text_edit = (EditText)findViewById(R.id.text_wordsearch);
         delete_user = (Button) findViewById(R.id.button_delete);
         btnExit = (Button) findViewById(R.id.reg_exit4);
+
+        user_scroll = (LinearLayout) findViewById(R.id.user_list);
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");

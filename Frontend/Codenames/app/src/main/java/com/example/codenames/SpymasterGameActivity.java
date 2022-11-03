@@ -1,5 +1,7 @@
 package com.example.codenames;
 
+import static com.example.codenames.utils.Const.URL_JSON_WORD_ADD;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -25,7 +28,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.codenames.app.AppController;
+import com.example.codenames.services.RequestListener;
+import com.example.codenames.services.VolleyListener;
 import com.example.codenames.utils.Const;
+import static com.example.codenames.utils.Const.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +46,8 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     private String TAG = SpymasterGameActivity.class.getSimpleName();
     private Button btnExit;
     private TextView card_name;
+    private String input;
+    private EditText text_edit;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -82,6 +90,8 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
         Button btnExit = (Button) findViewById(R.id.reg_exit8);
         btnExit.setOnClickListener(this);
+
+        text_edit = (EditText)findViewById(R.id.text_spy_guess);
 
         //Cards
 
@@ -213,6 +223,33 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
 
+    private void sendClue()
+    {
+        RequestListener addListener = new RequestListener() {
+            @Override
+            public void onSuccess(Object jsonObject)
+            {
+                JSONObject object = (JSONObject) jsonObject;
+                System.out.println(object);
+            }
+            @Override
+            public void onFailure(String error) {
+                System.out.println("error");
+                System.out.println(error);
+            }
+        };
+
+        input = text_edit.getText().toString();
+        System.out.println(input);
+        JSONObject data = new JSONObject();
+        try {
+            data.put("clue",input);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        VolleyListener.makeRequest(this, URL_JSON_CLUE_PUT, addListener, data, Request.Method.PUT);
+    }
+
     @Override
     public void onClick(View v)
     {
@@ -221,6 +258,9 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
             case R.id.reg_exit8:
                 startActivity(new Intent(SpymasterGameActivity.this, menu.class));
                 break;
+
+            case R.id.button_sendclue:
+                sendClue();
 
             default:
                 break;
