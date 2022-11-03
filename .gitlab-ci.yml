@@ -33,7 +33,7 @@ autoDeploy:
 #   tags:
 #     - springboot_tag 
 #   script:
-#     - cd Backend/springbootApplication
+#     - cd Backend
 #     - mvn package
 
 # android-build:
@@ -56,7 +56,7 @@ autoDeploy:
 #   tags:
 #     - springboot_tag
 #   script:
-#     - cd Backend/springbootApplication
+#     - cd Backend
 #     - mvn test
 #   artifacts:
 #     paths:
@@ -79,7 +79,7 @@ autoDeploy:
 #   tags:
 #    - springboot_tag
 #   script:
-#     - cd Backend/springbootApplication
+#     - cd Backend
 #     - mvn package
 #     - sudo mv target/*.jar /target/web-demo.jar 
 #     - sudo systemctl stop system-web-demo
