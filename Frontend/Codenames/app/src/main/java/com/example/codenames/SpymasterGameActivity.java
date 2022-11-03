@@ -28,12 +28,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.codenames.app.AppController;
-<<<<<<< HEAD
 import com.example.codenames.services.RequestListener;
 import com.example.codenames.services.VolleyListener;
 import com.example.codenames.utils.Const;
-=======
->>>>>>> 0cd3809a04bf9e318780ca8993543609ee656ece
 import static com.example.codenames.utils.Const.*;
 
 import org.json.JSONException;
@@ -48,6 +45,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 {
     private String TAG = SpymasterGameActivity.class.getSimpleName();
     private Button btnExit;
+    private Button btnSendClue;
     private TextView card_name;
     private String input;
     private EditText text_edit;
@@ -93,6 +91,9 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
         Button btnExit = (Button) findViewById(R.id.reg_exit8);
         btnExit.setOnClickListener(this);
+
+        Button btnSendClue = (Button) findViewById(R.id.button_sendclue);
+        btnSendClue.setOnClickListener(this);
 
         text_edit = (EditText)findViewById(R.id.text_spy_guess);
 
