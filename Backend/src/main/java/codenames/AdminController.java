@@ -55,7 +55,7 @@ public class AdminController {
 		return failure;
 	}
 	@PutMapping(path = "/admin/cards/add/{card}")
-	public String addCardpath(@RequestBody String card) {
+	public String addCardpath(@PathVariable String card) {
 		Card c = new Card(card);
 		if(Main.cardRepo.findByword(card) == null) {
 			Main.cardRepo.save(c);
