@@ -46,18 +46,19 @@ public class AdminController {
 		return success;
 	}
 	
-	/*@PutMapping(path = "/admin/cards/add")
+	@PutMapping(path = "/admin/cards/add")
 	public String addCard(@RequestBody Card card) {
 		if(Main.cardRepo.findByword(card.getWord()) == null) {
 			Main.cardRepo.save(card);
 			return success;
 		}
 		return failure;
-	}*/
+	}
 	@PutMapping(path = "/admin/cards/add/{card}")
-	public String addCardpath(@RequestBody Card card) {
-		if(Main.cardRepo.findByword(card.getWord()) == null) {
-			Main.cardRepo.save(card);
+	public String addCardpath(@RequestBody String card) {
+		Card c = new Card(card);
+		if(Main.cardRepo.findByword(card) == null) {
+			Main.cardRepo.save(c);
 			return success;
 		}
 		return failure;
@@ -73,7 +74,7 @@ public class AdminController {
 		return success;
 	}
 	
-	/*@DeleteMapping(path = "/admin/cards/remove")
+	@DeleteMapping(path = "/admin/cards/remove")
 	public String removeCard(@RequestBody Card card) {
 		Card delete;
 		if((delete = Main.cardRepo.findByword(card.getWord())) != null) {
@@ -81,12 +82,12 @@ public class AdminController {
 			return success;
 		}
 		return failure;
-	}*/
+	}
 	
 	@DeleteMapping(path = "/admin/cards/remove/{card}")
-	public String removeCardPath(@PathVariable Card card) {
+	public String removeCardPath(@PathVariable String card) {
 		Card delete;
-		if((delete = Main.cardRepo.findByword(card.getWord())) != null) {
+		if((delete = Main.cardRepo.findByword(card)) != null) {
 			Main.cardRepo.deleteById(delete.getId());
 			return success;
 		}
