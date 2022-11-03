@@ -37,7 +37,12 @@ public class Const {
 
 	public static final String URL_JSON_LOBBY = "http://10.90.75.56:8080/games/lobbyinfo";
 
-	public static final String URL_JSON_CREATE = "/games/add";
+	public static final String URL_JSON_CREATE = "http://10.90.75.56:8080/games/add";
+
+	public static final String URL_JSON_WORD_ADD = "/admin/cards/add";
+	public static final String URL_JSON_WORD_DELETE = "/admin/cards/remove";
+
+
 
 	// Get players in lobby to add to player list
 	public static final String URL_JSON_GETPLAYERS_FIRST = "http://10.90.75.56:8080/games/";
