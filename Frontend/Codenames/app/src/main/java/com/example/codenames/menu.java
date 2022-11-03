@@ -103,6 +103,12 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
             //go to admin users
             startActivity(new Intent(menu.this, AdminUsersActivity.class).putExtra("username", username));
         }
+        else if (v.getId() == R.id.button_words) {
+            startActivity(new Intent(menu.this, AdminWordsActivity.class));
+        }
+        else if (v.getId() == R.id.button_users) {
+            startActivity(new Intent(menu.this, AdminUsersActivity.class));
+        }
     }
 
     private void checkIfAdmin() {
