@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +46,7 @@ public class AdminWordsActivity extends AppCompatActivity implements View.OnClic
     private Button btnExit;
     private TextView word_list;
     private String username;
+    private LinearLayout word_scroll;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -58,6 +60,8 @@ public class AdminWordsActivity extends AppCompatActivity implements View.OnClic
         add_word = (Button) findViewById(R.id.button_add);
         delete_word = (Button) findViewById(R.id.button_delete);
         btnExit = (Button) findViewById(R.id.reg_exit5);
+
+        word_scroll = (LinearLayout) findViewById(R.id.word_list);
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");

@@ -29,6 +29,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
     private String TAG = OperativeGameActivity.class.getSimpleName();
     private Button btnExit;
     private TextView card_name;
+    private TextView clue;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -252,7 +253,50 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
 
     private void getClue()
     {
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                Const.URL_JSON_CLUE_GET, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response)
+                    {
+                        try
+                        {
+                            Log.d(TAG, response.getString("clue")); //backend in ()
+                            clue = findViewById(R.id.text_clue);
+                            clue.setText(response.getString("clue")); //display string
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+            }
+        })
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError
+            {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
 
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+
+                return params;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
 
 
