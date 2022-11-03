@@ -37,7 +37,7 @@ public class BoardController {
         // Player Validation
         if (!player.getRole().equals(Role.SPYMASTER.toString())
                 || !player.getTeam().equals(g.getTurnColor()))
-            return invalid;
+            return "{\"message\":\"incorrect clue giver\"}";
 
         // Data Validation
         if(clue.strip().equals("")) // (clue validation)
@@ -76,8 +76,9 @@ public class BoardController {
             return invalid;
 
         // Player validation
-        if (!g.getTurnColor().equals(player.getTeam()))
-            return "{\"message\":\"incorrect team guess\"}";
+        if (!g.getTurnColor().equals(player.getTeam())
+            || !player.getRole().equals(Role.OPERATIVE.toString()))
+            return "{\"message\":\"incorrect guesser\"}";
 
         // Data Validation
         else if (card_position < 0 || card_position > 24)
