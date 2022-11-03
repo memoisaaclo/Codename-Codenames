@@ -1,8 +1,13 @@
 # Example  .gitlab-ci.yml file
 stages:
-#  - androidbuild  
+#  - androidbuild   
 #  - androidtest
-  - mavenDeploy  
+  - mavenDeploy 
+ 
+workflow: 
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" || $CI_COMMIT_BRANCH == "main"
+
 
 workflow: 
   rules:
@@ -13,7 +18,7 @@ autoDeploy:
   tags:
    - springboot_tag
   script:
-    - cd Backend/springbootApplication
+    - cd Backend
     - mvn package
     - sudo mv target/*.jar /target/web-demo.jar 
     - sudo systemctl stop system-web-demo

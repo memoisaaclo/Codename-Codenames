@@ -10,7 +10,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
@@ -28,6 +27,7 @@ class Main {
     public static GameRepository gameRepo;
     public static PlayerRepository playerRepo;
     public static CardRepository cardRepo;
+    public static GameCardRepository gameCardRepo;
 	
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
@@ -39,12 +39,13 @@ class Main {
      * Creates instances on run and save static versions
      */
     @Bean
-    CommandLineRunner initUser(UserRepository userRepository, GameRepository gameRepository, PlayerRepository playerRepository, CardRepository cardRepository) {
+    CommandLineRunner initUser(UserRepository userRepository, GameRepository gameRepository, PlayerRepository playerRepository, CardRepository cardRepository, GameCardRepository gameCardRepository) {
         return args -> {
             Main.userRepo = userRepository;
             Main.playerRepo = playerRepository;
             Main.gameRepo = gameRepository;
             Main.cardRepo = cardRepository;
+            Main.gameCardRepo = gameCardRepository;
         };
     }
 
