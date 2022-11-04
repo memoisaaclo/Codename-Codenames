@@ -241,7 +241,7 @@ public class BoardController {
      * @param id game id
      * @return list of live clues
      */
-    @GetMapping(path = "/games/{id}/clueList")
+    @GetMapping(path = "/games/{id}/cluelist")
     String getClueList(@PathVariable int id) {
         Game g = Main.gameRepo.findById(id);
         if(g == null)
