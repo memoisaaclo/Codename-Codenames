@@ -23,10 +23,13 @@ import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.codenames.app.AppController;
 import com.example.codenames.services.RequestListener;
 import com.example.codenames.services.VolleyListener;
@@ -171,86 +174,56 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
     public void showColors()
     {
-        //cards[0].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
+        RequestQueue queue = Volley.newRequestQueue(this);
+
         String url = URL_JSON_GETALLCARDS_SPECTATOR_FIRST + lobbyID + URL_JSON_GETALLCARDS_SPECTATOR_SECOND;
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                url, null,
-                new Response.Listener<JSONObject>()
-                {
 
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response)
-                    {
-                        System.out.println(response);
-                        try
-                        {
-                            System.out.println("hello?");
-                            JSONArray array = new JSONArray(response);
+                    public void onResponse(String response) {
 
-                            for (int i = 0; i<25; i++)
-                            {
-//                                Log.d(TAG, response.getString(Integer.toString(i))); //backend in ()
-                                JSONObject o = (JSONObject) array.get(i);
+                        try {
+                            System.out.println(response);
 
-                                 //checks is revealed
-                                switch (o.get("color").toString().toLowerCase(Locale.ROOT))
-                                {
-                                    case ("RED"):
-                                        System.out.println("red");
-                                        cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
-                                        break;
-                                    case ("BLUE"):
-                                        System.out.println("blue");
-                                        cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.blue));
-                                        break;
-                                    case ("BLACK"):
-                                        System.out.println("black");
-                                        cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.black));
-                                        break;
-                                    case ("GREY"):
-                                        System.out.println("grey");
-                                        cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.gray_2));
-                                        break;
+                            JSONArray object = new JSONArray(response);
+                            for (int i = 0; i < 25; i++) {
+                                JSONObject o = (JSONObject) object.get(i);
+                                cards[i].setText(o.get("word").toString());
+
+                                String color = o.get("color").toString();
+
+                                if (color.toLowerCase(Locale.ROOT).equals("red")) {
+                                    cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
+                                } else if (color.toLowerCase(Locale.ROOT).equals("blue")) {
+                                    cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.blue));
+                                } else if (color.toLowerCase(Locale.ROOT).equals("grey")) {
+                                    cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.gray_2));
+                                } else {
+                                    cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.black));
                                 }
                             }
-                        }
-                        catch (JSONException e)
-                        {
-                            e.printStackTrace();
+
+                        } catch (JSONException jsonException) {
+                            jsonException.printStackTrace();
                         }
                     }
-                }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-            }
-        })
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError
-            {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json");
-                return headers;
-            }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error.toString());
+                    }
+                });
 
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String> params = new HashMap<String, String>();
-
-                return params;
-            }
-        };
-        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+        queue.add(request);
     }
 
     private void sendClue()
     {
-        String url = URL_JSON_CLUE_PUT + lobbyID + URL_JSON_CLUE_PUT_SECOND + input + URL_JSON_CLUE_PUT_THIRD + "123";
-        RequestListener addListener = new RequestListener() {
+        String url = URL_JSON_CLUE_PUT + lobbyID + URL_JSON_CLUE_PUT_SECOND + input + URL_JSON_CLUE_PUT_THIRD + "2";
+        RequestListener addListener = new RequestListener()
+        {
             @Override
             public void onSuccess(Object jsonObject)
             {
@@ -266,9 +239,11 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
         input = text_edit.getText().toString();
         System.out.println(input);
+        url = URL_JSON_CLUE_PUT + lobbyID + URL_JSON_CLUE_PUT_SECOND + input + URL_JSON_CLUE_PUT_THIRD + "2";
         JSONObject data = new JSONObject();
         try {
-            data.put("clue",input);
+            data.put("role","SPYMASTER");
+            data.put("team","RED");
         } catch (JSONException e) {
             e.printStackTrace();
         }

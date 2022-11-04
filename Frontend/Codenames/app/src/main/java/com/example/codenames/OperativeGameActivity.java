@@ -11,19 +11,24 @@ import android.widget.TextView;
 import static com.example.codenames.utils.Const.*;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.codenames.app.AppController;
 import com.example.codenames.services.RequestListener;
 import com.example.codenames.services.VolleyListener;
 import com.example.codenames.utils.Const;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class OperativeGameActivity extends AppCompatActivity implements View.OnClickListener
@@ -34,11 +39,11 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
     private TextView clue;
     private String lobbyID;
     private String username;
+    private JSONObject clue_object;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
     private Button cards[] = new Button[25];
-    //cards[] = new Button[25];
 
     private static final int[] CARD_IDS = {
             R.id.button_card1,
@@ -80,6 +85,8 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         Intent intent = getIntent();
         lobbyID = intent.getStringExtra("id");
         username = intent.getStringExtra("username");
+
+        clue = (TextView) findViewById(R.id.text_clue);
 
         //Cards
 
@@ -147,69 +154,57 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
 
     public void showColors()
     {
-        String url = URL_JSON_GETALLCARDS_SPECTATOR_FIRST + lobbyID + URL_JSON_GETALLCARDS_SPECTATOR_SECOND;
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                url, null,
-                new Response.Listener<JSONObject>()
-                {
-                    @Override
-                    public void onResponse(JSONObject response)
-                    {
-                        try
-                        {
-                            for (int i = 0; i<25; i++)
-                            {
-                                Log.d(TAG, response.getString(Integer.toString(i))); //backend in ()
+        RequestQueue queue = Volley.newRequestQueue(this);
 
-                                //checks is revealed
-                                switch (response.getString(Integer.toString(i)))
+        String url = URL_JSON_GETALLCARDS_SPECTATOR_FIRST + lobbyID + URL_JSON_GETALLCARDS_SPECTATOR_SECOND;
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            System.out.println(response);
+
+                            JSONArray object = new JSONArray(response);
+                            for (int i = 0; i < 25; i++) {
+                                JSONObject o = (JSONObject) object.get(i);
+                                cards[i].setText(o.get("word").toString());
+
+                                String color = o.get("color").toString();
+                                String isRevealed = o.get("revealed").toString();
+
+                                if (isRevealed.toLowerCase(Locale.ROOT).equals("true"))
                                 {
-                                    case ("RED"):
+                                    if (color.toLowerCase(Locale.ROOT).equals("red")) {
                                         cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
-                                        break;
-                                    case ("BLUE"):
+                                    } else if (color.toLowerCase(Locale.ROOT).equals("blue")) {
                                         cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.blue));
-                                        break;
-                                    case ("BLACK"):
-                                        cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.black));
-                                        break;
-                                    case ("GREY"):
+                                    } else if (color.toLowerCase(Locale.ROOT).equals("grey")) {
                                         cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.gray_2));
-                                        break;
+                                    } else {
+                                        cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.black));
+                                    }
+                                }
+                                else
+                                {
+                                    cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.gray_3));
                                 }
                             }
-                        }
-                        catch (JSONException e)
-                        {
-                            e.printStackTrace();
+
+                        } catch (JSONException jsonException) {
+                            jsonException.printStackTrace();
                         }
                     }
-                }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-            }
-        })
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError
-            {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json");
-                return headers;
-            }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error.toString());
+                    }
+                });
 
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String> params = new HashMap<String, String>();
-
-                return params;
-            }
-        };
-        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+        queue.add(request);
     }
 
 
@@ -226,7 +221,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                     {
                         try
                         {
-                            Log.d(TAG, response.getString("isRevealed"));
+                            Log.d(TAG, response.getString("isrevealed"));
                         }
                         catch (JSONException e)
                         {
@@ -265,50 +260,30 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
 
     private void getClue()
     {
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                Const.URL_JSON_CLUE_GET, null,
-                new Response.Listener<JSONObject>()
-                {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = URL_JSON_CLUE_GET + lobbyID + URL_JSON_CLUE_GET_SECOND;
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response)
-                    {
-                        try
-                        {
-                            Log.d(TAG, response.getString("clue")); //backend in ()
-                            clue = findViewById(R.id.text_clue);
-                            clue.setText(response.getString("clue")); //display string
-                        }
-                        catch (JSONException e)
-                        {
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            clue_object = object;
+                            clue.setText(clue_object.getString("clue"));
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-            }
-        })
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError
-            {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json");
-                return headers;
-            }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error.toString());
+                    }
+                });
 
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String> params = new HashMap<String, String>();
-
-                return params;
-            }
-        };
-        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+        queue.add(request);
     }
 
 
