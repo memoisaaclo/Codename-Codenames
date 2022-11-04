@@ -208,8 +208,8 @@ public class Game implements Serializable {
         /* Baby classes (inner classes) */
     class Lobby {
         private String lobbyName;
-        private int numPlayers;
-        private int identity;
+        private Integer numPlayers;
+        private Integer identity;
         
         Lobby() {
             this.numPlayers = players.size();
