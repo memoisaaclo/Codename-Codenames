@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import static com.example.codenames.utils.Const.*;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -55,13 +55,15 @@ public class AdminUsersActivity extends AppCompatActivity implements View.OnClic
 
         delete_user.setOnClickListener(this);
         btnExit.setOnClickListener(this);
+
+        showUsers();
     }
 
     private void deleteUser()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        StringRequest request = new StringRequest(Request.Method.DELETE, "http://10.90.75.56:8080/users/removeuser/" + text_edit.getText().toString(),
+        StringRequest request = new StringRequest(Request.Method.DELETE, URL_JSON_WORD_DELETE + text_edit.getText().toString(),
                 new Response.Listener<String> () {
                     @Override
                     public void onResponse(String response) {
