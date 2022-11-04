@@ -55,6 +55,8 @@ public class AdminUsersActivity extends AppCompatActivity implements View.OnClic
 
         delete_user.setOnClickListener(this);
         btnExit.setOnClickListener(this);
+
+        showUsers();
     }
 
     private void deleteUser()

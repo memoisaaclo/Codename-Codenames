@@ -86,6 +86,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         }
         showCards();
         showColors();
+        getClue();
     }
 
     public void showCards()
