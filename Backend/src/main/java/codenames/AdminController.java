@@ -116,7 +116,7 @@ public class AdminController {
 				+ "/admin/cards/add/{card}             : PUT    : add a card<br>"
 				+ "/admin/cards/add/                   : PUT    : add a card<br>"
 				+ "/admin/cards/addBulk                : PUT    : add array of cards<br>"
-				+ "<a href = http://10.90.75.56:8080/admin/cards/all>/cards/all</a>"
+				+ "<a href = http://10.90.75.56:8080/admin/cards/all>/admin/cards/all</a>"
 				+ "                          : GET    : list all cards<br>"
 				+ "/admin/cards/remove/{card}          : DELETE : deletes the given card<br>"
 				+ "/admin/cards/remove/                : DELETE : deletes the given card<br>"
@@ -144,7 +144,7 @@ public class AdminController {
 				+ "/games/{id}/numplayers              : GET    : get the number of players in a game<br>"
 				+ "/games/{id}/generatewords           : GET    : generate the word set for a game<br>"
 				+ "/games/{id}/generatestates          : GET    : generate the card states for a game<br>"
-				+ "/games/{id}/generateboard   		   : GET    : Create word and states for game, given a game id" + "<br>"
+				+ "/games/{id}/generateboard           : GET    : Create word and states for game, given a game id" + "<br>"
 				+ "/games/{id}/players                 : GET    : get all players and info for the game<br><br>"
 				
 				+ "<a href = http://10.90.75.56:8080/players>/players</a>"

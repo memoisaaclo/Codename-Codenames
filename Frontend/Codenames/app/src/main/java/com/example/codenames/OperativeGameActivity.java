@@ -16,6 +16,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.codenames.app.AppController;
+import com.example.codenames.services.RequestListener;
+import com.example.codenames.services.VolleyListener;
 import com.example.codenames.utils.Const;
 
 import org.json.JSONException;
@@ -31,6 +33,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
     private TextView card_name;
     private TextView clue;
     private String lobbyID;
+    private String username;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -76,6 +79,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
 
         Intent intent = getIntent();
         lobbyID = intent.getStringExtra("id");
+        username = intent.getStringExtra("username");
 
         //Cards
 
@@ -314,7 +318,11 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         switch (v.getId())
         {
             case R.id.reg_exit7:
-                startActivity(new Intent(OperativeGameActivity.this, menu.class));
+                try {
+                    leaveLobby();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
 
 //            case CARD_IDS[0]:
@@ -337,5 +345,29 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
             default:
                 break;
         }
+    }
+
+    // Removes player from lobby
+    private void leaveLobby() throws JSONException {
+        RequestListener leaveListener = new RequestListener() {
+            @Override
+            public void onSuccess(Object response) throws JSONException {
+                System.out.println(response);
+                JSONObject object = new JSONObject((String) response);
+                if(object.get("message").equals("success")) {
+                    //leave and go to hub
+                    startActivity(new Intent(OperativeGameActivity.this, HubActivity.class).putExtra("username", username));
+                }
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                System.out.println(errorMessage);
+            }
+        };
+
+        String url = URL_JSON_REMOVEPLAYER_FIRST + lobbyID + URL_JSON_REMOVEPLAYER_SECOND + username;
+
+        VolleyListener.makeRequest(this, url, leaveListener, Request.Method.DELETE);
     }
 }

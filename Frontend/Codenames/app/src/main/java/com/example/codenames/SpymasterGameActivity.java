@@ -33,12 +33,15 @@ import com.example.codenames.services.VolleyListener;
 import com.example.codenames.utils.Const;
 import static com.example.codenames.utils.Const.*;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class SpymasterGameActivity extends AppCompatActivity implements View.OnClickListener
@@ -50,6 +53,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     private String input;
     private String lobbyID;
     private EditText text_edit;
+    private String username;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -100,6 +104,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
         Intent intent = getIntent();
         lobbyID = intent.getStringExtra("id");
+        username = intent.getStringExtra("username");
 
         //Cards
 
@@ -172,28 +177,38 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
                 url, null,
                 new Response.Listener<JSONObject>()
                 {
+
                     @Override
                     public void onResponse(JSONObject response)
                     {
+                        System.out.println(response);
                         try
                         {
+                            System.out.println("hello?");
+                            JSONArray array = new JSONArray(response);
+
                             for (int i = 0; i<25; i++)
                             {
-                                Log.d(TAG, response.getString(Integer.toString(i))); //backend in ()
+//                                Log.d(TAG, response.getString(Integer.toString(i))); //backend in ()
+                                JSONObject o = (JSONObject) array.get(i);
 
                                  //checks is revealed
-                                switch (response.getString(Integer.toString(i)))
+                                switch (o.get("color").toString().toLowerCase(Locale.ROOT))
                                 {
                                     case ("RED"):
+                                        System.out.println("red");
                                         cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.cardinal));
                                         break;
                                     case ("BLUE"):
+                                        System.out.println("blue");
                                         cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.blue));
                                         break;
                                     case ("BLACK"):
+                                        System.out.println("black");
                                         cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.black));
                                         break;
                                     case ("GREY"):
+                                        System.out.println("grey");
                                         cards[i].setBackgroundTintList(getResources().getColorStateList(R.color.gray_2));
                                         break;
                                 }
@@ -266,7 +281,11 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         switch (v.getId())
         {
             case R.id.reg_exit8:
-                startActivity(new Intent(SpymasterGameActivity.this, menu.class));
+                try {
+                    leaveLobby();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 break;
 
             case R.id.button_sendclue:
@@ -275,5 +294,29 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
             default:
                 break;
         }
+    }
+
+    // Removes player from lobby
+    private void leaveLobby() throws JSONException {
+        RequestListener leaveListener = new RequestListener() {
+            @Override
+            public void onSuccess(Object response) throws JSONException {
+                System.out.println(response);
+                JSONObject object = new JSONObject((String) response);
+                if(object.get("message").equals("success")) {
+                    //leave and go to hub
+                    startActivity(new Intent(SpymasterGameActivity.this, HubActivity.class).putExtra("username", username));
+                }
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                System.out.println(errorMessage);
+            }
+        };
+
+        String url = URL_JSON_REMOVEPLAYER_FIRST + lobbyID + URL_JSON_REMOVEPLAYER_SECOND + username;
+
+        VolleyListener.makeRequest(this, url, leaveListener, Request.Method.DELETE);
     }
 }
