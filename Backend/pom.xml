@@ -54,7 +54,7 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
-    
+
     <!-- The websocket dependency -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -66,6 +66,19 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-messaging</artifactId>
       <version>5.2.2.RELEASE</version>
+    </dependency>
+
+    <!-- Jackson Core for JSON messages -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.10.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId> 
+      <version>2.10.2</version>
     </dependency>
 
     <!-- The dependency to use Swagger to document stuff -->
