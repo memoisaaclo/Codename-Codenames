@@ -1,6 +1,7 @@
 package com.example.codenames;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -131,8 +132,17 @@ public class AdminWordsActivity extends AppCompatActivity implements View.OnClic
                     public void onResponse(JSONArray response)
                     {
                         Log.d(TAG, response.toString()); //backend in ()
-                        word_list = findViewById(R.id.textView);
-                        word_list.setText(response.toString()); //display string
+
+                        for(int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject object = (JSONObject) response.get(i);
+                                getTextView(object.get("word").toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+//                        word_list.setText(response.toString()); //display string
                     }
                 }, new Response.ErrorListener()
         {
@@ -143,6 +153,24 @@ public class AdminWordsActivity extends AppCompatActivity implements View.OnClic
             }
         });
         AppController.getInstance().addToRequestQueue(jsonArrReq, tag_json_arry);
+    }
+
+    private void getTextView(String word) {
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+
+        //Creating the text view with word
+        TextView t = new TextView(this);
+        t.setText(word);
+        t.setTextSize(20);
+        t.setTextColor(Color.BLACK);
+        t.setLayoutParams(new LinearLayout.LayoutParams(1000, 75));
+
+        row.addView(t);
+
+        word_scroll.addView(row);
     }
 
 
