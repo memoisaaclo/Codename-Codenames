@@ -285,4 +285,18 @@ public class BoardController {
 
         return "{\"turnColor\": \"" + g.getTurnColor() + "\"}";
     }
+
+    /**
+     * Get current guesses available of a game
+     * @param id game id
+     * @return num guesses available
+     */
+    @GetMapping(path = "/games/{id}/guessavailable")
+    String getCurrentTeamColor(@PathVariable int id) {
+        Game g = Main.gameRepo.findById(id);
+        if(g == null)
+            return invalid;
+
+        return "{\"numGuesses\": \"" + g.getGuessesAvailable() + "\"}";
+    }
 }
