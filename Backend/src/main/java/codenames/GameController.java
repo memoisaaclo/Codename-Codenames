@@ -49,8 +49,8 @@ public class GameController {
     	if(add ==null) return "{\"message\":\"could not find player\"}";
     	if(check ==null) return "{\"message\":\"could not find game\"}";
     	if(check.getPlayers().contains(add.getAttachedPlayer())) return "{\"message\":\"player is already in game\"}";
+    	add.addGameCounter(); 
     	add.addToGame(id); 
-    	
         return success;
     } 
     

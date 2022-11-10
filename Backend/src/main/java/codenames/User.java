@@ -82,7 +82,7 @@ public class User {
     	// at this point, Player should be orphaned and can be ignored
     }
     
-    public void startGame() {
+    public void addGameCounter() {
     	gamesPlayed++;
     }
     
