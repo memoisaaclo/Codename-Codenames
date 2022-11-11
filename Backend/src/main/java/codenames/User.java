@@ -17,27 +17,65 @@ import javax.persistence.*;
 @Entity
 public class User {
 
+	/**
+	 * ID value in database
+	 */
     @Id
     @GeneratedValue
     private Long id;
     
+    /**
+     * username used for login and searching the object
+     */
     //login information:
     private String username;
-	private String password;	
-	private boolean isAdmin;
+	/**
+	 * password used only for internal comparison
+	 */
+    private String password;	
+	/**
+	 * flag if the account is an admin
+	 */
+    private boolean isAdmin;
+    
+    /**
+     * statistic
+     */
     // Statistics
     private Integer logins = 0;
+    /**
+     * statistic
+     */
     private Integer gamesPlayed = 0;
-	private Integer gamesWon = 0;
-	private Integer guessesMade = 0;
-	private Integer cluesGiven = 0;
-	private Integer correctGuesses = 0;
+    /**
+     * statistic
+     */
+    private Integer gamesWon = 0;
+    /**
+     * statistic
+     */
+    private Integer guessesMade = 0;
+    /**
+     * statistic
+     */
+    private Integer cluesGiven = 0;
+    /**
+     * statistic
+     */
+    private Integer correctGuesses = 0;
 
+    /**
+     * link between User, and player object used for tracking games
+     */
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "playerID")
     private Player attachedPlayer;
     
-    
+    /**
+     * constructor for new User
+     * @param username
+     * @param password
+     */
     public User(String username, String password) {
     	this.username = username;
 		setPassword(password);
@@ -45,18 +83,24 @@ public class User {
     	logins = 0;
     }
     
+    /**
+     * default constructor
+     */
     public User() {
     	super();
     }
 
+    /**
+     * increment statistics
+     */
     public void addLogin() {
-    	if(logins != null) {
-    		logins++;
-    	} else {
-    		logins = 1;
-    	}
+		logins++;
     }
     
+    /**
+     * attach a user to a game through a player object
+     * @param id
+     */
     public void addToGame(int id) {
     	Game g = Main.gameRepo.findById(id);
     	
@@ -71,6 +115,10 @@ public class User {
     	Main.gameRepo.save(g);
     }
     
+    /**
+     * remove a user from a game, through attached player
+     * @param id
+     */
     public void removeFromGame(int id) {
     	Game g = Main.gameRepo.findById(id);
     	g.removePlayer(this.attachedPlayer);	// remove player from game
@@ -82,10 +130,18 @@ public class User {
     	// at this point, Player should be orphaned and can be ignored
     }
     
+    /**
+     * increment statistics
+     */
     public void addGameCounter() {
     	gamesPlayed++;
     }
     
+    /**
+     * checks username and password
+     * @param usr
+     * @return
+     */
 	public boolean validateCredentials(User usr) {
     	return this.username.equals(usr.username) && password.equals(usr.password);
     }
