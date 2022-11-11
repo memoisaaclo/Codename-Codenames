@@ -2,7 +2,7 @@ stages:
   - maventry 
   - maventest
   - mavendeploy  
-  - androidtry  
+  - androidtry   
   - androidtest
 
 workflow:
