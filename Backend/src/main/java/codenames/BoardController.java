@@ -292,7 +292,7 @@ public class BoardController {
      * @return num guesses available
      */
     @GetMapping(path = "/games/{id}/guessavailable")
-    String getCurrentTeamColor(@PathVariable int id) {
+    String guessesAvailable(@PathVariable int id) {
         Game g = Main.gameRepo.findById(id);
         if(g == null)
             return invalid;
