@@ -56,6 +56,11 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
         startActivity(new Intent(spectatorHub.this, menu.class));
     }
 
+
+    /*
+    Helper method to create and place the lobbies onto the scrollview. This is done with a Linear Layout container called "row"
+    and a button and textview will be added to show all available lobbies and their current amount of players.
+     */
     private void addLobbies(lobby addLobby) {
 
         LinearLayout row = new LinearLayout(this);
