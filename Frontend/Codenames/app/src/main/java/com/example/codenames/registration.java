@@ -20,13 +20,13 @@ import org.json.JSONObject;
 
 public class registration extends Activity implements OnClickListener {
 
-    private Button register;
-    private Button exit;
-    private TextView errorText;
-    private EditText user;
-    private EditText pass;
-    private EditText pass2;
-    private String username;
+    private Button register; // Button to forward user to the registration screen.
+    private Button exit; // Button to return user back to the menu screen
+    private TextView errorText; // TextView to display the error message if there is an error/problem with registration
+    private EditText user; // EditText to hold/get the username to be registered
+    private EditText pass; // EditText to hold/get the password to be registered
+    private EditText pass2; // EditText to hold/get the password to compare and be registered
+    private String username; // String to hold value of the registered username. Used when going back to menu screen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,10 @@ public class registration extends Activity implements OnClickListener {
         }
     };
 
+    /*
+    Method that makes a POST request. Sends the username and password to be registered. If there is no error
+    in the response, the user will be logged in and returned to the menu screen. Uses @params String username and String password.
+     */
     private void sendRegistrationInfo(String username, String password) throws JSONException {
         RequestListener registerListener = new RequestListener() {
             @Override
