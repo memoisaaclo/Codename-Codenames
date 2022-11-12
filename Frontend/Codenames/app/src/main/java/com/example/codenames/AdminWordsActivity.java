@@ -74,6 +74,11 @@ public class AdminWordsActivity extends AppCompatActivity implements View.OnClic
         showWords();
     }
 
+    /*
+    Makes PUT request to add your own word to the list of words that can potentially show up on a card in-game
+    Takes @params input and "text_edit", with "input" allowing the requested word to be sent over
+    "text_edit" allows the "input" to read what word was typed in for request
+    */
     private void addWord()
     {
         RequestListener addListener = new RequestListener() {
@@ -101,6 +106,11 @@ public class AdminWordsActivity extends AppCompatActivity implements View.OnClic
         VolleyListener.makeRequest(this, URL_JSON_WORD_ADD, addListener, data, Request.Method.PUT);
     }
 
+    /*
+    Makes DELETE request to delete a word from the list of words that can potentially show up on a card in-game
+    Takes @params input and "text_edit", with "input" allowing the requested word to be sent over
+    "text_edit" allows the "input" to read what word was typed in for request of removal
+    */
     private void deleteWord()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -122,6 +132,11 @@ public class AdminWordsActivity extends AppCompatActivity implements View.OnClic
         queue.add(request);
     }
 
+    /*
+    Makes GET request to show every username in a list
+    Uses @param "object" which is a JSON object that gets the words
+    Calls getTextView, which uses its own @params
+     */
     private void showWords()
     {
         JsonArrayRequest jsonArrReq = new JsonArrayRequest(Request.Method.GET,
@@ -155,6 +170,13 @@ public class AdminWordsActivity extends AppCompatActivity implements View.OnClic
         AppController.getInstance().addToRequestQueue(jsonArrReq, tag_json_arry);
     }
 
+    /*
+    A method that simply organizes the display of the word list better
+    Uses @params "row", "t", and "word_scroll"
+    "row" organizes the list of words in a vertical manner
+    "t" displays each word one by one in a consistent manner
+    "word_scroll" allows for the admins to scroll through the list of words (because they can't al fit on one page)
+     */
     private void getTextView(String word) {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
