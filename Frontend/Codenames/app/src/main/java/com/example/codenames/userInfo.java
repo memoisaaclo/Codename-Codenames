@@ -23,14 +23,14 @@ import org.json.JSONObject;
 
 public class userInfo extends AppCompatActivity implements View.OnClickListener {
 
-    private Button exit;
-    private TextView gamesWon;
-    private TextView gamesPlayed;
-    private TextView guessesMade;
-    private TextView cluesGiven;
-    private TextView correctGuesses;
-    private TextView logins;
-    private String username;
+    private Button exit; // Button to exit back to menu
+    private TextView gamesWon; // TextView to display how many games the player has won
+    private TextView gamesPlayed; // TextView to display how many games the player has played
+    private TextView guessesMade; // TextView to display the amount of guesses made
+    private TextView cluesGiven; // TextView to display the amount of clus the player has given
+    private TextView correctGuesses; // TextView to display the amount of correct guesses player has made
+    private TextView logins; // TextView to display number of times player has logged in
+    private String username; // String to hold the players username
 
 
     @Override
@@ -59,6 +59,10 @@ public class userInfo extends AppCompatActivity implements View.OnClickListener 
 
     }
 
+    /*
+    Helper method to set the gamesWon, gamesPlayed, guessesMade, cluesGive, correctGuesses, and loginCount TextViews with appropriate data.
+    Will be called by getUserInfo(). Uses @params JSONObject stats.
+     */
     private void updateInfo(JSONObject stats) {
         try {
             gamesWon.setText(stats.get("gamesWon").toString());
@@ -79,6 +83,10 @@ public class userInfo extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
+    /*
+    Method that makes a GET request to get the current users information. Calls updateInfo() with the response to update the
+    users statistics.
+     */
     private void getUserInfo() {
         RequestQueue queue = Volley.newRequestQueue(this);
 

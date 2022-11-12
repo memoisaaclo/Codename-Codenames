@@ -28,12 +28,11 @@ import java.util.Locale;
 
 public class spectatorViewing extends AppCompatActivity implements View.OnClickListener {
 
-    private Button exit;
-    private LinearLayout cardList;
-    private String lobbyName;
-    private String id;
-    private TextView t;
-    private TextView lName;
+    private Button exit; // Button to exit back to SpectatorHub
+    private LinearLayout cardList; // LinearLayout to hold and display the current cards in game
+    private String lobbyName; // String to hold the lobby name, used to set lobby name on screen
+    private String id; // String to hold id value, used to get cards/score, will be used to refresh screen
+    private TextView lName; // TextView to display lobby name
 
 
     @Override
@@ -61,6 +60,12 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
 
     }
 
+    /*
+    Method that makes a GET request to get all cards to be displayed. Will display words and colors. Can be changed to only
+    display card color if the card has been revealed. Calls getTextView which returns a TextView with word and color set.
+    Then adds the Textview in rows of 5 to the LinearLayout cardList. Also calls the helper method addRow() to get a new
+    row to be used in cardList.
+     */
     private void getCards() {
 
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -104,6 +109,10 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
 
     }
 
+    /*
+    Helper method to create a TextView to display words and color. Can be configured to only display color if the card is Revealed.
+    Returns a TextView t, with given information.
+     */
     private TextView getTextView(String word, String color, String isRevealed) {
 
         TextView t = new TextView(this);
@@ -128,6 +137,10 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
         return t;
     }
 
+    /*
+    Helper method to create a new row to be displayed in cardList. Will return a horizontal LinearLayout for
+    5 cards to be held and displayed.
+     */
     private LinearLayout addRow() {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);

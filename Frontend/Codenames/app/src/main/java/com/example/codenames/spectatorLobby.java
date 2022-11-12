@@ -28,15 +28,15 @@ import java.util.Locale;
 
 public class spectatorLobby extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView lobby_name;
-    private TextView error_text;
-    private TextView player_count;
-    private Button exit;
-    private Button toGame;
-    private LinearLayout pList;
-    private String id;
-    private String lobbyName;
-    private JSONArray players;
+    private TextView lobby_name; // TextView to display the current lobby name
+    private TextView error_text; // TextView to display error message if their is one
+    private TextView player_count; // TextView to display the current amount of players in lobby
+    private Button exit; // Button to exit back to the SpectatorHub
+    private Button toGame; // Button to temporarily for testing purposes allow the spectator to go to game screen, will be removed
+    private LinearLayout pList; // LinearLayout where all current players and their teams/roles will be displayed
+    private String id; // String to hold the game id, used for anywhere where request will be made
+    private String lobbyName; // String to hold the lobby name, used to display name and for temporary purposes.
+    private JSONArray players; // JSONArray to hold the current players globally in spectatorLobby.java
 
 
 
@@ -64,6 +64,10 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
         getPlayers();
     }
 
+    /*
+    Method that when called will make a JSON GET request to get all players in the lobby. Calls addPlayer() with @params username, role, and team from the
+    JSONObject in the JSONArray received by the response.
+     */
     private void getPlayers() {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = URL_JSON_GETPLAYERS_FIRST + id + URL_JSON_GETPLAYERS_SECOND;
@@ -103,6 +107,11 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
         queue.add(request);
     }
 
+    /*
+    Helper method that when called creates a new horizontal LinearLayout called "row", that will change the background color
+    to that of the players team, creates a TextView to hold and display the username, and creates a TextView to hold and display the
+    players role Spymaster or Operative. Then, the method will add the row to the vertical LinearLayout plist.
+     */
     private void addPlayer(String pName, String role, String team) {
 
         LinearLayout row = new LinearLayout(this);

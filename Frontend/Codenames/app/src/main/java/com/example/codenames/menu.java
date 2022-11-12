@@ -23,14 +23,14 @@ import org.json.JSONObject;
 
 public class menu extends AppCompatActivity implements View.OnClickListener{
 
-    private Button play;
-    private Button login;
-    private Button info;
-    private Button exit;
-    private Button adminWords;
-    private Button adminUsers;
-    private TextView menuUser;
-    private String username;
+    private Button play; // Button to send user spectator to appropriate Hub
+    private Button login; // Button to send user to login screen, or if logged in, will log out user
+    private Button info; // Button to send user to statistics screen, only visible if logged in
+    private Button exit; // Button to leave and close game session
+    private Button adminWords; // Button to send user to the admin words screen, only visible if user is admin and logged in
+    private Button adminUsers; // Button to send user to the admin users screen, only visible if user is admin and logged in
+    private TextView menuUser; // TextView to display users name if logged in
+    private String username; // String to hold value the value of the users username
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +105,10 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
+    /*
+    GET request to obtain whether the user is an admin or not. If the username is valid for a admin
+    user, will make both the adminWords and adminUsers buttons visible and clickable.
+     */
     private void checkIfAdmin() {
         RequestQueue queue = Volley.newRequestQueue(this);
 
