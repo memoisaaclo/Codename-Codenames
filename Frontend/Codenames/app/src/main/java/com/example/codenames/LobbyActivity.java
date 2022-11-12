@@ -39,21 +39,21 @@ import java.util.Map;
 public class LobbyActivity extends Activity implements View.OnClickListener
 {
     private String TAG = LobbyActivity.class.getSimpleName();
-    private TextView player_count;
-    private TextView lobby_name;
-    private TextView user;
-    private TextView errortext;
-    private Button exit;
-    private String username;
-    private String id;
-    private String lobbyName;
-    private JSONArray players;
-    private LinearLayout pList;
+    private TextView player_count; // TextView to display current amount of players in lobby
+    private TextView lobby_name; // TextView to display the current lobby name
+    private TextView user; // TextView to display the players username
+    private TextView errortext; // TextView to display the error, if there needs to be one
+    private Button exit; // Button to exit player from lobby and send them to the menu
+    private String username; // String to hold the players username
+    private String id; // String to hold the lobby's id
+    private String lobbyName; // String to hold the lobby name
+    private JSONArray players; // JSONArray to hold all current players in lobby's details
+    private LinearLayout pList; // LinearLayout where players, roles, and teams will be displayed
 
-    private Button rSpy;
-    private Button rOps;
-    private Button bSpy;
-    private Button bOps;
+    private Button rSpy; // Button to make player red Spymaster
+    private Button rOps; // Button to make player red Operative
+    private Button bSpy; // Button to make player blue Spymaster
+    private Button bOps; // Button to make player blue Operative
 
 
     @Override
@@ -106,6 +106,10 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         getPlayers();
     }
 
+    /*
+    Makes GET request to get all roles, teams, and players. Calls helper method addPlayer with the @params returned by the request
+    to be displayed in the scrollView pList.
+     */
     private void getPlayers() {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = URL_JSON_GETPLAYERS_FIRST + id + URL_JSON_GETPLAYERS_SECOND;
@@ -144,7 +148,11 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         queue.add(request);
     }
 
-
+    /*
+    Helper method that uses @params pName, role, and team to display the players information. By using a LinearLayout
+    row, that is horizontal, the background will be changed to the players team color and textviews will be added
+    to the row in order to display username and role. Default to red operative.
+     */
     private void addPlayer(String pName, String role, String team) {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
@@ -214,7 +222,10 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         }
     }
 
-    // Sets player roles (Operative/Spymaster)
+    /*
+    Makes POST request to set the player role by using @param role. Using the players username and provided
+    role the request will set role of player.
+     */
     private void setPlayerRole(String role) throws JSONException {
         RequestListener roleListener = new RequestListener() {
             @Override
@@ -244,7 +255,9 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         VolleyListener.makeRequest(this, url, roleListener, Request.Method.POST);
     }
 
-    // Sets Players team (Red/Blue)
+    /*
+    Makes POST request to change the players team to the color provided in the @param team.
+     */
     private void setPlayerTeam(String team) throws JSONException {
         RequestListener teamListener = new RequestListener() {
             @Override
@@ -271,7 +284,10 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         VolleyListener.makeRequest(this, url, teamListener, Request.Method.POST);
     }
 
-    // Removes player from lobby
+    /*
+    Makes DELETE request to remove player from the lobby. When exit button is clicked request is sent and if
+    it is successful, the player will be returned to the HubActivity.
+     */
     private void leaveLobby() throws JSONException {
         RequestListener leaveListener = new RequestListener() {
             @Override

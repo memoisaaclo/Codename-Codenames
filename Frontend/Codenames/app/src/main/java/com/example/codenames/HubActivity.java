@@ -32,14 +32,14 @@ import java.util.Map;
 
 public class HubActivity extends AppCompatActivity implements OnClickListener {
 
-    private Button btnExit;
-    private Button create;
-    private String username;
-    private JSONArray lobbies;
-    private LinearLayout lobbyDisplay;
+    private Button btnExit; // Button to exit player back to menu
+    private Button create; // Button to forward player to the createLobby screen
+    private String username; // String to hold the players username, used when transitioning between screens
+    private JSONArray lobbies; // JSONArray to hold the current available lobbies
+    private LinearLayout lobbyDisplay; // LinearLayout with vertical orientation to add the lobbies buttons and textviews
 
-    private LinearLayout.LayoutParams buttonLayout;
-    private LinearLayout.LayoutParams textViewLayout;
+    private LinearLayout.LayoutParams buttonLayout; // LayoutParams for the buttons listed for lobbies
+    private LinearLayout.LayoutParams textViewLayout; // LayoutParams for the textviews listed for lobbies
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -86,6 +86,10 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
         }
     }
 
+    /*
+    Helper method that takes a @param of a lobby object. Creates a LinearLayour row, then adds a button, and a textview to display
+    lobby information and allow the spectator to see the games lobby details like players, roles, and teams.
+    */
     private void addLobbies(lobby addLobby) {
 
         LinearLayout row = new LinearLayout(this);
@@ -117,6 +121,11 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
 
     }
 
+    /*
+    Inner-class to allow for the creation of buttons that will allow for the creation of as many lobbies as needed.
+    Takes @params lobbyName, and the lobby id, which can be obtained from the backend upon loading of all lobbies.
+    Sets the onClickListener.
+    */
     class ClickListener implements OnClickListener {
         private String lobby;
         private String id;
@@ -138,6 +147,10 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
         }
     }
 
+    /*
+    Method to display all active lobbies in the scrollView. Makes JSON GET request to get active lobby info like, name and id.
+    Calls the helper method addLobbies() with a lobby @param which is called also.
+    */
     private void getLobbies() {
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -171,6 +184,10 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
         queue.add(request);
     }
 
+    /*
+    Makes POST request to add player to lobby. Using @params lobby and id, request is sent with the players username
+    to add them to given lobby. When added their default role and team is red operative. 
+     */
     private void addPlayer (String lobby, String id) throws JSONException {
         RequestListener addListener = new RequestListener() {
             @Override

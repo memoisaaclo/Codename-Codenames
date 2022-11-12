@@ -1,5 +1,7 @@
 package com.example.codenames;
 
+// Class Object for some instances. Is called to create and store lobby objects and values
+
 public class lobby {
 
     private String name;

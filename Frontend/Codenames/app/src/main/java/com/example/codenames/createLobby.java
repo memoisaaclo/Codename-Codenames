@@ -29,11 +29,11 @@ import org.json.JSONObject;
 
 public class createLobby extends AppCompatActivity implements View.OnClickListener {
 
-    private Button create;
-    private Button back;
-    private EditText name;
-    private String username;
-    private String lobbyName;
+    private Button create; // Button to call method to make reqeust to create lobby
+    private Button back; // Button to return user to HubActivity
+    private EditText name; // EditText to get value of lobby name
+    private String username; // String to hold value of username, can be sent when transitioning screens
+    private String lobbyName; // String to hold value of lobby name, can be sent when transitioning screens
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,10 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
     };
 
 
-
+    /*
+    Makes a POST request to create a lobby with the given lobby name. If the lobby is created successfully
+    calls another method genCards() to create the card/word set for the new lobby.
+     */
     private void sendLobbyName(String name) throws JSONException {
         RequestListener lobbyListener = new RequestListener() {
             @Override
@@ -110,6 +113,10 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    /*
+    Called by sendLobbyName(), when called the method makes a GET request to generate the cards for the given lobby.
+    Takes @param id specify which lobby will have the cards generated for.
+     */
     private void genCards (String id) throws JSONException {
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -130,6 +137,10 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
         queue.add(request);
     }
 
+    /*
+    Called by sendLobbyName(), when called makes a new POST request to add player to the lobby with
+    @params lobby name, and id of the lobby.
+     */
     private void addPlayer (String lobby, String id) throws JSONException {
         RequestListener addListener = new RequestListener() {
             @Override
@@ -139,8 +150,8 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
 
                 try {
                     if (object.get("message").equals("success")) {
-                        startActivity(new Intent(createLobby.this, LobbyActivity.class)
-                                .putExtra("username", username).putExtra("lobbyName", lobby).putExtra("id", id));
+//                        startActivity(new Intent(createLobby.this, LobbyActivity.class)
+//                                .putExtra("username", username).putExtra("lobbyName", lobby).putExtra("id", id));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
