@@ -3,7 +3,7 @@ stages:
   - maventest
   - mavendeploy  
   - androidtry   
-  - androidtest 
+  - androidtest  
 
 workflow:
  rules:  
