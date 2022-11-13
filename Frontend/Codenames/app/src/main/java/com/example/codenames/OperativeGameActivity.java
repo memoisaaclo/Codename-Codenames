@@ -100,6 +100,11 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         getClue();
     }
 
+    /*
+    Makes GET request to add words to each card/button
+    Uses @param cards[], which is an array containing each card
+    This method adds each word from the backend onto each card in the array one by one
+     */
     public void showCards()
     {
         String url = URL_JSON_CARD_GET + lobbyID + URL_JSON_CARD_GET_SECOND;
@@ -115,7 +120,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                             for (int i = 0; i<25; i++)
                             {
                                 Log.d(TAG, response.getString(Integer.toString(i))); //backend in ()
-                                card_name = findViewById(CARD_IDS[i]); //DISCARD
+                                //card_name = findViewById(CARD_IDS[i]); //DISCARD
                                 cards[i].setText(response.getString(Integer.toString(i))); //display string
                             }
                         }
@@ -152,6 +157,12 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
 
+    /*
+    Makes GET request to add the appropriate color to each card/button
+    Uses @param cards[], which is an array containing each card
+    This method adds each color from the backend onto each card in the array one by one
+    If the card hasn't been revealed yet, the color will always be gray
+     */
     public void showColors()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -207,8 +218,12 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         queue.add(request);
     }
 
-
-
+    /*
+    Makes POST request to add the appropriate color to each card/button
+    Uses @param cards[] and "index"
+    cards[] is used to call the entire list of cards
+    "index" is used to select an individual card from array "cards[]" to reveal
+     */
     private void revealCard(int index)
     {
         String url = URL_JSON_REVEAL_GET + lobbyID + URL_JSON_REVEAL_GET_SECOND;
@@ -257,7 +272,10 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
 
-
+    /*
+    Makes GET request to receive clue sent over from the spymaster
+    Uses @param "clue", which displays the clue in text form
+     */
     private void getClue()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -322,7 +340,10 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    // Removes player from lobby
+    /*
+    Removes current player from lobby
+    Using @params username to let the game know which user to remove from the list of users in game
+    */
     private void leaveLobby() throws JSONException {
         RequestListener leaveListener = new RequestListener() {
             @Override
