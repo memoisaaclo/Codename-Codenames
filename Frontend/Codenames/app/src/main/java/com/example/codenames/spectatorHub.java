@@ -1,9 +1,11 @@
 package com.example.codenames;
 
+/**
+ * @author Dylan Booth
+ */
+
 import static com.example.codenames.utils.Const.URL_JSON_LOBBY;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,25 +13,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class spectatorHub extends AppCompatActivity implements View.OnClickListener {
 
-    private Button exit;
-    private JSONArray lobbies;
-    private LinearLayout lobbyDisplay;
-    private LinearLayout.LayoutParams buttonLayout;
-    private LinearLayout.LayoutParams textViewLayout;
+    private Button exit; // Button to exit back to the menu screen
+    private JSONArray lobbies; // JSONArray to hold the values of active lobbies globally within class
+    private LinearLayout lobbyDisplay; // LinearLayout where the active lobbies will be displayed
+    private LinearLayout.LayoutParams buttonLayout; // Parameters for buttons, size and margins
+    private LinearLayout.LayoutParams textViewLayout; // Parameters for textViews, size and margins
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,11 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
         startActivity(new Intent(spectatorHub.this, menu.class));
     }
 
+
+    /*
+    Helper method that takes a @param of a lobby object. Creates a LinearLayour row, then adds a button, and a textview to display
+    lobby information and allow the spectator to see the games lobby details like players, roles, and teams.
+     */
     private void addLobbies(lobby addLobby) {
 
         LinearLayout row = new LinearLayout(this);
@@ -87,6 +92,11 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    /*
+    Inner-class to allow for the creation of buttons that will allow for the creation of as many lobbies as needed.
+    Takes @params lobbyName, and the lobby id, which can be obtained from the backend upon loading of all lobbies.
+    Sets the onClickListener.
+     */
     class ClickListener implements View.OnClickListener {
         private String lobby;
         private String id;
@@ -102,6 +112,11 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
+    /*
+    Method to display all active lobbies in the scrollView. Makes JSON GET request to get active lobby info like, name and id.
+    Calls the helper method addLobbies() with a lobby @param which is called also.
+     */
     private void getLobbies() {
         RequestQueue queue = Volley.newRequestQueue(this);
 

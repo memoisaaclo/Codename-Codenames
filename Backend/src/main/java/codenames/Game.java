@@ -74,10 +74,6 @@ public class Game implements Serializable {
     public String getClues() { return clues; }
     public void setClues(String clues) { this.clues = clues; }
     public Lobby getLobby() { return new Lobby(); }
-    /**
-     * Get the current game turn's color
-     * @return Color string
-     */
     public String getTurnColor() { return turnColor.toString(); }
     public void setTurnColor(Color turnColor) { this.turnColor = turnColor; }
     public List<GameCard> getGameCards() {
@@ -103,6 +99,9 @@ public class Game implements Serializable {
         currentClue = clue;
     }
 
+    /**
+     * generates the word list for a game
+     */
     public void generateWordList() {
         List<Card> allCards = Main.cardRepo.findAll();
         Random rand = new Random();
@@ -131,6 +130,9 @@ public class Game implements Serializable {
         Main.gameRepo.save(this);
     }
 
+    /**
+     * generates the card statuses for a game
+     */
     public void generateGameCards() {
         GameCard card;
 
@@ -172,6 +174,10 @@ public class Game implements Serializable {
         Main.gameRepo.save(this);
     }
 
+    /**
+     * guesses a card given
+     * @param card_position
+     */
     public void getGuess(int card_position) {
         // Assume Data is Valid
         List<GameCard> cards = getGameCards();
@@ -192,8 +198,15 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * creates a list of clues for this game
+     * @return
+     */
     public String[] generateClueList() { return clues.split(","); }
 
+    /**
+     * changes current teams turn    
+     */
     public void swapTeam() {
         switch (turnColor) {
             case RED:
@@ -205,7 +218,11 @@ public class Game implements Serializable {
         }
     }
 
-        /* Baby classes (inner classes) */
+    /**
+     * 
+     * inner class to represent a paired down version of the game class 
+     *
+     */
     class Lobby {
         private String lobbyName;
         private Integer numPlayers;
@@ -230,6 +247,10 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * remove a player from the game
+     * @param attachedPlayer
+     */
 	public void removePlayer(Player attachedPlayer) {
 		players.remove(attachedPlayer);
 	}

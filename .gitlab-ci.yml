@@ -2,8 +2,8 @@ stages:
   - maventry 
   - maventest
   - mavendeploy  
-  - androidtry  
-  - androidtest
+  - androidtry   
+  - androidtest  
 
 workflow:
  rules:  
@@ -12,7 +12,7 @@ workflow:
 maven-build:   
   stage: maventry
   tags:
-    - springboot_tag 
+    - spring_boot
   script:
     - cd Backend
     - mvn package
@@ -35,7 +35,7 @@ android-build:
 maven-test:
   stage: maventest
   tags:
-    - springboot_tag
+    - spring_boot
   script:
     - cd Backend
     - mvn test
@@ -58,7 +58,7 @@ android-test:
 auto-deploy:
   stage: mavendeploy  #do make a stage with same name!
   tags:
-   - springboot_tag
+   - spring_boot
   script:
     - cd Backend
     - mvn package
