@@ -1,5 +1,9 @@
 package com.example.codenames;
 
+/**
+ * @author James Driskell
+ */
+
 import static com.example.codenames.utils.Const.URL_JSON_WORD_ADD;
 
 import androidx.appcompat.app.AppCompatActivity;
