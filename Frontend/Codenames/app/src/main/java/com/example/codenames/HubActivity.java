@@ -1,10 +1,11 @@
 package com.example.codenames;
 
+/**
+ * @author Dylan Booth & James Driskell
+ */
+
 import static com.example.codenames.utils.Const.*;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,13 +22,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.codenames.services.RequestListener;
 import com.example.codenames.services.VolleyListener;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.SQLOutput;
-import java.util.Map;
 
 public class HubActivity extends AppCompatActivity implements OnClickListener {
 

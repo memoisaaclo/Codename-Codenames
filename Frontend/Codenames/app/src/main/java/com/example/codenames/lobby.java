@@ -1,5 +1,9 @@
 package com.example.codenames;
 
+/**
+ * @author Dylan Booth
+ */
+
 // Class Object for some instances. Is called to create and store lobby objects and values
 
 public class lobby {

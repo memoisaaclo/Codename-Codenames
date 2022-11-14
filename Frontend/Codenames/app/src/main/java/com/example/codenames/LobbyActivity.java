@@ -1,40 +1,33 @@
 package com.example.codenames;
 
+/**
+ * @author Dylan Booth & James Driskell
+ */
+
 import static com.example.codenames.utils.Const.*;
 import static java.lang.Thread.sleep;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.codenames.app.AppController;
 import com.example.codenames.services.RequestListener;
 import com.example.codenames.services.VolleyListener;
-import com.example.codenames.utils.Const;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
+
 
 public class LobbyActivity extends Activity implements View.OnClickListener
 {

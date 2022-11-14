@@ -1,20 +1,20 @@
 package com.example.codenames;
 
-import static com.example.codenames.utils.Const.URL_JSON_LOGIN;
+/**
+ * @author Dylan Booth
+ */
 
+import static com.example.codenames.utils.Const.URL_JSON_LOGIN;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.example.codenames.services.RequestListener;
 import com.example.codenames.services.VolleyListener;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

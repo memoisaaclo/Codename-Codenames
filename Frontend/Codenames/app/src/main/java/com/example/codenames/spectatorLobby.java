@@ -1,10 +1,12 @@
 package com.example.codenames;
 
+/**
+ * @author Dylan Booth
+ */
+
 import static com.example.codenames.utils.Const.URL_JSON_GETPLAYERS_FIRST;
 import static com.example.codenames.utils.Const.URL_JSON_GETPLAYERS_SECOND;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,18 +14,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.Locale;
 
 public class spectatorLobby extends AppCompatActivity implements View.OnClickListener{

@@ -1,15 +1,15 @@
 package com.example.codenames;
 
+/**
+ * @author Dylan Booth
+ */
+
 import static com.example.codenames.utils.Const.*;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,11 +19,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.Locale;
 
 public class spectatorViewing extends AppCompatActivity implements View.OnClickListener {
@@ -60,7 +58,7 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
 
     }
 
-    /*
+    /**
     Method that makes a GET request to get all cards to be displayed. Will display words and colors. Can be changed to only
     display card color if the card has been revealed. Calls getTextView which returns a TextView with word and color set.
     Then adds the Textview in rows of 5 to the LinearLayout cardList. Also calls the helper method addRow() to get a new
@@ -109,7 +107,7 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
 
     }
 
-    /*
+    /**
     Helper method to create a TextView to display words and color. Can be configured to only display color if the card is Revealed.
     Returns a TextView t, with given information.
      */
