@@ -100,14 +100,14 @@
         app:layout_constraintStart_toStartOf="@+id/header_words"
         app:layout_constraintTop_toTopOf="@+id/header_words" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Word"
-        android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="@+id/scrollView3"
-        app:layout_constraintTop_toTopOf="@+id/scrollView3" />
+<!--    <TextView-->
+<!--        android:id="@+id/textView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Word"-->
+<!--        android:textColor="#000000"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/scrollView3"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/scrollView3" />-->
 
     <ScrollView
         android:id="@+id/scrollView3"

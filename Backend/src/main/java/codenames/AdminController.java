@@ -27,11 +27,20 @@ public class AdminController {
 		
 	}
 	
+	/**
+	 * return a list of all cards
+	 * @return JSON list of cards
+	 */
 	@GetMapping(path = "/admin/cards/all")
 	public @ResponseBody List<Card> getAllCards(){
         return Main.cardRepo.findAll();
     }
 	
+	/**
+	 * check if a user is an admin
+	 * @param username
+	 * @return success or failure
+	 */
 	@GetMapping(path = "/admin/get/{username}")
 	public @ResponseBody String isAdmin(@PathVariable String username) {
 		if(Main.userRepo.findByusername(username).isAdmin()) {
@@ -40,6 +49,11 @@ public class AdminController {
 		return failure;
 	}
 	
+	/**
+	 * set a user as an admin
+	 * @param username
+	 * @return success
+	 */
 	@PostMapping(path = "/admin/set/{username}")
 	public @ResponseBody String setAdmin(@PathVariable String username) {
 		User u = Main.userRepo.findByusername(username);
@@ -48,6 +62,11 @@ public class AdminController {
 		return success;
 	}
 	
+	/**
+	 * add a card, with JSON body
+	 * @param card
+	 * @return success or failure
+	 */
 	@PutMapping(path = "/admin/cards/add")
 	public String addCard(@RequestBody Card card) {
 		if(Main.cardRepo.findByword(card.getWord()) == null) {
@@ -56,6 +75,12 @@ public class AdminController {
 		}
 		return failure;
 	}
+	
+	/**
+	 * add a card, path argument version
+	 * @param card
+	 * @return success or failure
+	 */
 	@PutMapping(path = "/admin/cards/add/{card}")
 	public String addCardpath(@PathVariable String card) {
 		Card c = new Card(card);
@@ -66,6 +91,11 @@ public class AdminController {
 		return failure;
 	}
 	
+	/**
+	 * add cards in bulk JSON list
+	 * @param card
+	 * @return success
+	 */
 	@PutMapping(path = "/admin/cards/addbulk")
 	public String addCard(@RequestBody Card[] card) {
 		for (Card c : card) {
@@ -76,6 +106,11 @@ public class AdminController {
 		return success;
 	}
 	
+	/**
+	 * remove a card given in a JSON body
+	 * @param card
+	 * @return success or failure
+	 */
 	@DeleteMapping(path = "/admin/cards/remove")
 	public String removeCard(@RequestBody Card card) {
 		Card delete;
@@ -86,6 +121,11 @@ public class AdminController {
 		return failure;
 	}
 	
+	/**
+	 * remove a card, path version
+	 * @param card
+	 * @return success or failure
+	 */
 	@DeleteMapping(path = "/admin/cards/remove/{card}")
 	public String removeCardPath(@PathVariable String card) {
 		Card delete;
@@ -96,12 +136,20 @@ public class AdminController {
 		return failure;
 	}
 	
+	/**
+	 * deletes all cards
+	 * @return success
+	 */
 	@DeleteMapping(path = "/admin/cards/removeall/98765")
 	public String removeCards() {
 		Main.cardRepo.deleteAll();
 		return success;
 	}
 	
+	/**
+	 * returns an HTML document with information on all endpoints
+	 * @return HTML document
+	 */
 	@GetMapping(path="/admin/paths")
 	public String getAllEndpoints() {
 		
