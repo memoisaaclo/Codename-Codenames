@@ -1,7 +1,7 @@
 package com.example.codenames;
 
 /**
- * @author James Driskell
+ * @author Jimmy Driskell
  */
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -104,6 +104,11 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         getClue();
     }
 
+    /**
+     * Makes GET request to add words to each card/button
+     * Uses cards[], which is an array containing each card
+     * This method adds each word from the backend onto each card in the array one by one
+     */
     public void showCards()
     {
         String url = URL_JSON_CARD_GET + lobbyID + URL_JSON_CARD_GET_SECOND;
@@ -156,6 +161,12 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
 
+    /**
+     * Makes GET request to add the appropriate color to each card/button
+     * Uses cards[], which is an array containing each card
+     * This method adds each color from the backend onto each card in the array one by one
+     * If the card hasn't been revealed yet, the color will always be gray
+     */
     public void showColors()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -211,8 +222,11 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         queue.add(request);
     }
 
-
-
+    /**
+     * Makes POST request to add the appropriate color to each card/button
+     * @param index selects an individual card from array "cards[]" to reveal
+     * "cards[]" is used to call the entire list of cards
+     */
     private void revealCard(int index)
     {
         String url = URL_JSON_REVEAL_GET + lobbyID + URL_JSON_REVEAL_GET_SECOND;
@@ -261,7 +275,10 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
 
-
+    /**
+     * Makes GET request to receive clue sent over from the spymaster
+     * Uses "clue", which displays the clue in text form
+     */
     private void getClue()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -290,7 +307,10 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         queue.add(request);
     }
 
-
+    /**
+     * Determines what to do when clicking specific buttons
+     * @param v receives the id of the button pressed
+     */
     @Override
     public void onClick(View v)
     {
@@ -326,7 +346,10 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    // Removes player from lobby
+    /**
+     * Removes current player from lobby
+     * Using "username" to let the game know which user to remove from the list of users in game
+     */
     private void leaveLobby() throws JSONException {
         RequestListener leaveListener = new RequestListener() {
             @Override
