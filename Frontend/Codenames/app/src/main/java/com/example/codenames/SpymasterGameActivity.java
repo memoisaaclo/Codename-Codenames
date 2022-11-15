@@ -1,5 +1,9 @@
 package com.example.codenames;
 
+/**
+ * @author James Driskell
+ */
+
 import static com.example.codenames.utils.Const.URL_JSON_WORD_ADD;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -120,6 +124,11 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         showColors();
     }
 
+    /*
+    Makes GET request to add words to each card/button
+    Uses @param cards[], which is an array containing each card
+    This method adds each word from the backend onto each card in the array one by one
+     */
     public void showCards()
     {
         String url = URL_JSON_CARD_GET + lobbyID + URL_JSON_CARD_GET_SECOND;
@@ -172,6 +181,11 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
 
+    /*
+    Makes GET request to add the appropriate color to each card/button
+    Uses @param cards[], which is an array containing each card
+    This method adds each color from the backend onto each card in the array one by one
+     */
     public void showColors()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -219,6 +233,12 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         queue.add(request);
     }
 
+
+    /*
+    Makes PUT request to send the spymaster's clue over to the operatives
+    Takes @params input and "text_edit", with "input" allowing the clue to be sent over, and "text_edit" allowing the "input" to read what was typed in
+    The JSON object also puts in the user's team and role
+    */
     private void sendClue()
     {
         String url = URL_JSON_CLUE_PUT + lobbyID + URL_JSON_CLUE_PUT_SECOND + input + URL_JSON_CLUE_PUT_THIRD + "2";
@@ -271,7 +291,10 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    // Removes player from lobby
+    /*
+    Removes current player from lobby
+    Using @params username to let the game know which user to remove from the list of users in game
+    */
     private void leaveLobby() throws JSONException {
         RequestListener leaveListener = new RequestListener() {
             @Override

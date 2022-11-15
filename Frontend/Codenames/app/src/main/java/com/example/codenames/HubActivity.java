@@ -1,7 +1,7 @@
 package com.example.codenames;
 
 /**
- * @author Dylan Booth
+ * @author Dylan Booth & James Driskell
  */
 
 import static com.example.codenames.utils.Const.*;
