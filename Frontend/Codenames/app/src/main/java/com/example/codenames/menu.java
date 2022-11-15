@@ -1,6 +1,8 @@
 package com.example.codenames;
 
-import static com.example.codenames.utils.Const.URL_JSON_LOBBY;
+/**
+ * @author Dylan Booth
+ */
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,14 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import static com.example.codenames.utils.Const.*;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -105,9 +105,10 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    /*
-    GET request to obtain whether the user is an admin or not. If the username is valid for a admin
-    user, will make both the adminWords and adminUsers buttons visible and clickable.
+    /**
+     * Only called if there is a user that is logged in
+     * GET request to obtain whether the user is an admin or not. If the user is an admin, admin screen
+     * access buttons will be revealed and available to be clicked.
      */
     private void checkIfAdmin() {
         RequestQueue queue = Volley.newRequestQueue(this);

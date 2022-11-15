@@ -1,20 +1,20 @@
 package com.example.codenames;
 
-import static com.example.codenames.utils.Const.URL_JSON_LOGIN;
+/**
+ * @author Dylan Booth
+ */
 
+import static com.example.codenames.utils.Const.URL_JSON_LOGIN;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.example.codenames.services.RequestListener;
 import com.example.codenames.services.VolleyListener;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -72,9 +72,9 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         }
     };
 
-    /*
-    Makes a POST request to login player. If there is no error player will be sent to menu screen. Otherwise error
-    message will be displayed. Data sent in body of request includes the username and password.
+    /**
+     * Makes a POST request to login player. If there is no error, or response message success, player will be sent to menu.
+     * Otherwise error will be displayed.
      */
     private void sendLoginInfo(String username, String password) throws JSONException {
         RequestListener loginListener = new RequestListener() {

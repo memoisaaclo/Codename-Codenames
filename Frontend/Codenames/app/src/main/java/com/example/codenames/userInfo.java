@@ -1,5 +1,9 @@
 package com.example.codenames;
 
+/**
+ * @author Dylan Booth
+ */
+
 import static com.example.codenames.utils.Const.URL_JSON_STATISTICS;
 
 import android.content.Intent;
@@ -59,9 +63,9 @@ public class userInfo extends AppCompatActivity implements View.OnClickListener 
 
     }
 
-    /*
-    Helper method to set the gamesWon, gamesPlayed, guessesMade, cluesGive, correctGuesses, and loginCount TextViews with appropriate data.
-    Will be called by getUserInfo(). Uses @params JSONObject stats.
+    /**
+     * Helper method to set user statistics with appropriate data. Called by getUserInfo()
+     * @param stats JSONObject that contains the value pairs of the user statistics
      */
     private void updateInfo(JSONObject stats) {
         try {
@@ -83,9 +87,9 @@ public class userInfo extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
-    /*
-    Method that makes a GET request to get the current users information. Calls updateInfo() with the response to update the
-    users statistics.
+    /**
+     * Method that makes a GET request to get the current users information. Calls updateInfo() with the response
+     * to update user statistics.
      */
     private void getUserInfo() {
         RequestQueue queue = Volley.newRequestQueue(this);

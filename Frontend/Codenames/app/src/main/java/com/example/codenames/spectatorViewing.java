@@ -1,5 +1,9 @@
 package com.example.codenames;
 
+/**
+ * @author Dylan Booth
+ */
+
 import static com.example.codenames.utils.Const.*;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,11 +64,10 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
 
     }
 
-    /*
-    Method that makes a GET request to get all cards to be displayed. Will display words and colors. Can be changed to only
-    display card color if the card has been revealed. Calls getTextView which returns a TextView with word and color set.
-    Then adds the Textview in rows of 5 to the LinearLayout cardList. Also calls the helper method addRow() to get a new
-    row to be used in cardList.
+    /**
+     * Makes a GET request to get all cards to be displayed. When called, will display words and colors. Can be changed to only show color of cards
+     * that have been revealed. Calls getTextView to create the TextView to be displayed. Then adds the TextView to a horizontal LinearLayout
+     * row.
      */
     private void getCards() {
 
@@ -113,6 +116,14 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
     Helper method to create a TextView to display words and color. Can be configured to only display color if the card is Revealed.
     Returns a TextView t, with given information.
      */
+
+    /**
+     * Helper method to create a TextView to display words and color. Can be configured to only display color if the card isRevealed.
+     * @param word String value with the word value of the card
+     * @param color String value with the color value of the card
+     * @param isRevealed String value of whether or not the card isRevealed
+     * @return TextView t setup with given parameters
+     */
     private TextView getTextView(String word, String color, String isRevealed) {
 
         TextView t = new TextView(this);
@@ -140,6 +151,11 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
     /*
     Helper method to create a new row to be displayed in cardList. Will return a horizontal LinearLayout for
     5 cards to be held and displayed.
+     */
+
+    /**
+     * Helper method to create the row to hold 5 card values.
+     * @return LinearLayout that is horizontal
      */
     private LinearLayout addRow() {
         LinearLayout row = new LinearLayout(this);
