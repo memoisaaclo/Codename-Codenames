@@ -104,11 +104,6 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    /*
-    Called by sendLobbyName(), when called the method makes a GET request to generate the cards for the given lobby.
-    Takes @param id specify which lobby will have the cards generated for.
-     */
-
     /**
      * Called by sendLobbyName(), makes a GET request to generate the card colors and words for the game with given id that was just created
      * @param id String value of the id the backend uses to identify game lobby
@@ -133,11 +128,6 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
                 });
         queue.add(request);
     }
-
-    /*
-    Called by sendLobbyName(), when called makes a new POST request to add player to the lobby with
-    @params lobby name, and id of the lobby.
-     */
 
     /**
      * Called by sendLobbyName() upon successful creation of lobby. Makes a POST request to add a player to the lobby.

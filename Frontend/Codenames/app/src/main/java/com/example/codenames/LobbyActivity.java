@@ -249,10 +249,6 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         VolleyListener.makeRequest(this, url, roleListener, Request.Method.POST);
     }
 
-    /*
-    Makes POST request to change the players team to the color provided in the @param team.
-     */
-
     /**
      * Makes POST request to change the players team to the color provided. Changes the rows background
      * @param team String value of the team the player wishes to join.

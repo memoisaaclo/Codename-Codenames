@@ -142,11 +142,6 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
         return t;
     }
 
-    /*
-    Helper method to create a new row to be displayed in cardList. Will return a horizontal LinearLayout for
-    5 cards to be held and displayed.
-     */
-
     /**
      * Helper method to create the row to hold 5 card values.
      * @return LinearLayout that is horizontal

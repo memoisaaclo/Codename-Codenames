@@ -106,12 +106,6 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
         queue.add(request);
     }
 
-    /*
-    Helper method that when called creates a new horizontal LinearLayout called "row", that will change the background color
-    to that of the players team, creates a TextView to hold and display the username, and creates a TextView to hold and display the
-    players role Spymaster or Operative. Then, the method will add the row to the vertical LinearLayout plist.
-     */
-
     /**
      * Helper method that adds the players to list. Creates a horizontal LinearLayout called "row".
      * @param pName Sets the TextView value in the row with the player name
