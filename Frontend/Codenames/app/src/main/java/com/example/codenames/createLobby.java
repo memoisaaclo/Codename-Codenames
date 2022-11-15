@@ -63,7 +63,7 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
     /**
      * Makes a POST request to create a new game lobby with given lobby name, calls genCards() upon successful creation of lobby
      * @param name String value of the name of the lobby to be created
-     * @throws JSONException
+     * @throws JSONException Error that JSON key or error with JSON objects
      */
     private void sendLobbyName(String name) throws JSONException {
         RequestListener lobbyListener = new RequestListener() {
@@ -107,7 +107,7 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
     /**
      * Called by sendLobbyName(), makes a GET request to generate the card colors and words for the game with given id that was just created
      * @param id String value of the id the backend uses to identify game lobby
-     * @throws JSONException
+     * @throws JSONException throws exception if there is a JSON error, should not occur
      */
     private void genCards (String id) throws JSONException {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -133,7 +133,7 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
      * Called by sendLobbyName() upon successful creation of lobby. Makes a POST request to add a player to the lobby.
      * @param lobby String value of the name of the lobby player will be added to, used when changing user to lobby screen
      * @param id String value of the id the player is to be added to. Used by backend to identify game lobby
-     * @throws JSONException
+     * @throws JSONException Throws casting exception if response object is not a Object or does not contain key "message"
      */
     private void addPlayer (String lobby, String id) throws JSONException {
         RequestListener addListener = new RequestListener() {

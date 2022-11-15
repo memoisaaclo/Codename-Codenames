@@ -73,8 +73,10 @@ public class login extends AppCompatActivity implements View.OnClickListener {
     };
 
     /**
-     * Makes a POST request to login player. If there is no error, or response message success, player will be sent to menu.
-     * Otherwise error will be displayed.
+     * Makes a POST request to login the player
+     * @param username String value of the username of player to be logged in
+     * @param password String value of the password of the player to be logged in
+     * @throws JSONException Exception thrown if casting error to JSONObject or key "message" does not exist in JSONObject
      */
     private void sendLoginInfo(String username, String password) throws JSONException {
         RequestListener loginListener = new RequestListener() {

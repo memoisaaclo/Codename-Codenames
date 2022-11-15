@@ -184,9 +184,9 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
     /**
      * Makes POST reqeust to add player to lobby. Request is sent with players username and parameters. When added to
      * lobby, the are set with default role/team red operative
-     * @param lobby
-     * @param id
-     * @throws JSONException
+     * @param lobby String value of the name of the lobby that the player is to be added to
+     * @param id String value of the name of the lobby id that the player is to be added to
+     * @throws JSONException Exception thrown when casting error occurs, or key is not found in JSONObject
      */
     private void addPlayer (String lobby, String id) throws JSONException {
         RequestListener addListener = new RequestListener() {

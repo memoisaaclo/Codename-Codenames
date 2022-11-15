@@ -218,7 +218,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
     /**
      * Makes POST request to set the players role
      * @param role String value with the role the player selected
-     * @throws JSONException
+     * @throws JSONException Exception thrown when failed casting or key "message" does not exist
      */
     private void setPlayerRole(String role) throws JSONException {
         RequestListener roleListener = new RequestListener() {
@@ -252,7 +252,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
     /**
      * Makes POST request to change the players team to the color provided. Changes the rows background
      * @param team String value of the team the player wishes to join.
-     * @throws JSONException
+     * @throws JSONException Exception thrown when key "message" does not exist, or their is a casting error
      */
     private void setPlayerTeam(String team) throws JSONException {
         RequestListener teamListener = new RequestListener() {
@@ -283,7 +283,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
     /**
      * Makes DELETE request to remove player from the lobby. When exit button is clicked, request is sent and if successful, the player
      * will be returned to the HubActivity.
-     * @throws JSONException
+     * @throws JSONException Exception thrown when a casting error occurs, or there does not exist a key "message" in JSONObject
      */
     private void leaveLobby() throws JSONException {
         RequestListener leaveListener = new RequestListener() {

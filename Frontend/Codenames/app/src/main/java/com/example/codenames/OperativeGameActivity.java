@@ -348,7 +348,8 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
 
     /**
      * Removes current player from lobby
-     * Using "username" to let the game know which user to remove from the list of users in game
+     * Using "username" to let the game know which user to remove from teh list of users in game
+     * @throws JSONException Exception thrown if Casting exception to JSONObject or key "message" does not exist in JSONObject
      */
     private void leaveLobby() throws JSONException {
         RequestListener leaveListener = new RequestListener() {

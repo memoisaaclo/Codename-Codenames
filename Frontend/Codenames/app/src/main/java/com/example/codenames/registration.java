@@ -85,7 +85,7 @@ public class registration extends Activity implements OnClickListener {
      * Makes a POST request. Sends data to register player in database, then log them in.
      * @param username String value of new users username
      * @param password String value of new users password
-     * @throws JSONException
+     * @throws JSONException Exception thrown if Casting exception to JSONObject or if key "message" does not exist in JSONObject
      */
     private void sendRegistrationInfo(String username, String password) throws JSONException {
         RequestListener registerListener = new RequestListener() {
