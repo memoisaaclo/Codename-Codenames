@@ -63,12 +63,6 @@ public class AdminUsersActivity extends AppCompatActivity implements View.OnClic
         showUsers();
     }
 
-    /*
-    Makes DELETE request to remove user from the database
-    Uses @param "queue" and "request"
-    "queue" queues the request
-    "request" contains the username of the user that is about to be deleted
-     */
     private void deleteUser()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -90,10 +84,6 @@ public class AdminUsersActivity extends AppCompatActivity implements View.OnClic
         queue.add(request);
     }
 
-    /*
-    Makes GET request to show every username in a list
-    Uses @params "user_list" to print the usernames onto a text view for the admins to see visibly
-     */
     private void showUsers()
     {
         JsonArrayRequest jsonArrReq = new JsonArrayRequest(Request.Method.GET,
