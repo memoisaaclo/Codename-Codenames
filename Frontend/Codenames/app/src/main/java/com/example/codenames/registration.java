@@ -81,9 +81,11 @@ public class registration extends Activity implements OnClickListener {
         }
     };
 
-    /*
-    Method that makes a POST request. Sends the username and password to be registered. If there is no error
-    in the response, the user will be logged in/registered and returned to the menu screen. Uses @params String username and String password.
+    /**
+     * Makes a POST request. Sends data to register player in database, then log them in.
+     * @param username String value of new users username
+     * @param password String value of new users password
+     * @throws JSONException
      */
     private void sendRegistrationInfo(String username, String password) throws JSONException {
         RequestListener registerListener = new RequestListener() {

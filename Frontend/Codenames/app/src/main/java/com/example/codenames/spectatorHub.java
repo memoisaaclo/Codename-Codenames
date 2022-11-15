@@ -57,9 +57,9 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    /*
-    Helper method that takes a @param of a lobby object. Creates a LinearLayour row, then adds a button, and a textview to display
-    lobby information and allow the spectator to see the games lobby details like players, roles, and teams.
+    /**
+     * Helper method that makes a LinearLayout row, that contains a button and a textview to display lobby information.
+     * @param addLobby lobby class that contains the lobby name, id, and num players
      */
     private void addLobbies(lobby addLobby) {
 
@@ -92,10 +92,10 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    /*
-    Inner-class to allow for the creation of buttons that will allow for the creation of as many lobbies as needed.
-    Takes @params lobbyName, and the lobby id, which can be obtained from the backend upon loading of all lobbies.
-    Sets the onClickListener.
+    /**
+    * Inner-class to allow for the creation of buttons that will allow for the creation of as many lobbies as needed.
+    * Takes @params lobbyName, and the lobby id, which can be obtained from the backend upon loading of all lobbies.
+    * Sets the onClickListener.
      */
     class ClickListener implements View.OnClickListener {
         private String lobby;
@@ -112,10 +112,9 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
-    /*
-    Method to display all active lobbies in the scrollView. Makes JSON GET request to get active lobby info like, name and id.
-    Calls the helper method addLobbies() with a lobby @param which is called also.
+    /**
+     * Method do display all active lobbies in the scrollView, makes a GET request to get active lobbies information. Calls
+     * the helper method addLobbies() to set values and create the new row in the list.
      */
     private void getLobbies() {
         RequestQueue queue = Volley.newRequestQueue(this);

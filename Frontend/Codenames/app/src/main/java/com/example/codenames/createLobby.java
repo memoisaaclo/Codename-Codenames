@@ -60,10 +60,10 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
         }
     };
 
-
-    /*
-    Makes a POST request to create a lobby with the given lobby name. If the lobby is created successfully
-    calls another method genCards() to create the card/word set for the new lobby.
+    /**
+     * Makes a POST request to create a new game lobby with given lobby name, calls genCards() upon successful creation of lobby
+     * @param name String value of the name of the lobby to be created
+     * @throws JSONException
      */
     private void sendLobbyName(String name) throws JSONException {
         RequestListener lobbyListener = new RequestListener() {
@@ -71,16 +71,11 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
             public void onSuccess(Object response) {
                 JSONObject object = (JSONObject) response;
                 System.out.println(object.toString());
-                Intent next = new Intent(createLobby.this, LobbyActivity.class);
-                next.putExtra("username", username);
 
                 try {
                     if(object.get("message").equals("success")) {
-                        next.putExtra("identity", object.get("id").toString());
-                        next.putExtra("lobbyName", lobbyName);
                         addPlayer(username, object.get("id").toString());
                         genCards(object.get("id").toString());
-                        startActivity(next);
                     } else {
                         ((TextView) findViewById(R.id.create_error)).setText(object.get("message").toString());
                     }
@@ -113,6 +108,12 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
     Called by sendLobbyName(), when called the method makes a GET request to generate the cards for the given lobby.
     Takes @param id specify which lobby will have the cards generated for.
      */
+
+    /**
+     * Called by sendLobbyName(), makes a GET request to generate the card colors and words for the game with given id that was just created
+     * @param id String value of the id the backend uses to identify game lobby
+     * @throws JSONException
+     */
     private void genCards (String id) throws JSONException {
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -137,6 +138,13 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
     Called by sendLobbyName(), when called makes a new POST request to add player to the lobby with
     @params lobby name, and id of the lobby.
      */
+
+    /**
+     * Called by sendLobbyName() upon successful creation of lobby. Makes a POST request to add a player to the lobby.
+     * @param lobby String value of the name of the lobby player will be added to, used when changing user to lobby screen
+     * @param id String value of the id the player is to be added to. Used by backend to identify game lobby
+     * @throws JSONException
+     */
     private void addPlayer (String lobby, String id) throws JSONException {
         RequestListener addListener = new RequestListener() {
             @Override
@@ -146,8 +154,8 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
 
                 try {
                     if (object.get("message").equals("success")) {
-//                        startActivity(new Intent(createLobby.this, LobbyActivity.class)
-//                                .putExtra("username", username).putExtra("lobbyName", lobby).putExtra("id", id));
+                        startActivity(new Intent(createLobby.this, LobbyActivity.class)
+                                .putExtra("username", username).putExtra("lobbyName", lobby).putExtra("id", id));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

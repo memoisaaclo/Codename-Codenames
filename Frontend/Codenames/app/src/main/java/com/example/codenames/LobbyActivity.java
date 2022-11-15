@@ -1,9 +1,8 @@
 package com.example.codenames;
 
 /**
- * @author Dylan Booth & James Driskell
+ * @author Dylan Booth, James Driskell
  */
-
 import static com.example.codenames.utils.Const.*;
 import static java.lang.Thread.sleep;
 import android.app.Activity;
@@ -99,9 +98,9 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         getPlayers();
     }
 
-    /*
-    Makes GET request to get all roles, teams, and players. Calls helper method addPlayer with the @params returned by the request
-    to be displayed in the scrollView pList.
+    /**
+     * Makes a GET request to get all roles, teams, and players. Calls helper method addPlayer() to add player to the active list
+     * with values returned by the request.
      */
     private void getPlayers() {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -141,10 +140,11 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         queue.add(request);
     }
 
-    /*
-    Helper method that uses @params pName, role, and team to display the players information. By using a LinearLayout
-    row, that is horizontal, the background will be changed to the players team color and textviews will be added
-    to the row in order to display username and role. Default to red operative.
+    /**
+     * Helper method that adds the players to list. Creates a horizontal LinearLayout called "row".
+     * @param pName Sets the TextView value in the row with the player name
+     * @param role Sets the second TextView in the row with the role of player
+     * @param team Sets the background color of the "row" with the team of player
      */
     private void addPlayer(String pName, String role, String team) {
         LinearLayout row = new LinearLayout(this);
@@ -215,9 +215,10 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         }
     }
 
-    /*
-    Makes POST request to set the player role by using @param role. Using the players username and provided
-    role the request will set role of player.
+    /**
+     * Makes POST request to set the players role
+     * @param role String value with the role the player selected
+     * @throws JSONException
      */
     private void setPlayerRole(String role) throws JSONException {
         RequestListener roleListener = new RequestListener() {
@@ -251,6 +252,12 @@ public class LobbyActivity extends Activity implements View.OnClickListener
     /*
     Makes POST request to change the players team to the color provided in the @param team.
      */
+
+    /**
+     * Makes POST request to change the players team to the color provided. Changes the rows background
+     * @param team String value of the team the player wishes to join.
+     * @throws JSONException
+     */
     private void setPlayerTeam(String team) throws JSONException {
         RequestListener teamListener = new RequestListener() {
             @Override
@@ -277,9 +284,10 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         VolleyListener.makeRequest(this, url, teamListener, Request.Method.POST);
     }
 
-    /*
-    Makes DELETE request to remove player from the lobby. When exit button is clicked request is sent and if
-    it is successful, the player will be returned to the HubActivity.
+    /**
+     * Makes DELETE request to remove player from the lobby. When exit button is clicked, request is sent and if successful, the player
+     * will be returned to the HubActivity.
+     * @throws JSONException
      */
     private void leaveLobby() throws JSONException {
         RequestListener leaveListener = new RequestListener() {

@@ -105,9 +105,10 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    /*
-    GET request to obtain whether the user is an admin or not. If the username is valid for a admin
-    user, will make both the adminWords and adminUsers buttons visible and clickable.
+    /**
+     * Only called if there is a user that is logged in
+     * GET request to obtain whether the user is an admin or not. If the user is an admin, admin screen
+     * access buttons will be revealed and available to be clicked.
      */
     private void checkIfAdmin() {
         RequestQueue queue = Volley.newRequestQueue(this);
