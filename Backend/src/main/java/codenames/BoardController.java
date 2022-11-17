@@ -57,6 +57,12 @@ public class BoardController {
         g.setGuessesAvailable(numGuesses);
         g.addClue(clue);
 
+        //increment player statistics
+        User stats = Main.userRepo.findByusername(player.getUsername());
+        stats.setCluesGiven(stats.getCluesGiven() + 1);
+        Main.userRepo.save(stats);
+        
+        
         // Save and return
         Main.gameRepo.save(g);
         return success;
@@ -87,6 +93,12 @@ public class BoardController {
         g.getGuess(card_position);
 
         Main.gameRepo.save(g);
+        
+        //update statistics
+        User stats = Main.userRepo.findByusername(player.getUsername());
+        stats.setGuessesMade(stats.getGuessesMade() + 1);
+        Main.userRepo.save(stats);
+        
         return success;
     }
 

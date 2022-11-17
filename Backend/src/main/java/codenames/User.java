@@ -38,30 +38,13 @@ public class User {
 	 */
     private boolean isAdmin;
     
-    /**
-     * statistic
-     */
     // Statistics
     private Integer logins = 0;
-    /**
-     * statistic
-     */
     private Integer gamesPlayed = 0;
-    /**
-     * statistic
-     */
-    private Integer gamesWon = 0;
-    /**
-     * statistic
-     */
     private Integer guessesMade = 0;
-    /**
-     * statistic
-     */
     private Integer cluesGiven = 0;
-    /**
-     * statistic
-     */
+    
+    private Integer gamesWon = 0;
     private Integer correctGuesses = 0;
 
     /**
@@ -108,11 +91,11 @@ public class User {
     	this.attachedPlayer = p;
     	p.attachUser(this);
     	
-    	
     	Main.playerRepo.save(p);
     	g.addPlayer(p);
     	Main.userRepo.save(this);
     	Main.gameRepo.save(g);
+    	gamesPlayed++;
     }
     
     /**
@@ -128,13 +111,6 @@ public class User {
     	attachedPlayer = null;	// remove reference from this class
     	Main.userRepo.save(this);	// save everything
     	// at this point, Player should be orphaned and can be ignored
-    }
-    
-    /**
-     * increment statistics
-     */
-    public void addGameCounter() {
-    	gamesPlayed++;
     }
     
     /**
