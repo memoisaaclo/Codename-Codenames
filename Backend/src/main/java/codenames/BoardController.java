@@ -303,8 +303,8 @@ public class BoardController {
      * @param id game id
      * @return num guesses available
      */
-    @GetMapping(path = "/games/{id}/guessavailable")
-    String guessesAvailable(@PathVariable int id) {
+    @GetMapping(path = "/games/{id}/guessesavailable")
+    String getGuessAvailable(@PathVariable int id) {
         Game g = Main.gameRepo.findById(id);
         if(g == null)
             return invalid;

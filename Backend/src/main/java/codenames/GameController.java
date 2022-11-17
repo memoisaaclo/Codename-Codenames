@@ -136,7 +136,6 @@ public class GameController {
     }
 
         /* Special Methods */
-
     /**
      * Get all active game information
      * Used to populate lobby with game names and player nums

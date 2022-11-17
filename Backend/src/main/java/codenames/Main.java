@@ -63,12 +63,5 @@ class Main {
        "He he, Bean."
        - Isaac Lo
      */
-    @Bean
-    public Docket getAPIdocs() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build();
-    }
+
 }
