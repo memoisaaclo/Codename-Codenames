@@ -3,6 +3,7 @@ package codenames;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Set;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -81,39 +82,20 @@ public class GameUpdateWebsocketController {
     }
 
     /**
-     * Used to DM a user
-     * @param username
-     * @param message
-     */
-    private void sendMessageToAParticularUser(String username, String message) {
-        try {
-            usernameSessionMap.get(username).getBasicRemote().sendText(message);
-        } catch (IOException e) {
-            logger.info(("Exception: " + e.getMessage().toString()));
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Used to broadcast a message to all users in session.
      * @param message
      * @param session2 
      */
     private void broadcastToLobby(String message, String usr) {
-        /*sessionUsernameMap.forEach((session, username) -> {
-            try {
-                session.getBasicRemote().sendText(message);
-            } catch (IOException e) {
-                logger.info("Exception: " + e.getMessage().toString());
-                e.printStackTrace();
-            }
-        });*/
+    	Set<Player> lobby = Main.userRepo.findByusername(usr).getAttachedPlayer().inGame().getPlayers();
     	
-    	
-    	Main.userRepo.findByusername(usr).getAttachedPlayer();
-    	
-    	sessionUsernameMap.forEach((session, username)->{
-    		
+    	lobby.forEach((player)->{
+    		try {
+				usernameSessionMap.get(player.getUsername()).getBasicRemote().sendText("update");
+			} catch (IOException e) {
+				logger.info("Exception: " + e.getMessage().toString());
+				e.printStackTrace();
+			}
     	});
     }
 }

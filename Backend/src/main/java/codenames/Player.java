@@ -35,7 +35,11 @@ public class Player implements Serializable {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    /**
+    public Game inGame() {
+		return game;
+	}
+
+	/**
      * mapping to a user object
      */
     @OneToOne(mappedBy = "attachedPlayer") //, orphanRemoval = true  <<< add this later?
