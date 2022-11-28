@@ -9,7 +9,7 @@ public class Player implements Serializable {
 	/**
 	 * UNUSED
 	 */
-	public boolean active = true; 	// literally just here as a test
+	public Boolean active = true; 	// literally just here as a test
 	
 	/**
 	 * role of the player, default as operative
@@ -26,7 +26,7 @@ public class Player implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
     /**
      * join to a game object
