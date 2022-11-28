@@ -49,7 +49,8 @@ public class Game implements Serializable {
     )
     private Set<Card> cards = new LinkedHashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "game", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn
     @JsonManagedReference
     private List<GameCard> gameCards = new ArrayList<>();
 

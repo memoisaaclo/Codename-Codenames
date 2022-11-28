@@ -18,7 +18,6 @@ public class GameCard implements Comparable<GameCard>, Serializable {
         /* Field Variables */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private int id;
 
     private int gamePosition;
@@ -29,9 +28,9 @@ public class GameCard implements Comparable<GameCard>, Serializable {
 
     private Color color;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(mappedBy = "gameCards", optional = false)
     @JsonBackReference
-    @JoinColumn(name = "game_id")
+    @JoinColumn(name = "game_id", nullable = false)
     private Game game;
 
     /* Constructors */
