@@ -51,7 +51,7 @@ public class Game implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn
-    @JsonManagedReference
+    //@JsonManagedReference
     private List<GameCard> gameCards = new ArrayList<>();
 
 
@@ -158,7 +158,7 @@ public class Game implements Serializable {
 
         // Go through colors and apply them to GameCard objects
         for(int i = 0; i < 25; i++) {
-            card = new GameCard(i, colors.remove(0), this);
+            card = new GameCard(i, colors.remove(0));
 
             gameCards.add(card);
             Main.gameCardRepo.save(card);
