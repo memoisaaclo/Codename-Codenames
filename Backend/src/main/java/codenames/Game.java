@@ -1,7 +1,6 @@
 package codenames;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,19 +23,19 @@ public class Game implements Serializable {
     @Column(name = "clues")
     private String clues = "";
 
-    @Column(name = "currentClue")
+    @Column(name = "current_clue")
     private String currentClue = "";
 
-    @Column(name = "guessesAvailable")
+    @Column(name = "guesses_available")
     private Integer guessesAvailable = 0;
 
-    @Column(name = "turnColor")
+    @Column(name = "turn_color")
     private Color turnColor = RED;
 
     @Column(name = "moves")
     private String moves = "";
 
-    @Column(name = "gameLobbyName", unique = true)
+    @Column(name = "game_lobby_name", unique = true)
     private String gameLobbyName;
 
     @OneToMany(orphanRemoval = false, fetch = FetchType.EAGER)

@@ -1,11 +1,5 @@
 package codenames;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.Arrays;
-
 import javax.persistence.*;
 
 /**
@@ -50,7 +44,7 @@ public class User {
     /**
      * link between User, and player object used for tracking games
      */
-    @OneToOne() // cascade = CascadeType.ALL
+    @OneToOne(orphanRemoval = true) // cascade = CascadeType.ALL
     @JoinColumn(name = "playerID")
     private Player attachedPlayer;
     
