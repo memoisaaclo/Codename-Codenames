@@ -2,39 +2,31 @@ package com.example.codenames;
 
 import static com.example.codenames.utils.Const.*;
 import static java.lang.Thread.sleep;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.codenames.app.AppController;
 import com.example.codenames.services.RequestListener;
 import com.example.codenames.services.VolleyListener;
-import com.example.codenames.utils.Const;
-
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.HashMap;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Locale;
-import java.util.Map;
 
 public class LobbyActivity extends Activity implements View.OnClickListener
 {
@@ -104,6 +96,34 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         }
 
         getPlayers();
+
+        WebSocketClient cc;
+        String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
+        try {
+            cc = new WebSocketClient(new URI(w)) {
+                @Override
+                public void onOpen(ServerHandshake serverHandshake) {
+
+                }
+
+                @Override
+                public void onMessage(String s) {
+                    getPlayers();
+                }
+
+                @Override
+                public void onClose(int i, String s, boolean b) {
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+
+                }
+            };
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     private void getPlayers() {

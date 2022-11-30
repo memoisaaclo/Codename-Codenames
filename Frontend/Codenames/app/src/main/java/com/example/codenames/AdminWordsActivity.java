@@ -82,6 +82,7 @@ public class AdminWordsActivity extends AppCompatActivity implements View.OnClic
             {
                 JSONObject object = (JSONObject) jsonObject;
                 System.out.println(object);
+                showWords();
             }
             @Override
             public void onFailure(String error) {
@@ -110,6 +111,7 @@ public class AdminWordsActivity extends AppCompatActivity implements View.OnClic
                     @Override
                     public void onResponse(String response) {
                         System.out.println(response);
+                        showWords();
                     }
                 },
                 new Response.ErrorListener() {
