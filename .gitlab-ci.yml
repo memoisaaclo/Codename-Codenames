@@ -16,6 +16,11 @@ maven-build:
   script:
     - cd Backend
     - mvn package
+  # only:
+  #   refs:
+  #     - master
+  #   changes:
+      # - Backend/**/*
 
 android-build:
  image:  gjandres/android-ci:latest
