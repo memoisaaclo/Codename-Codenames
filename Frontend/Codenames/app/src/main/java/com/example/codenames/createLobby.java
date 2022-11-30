@@ -71,13 +71,13 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
             @Override
             public void onSuccess(Object response) {
                 JSONObject object = (JSONObject) response;
-                System.out.println(object.toString());
+                System.out.println(object.toString() + " here is the failure");
                 Intent next = new Intent(createLobby.this, LobbyActivity.class);
                 next.putExtra("username", username);
 
                 try {
                     if(object.get("message").equals("success")) {
-                        next.putExtra("identity", object.get("id").toString());
+                        next.putExtra("id", object.get("id").toString());
                         next.putExtra("lobbyName", lobbyName);
                         addPlayer(username, object.get("id").toString());
                         genCards(object.get("id").toString());
@@ -118,7 +118,7 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
 
                     @Override
                     public void onResponse(String response) {
-                        System.out.println(response);
+                        System.out.println(response + "here is the gen cards response");
                     }
                 },
                 new Response.ErrorListener() {
