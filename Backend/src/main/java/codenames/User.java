@@ -44,7 +44,7 @@ public class User {
     /**
      * link between User, and player object used for tracking games
      */
-    @OneToOne(orphanRemoval = true) // cascade = CascadeType.ALL
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "playerID")
     private Player attachedPlayer;
     
