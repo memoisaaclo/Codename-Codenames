@@ -40,7 +40,7 @@ public class Game implements Serializable {
 
     @OneToMany(orphanRemoval = false, fetch = FetchType.EAGER)
     private Set<Player> players = new LinkedHashSet<>();
-
+ 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "game_cards",

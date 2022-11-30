@@ -25,7 +25,7 @@ public class Player implements Serializable {
 	 */
     @Id
     @GeneratedValue//(strategy = GenerationType.IDENTITY)
-    //@Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     /**
@@ -55,7 +55,7 @@ public class Player implements Serializable {
     	this.user = user;
     }
     
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
