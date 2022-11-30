@@ -18,10 +18,10 @@ public class GameCard implements Comparable<GameCard>, Serializable {
         /* Field Variables */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "id", nullable = false)
+    private int id;
 
-    private Integer gamePosition;
+    private int gamePosition;
 
     private String word;
 
@@ -29,10 +29,10 @@ public class GameCard implements Comparable<GameCard>, Serializable {
 
     private Color color;
 
-//    @ManyToOne(optional = false)
-//    @JsonBackReference
-//    @JoinColumn(name = "game_id", nullable = false)
-//    private Game game;
+    @ManyToOne(optional = false)
+    @JsonBackReference
+    @JoinColumn(name = "game_id", nullable = false)
+    private Game game;
 
     /* Constructors */
     public GameCard() { color = Color.GREY; }
@@ -42,17 +42,17 @@ public class GameCard implements Comparable<GameCard>, Serializable {
         this.color = color;
     }
 
-//    public GameCard(int gamePosition, Color color, Game game) {
-//        this.gamePosition = gamePosition;
-//        this.color = color;
-////        this.game = game;
-//    }
+    public GameCard(int gamePosition, Color color, Game game) {
+        this.gamePosition = gamePosition;
+        this.color = color;
+        this.game = game;
+    }
 
-    public GameCard(int gamePosition, String word, Color color) {
+    public GameCard(int gamePosition, String word, Color color, Game game) {
         this.gamePosition = gamePosition;
         this.word = word;
         this.color = color;
-//        this.game = game;
+        this.game = game;
     }
     
     public GameCard(Color color) { this.color = color; }
@@ -69,8 +69,8 @@ public class GameCard implements Comparable<GameCard>, Serializable {
     public void setRevealed(boolean revealed) { this.revealed = revealed; }
     public Color getColor() { return color; }
     public void setColor(Color color) { this.color = color; }
-//    public Game getGame() { return game; }
-//    public void setGame(Game game) { this.game = game; }
+    public Game getGame() { return game; }
+    public void setGame(Game game) { this.game = game; }
 
     /**
      * creates JSON for the data of this card
