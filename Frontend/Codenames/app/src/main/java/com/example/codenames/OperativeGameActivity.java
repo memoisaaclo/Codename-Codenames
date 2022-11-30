@@ -41,6 +41,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
     private Button btnExit;
     private TextView card_name;
     private TextView clue;
+    private TextView numGuesses;
     private String lobbyID;
     private String username;
     private JSONObject clue_object;
@@ -91,6 +92,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         username = intent.getStringExtra("username");
 
         clue = (TextView) findViewById(R.id.text_clue);
+        numGuesses = (TextView) findViewById(R.id.text_applies);
 
         //Cards
 
@@ -99,9 +101,11 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
             cards[i] = (Button)findViewById(CARD_IDS[i]);
             cards[i].setOnClickListener(this);
         }
+
         showCards();
         showColors();
         getClue();
+        getNumPlayers();
     }
 
     /**
@@ -292,6 +296,34 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                             JSONObject object = new JSONObject(response);
                             clue_object = object;
                             clue.setText(clue_object.getString("clue"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error.toString());
+                    }
+                });
+
+        queue.add(request);
+    }
+
+    private void getNumPlayers()
+    {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = URL_JSON_NUMGUESSES_FIRST + lobbyID + URL_JSON_NUMGUESSES_SECOND;
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            clue_object = object;
+                            numGuesses.setText(clue_object.getString("guessesavailable"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
