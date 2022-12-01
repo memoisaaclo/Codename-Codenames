@@ -35,6 +35,14 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.drafts.Draft;
+import org.java_websocket.drafts.Draft_6455;
+import org.java_websocket.handshake.ServerHandshake;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
 public class OperativeGameActivity extends AppCompatActivity implements View.OnClickListener
 {
     private String TAG = OperativeGameActivity.class.getSimpleName();
@@ -311,6 +319,10 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         queue.add(request);
     }
 
+    /**
+     * Makes GET request to receive the number of cards applied to the clue
+     * Uses "numGuesses", which displays the number of guesses in text form
+     */
     private void getNumPlayers()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -356,22 +368,31 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                 }
                 break;
 
-//            case CARD_IDS[0]:
-//                revealCard(0);
-//                break;
-//            case CARD_IDS[1]:
-//                revealCard(1);
-//                break;
-//            case CARD_IDS[2]:
-//                revealCard(2);
-//                break;
-//            case CARD_IDS[3]:
-//                revealCard(3);
-//                break;
-//            case CARD_IDS[4]:
-//                revealCard(4);
-//                break;
-
+            case R.id.button_card1: revealCard(0); break;
+            case R.id.button_card2: revealCard(1); break;
+            case R.id.button_card3: revealCard(2); break;
+            case R.id.button_card4: revealCard(3); break;
+            case R.id.button_card5: revealCard(4); break;
+            case R.id.button_card6: revealCard(5); break;
+            case R.id.button_card7: revealCard(6); break;
+            case R.id.button_card8: revealCard(7); break;
+            case R.id.button_card9: revealCard(8); break;
+            case R.id.button_card10: revealCard(9); break;
+            case R.id.button_card11: revealCard(10); break;
+            case R.id.button_card12: revealCard(11); break;
+            case R.id.button_card13: revealCard(12); break;
+            case R.id.button_card14: revealCard(13); break;
+            case R.id.button_card15: revealCard(14); break;
+            case R.id.button_card16: revealCard(15); break;
+            case R.id.button_card17: revealCard(16); break;
+            case R.id.button_card18: revealCard(17); break;
+            case R.id.button_card19: revealCard(18); break;
+            case R.id.button_card20: revealCard(19); break;
+            case R.id.button_card21: revealCard(20); break;
+            case R.id.button_card22: revealCard(21); break;
+            case R.id.button_card23: revealCard(22); break;
+            case R.id.button_card24: revealCard(23); break;
+            case R.id.button_card25: revealCard(24); break;
 
             default:
                 break;

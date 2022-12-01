@@ -51,6 +51,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.drafts.Draft;
+import org.java_websocket.drafts.Draft_6455;
+import org.java_websocket.handshake.ServerHandshake;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
 public class SpymasterGameActivity extends AppCompatActivity implements View.OnClickListener
 {
     private String TAG = SpymasterGameActivity.class.getSimpleName();
@@ -61,6 +69,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     private String lobbyID;
     private EditText text_edit;
     private String username;
+    private WebSocketClient cc;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -106,6 +115,50 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
         Button btnSendClue = (Button) findViewById(R.id.button_sendclue);
         btnSendClue.setOnClickListener(this);
+
+        btnSendClue.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Draft[] drafts = { new Draft_6455() };
+
+                String w = "ws://10.90.75.56:8080/websocket/" + text_edit.getText().toString();
+
+                try{
+                    Log.d("Socket:", "Trying socket");
+                    cc = new WebSocketClient(new URI(w), (Draft) drafts[0]) {
+                        @Override
+                        public void onMessage(String message) {
+                            Log.d("", "run() returned: " + message);
+//                            String s = t1.getText().toString();
+//                            t1.setText(s + "\nServer:" + message);
+                        }
+
+                        @Override
+                        public void onOpen(ServerHandshake handshake) {
+                            Log.d("OPEN", "run() returned: " + "is connecting");
+                        }
+
+                        @Override
+                        public void onClose(int code, String reason, boolean remote) {
+                            Log.d("CLOSE", "onClose() returned: " + reason);
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            Log.d("Exception:", e.toString());
+                        }
+                    };
+                }
+                catch (URISyntaxException e)
+                {
+                    Log.d("Exception:", e.getMessage().toString());
+                    e.printStackTrace();
+                }
+                cc.connect();
+            }
+        });
 
         text_edit = (EditText)findViewById(R.id.text_spy_guess);
 
