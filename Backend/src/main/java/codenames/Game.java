@@ -57,10 +57,10 @@ public class Game implements Serializable {
     private List<GameCard> gameCards = new ArrayList<>();
 
     @Column(name = "red_points")
-    private int redPoints;
+    private Integer redPoints = 0;
 
     @Column(name = "blue_points")
-    private int bluePoints;
+    private Integer bluePoints = 0;
 
     private static final int RED_POINTS_TO_WIN = 9;
     private static final int BLUE_POINTS_TO_WIN = 8;
