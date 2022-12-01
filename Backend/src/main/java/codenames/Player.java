@@ -81,5 +81,10 @@ public class Player implements Serializable {
     public Game inGame() {
 		return game;
 	}
+
+	public void setGame(Game g) {
+		game = g;
+		
+	}
     
 }

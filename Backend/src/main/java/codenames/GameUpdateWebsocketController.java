@@ -89,13 +89,13 @@ public class GameUpdateWebsocketController {
      */
     private void broadcastToLobby(String message, String usr) {
     	User user = Main.userRepo.findByusername(usr);
-    	logger.info("successfully found user: " + user.toString());
+    	//logger.info("successfully found user: " + user.toString());
     	Player player = user.getAttachedPlayer();
-    	logger.info("successfully got attached player: " + player.toString());
+    	//logger.info("successfully got attached player: " + player.toString());
     	Game game = player.inGame();
-    	logger.info("successfully found game: " + game.toString());
+    	//logger.info("successfully found game: " + game.toString());
     	Set<Player> playerList = game.getPlayers();
-    	logger.info("successfully got list of players");
+    	//logger.info("successfully got list of players");
     	
     	playerList.forEach((plyr)->{
     		try {

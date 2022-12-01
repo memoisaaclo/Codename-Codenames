@@ -84,7 +84,8 @@ public class User {
     	Player p = new Player();		// the order of the lines in this method is very deliberate. don't change it
     	this.attachedPlayer = p;
     	p.attachUser(this);
-    	
+    		
+    	p.setGame(g);
     	Main.playerRepo.save(p);
     	g.addPlayer(p);
     	Main.userRepo.save(this);
