@@ -96,13 +96,14 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         {
             e.printStackTrace();
         }
-
+        System.out.println("Before the websocket");
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
         try {
             cc = new WebSocketClient(new URI(w)) {
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
                     getPlayers();
+                    cc.send("update");
                 }
 
                 @Override
@@ -114,6 +115,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
                 @Override
                 public void onClose(int i, String s, boolean b) {
                     System.out.println("There was an issue and it closed");
+                    System.out.println("The issue was " + s);
                 }
 
                 @Override
@@ -126,6 +128,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         }
 
         cc.connect();
+        System.out.println("After the websocket");
     }
 
     private void getPlayers() {
@@ -205,18 +208,18 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         pList.addView(row);
     }
 
+
     // All button click handlers
     @Override
     public void onClick(View view) {
+
         try {
             if (view.getId() == R.id.reg_exit3) {
                 leaveLobby();
-                startActivity(new Intent(LobbyActivity.this, HubActivity.class).putExtra("username", username));
             }
             if (view.getId() == R.id.button_red_spymaster) {
                 setPlayerTeam("red");
                 setPlayerRole("spymaster");
-                startActivity(new Intent(LobbyActivity.this, SpymasterGameActivity.class).putExtra("username", username).putExtra("id",id));
             } else if (view.getId() == R.id.button_red_operative) {
                 setPlayerTeam("red");
                 setPlayerRole("operative");
@@ -226,12 +229,13 @@ public class LobbyActivity extends Activity implements View.OnClickListener
             } else if (view.getId() == R.id.button_blue_operative) {
                 setPlayerTeam("blue");
                 setPlayerRole("operative");
-                startActivity(new Intent(LobbyActivity.this, OperativeGameActivity.class).putExtra("username", username).putExtra("id",id));
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        cc.send("update");
     }
 
     // Sets player roles (Operative/Spymaster)
@@ -300,6 +304,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
                 JSONObject object = new JSONObject((String) response);
                 if(object.get("message").equals("success")) {
                     //leave and go to hub
+                    cc.close();
                     startActivity(new Intent(LobbyActivity.this, HubActivity.class).putExtra("username", username));
                 } else {
                     //display error message
