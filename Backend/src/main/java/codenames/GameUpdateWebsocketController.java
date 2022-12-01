@@ -93,7 +93,7 @@ public class GameUpdateWebsocketController {
     	Player player = user.getAttachedPlayer();
     	logger.info("successfully got attached player");
     	Game game = player.inGame();
-    	logger.info("successfully found game");
+    	logger.info("successfully found game: " + game.toString());
     	Set<Player> playerList = game.getPlayers();
     	logger.info("successfully got list of players");
     	

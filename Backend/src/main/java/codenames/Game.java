@@ -68,7 +68,9 @@ public class Game implements Serializable {
     public void setCards(Set<Card> cards) { this.cards = cards; }
     public String getGameLobbyName() { return gameLobbyName; }
     public void setGameLobbyName(String gameLobbyName) { this.gameLobbyName = gameLobbyName; }
-    public Set<Player> getPlayers() { return players; }
+    public Set<Player> getPlayers() { 
+    	return players; 
+	}
     public void setPlayers(Set<Player> players) { this.players = players; }
     public String getClues() { return clues; }
     public void setClues(String clues) { this.clues = clues; }
