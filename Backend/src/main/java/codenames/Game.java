@@ -187,7 +187,7 @@ public class Game implements Serializable {
         List<GameCard> cards = getGameCards();
         GameCard card = cards.get(card_position);
 
-        // Check if the card is revealed, if it is do nothing.
+        // Check if the card is revealed; if it is, do nothing.
         if (card.isRevealed())
             return;
         else
@@ -199,9 +199,12 @@ public class Game implements Serializable {
         else
             setGuessesAvailable(0);
 
+        // If there are no more guesses available, switch teams.
         if (getGuessesAvailable() == 0) {
             swapTeam();
         }
+
+        // TODO: Make sure: Does this actually change the GameCard?
     }
 
     /**
@@ -225,6 +228,7 @@ public class Game implements Serializable {
                 break;
         }
     }
+
 
     /**
      * 
