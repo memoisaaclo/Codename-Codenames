@@ -163,7 +163,9 @@ public class BoardController {
         Game g = Main.gameRepo.findById(id);
         if (g == null)
             return invalid;
-
+        if (g.getGameCards().size() == 0) {
+            return "{\"message\":\"incorrect game state, no GameCards\"}";
+        }
         StringBuilder rstring = new StringBuilder("[");
 
         for (GameCard c : g.getGameCards())
