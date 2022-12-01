@@ -32,6 +32,9 @@ public class Game implements Serializable {
     @Column(name = "turn_color")
     private Color turnColor = RED;
 
+    @Column(name = "turn_role")
+    private Role turnRole = Role.SPYMASTER;
+
     @Column(name = "moves")
     private String moves = "";
 
@@ -84,6 +87,8 @@ public class Game implements Serializable {
     public void setCurrentClue(String currentClue) { this.currentClue = currentClue; }
     public int getGuessesAvailable() { return guessesAvailable; }
     public void setGuessesAvailable(int guessesAvailable) { this.guessesAvailable = guessesAvailable; }
+    public Role getTurnRole() { return turnRole; }
+    public void setTurnRole(Role turnRole) { this.turnRole = turnRole; }
 
 
     /* Special methods */
@@ -182,11 +187,13 @@ public class Game implements Serializable {
         List<GameCard> cards = getGameCards();
         GameCard card = cards.get(card_position);
 
+        // Check if the card is revealed, if it is do nothing.
         if (card.isRevealed())
             return;
         else
             card.setRevealed(true);
 
+        // If the card is the correct team color, maintain turn.
         if (card.getColor() == turnColor)
             guessesAvailable--;
         else
@@ -210,9 +217,11 @@ public class Game implements Serializable {
         switch (turnColor) {
             case RED:
                 setTurnColor(BLUE);
+                setTurnRole(Role.SPYMASTER);
                 break;
             case BLUE:
                 setTurnColor(RED);
+                setTurnRole(Role.SPYMASTER);
                 break;
         }
     }
