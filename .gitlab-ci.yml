@@ -16,11 +16,6 @@ maven-build:
   script:
     - cd Backend
     - mvn package
-  # only:
-  #   refs:
-  #     - master
-  #   changes:
-      # - Backend/**/*
 
 android-build:
  image:  gjandres/android-ci:latest
@@ -62,6 +57,11 @@ android-test:
 
 auto-deploy:
   stage: mavendeploy  #do make a stage with same name!
+  only:
+    refs:
+      - master
+    changes:
+      - Backend/**/*
   tags:
    - spring_boot
   script:
