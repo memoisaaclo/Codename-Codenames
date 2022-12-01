@@ -126,14 +126,6 @@ public class GameController {
     Game getGameById( @PathVariable int id){
         return Main.gameRepo.findById(id);
     }
-    
-    /**
-     * removes all games
-     */
-    @DeleteMapping(path = "/games/deleteall")
-    void deleteAllGames() {
-    	Main.gameRepo.deleteAll();
-    }
 
         /* Special Methods */
     /**
