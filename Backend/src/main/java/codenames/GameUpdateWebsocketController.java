@@ -88,11 +88,19 @@ public class GameUpdateWebsocketController {
      * @param session2 
      */
     private void broadcastToLobby(String message, String usr) {
-    	Set<Player> lobby = Main.userRepo.findByusername(usr).getAttachedPlayer().inGame().getPlayers();
+    	User user = Main.userRepo.findByusername(usr);
+    	logger.info("successfully found user");
+    	Player player = user.getAttachedPlayer();
+    	logger.info("successfully got attached player");
+    	Game game = player.inGame();
+    	logger.info("successfully found game");
+    	Set<Player> playerList = game.getPlayers();
+    	logger.info("successfully got list of players");
     	
-    	lobby.forEach((player)->{
+    	playerList.forEach((plyr)->{
     		try {
-				usernameSessionMap.get(player.getUsername()).getBasicRemote().sendText("update");
+				usernameSessionMap.get(plyr.getUsername()).getBasicRemote().sendText(message);
+				logger.info("WTF");
 			} catch (IOException e) {
 				logger.info("Exception: " + e.getMessage().toString());
 				e.printStackTrace();
