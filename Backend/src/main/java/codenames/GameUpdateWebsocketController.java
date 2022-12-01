@@ -50,7 +50,7 @@ public class GameUpdateWebsocketController {
      */
     @OnMessage
     public void onMessage(Session session, String message) {
-    	System.out.println(message);
+    	logger.info(message);
     	if(message.equals("update")) {
     		broadcastToLobby("update", sessionUsernameMap.get(session));
     	}
