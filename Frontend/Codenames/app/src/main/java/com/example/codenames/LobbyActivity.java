@@ -47,6 +47,8 @@ public class LobbyActivity extends Activity implements View.OnClickListener
     private Button bSpy;
     private Button bOps;
 
+    WebSocketClient cc;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -95,35 +97,35 @@ public class LobbyActivity extends Activity implements View.OnClickListener
             e.printStackTrace();
         }
 
-        getPlayers();
-
-        WebSocketClient cc;
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
         try {
             cc = new WebSocketClient(new URI(w)) {
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
-
+                    getPlayers();
                 }
 
                 @Override
                 public void onMessage(String s) {
+                    System.out.println("This is the message:" + s);
                     getPlayers();
                 }
 
                 @Override
                 public void onClose(int i, String s, boolean b) {
-
+                    System.out.println("There was an issue and it closed");
                 }
 
                 @Override
                 public void onError(Exception e) {
-
+                    System.out.println(e.toString());
                 }
             };
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+
+        cc.connect();
     }
 
     private void getPlayers() {
@@ -226,8 +228,6 @@ public class LobbyActivity extends Activity implements View.OnClickListener
                 setPlayerRole("operative");
                 startActivity(new Intent(LobbyActivity.this, OperativeGameActivity.class).putExtra("username", username).putExtra("id",id));
             }
-
-            getPlayers();
 
         } catch (JSONException e) {
             e.printStackTrace();
