@@ -56,6 +56,14 @@ public class Game implements Serializable {
     @JsonManagedReference
     private List<GameCard> gameCards = new ArrayList<>();
 
+    @Column(name = "red_points")
+    private int redPoints;
+
+    @Column(name = "blue_points")
+    private int bluePoints;
+
+    private static final int RED_POINTS_TO_WIN = 9;
+    private static final int BLUE_POINTS_TO_WIN = 8;
 
         /* Constructors */
     public Game() { }
@@ -149,7 +157,7 @@ public class Game implements Serializable {
         ArrayList<Color> colors = new ArrayList<>(Arrays.asList(
             // ONE BLACK CARD
             BLACK,
-            // EIGHT YELLOW CARDS
+            // EIGHT BLUE CARDS
             BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE,
             // NINE RED CARDS
             RED, RED, RED, RED, RED, RED, RED, RED, RED,
@@ -183,7 +191,7 @@ public class Game implements Serializable {
      * @param card_position
      */
     public void getGuess(int card_position) {
-        // Assume Data is Valid
+        // Assume card position is Valid
         List<GameCard> cards = getGameCards();
         GameCard card = cards.get(card_position);
 
@@ -194,9 +202,22 @@ public class Game implements Serializable {
             card.setRevealed(true);
 
         // If the card is the correct team color, maintain turn.
-        if (card.getColor() == turnColor)
+        if (card.getColor() == turnColor) {
             guessesAvailable--;
-        else
+
+            // Adjust team points
+            switch(turnColor) {
+                case RED:
+                    redPoints++;
+                    break;
+                case BLUE:
+                    bluePoints++;
+                    break;
+            }
+
+            // Check if game is won
+            checkWin();
+        } else
             setGuessesAvailable(0);
 
         // If there are no more guesses available, switch teams.
@@ -229,6 +250,17 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * Check if the game is in winning status
+     */
+    public void checkWin() {
+        if (redPoints == RED_POINTS_TO_WIN) {
+        } else if (bluePoints == BLUE_POINTS_TO_WIN) {
+        }
+        //TODO: Send WS red or blue win
+
+        return;
+    }
 
     /**
      * 
