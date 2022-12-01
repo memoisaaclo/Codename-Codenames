@@ -20,10 +20,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Locale;
 
 public class spectatorLobby extends AppCompatActivity implements View.OnClickListener{
@@ -37,6 +41,7 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
     private String id;
     private String lobbyName;
     private JSONArray players;
+    WebSocketClient cc;
 
 
 
@@ -60,8 +65,41 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
 
         toGame = (Button) findViewById(R.id.specLobby_toGame);
         toGame.setOnClickListener(this);
+        toGame.setVisibility(View.INVISIBLE);
 
-        getPlayers();
+        String w = "ws://10.90.75.56:8080/websocket/games/update/" + id;
+
+        try {
+            cc = new WebSocketClient(new URI(w)) {
+                @Override
+                public void onOpen(ServerHandshake serverHandshake) {
+                    getPlayers();
+                    cc.send("update");
+                }
+
+                @Override
+                public void onMessage(String s) {
+                    System.out.println("This is the message:" + s);
+                    getPlayers();
+                }
+
+                @Override
+                public void onClose(int i, String s, boolean b) {
+                    System.out.println("There was an issue and it closed");
+                    System.out.println("The issue was " + s);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    System.out.println(e.toString());
+                }
+            };
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        cc.connect();
+
     }
 
     private void getPlayers() {

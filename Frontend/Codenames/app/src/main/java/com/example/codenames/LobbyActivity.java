@@ -96,8 +96,9 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         {
             e.printStackTrace();
         }
-        System.out.println("Before the websocket");
+
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
+
         try {
             cc = new WebSocketClient(new URI(w)) {
                 @Override
@@ -128,7 +129,6 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         }
 
         cc.connect();
-        System.out.println("After the websocket");
     }
 
     private void getPlayers() {
