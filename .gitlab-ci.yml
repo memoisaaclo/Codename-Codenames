@@ -59,7 +59,7 @@ auto-deploy:
   stage: mavendeploy  #do make a stage with same name!
   only:
     refs:
-      - master
+      - main
     changes:
       - Backend/**/*
   tags:
