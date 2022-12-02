@@ -285,5 +285,15 @@
         app:layout_constraintEnd_toEndOf="@+id/lobby_header"
         app:layout_constraintTop_toTopOf="@+id/lobby_header" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lobby_playGame"
+        android:text="Play Game"
+        android:backgroundTint="#230959"
+        app:layout_constraintTop_toBottomOf="@+id/gameToolbar3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/title_header" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

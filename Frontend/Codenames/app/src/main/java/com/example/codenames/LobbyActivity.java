@@ -46,6 +46,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
     private Button rOps;
     private Button bSpy;
     private Button bOps;
+    private Button toGame;
 
     WebSocketClient cc;
 
@@ -81,13 +82,15 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         rOps = (Button) findViewById(R.id.button_red_operative);
         bSpy = (Button) findViewById(R.id.button_blue_spymaster);
         bOps = (Button) findViewById(R.id.button_blue_operative);
+        toGame = (Button) findViewById(R.id.lobby_playGame);
 
         rSpy.setOnClickListener(this);
         rOps.setOnClickListener(this);
         bSpy.setOnClickListener(this);
         bOps.setOnClickListener(this);
+        toGame.setOnClickListener(this);
+        toGame.setVisibility(View.INVISIBLE);
 
-//        postJsonObj();
         try
         {
             sleep(100);
@@ -111,6 +114,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
                 public void onMessage(String s) {
                     System.out.println("This is the message:" + s);
                     getPlayers();
+                    checkToStart();
                 }
 
                 @Override
@@ -321,6 +325,47 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         String url = URL_JSON_REMOVEPLAYER_FIRST + id + URL_JSON_REMOVEPLAYER_SECOND + username;
 
         VolleyListener.makeRequest(this, url, leaveListener, Method.DELETE);
+    }
+
+    /**
+     * Gets team and role information to determine if game is ready to start. If so, the toGame
+     * button will appear and be able to be used to send the lobby to the game screen
+     */
+    private void checkToStart() {
+        //Ints for array position
+        final int REDSPECTATOR = 1;
+        final int REDOPERATIVE = 2;
+        final int BLUESPECTATOR = 3;
+        final int BLUEOPERATIVE = 3;
+        //Array to hold counts
+        int[] roleCount = {0, 0, 0, 0};
+
+        for (int i = 0; i < players.length(); i++) {
+            try {
+                JSONObject o = (JSONObject) players.get(i);
+                if(o.get("team").equals("red")) {
+                    if(o.get("role").equals("spymaster")) {
+                        roleCount[REDSPECTATOR]++;
+                    } else {
+                        roleCount[REDOPERATIVE]++;
+                    }
+                } else {
+                    if(o.get("team").equals("spymaster")) {
+                        roleCount[BLUESPECTATOR]++;
+                    } else if (o.get("role").equals("operative")) {
+                        roleCount[BLUEOPERATIVE]++;
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (roleCount[REDSPECTATOR] == 1 && roleCount[REDOPERATIVE] >= 1 && roleCount[BLUESPECTATOR] == 1 && roleCount[BLUEOPERATIVE] >=1) {
+            toGame.setVisibility(View.VISIBLE);
+        }
+
     }
 
 }
