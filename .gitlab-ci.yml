@@ -16,21 +16,31 @@ maven-build:
   script:
     - cd Backend
     - mvn package
+  only:
+    refs:
+      - main
+    changes:
+      - Backend/**/*
 
 android-build:
- image:  gjandres/android-ci:latest
- stage: androidtry
- tags:
-   - frontend
- before_script:
-   - export GRADLE_USER_HOME=`pwd`/.gradle
-   - chmod +x ./Frontend/Codenames/gradlew
- script:
-   - cd Frontend/Codenames
-   - ./gradlew assemble
- artifacts:
-   paths:
-     - Android_test/app/build/outputs/
+  image:  gjandres/android-ci:latest
+  stage: androidtry
+  tags:
+    - frontend
+  before_script:
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+    - chmod +x ./Frontend/Codenames/gradlew
+  script:
+    - cd Frontend/Codenames
+    - ./gradlew assemble
+  artifacts:
+    paths:
+      - Android_test/app/build/outputs/
+  only:
+    refs:
+      - main
+    changes:
+      - Frontend/*
 
 maven-test:
   stage: maventest
@@ -42,26 +52,31 @@ maven-test:
   artifacts:
     paths:
       - Backend/target/*.jar
-
-android-test:
- image:  gjandres/android-ci:latest
- stage: androidtest
- before_script:
-   - export GRADLE_USER_HOME=`pwd`/.gradle
-   - chmod +x ./Frontend/Codenames/gradlew
- tags:
-   - frontend
- script:
-   - cd Frontend/Codenames
-   - ./gradlew test
-
-auto-deploy:
-  stage: mavendeploy  #do make a stage with same name!
   only:
     refs:
       - main
     changes:
       - Backend/**/*
+
+android-test:
+  image:  gjandres/android-ci:latest
+  stage: androidtest
+  before_script:
+    - export GRADLE_USER_HOME=`pwd`/.gradle
+    - chmod +x ./Frontend/Codenames/gradlew
+  tags:
+    - frontend
+  script:
+    - cd Frontend/Codenames
+    - ./gradlew test
+  only:
+    refs:
+      - main
+    changes:
+      - Frontend/*
+
+auto-deploy:
+  stage: mavendeploy  #do make a stage with same name!
   tags:
    - spring_boot
   script:
@@ -70,3 +85,8 @@ auto-deploy:
     - sudo mv target/*.jar /target/web-demo.jar 
     - sudo systemctl stop system-web-demo
     - sudo systemctl start system-web-demo
+  only:
+    refs:
+      - main
+    changes:
+      - Backend/**/*
