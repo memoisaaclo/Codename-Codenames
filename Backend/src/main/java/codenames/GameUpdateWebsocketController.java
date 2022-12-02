@@ -105,14 +105,15 @@ public class GameUpdateWebsocketController {
     	
     	List<Session> spectators = GameUpdateSpectatorWebsocketController.getSessionsFromLobbyId(game.getLobby().getIdentity());
     	
-    	spectators.forEach((session)->{
-    		try {
-				session.getBasicRemote().sendText(message);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-    	});
-    	
+    	if(spectators != null) {
+	    	spectators.forEach((session)->{
+	    		try {
+					session.getBasicRemote().sendText(message);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	    	});
+    	}
     	
     	
     	
