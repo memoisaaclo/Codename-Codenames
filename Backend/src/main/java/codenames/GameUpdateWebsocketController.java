@@ -2,6 +2,7 @@ package codenames;
 
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -89,22 +90,39 @@ public class GameUpdateWebsocketController {
      */
     private void broadcastToLobby(String message, String usr) {
     	User user = Main.userRepo.findByusername(usr);
-    	//logger.info("successfully found user: " + user.toString());
     	Player player = user.getAttachedPlayer();
-    	//logger.info("successfully got attached player: " + player.toString());
     	Game game = player.inGame();
-    	//logger.info("successfully found game: " + game.toString());
     	Set<Player> playerList = game.getPlayers();
-    	//logger.info("successfully got list of players");
     	
     	playerList.forEach((plyr)->{
     		try {
 				usernameSessionMap.get(plyr.getUsername()).getBasicRemote().sendText(message);
-				logger.info("WTF");
 			} catch (IOException e) {
 				logger.info("Exception: " + e.getMessage().toString());
 				e.printStackTrace();
 			}
     	});
+    	
+    	List<Session> spectators = GameUpdateSpectatorWebsocketController.getSessionsFromLobbyId(game.getLobby().getIdentity());
+    	
+    	spectators.forEach((session)->{
+    		try {
+				session.getBasicRemote().sendText(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    	});
+    	
+    	
+    	
+    	
     }
 }
+
+
+
+
+
+
+
+
