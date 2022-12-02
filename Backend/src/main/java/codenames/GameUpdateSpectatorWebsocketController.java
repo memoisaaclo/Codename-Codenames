@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-@ServerEndpoint("/websocket/games/update/{id}")
+@ServerEndpoint("/websocket/games/spectate/{id}")
 @Component
 public class GameUpdateSpectatorWebsocketController {
 
