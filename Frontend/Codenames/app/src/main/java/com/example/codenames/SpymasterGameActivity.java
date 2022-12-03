@@ -52,8 +52,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.drafts.Draft;
-import org.java_websocket.drafts.Draft_6455;
+//import org.java_websocket.drafts.Draft;
+//import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
@@ -116,49 +116,36 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         Button btnSendClue = (Button) findViewById(R.id.button_sendclue);
         btnSendClue.setOnClickListener(this);
 
-        btnSendClue.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Draft[] drafts = { new Draft_6455() };
+        String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
 
-                String w = "ws://10.90.75.56:8080/websocket/" + text_edit.getText().toString();
-
-                try{
-                    Log.d("Socket:", "Trying socket");
-                    cc = new WebSocketClient(new URI(w), (Draft) drafts[0]) {
-                        @Override
-                        public void onMessage(String message) {
-                            Log.d("", "run() returned: " + message);
-//                            String s = t1.getText().toString();
-//                            t1.setText(s + "\nServer:" + message);
-                        }
-
-                        @Override
-                        public void onOpen(ServerHandshake handshake) {
-                            Log.d("OPEN", "run() returned: " + "is connecting");
-                        }
-
-                        @Override
-                        public void onClose(int code, String reason, boolean remote) {
-                            Log.d("CLOSE", "onClose() returned: " + reason);
-                        }
-
-                        @Override
-                        public void onError(Exception e) {
-                            Log.d("Exception:", e.toString());
-                        }
-                    };
+        try {
+            cc = new WebSocketClient(new URI(w)) {
+                @Override
+                public void onOpen(ServerHandshake serverHandshake) {
+                    cc.send("update");
                 }
-                catch (URISyntaxException e)
-                {
-                    Log.d("Exception:", e.getMessage().toString());
-                    e.printStackTrace();
+
+                @Override
+                public void onMessage(String s) {
+                    System.out.println("This is the message:" + s);
                 }
-                cc.connect();
-            }
-        });
+
+                @Override
+                public void onClose(int i, String s, boolean b) {
+                    System.out.println("There was an issue and it closed");
+                    System.out.println("The issue was " + s);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    System.out.println(e.toString());
+                }
+            };
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        cc.connect();
 
         text_edit = (EditText)findViewById(R.id.text_spy_guess);
 
@@ -320,6 +307,8 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
             e.printStackTrace();
         }
         VolleyListener.makeRequest(this, url, addListener, data, Request.Method.PUT);
+
+        cc.send("update");
     }
 
     /**

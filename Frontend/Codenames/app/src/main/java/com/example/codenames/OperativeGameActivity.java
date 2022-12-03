@@ -36,8 +36,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.drafts.Draft;
-import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
@@ -53,6 +51,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
     private String lobbyID;
     private String username;
     private JSONObject clue_object;
+    private WebSocketClient cc;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -109,6 +108,38 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
             cards[i] = (Button)findViewById(CARD_IDS[i]);
             cards[i].setOnClickListener(this);
         }
+
+
+        String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
+
+        try {
+            cc = new WebSocketClient(new URI(w)) {
+                @Override
+                public void onOpen(ServerHandshake serverHandshake) {
+                    cc.send("update");
+                }
+
+                @Override
+                public void onMessage(String s) {
+                    System.out.println("This is the message:" + s);
+                }
+
+                @Override
+                public void onClose(int i, String s, boolean b) {
+                    System.out.println("There was an issue and it closed");
+                    System.out.println("The issue was " + s);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    System.out.println(e.toString());
+                }
+            };
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        cc.connect();
 
         showCards();
         showColors();
@@ -283,8 +314,9 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                 return params;
             }
         };
-
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+
+        cc.send("update");
     }
 
     /**
@@ -317,6 +349,8 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                 });
 
         queue.add(request);
+
+        cc.send("update");
     }
 
     /**
