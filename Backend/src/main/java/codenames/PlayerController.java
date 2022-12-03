@@ -92,9 +92,26 @@ public class PlayerController {
     @PostMapping(path = "/players/{username}/setrole/{role}")
     String setRole(@PathVariable String username, @PathVariable String role) {
     	User usr = Main.userRepo.findByusername(username);
-    	if(usr==null)return "{\"message\":\"could not find player\"}";
-    	if(!(role.toLowerCase().equals("spymaster") || role.toLowerCase().equals("operative")))return "{\"message\":\"invalid role name\"}";
-    	usr.getAttachedPlayer().setRole(role.toLowerCase().equals("spymaster") ? Role.SPYMASTER : Role.OPERATIVE);
+        if (usr == null) return "{\"message\":\"could not find player\"}";
+        Player player = usr.getAttachedPlayer();
+        role = role.toLowerCase();
+
+    	if (!(role.equals("spymaster") || role.equals("operative"))) return "{\"message\":\"invalid role name\"}";
+
+        // Verify and set Player role
+        if (role.equals("spymaster")) {
+
+            // Add double Spymaster verification
+            for (Player other : usr.getAttachedPlayer().inGame().getPlayers())
+                if (other.getRole().toLowerCase().equals("spymaster") && (player.getTeam() == other.getTeam()))
+                    return "{\"message\":\"invalid role, team spymaster already selected\"}";
+
+            player.setRole(Role.SPYMASTER);
+        } else { // role.equals("operative")
+
+            player.setRole(Role.OPERATIVE);
+        }
+
     	Main.userRepo.save(usr);
     	Main.playerRepo.save(usr.getAttachedPlayer());
     	return success;
