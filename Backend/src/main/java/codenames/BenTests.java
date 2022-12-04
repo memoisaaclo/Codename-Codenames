@@ -10,13 +10,35 @@ import static io.restassured.matcher.RestAssuredMatchers.*;
 
 class BenTests {
  
-	@Test
-	void test() {
-
-		String a = "foo";
-        String b = "FOO";
-        assertThat(a, equalToIgnoringCase(b));
-		
+	
+	//@Test
+	void testRegisterUser() {
+		post("/users/register").then().statusCode(200).assertThat().body("loginCount", equalTo(3));
 	}
+	
+	/**
+	 * tries to log in the test user
+	 */
+	@Test
+	void testLoginUser() {
+		with()
+		.body("{\"username\":\"test\",\"password\":\"world\"}")
+		.post("/users/login")
+		
+		.then()
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("success"));
+	}
+	
+	/**
+	 * tests we get a response from getAllUsers
+	 */
+	@Test
+	void testGetUsers() {	
+		get("/users/getallusers").then().statusCode(200).assertThat();
+	}
+	
+	
 
 }
