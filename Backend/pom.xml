@@ -119,7 +119,11 @@
 		    <artifactId>rest-assured</artifactId>
 		</dependency>
 
-		
+		<!--  lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 
     </dependencies>
     <build>
