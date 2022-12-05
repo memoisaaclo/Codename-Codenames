@@ -149,4 +149,12 @@ public class GameController {
     public void removeall() {
     	Main.gameRepo.deleteAll();
     }
+    
+    /**
+     * ends the program
+     */
+    @DeleteMapping(path = "/end")
+    public void end() {
+    	System.exit(0);
+    }
 }
