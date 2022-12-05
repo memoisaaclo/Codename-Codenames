@@ -102,9 +102,10 @@ public class PlayerController {
         if (role.equals("spymaster")) {
 
             // Add double Spymaster verification
-            for (Player other : usr.getAttachedPlayer().inGame().getPlayers())
-                if (other.getRole().toLowerCase().equals("spymaster") && (player.getTeam() == other.getTeam()))
+            for (Player other : player.inGame().getPlayers()) {
+                if (other.getRole().toLowerCase().equals("spymaster") && (player.getTeam().equals(other.getTeam())))
                     return "{\"message\":\"invalid role, team spymaster already selected\"}";
+            }
 
             player.setRole(Role.SPYMASTER);
         } else { // role.equals("operative")
