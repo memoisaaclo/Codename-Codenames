@@ -1,6 +1,8 @@
 package com.example.codenames;
 
-import static com.example.codenames.utils.Const.URL_JSON_LOBBY;
+/**
+ * @author Dylan Booth
+ */
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,28 +11,26 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import static com.example.codenames.utils.Const.*;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 public class menu extends AppCompatActivity implements View.OnClickListener{
 
-    private Button play;
-    private Button login;
-    private Button info;
-    private Button exit;
-    private Button adminWords;
-    private Button adminUsers;
-    private TextView menuUser;
-    private String username;
+    private Button play; // Button to send user spectator to appropriate Hub
+    private Button login; // Button to send user to login screen, or if logged in, will log out user
+    private Button info; // Button to send user to statistics screen, only visible if logged in
+    private Button exit; // Button to leave and close game session
+    private Button adminWords; // Button to send user to the admin words screen, only visible if user is admin and logged in
+    private Button adminUsers; // Button to send user to the admin users screen, only visible if user is admin and logged in
+    private TextView menuUser; // TextView to display users name if logged in
+    private String username; // String to hold value the value of the users username
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +105,11 @@ public class menu extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
+    /**
+     * Only called if there is a user that is logged in
+     * GET request to obtain whether the user is an admin or not. If the user is an admin, admin screen
+     * access buttons will be revealed and available to be clicked.
+     */
     private void checkIfAdmin() {
         RequestQueue queue = Volley.newRequestQueue(this);
 

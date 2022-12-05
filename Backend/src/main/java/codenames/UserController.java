@@ -22,6 +22,11 @@ public class UserController {
     @SuppressWarnings("unused")
 	private String failure = "{\"message\":\"failure\"}";
     
+    /**
+     * register a new player
+     * @param usr
+     * @return success or failure
+     */
 	@RequestMapping(method = RequestMethod.POST, path = "/users/register")
     public @ResponseBody String createNewAccountRegister(@RequestBody User usr) {	// creates user object off of json body
 		if(Main.userRepo.findByusername(usr.getUsername()) != null){
@@ -33,6 +38,11 @@ public class UserController {
 		return success;
     }
 
+	/**
+	 * log in a player
+	 * @param usr
+	 * @return success or failure
+	 */
 	@RequestMapping(method = RequestMethod.POST, path = "/users/login")
     public @ResponseBody String loginToAccountPost(@RequestBody User usr) {	// creates user object off of json body
 		User usrObj = Main.userRepo.findByusername(usr.getUsername());
@@ -44,21 +54,39 @@ public class UserController {
         return "{\"message\":\"Incorrect Credentials\"}";
     }
 	
+	/**
+	 * get user JSON representation
+	 * @param username
+	 * @return JSON of a user object
+	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/users/{username}")
-    public @ResponseBody User loginToAccountPost(@PathVariable String username) {	// creates user object off of json body
+    public @ResponseBody User getUserObject(@PathVariable String username) {	// creates user object off of json body
 		User usrObj = Main.userRepo.findByusername(username);
 		return usrObj;
     }
 	
+	/**
+	 * return JSON list of all users
+	 * @return all users
+	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/users/getallusers")
     public @ResponseBody List<User> getallUsers() {	// creates user object off of json body
         return Main.userRepo.findAll();
     }
 	
+	/**
+	 * delete all users from database
+	 */
 	@RequestMapping(method = RequestMethod.DELETE, path = "/users/clearusers/75362")
     public void clearUsers() {	// removes all objects
         Main.userRepo.deleteAllInBatch();
 	}
+	
+	/**
+	 * delete a specific user
+	 * @param username
+	 * @return success or failure
+	 */
 	@RequestMapping(method = RequestMethod.DELETE, path = "/users/removeuser/{username}")
     public String deleteUser(@PathVariable String username) {	// removes all objects
 		if(Main.userRepo.findByusername(username) == null) return failure;

@@ -25,13 +25,13 @@ public class GameCard implements Comparable<GameCard>, Serializable {
 
     private String word;
 
-    private boolean revealed;
+    private Boolean revealed;
 
     private Color color;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false)
     @JsonBackReference
-    @JoinColumn(name = "game_id")
+    @JoinColumn(name = "game_id", nullable = false)
     private Game game;
 
     /* Constructors */
@@ -54,34 +54,28 @@ public class GameCard implements Comparable<GameCard>, Serializable {
         this.color = color;
         this.game = game;
     }
-
-    /* Getters and Setters */
-    public int getId() { return id; }
-
-    public void setId(int id) { this.id = id; }
-
-    public int getGamePosition() { return gamePosition; }
-
-    public void setGamePosition(int gamePosition) { this.gamePosition = gamePosition; }
-
-    public String getWord() { return word; }
-
-    public void setWord(String word) { this.word = word; }
-
+    
     public GameCard(Color color) { this.color = color; }
 
+    
+    /* Getters and Setters */
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    public int getGamePosition() { return gamePosition; }
+    public void setGamePosition(int gamePosition) { this.gamePosition = gamePosition; }
+    public String getWord() { return word; }
+    public void setWord(String word) { this.word = word; }
     public boolean isRevealed() { return revealed; }
-
     public void setRevealed(boolean revealed) { this.revealed = revealed; }
-
     public Color getColor() { return color; }
-
     public void setColor(Color color) { this.color = color; }
-
     public Game getGame() { return game; }
-
     public void setGame(Game game) { this.game = game; }
 
+    /**
+     * creates JSON for the data of this card
+     * @return JSON data
+     */
     public String displayInfo() {
         return "{\"position\": \"" + gamePosition + "\", " +
                 "\"word\": \"" + word + "\", " +

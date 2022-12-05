@@ -1,15 +1,15 @@
 package com.example.codenames;
 
+/**
+ * @author Dylan Booth
+ */
+
 import static com.example.codenames.utils.Const.*;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -95,6 +95,11 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
 
     }
 
+    /**
+     * Makes a GET request to get all cards to be displayed. When called, will display words and colors. Can be changed to only show color of cards
+     * that have been revealed. Calls getTextView to create the TextView to be displayed. Then adds the TextView to a horizontal LinearLayout
+     * row.
+     */
     private void getCards() {
 
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -138,6 +143,18 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
 
     }
 
+    /**
+    Helper method to create a TextView to display words and color. Can be configured to only display color if the card is Revealed.
+    Returns a TextView t, with given information.
+     */
+
+    /**
+     * Helper method to create a TextView to display words and color. Can be configured to only display color if the card isRevealed.
+     * @param word String value with the word value of the card
+     * @param color String value with the color value of the card
+     * @param isRevealed String value of whether or not the card isRevealed
+     * @return TextView t setup with given parameters
+     */
     private TextView getTextView(String word, String color, String isRevealed) {
 
         TextView t = new TextView(this);
@@ -164,6 +181,10 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
         return t;
     }
 
+    /**
+     * Helper method to create the row to hold 5 card values.
+     * @return LinearLayout that is horizontal
+     */
     private LinearLayout addRow() {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);

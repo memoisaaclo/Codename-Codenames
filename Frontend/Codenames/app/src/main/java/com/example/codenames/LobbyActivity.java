@@ -1,5 +1,8 @@
 package com.example.codenames;
 
+/**
+ * @author Dylan Booth, James Driskell
+ */
 import static com.example.codenames.utils.Const.*;
 import static java.lang.Thread.sleep;
 import android.app.Activity;
@@ -141,6 +144,10 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         cc.connect();
     }
 
+    /**
+     * Makes a GET request to get all roles, teams, and players. Calls helper method addPlayer() to add player to the active list
+     * with values returned by the request.
+     */
     private void getPlayers() {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = URL_JSON_GETPLAYERS_FIRST + id + URL_JSON_GETPLAYERS_SECOND;
@@ -181,7 +188,12 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         checkToStart(players);
     }
 
-
+    /**
+     * Helper method that adds the players to list. Creates a horizontal LinearLayout called "row".
+     * @param pName Sets the TextView value in the row with the player name
+     * @param role Sets the second TextView in the row with the role of player
+     * @param team Sets the background color of the "row" with the team of player
+     */
     private void addPlayer(String pName, String role, String team) {
         LinearLayout row = new LinearLayout(this);
         row.setOrientation(LinearLayout.HORIZONTAL);
@@ -256,7 +268,11 @@ public class LobbyActivity extends Activity implements View.OnClickListener
 
     }
 
-    // Sets player roles (Operative/Spymaster)
+    /**
+     * Makes POST request to set the players role
+     * @param role String value with the role the player selected
+     * @throws JSONException Exception thrown when failed casting or key "message" does not exist
+     */
     private void setPlayerRole(String role) throws JSONException {
         this.role = role;
         RequestListener roleListener = new RequestListener() {
@@ -287,7 +303,11 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         VolleyListener.makeRequest(this, url, roleListener, Request.Method.POST);
     }
 
-    // Sets Players team (Red/Blue)
+    /**
+     * Makes POST request to change the players team to the color provided. Changes the rows background
+     * @param team String value of the team the player wishes to join.
+     * @throws JSONException Exception thrown when key "message" does not exist, or their is a casting error
+     */
     private void setPlayerTeam(String team) throws JSONException {
         this.team = team;
         RequestListener teamListener = new RequestListener() {
@@ -316,7 +336,11 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         VolleyListener.makeRequest(this, url, teamListener, Request.Method.POST);
     }
 
-    // Removes player from lobby
+    /**
+     * Makes DELETE request to remove player from the lobby. When exit button is clicked, request is sent and if successful, the player
+     * will be returned to the HubActivity.
+     * @throws JSONException Exception thrown when a casting error occurs, or there does not exist a key "message" in JSONObject
+     */
     private void leaveLobby() throws JSONException {
         RequestListener leaveListener = new RequestListener() {
             @Override

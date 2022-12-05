@@ -1,10 +1,12 @@
 package com.example.codenames;
 
+/**
+ * @author Dylan Booth
+ */
+
 import static com.example.codenames.utils.Const.URL_JSON_GETPLAYERS_FIRST;
 import static com.example.codenames.utils.Const.URL_JSON_GETPLAYERS_SECOND;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -107,6 +108,10 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    /**
+     * Makes a GET request to get all players in lobby. Calls addPlayer() to list players in lobby.
+     * Calls addPlayer with values returned by the request in the form of JSONObjects in a JSONArray
+     */
     private void getPlayers() {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = URL_JSON_GETPLAYERS_FIRST + id + URL_JSON_GETPLAYERS_SECOND;
@@ -146,6 +151,12 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
         queue.add(request);
     }
 
+    /**
+     * Helper method that adds the players to list. Creates a horizontal LinearLayout called "row".
+     * @param pName Sets the TextView value in the row with the player name
+     * @param role Sets the second TextView in the row with the role of player
+     * @param team Sets the background color of the "row" with the team of player
+     */
     private void addPlayer(String pName, String role, String team) {
 
         LinearLayout row = new LinearLayout(this);

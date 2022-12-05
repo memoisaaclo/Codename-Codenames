@@ -10,10 +10,25 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 public interface CardRepository extends JpaRepository<Card, Long> {
+	
+	/**
+	 * gets a word by id
+	 * @param id
+	 * @return a word object
+	 */
     Card findById(int id);
 
+    /**
+     * deletes a word by id
+     * @param id
+     */
     @Transactional
     void deleteById(int id);
     
+    /**
+     * finds the object by given word associated
+     * @param word
+     * @return card object
+     */
     Card findByword(String word);
 }
