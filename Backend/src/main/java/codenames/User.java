@@ -2,6 +2,9 @@ package codenames;
 
 import javax.persistence.*;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 
  * @author Ben Kelly
@@ -30,6 +33,7 @@ public class User {
 	/**
 	 * flag if the account is an admin
 	 */
+    @Getter @Setter
     private boolean isAdmin;
     
     // Statistics
