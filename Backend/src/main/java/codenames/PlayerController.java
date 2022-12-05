@@ -114,7 +114,7 @@ public class PlayerController {
         }
 
     	Main.userRepo.save(usr);
-    	Main.playerRepo.save(usr.getAttachedPlayer());
+    	Main.playerRepo.save(player);
     	return success;
     }
     
