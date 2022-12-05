@@ -23,6 +23,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -51,6 +52,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.java_websocket.client.WebSocketClient;
+//import org.java_websocket.drafts.Draft;
+//import org.java_websocket.drafts.Draft_6455;
+import org.java_websocket.handshake.ServerHandshake;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
 public class SpymasterGameActivity extends AppCompatActivity implements View.OnClickListener
 {
     private String TAG = SpymasterGameActivity.class.getSimpleName();
@@ -61,6 +70,8 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     private String lobbyID;
     private EditText text_edit;
     private String username;
+    private WebSocketClient cc;
+    private SeekBar seekNumGuesses;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -106,6 +117,37 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
         Button btnSendClue = (Button) findViewById(R.id.button_sendclue);
         btnSendClue.setOnClickListener(this);
+
+        String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
+
+        try {
+            cc = new WebSocketClient(new URI(w)) {
+                @Override
+                public void onOpen(ServerHandshake serverHandshake) {
+                    cc.send("update");
+                }
+
+                @Override
+                public void onMessage(String s) {
+                    System.out.println("This is the message:" + s);
+                }
+
+                @Override
+                public void onClose(int i, String s, boolean b) {
+                    System.out.println("There was an issue and it closed");
+                    System.out.println("The issue was " + s);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    System.out.println(e.toString());
+                }
+            };
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        cc.connect();
 
         text_edit = (EditText)findViewById(R.id.text_spy_guess);
 
@@ -267,6 +309,8 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
             e.printStackTrace();
         }
         VolleyListener.makeRequest(this, url, addListener, data, Request.Method.PUT);
+
+        cc.send("update");
     }
 
     /**
