@@ -22,30 +22,38 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.codenames.services.RequestListener;
 import com.example.codenames.services.VolleyListener;
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Locale;
-
 
 public class LobbyActivity extends Activity implements View.OnClickListener
 {
     private String TAG = LobbyActivity.class.getSimpleName();
-    private TextView player_count; // TextView to display current amount of players in lobby
-    private TextView lobby_name; // TextView to display the current lobby name
-    private TextView user; // TextView to display the players username
-    private TextView errortext; // TextView to display the error, if there needs to be one
-    private Button exit; // Button to exit player from lobby and send them to the menu
-    private String username; // String to hold the players username
-    private String id; // String to hold the lobby's id
-    private String lobbyName; // String to hold the lobby name
-    private JSONArray players; // JSONArray to hold all current players in lobby's details
-    private LinearLayout pList; // LinearLayout where players, roles, and teams will be displayed
+    private TextView player_count;
+    private TextView lobby_name;
+    private TextView user;
+    private TextView errortext;
+    private Button exit;
+    private String username;
+    private String id;
+    private String role;
+    private String team;
+    private String lobbyName;
+    private JSONArray players;
+    private LinearLayout pList;
 
-    private Button rSpy; // Button to make player red Spymaster
-    private Button rOps; // Button to make player red Operative
-    private Button bSpy; // Button to make player blue Spymaster
-    private Button bOps; // Button to make player blue Operative
+    private Button rSpy;
+    private Button rOps;
+    private Button bSpy;
+    private Button bOps;
+    private Button toGame;
+
+    WebSocketClient cc;
 
 
     @Override
@@ -62,6 +70,8 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         user = (TextView) findViewById(R.id.lobby_username);
         user.setText(username);
         id = intent.getStringExtra("id");
+        team = "RED";
+        role = "OPERATIVE";
         lobby_name = (TextView) findViewById(R.id.text_header);
         lobbyName = intent.getStringExtra("lobbyName");
         lobby_name.setText(lobbyName);
@@ -79,23 +89,59 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         rOps = (Button) findViewById(R.id.button_red_operative);
         bSpy = (Button) findViewById(R.id.button_blue_spymaster);
         bOps = (Button) findViewById(R.id.button_blue_operative);
+        toGame = (Button) findViewById(R.id.lobby_playGame);
 
         rSpy.setOnClickListener(this);
         rOps.setOnClickListener(this);
         bSpy.setOnClickListener(this);
         bOps.setOnClickListener(this);
+        toGame.setOnClickListener(this);
+        toGame.setVisibility(View.INVISIBLE);
 
-//        postJsonObj();
-        try
-        {
-            sleep(100);
-        }
-        catch (InterruptedException e)
-        {
+        String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
+
+        try {
+            cc = new WebSocketClient(new URI(w)) {
+                @Override
+                public void onOpen(ServerHandshake serverHandshake) {
+                    getPlayers();
+                    checkToStart(players);
+                    cc.send("update");
+                }
+
+                @Override
+                public void onMessage(String s) {
+                    System.out.println("This is the message:" + s);
+                    if (s.equals("update")) {
+                        getPlayers();
+                    } else if (s.equals("start")) {
+                        //start the game, send everyone to game screen
+                        if (role.equals("spymaster")) {
+                            startActivity(new Intent(LobbyActivity.this, SpymasterGameActivity.class)
+                                    .putExtra("username", username).putExtra("id", id).putExtra("team", team));
+                        } else {
+                            startActivity(new Intent(LobbyActivity.this, OperativeGameActivity.class)
+                                    .putExtra("username", username).putExtra("id", id).putExtra("team", team));
+                        }
+                    }
+                }
+
+                @Override
+                public void onClose(int i, String s, boolean b) {
+                    System.out.println("There was an issue and it closed");
+                    System.out.println("The issue was " + s);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    System.out.println(e.toString());
+                }
+            };
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         }
 
-        getPlayers();
+        cc.connect();
     }
 
     /**
@@ -138,6 +184,8 @@ public class LobbyActivity extends Activity implements View.OnClickListener
                 });
 
         queue.add(request);
+
+        checkToStart(players);
     }
 
     /**
@@ -184,35 +232,40 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         pList.addView(row);
     }
 
+
     // All button click handlers
     @Override
     public void onClick(View view) {
+
         try {
             if (view.getId() == R.id.reg_exit3) {
                 leaveLobby();
-                startActivity(new Intent(LobbyActivity.this, HubActivity.class).putExtra("username", username));
             }
             if (view.getId() == R.id.button_red_spymaster) {
                 setPlayerTeam("red");
                 setPlayerRole("spymaster");
-                startActivity(new Intent(LobbyActivity.this, SpymasterGameActivity.class).putExtra("username", username).putExtra("id",id));
+                cc.send("update");
             } else if (view.getId() == R.id.button_red_operative) {
                 setPlayerTeam("red");
                 setPlayerRole("operative");
+                cc.send("update");
             } else if (view.getId() == R.id.button_blue_spymaster) {
                 setPlayerTeam("blue");
                 setPlayerRole("spymaster");
+                cc.send("update");
             } else if (view.getId() == R.id.button_blue_operative) {
                 setPlayerTeam("blue");
                 setPlayerRole("operative");
-                startActivity(new Intent(LobbyActivity.this, OperativeGameActivity.class).putExtra("username", username).putExtra("id",id));
+                cc.send("update");
+            } else if (view.getId() == R.id.lobby_playGame) {
+                cc.send("start");
+                System.out.println("message sent");
             }
-
-            getPlayers();
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
     }
 
     /**
@@ -221,6 +274,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
      * @throws JSONException Exception thrown when failed casting or key "message" does not exist
      */
     private void setPlayerRole(String role) throws JSONException {
+        this.role = role;
         RequestListener roleListener = new RequestListener() {
             @Override
             public void onSuccess(Object response) throws JSONException {
@@ -255,6 +309,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
      * @throws JSONException Exception thrown when key "message" does not exist, or their is a casting error
      */
     private void setPlayerTeam(String team) throws JSONException {
+        this.team = team;
         RequestListener teamListener = new RequestListener() {
             @Override
             public void onSuccess(Object response) throws JSONException {
@@ -262,6 +317,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
 
                 if (object.get("message").equals("success")) {
                     // display success message
+
 
                 } else {
                     //display message ex. Cant join this team
@@ -293,6 +349,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
                 JSONObject object = new JSONObject((String) response);
                 if(object.get("message").equals("success")) {
                     //leave and go to hub
+                    cc.close();
                     startActivity(new Intent(LobbyActivity.this, HubActivity.class).putExtra("username", username));
                 } else {
                     //display error message
@@ -309,6 +366,56 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         String url = URL_JSON_REMOVEPLAYER_FIRST + id + URL_JSON_REMOVEPLAYER_SECOND + username;
 
         VolleyListener.makeRequest(this, url, leaveListener, Method.DELETE);
+    }
+
+    /**
+     * Gets team and role information to determine if game is ready to start. If so, the toGame
+     * button will appear and be able to be used to send the lobby to the game screen
+     */
+    private void checkToStart(JSONArray array) {
+        //Ints for array position
+        final int REDSPYMASTER = 0;
+        final int REDOPERATIVE = 1;
+        final int BLUESPYMASTER = 2;
+        final int BLUEOPERATIVE = 3;
+        //Array to hold counts
+        int[] roleCount = {0, 0, 0, 0};
+
+        for (int i = 0; i < players.length(); i++) {
+            try {
+                JSONObject o = (JSONObject) array.get(i);
+                if(o.get("team").equals("RED")) {
+                    if(o.get("role").equals("SPYMASTER")) {
+                        roleCount[REDSPYMASTER]++;
+                    } else if (o.get("role").equals("OPERATIVE")){
+                        roleCount[REDOPERATIVE]++;
+                    }
+                } else {
+                    if(o.get("role").equals("SPYMASTER")) {
+                        roleCount[BLUESPYMASTER]++;
+                    } else if (o.get("role").equals("OPERATIVE")) {
+                        roleCount[BLUEOPERATIVE]++;
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (roleCount[REDSPYMASTER] == 1 && roleCount[REDOPERATIVE] >= 1 && roleCount[BLUESPYMASTER] == 1 && roleCount[BLUEOPERATIVE] >=1) {
+            toGame.setVisibility(View.VISIBLE);
+        }
+
+        for(int i = 0; i < 4; i++) {
+            System.out.println(roleCount[i] + " players");
+        }
+
+        if (roleCount[REDSPYMASTER] > 1 && roleCount[BLUESPYMASTER] > 1) {
+            errortext.setText("Only 1 Spymaster per team");
+        }
+
+
     }
 
 }

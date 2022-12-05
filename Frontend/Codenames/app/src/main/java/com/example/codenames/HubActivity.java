@@ -64,7 +64,6 @@ public class HubActivity extends AppCompatActivity implements OnClickListener {
         textViewLayout.setMarginStart(100);
 
         getLobbies();
-
     }
 
     @Override

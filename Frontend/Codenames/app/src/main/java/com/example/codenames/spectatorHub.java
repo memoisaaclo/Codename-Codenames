@@ -57,9 +57,9 @@ public class spectatorHub extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    /**
-     * Helper method that makes a LinearLayout row, that contains a button and a textview to display lobby information.
-     * @param addLobby lobby class that contains the lobby name, id, and num players
+    /*
+    Helper method to create and place the lobbies onto the scrollview. This is done with a Linear Layout container called "row"
+    and a button and textview will be added to show all available lobbies and their current amount of players.
      */
     private void addLobbies(lobby addLobby) {
 

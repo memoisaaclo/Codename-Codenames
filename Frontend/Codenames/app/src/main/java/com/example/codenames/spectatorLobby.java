@@ -20,22 +20,29 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Locale;
 
 public class spectatorLobby extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView lobby_name; // TextView to display the current lobby name
-    private TextView error_text; // TextView to display error message if their is one
-    private TextView player_count; // TextView to display the current amount of players in lobby
-    private Button exit; // Button to exit back to the SpectatorHub
-    private Button toGame; // Button to temporarily for testing purposes allow the spectator to go to game screen, will be removed
-    private LinearLayout pList; // LinearLayout where all current players and their teams/roles will be displayed
-    private String id; // String to hold the game id, used for anywhere where request will be made
-    private String lobbyName; // String to hold the lobby name, used to display name and for temporary purposes.
-    private JSONArray players; // JSONArray to hold the current players globally in spectatorLobby.java
+    private TextView lobby_name;
+    private TextView error_text;
+    private TextView player_count;
+    private Button exit;
+    private Button toGame;
+    private LinearLayout pList;
+    private String id;
+    private String lobbyName;
+    private JSONArray players;
+    WebSocketClient cc;
 
 
 
@@ -59,8 +66,46 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
 
         toGame = (Button) findViewById(R.id.specLobby_toGame);
         toGame.setOnClickListener(this);
+        toGame.setVisibility(View.INVISIBLE);
 
-        getPlayers();
+        String w = "ws://10.90.75.56:8080/websocket/games/update/" + id;
+
+        try {
+            cc = new WebSocketClient(new URI(w)) {
+                @Override
+                public void onOpen(ServerHandshake serverHandshake) {
+                    getPlayers();
+                    cc.send("update");
+                }
+
+                @Override
+                public void onMessage(String s) {
+                    if (s.toLowerCase(Locale.ROOT).equals("update")) {
+                        System.out.println("This is the message: " + s);
+                        getPlayers();
+                    } else if (s.toLowerCase(Locale.ROOT).equals("start")) {
+                        System.out.println("This is the message: " + s);
+                        startActivity(new Intent(spectatorLobby.this, spectatorViewing.class).putExtra("id", id));
+                    }
+                }
+
+                @Override
+                public void onClose(int i, String s, boolean b) {
+                    System.out.println("There was an issue and it closed");
+                    System.out.println("The issue was " + s);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    System.out.println(e.toString());
+                }
+            };
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        cc.connect();
+
     }
 
     /**
