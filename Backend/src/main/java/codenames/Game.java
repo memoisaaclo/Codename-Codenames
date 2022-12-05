@@ -97,6 +97,8 @@ public class Game implements Serializable {
     public void setGuessesAvailable(int guessesAvailable) { this.guessesAvailable = guessesAvailable; }
     public Role getTurnRole() { return turnRole; }
     public void setTurnRole(Role turnRole) { this.turnRole = turnRole; }
+    public Integer getRedPoints() { return redPoints; }
+    public Integer getBluePoints() { return bluePoints; }
 
 
     /* Special methods */

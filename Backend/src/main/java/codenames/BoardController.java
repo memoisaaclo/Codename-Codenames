@@ -181,6 +181,10 @@ public class BoardController {
         returnString.append(", \"turnColor\": \"").append(g.getTurnColor()).append("\"");
         returnString.append(", \"turnRole\": \"").append(g.getTurnRole()).append("\"");
 
+        // Add both team points to return
+        returnString.append(", \"redPoints\": \"").append(g.getRedPoints()).append("\"");
+        returnString.append(", \"bluePoints\": \"").append(g.getBluePoints()).append("\"");
+
         returnString.append("}");
         return returnString.toString();
     }
