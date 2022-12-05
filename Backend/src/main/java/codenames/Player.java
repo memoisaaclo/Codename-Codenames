@@ -35,10 +35,6 @@ public class Player implements Serializable {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    public Game inGame() {
-		return game;
-	}
-
 	/**
      * mapping to a user object
      */
@@ -82,5 +78,13 @@ public class Player implements Serializable {
     public String getUsername() {
     	return user.getUsername();
     }
+    public Game inGame() {
+		return game;
+	}
+
+	public void setGame(Game g) {
+		game = g;
+		
+	}
     
 }

@@ -2,6 +2,7 @@ package codenames;
 
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -50,6 +51,7 @@ public class GameUpdateWebsocketController {
      */
     @OnMessage
     public void onMessage(Session session, String message) {
+    	logger.info(message);
     	if(message.equals("update")) {
     		broadcastToLobby("update", sessionUsernameMap.get(session));
     	}
@@ -87,15 +89,41 @@ public class GameUpdateWebsocketController {
      * @param session2 
      */
     private void broadcastToLobby(String message, String usr) {
-    	Set<Player> lobby = Main.userRepo.findByusername(usr).getAttachedPlayer().inGame().getPlayers();
+    	User user = Main.userRepo.findByusername(usr);
+    	Player player = user.getAttachedPlayer();
+    	Game game = player.inGame();
+    	Set<Player> playerList = game.getPlayers();
     	
-    	lobby.forEach((player)->{
+    	playerList.forEach((plyr)->{
     		try {
-				usernameSessionMap.get(player.getUsername()).getBasicRemote().sendText("update");
+				usernameSessionMap.get(plyr.getUsername()).getBasicRemote().sendText(message);
 			} catch (IOException e) {
 				logger.info("Exception: " + e.getMessage().toString());
 				e.printStackTrace();
 			}
     	});
+    	
+    	List<Session> spectators = GameUpdateSpectatorWebsocketController.getSessionsFromLobbyId(game.getLobby().getIdentity());
+    	
+    	if(spectators != null) {
+	    	spectators.forEach((session)->{
+	    		try {
+					session.getBasicRemote().sendText(message);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	    	});
+    	}
+    	
+    	
+    	
     }
 }
+
+
+
+
+
+
+
+

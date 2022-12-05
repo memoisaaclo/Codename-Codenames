@@ -2,6 +2,9 @@ package codenames;
 
 import javax.persistence.*;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 
  * @author Ben Kelly
@@ -30,6 +33,7 @@ public class User {
 	/**
 	 * flag if the account is an admin
 	 */
+    @Getter @Setter
     private boolean isAdmin;
     
     // Statistics
@@ -84,9 +88,11 @@ public class User {
     	Player p = new Player();		// the order of the lines in this method is very deliberate. don't change it
     	this.attachedPlayer = p;
     	p.attachUser(this);
-    	
+    		
+    	p.setGame(g);
     	Main.playerRepo.save(p);
     	g.addPlayer(p);
+    	attachedPlayer = p;
     	Main.userRepo.save(this);
     	Main.gameRepo.save(g);
     	gamesPlayed++;

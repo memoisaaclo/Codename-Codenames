@@ -2,6 +2,8 @@ package codenames;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +24,8 @@ public class AdminController {
 	private String success = "{\"message\":\"success\"}";
     @SuppressWarnings("unused")
 	private String failure = "{\"message\":\"failure\"}";
-	
+    private final Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
+    
 	public AdminController() {
 		
 	}
@@ -57,7 +60,7 @@ public class AdminController {
 	@PostMapping(path = "/admin/set/{username}")
 	public @ResponseBody String setAdmin(@PathVariable String username) {
 		User u = Main.userRepo.findByusername(username);
-		u.setAdmin(true);
+		u.setAdmin(true); 
 		Main.userRepo.save(u);
 		return success;
 	}
