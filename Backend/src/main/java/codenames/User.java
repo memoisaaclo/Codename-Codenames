@@ -92,6 +92,7 @@ public class User {
     	p.setGame(g);
     	Main.playerRepo.save(p);
     	g.addPlayer(p);
+    	attachedPlayer = p;
     	Main.userRepo.save(this);
     	Main.gameRepo.save(g);
     	gamesPlayed++;
