@@ -566,14 +566,23 @@
 		app:layout_constraintStart_toStartOf="@+id/header_clue"
 		app:layout_constraintTop_toTopOf="@+id/header_clue" />
 
-	<EditText
-		android:id="@+id/text_spy_applies"
+	<SeekBar
+		android:id="@+id/seek_numguesses"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="8dp"
+		android:progress="1"
+		android:max="9"
+		app:layout_constraintBottom_toBottomOf="@+id/header_applies"
+		app:layout_constraintEnd_toEndOf="@+id/header_applies"
+		app:layout_constraintStart_toEndOf="@+id/header_clue" />
+
+	<TextView
+		android:id="@+id/text_numguesses"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:ems="10"
-		android:inputType="textPersonName"
-		android:textSize="10sp"
-		app:layout_constraintBottom_toBottomOf="@+id/header_applies"
+		android:text="#"
+		app:layout_constraintBottom_toTopOf="@+id/seek_numguesses"
 		app:layout_constraintEnd_toEndOf="@+id/header_applies"
 		app:layout_constraintStart_toEndOf="@+id/header_clue"
 		app:layout_constraintTop_toTopOf="@+id/header_applies" />

@@ -23,6 +23,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -70,6 +71,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     private EditText text_edit;
     private String username;
     private WebSocketClient cc;
+    private SeekBar seekNumGuesses;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
