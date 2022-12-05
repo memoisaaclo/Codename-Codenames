@@ -56,6 +56,7 @@
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
+            <version>3.0.6</version>
         </dependency>
 
         <!-- The websocket dependency -->
@@ -66,12 +67,14 @@
         <dependency>
             <groupId>javax.websocket</groupId>
             <artifactId>javax.websocket-api</artifactId>
+            <version>1.1</version>
         </dependency>
 
         <!-- Google gson for java to JSON messages -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
+            <version>2.10</version>
         </dependency>
 
         <!-- The dependency to use Swagger to document stuff -->
@@ -95,35 +98,6 @@
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
-		<!-- testing dependencies -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.platform</groupId>
-			<artifactId>junit-platform-runner</artifactId>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.hamcrest</groupId>
-		    <artifactId>hamcrest-all</artifactId>
-		    <version>1.3</version>
-		</dependency>
-		<dependency>
-	    <groupId>io.rest-assured</groupId>
-		    <artifactId>rest-assured</artifactId>
-		</dependency>
-
-		<!--  lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-		</dependency>
 
     </dependencies>
     <build>
