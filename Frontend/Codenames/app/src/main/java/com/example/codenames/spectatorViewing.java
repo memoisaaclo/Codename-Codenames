@@ -20,10 +20,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Locale;
 
 public class spectatorViewing extends AppCompatActivity implements View.OnClickListener {
@@ -34,6 +38,7 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
     private String id;
     private TextView t;
     private TextView lName;
+    private WebSocketClient cc;
 
 
     @Override
@@ -55,9 +60,38 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
         // Getting linearlayout
         cardList = (LinearLayout) findViewById(R.id.specGame_cardView);
 
-        System.out.println(id);
+        String w = "ws://10.90.75.56:8080/websocket/games/update/" + id;
 
-        getCards();
+        try {
+            cc = new WebSocketClient(new URI(w)) {
+                @Override
+                public void onOpen(ServerHandshake serverHandshake) {
+                    getCards();
+                    cc.send("update");
+                }
+
+                @Override
+                public void onMessage(String s) {
+                    System.out.println("This is the message:" + s);
+                    getCards();
+                }
+
+                @Override
+                public void onClose(int i, String s, boolean b) {
+                    System.out.println("There was an issue and it closed");
+                    System.out.println("The issue was " + s);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    System.out.println(e.toString());
+                }
+            };
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        cc.connect();
 
     }
 
@@ -111,15 +145,17 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
         t.setTextSize(22);
         t.setTextColor(Color.WHITE);
 
-        if (color.toLowerCase(Locale.ROOT).equals("red")) {
+        if (color.toLowerCase(Locale.ROOT).equals("red") && isRevealed.toLowerCase(Locale.ROOT).equals("true")) {
             t.setBackgroundColor(Color.RED);
-        } else if (color.toLowerCase(Locale.ROOT).equals("blue")) {
+        } else if (color.toLowerCase(Locale.ROOT).equals("blue") && isRevealed.toLowerCase(Locale.ROOT).equals("true")) {
             t.setBackgroundColor(Color.BLUE);
         } else if (color.toLowerCase(Locale.ROOT).equals("grey")) {
             t.setBackgroundColor(Color.GRAY);
             t.setTextColor(Color.BLACK);
-        } else {
+        } else if (color.toLowerCase(Locale.ROOT).equals("black") && isRevealed.toLowerCase(Locale.ROOT).equals("true")){
             t.setBackgroundColor(Color.BLACK);
+        } else {
+
         }
 
         t.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -139,6 +175,7 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        cc.close();
         startActivity(new Intent(spectatorViewing.this, spectatorHub.class));
     }
 }

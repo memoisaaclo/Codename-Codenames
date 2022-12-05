@@ -38,6 +38,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
     private Button exit;
     private String username;
     private String id;
+    private String role;
     private String lobbyName;
     private JSONArray players;
     private LinearLayout pList;
@@ -91,15 +92,6 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         toGame.setOnClickListener(this);
         toGame.setVisibility(View.INVISIBLE);
 
-        try
-        {
-            sleep(100);
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
-
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
 
         try {
@@ -107,14 +99,25 @@ public class LobbyActivity extends Activity implements View.OnClickListener
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
                     getPlayers();
+                    checkToStart(players);
                     cc.send("update");
                 }
 
                 @Override
                 public void onMessage(String s) {
                     System.out.println("This is the message:" + s);
-                    getPlayers();
-                    checkToStart();
+                    if (s.equals("update")) {
+                        getPlayers();
+                    } else if (s.equals("start")) {
+                        //start the game, send everyone to game screen
+                        if (role.equals("spymaster")) {
+                            startActivity(new Intent(LobbyActivity.this, SpymasterGameActivity.class)
+                                    .putExtra("username", username).putExtra("id", id));
+                        } else {
+                            startActivity(new Intent(LobbyActivity.this, OperativeGameActivity.class)
+                                    .putExtra("username", username).putExtra("id", id));
+                        }
+                    }
                 }
 
                 @Override
@@ -171,6 +174,8 @@ public class LobbyActivity extends Activity implements View.OnClickListener
                 });
 
         queue.add(request);
+
+        checkToStart(players);
     }
 
 
@@ -224,26 +229,33 @@ public class LobbyActivity extends Activity implements View.OnClickListener
             if (view.getId() == R.id.button_red_spymaster) {
                 setPlayerTeam("red");
                 setPlayerRole("spymaster");
+                cc.send("update");
             } else if (view.getId() == R.id.button_red_operative) {
                 setPlayerTeam("red");
                 setPlayerRole("operative");
+                cc.send("update");
             } else if (view.getId() == R.id.button_blue_spymaster) {
                 setPlayerTeam("blue");
                 setPlayerRole("spymaster");
+                cc.send("update");
             } else if (view.getId() == R.id.button_blue_operative) {
                 setPlayerTeam("blue");
                 setPlayerRole("operative");
+                cc.send("update");
+            } else if (view.getId() == R.id.lobby_playGame) {
+                cc.send("start");
+                System.out.println("message sent");
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        cc.send("update");
     }
 
     // Sets player roles (Operative/Spymaster)
     private void setPlayerRole(String role) throws JSONException {
+        this.role = role;
         RequestListener roleListener = new RequestListener() {
             @Override
             public void onSuccess(Object response) throws JSONException {
@@ -331,28 +343,28 @@ public class LobbyActivity extends Activity implements View.OnClickListener
      * Gets team and role information to determine if game is ready to start. If so, the toGame
      * button will appear and be able to be used to send the lobby to the game screen
      */
-    private void checkToStart() {
+    private void checkToStart(JSONArray array) {
         //Ints for array position
-        final int REDSPECTATOR = 1;
-        final int REDOPERATIVE = 2;
-        final int BLUESPECTATOR = 3;
+        final int REDSPYMASTER = 0;
+        final int REDOPERATIVE = 1;
+        final int BLUESPYMASTER = 2;
         final int BLUEOPERATIVE = 3;
         //Array to hold counts
         int[] roleCount = {0, 0, 0, 0};
 
         for (int i = 0; i < players.length(); i++) {
             try {
-                JSONObject o = (JSONObject) players.get(i);
-                if(o.get("team").equals("red")) {
-                    if(o.get("role").equals("spymaster")) {
-                        roleCount[REDSPECTATOR]++;
-                    } else {
+                JSONObject o = (JSONObject) array.get(i);
+                if(o.get("team").equals("RED")) {
+                    if(o.get("role").equals("SPYMASTER")) {
+                        roleCount[REDSPYMASTER]++;
+                    } else if (o.get("role").equals("OPERATIVE")){
                         roleCount[REDOPERATIVE]++;
                     }
                 } else {
-                    if(o.get("team").equals("spymaster")) {
-                        roleCount[BLUESPECTATOR]++;
-                    } else if (o.get("role").equals("operative")) {
+                    if(o.get("role").equals("SPYMASTER")) {
+                        roleCount[BLUESPYMASTER]++;
+                    } else if (o.get("role").equals("OPERATIVE")) {
                         roleCount[BLUEOPERATIVE]++;
                     }
                 }
@@ -362,9 +374,18 @@ public class LobbyActivity extends Activity implements View.OnClickListener
             }
         }
 
-        if (roleCount[REDSPECTATOR] == 1 && roleCount[REDOPERATIVE] >= 1 && roleCount[BLUESPECTATOR] == 1 && roleCount[BLUEOPERATIVE] >=1) {
+        if (roleCount[REDSPYMASTER] == 1 && roleCount[REDOPERATIVE] >= 1 && roleCount[BLUESPYMASTER] == 1 && roleCount[BLUEOPERATIVE] >=1) {
             toGame.setVisibility(View.VISIBLE);
         }
+
+        for(int i = 0; i < 4; i++) {
+            System.out.println(roleCount[i] + " players");
+        }
+
+        if (roleCount[REDSPYMASTER] > 1 && roleCount[BLUESPYMASTER] > 1) {
+            errortext.setText("Only 1 Spymaster per team");
+        }
+
 
     }
 
