@@ -79,8 +79,13 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
 
                 @Override
                 public void onMessage(String s) {
-                    System.out.println("This is the message:" + s);
-                    getPlayers();
+                    if (s.toLowerCase(Locale.ROOT).equals("update")) {
+                        System.out.println("This is the message: " + s);
+                        getPlayers();
+                    } else if (s.toLowerCase(Locale.ROOT).equals("start")) {
+                        System.out.println("This is the message: " + s);
+                        startActivity(new Intent(spectatorLobby.this, spectatorViewing.class).putExtra("id", id));
+                    }
                 }
 
                 @Override
