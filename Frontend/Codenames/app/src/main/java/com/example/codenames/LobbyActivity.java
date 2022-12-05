@@ -39,6 +39,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
     private String username;
     private String id;
     private String role;
+    private String team;
     private String lobbyName;
     private JSONArray players;
     private LinearLayout pList;
@@ -66,6 +67,8 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         user = (TextView) findViewById(R.id.lobby_username);
         user.setText(username);
         id = intent.getStringExtra("id");
+        team = "RED";
+        role = "OPERATIVE";
         lobby_name = (TextView) findViewById(R.id.text_header);
         lobbyName = intent.getStringExtra("lobbyName");
         lobby_name.setText(lobbyName);
@@ -112,10 +115,10 @@ public class LobbyActivity extends Activity implements View.OnClickListener
                         //start the game, send everyone to game screen
                         if (role.equals("spymaster")) {
                             startActivity(new Intent(LobbyActivity.this, SpymasterGameActivity.class)
-                                    .putExtra("username", username).putExtra("id", id));
+                                    .putExtra("username", username).putExtra("id", id).putExtra("team", team));
                         } else {
                             startActivity(new Intent(LobbyActivity.this, OperativeGameActivity.class)
-                                    .putExtra("username", username).putExtra("id", id));
+                                    .putExtra("username", username).putExtra("id", id).putExtra("team", team));
                         }
                     }
                 }
@@ -286,6 +289,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
 
     // Sets Players team (Red/Blue)
     private void setPlayerTeam(String team) throws JSONException {
+        this.team = team;
         RequestListener teamListener = new RequestListener() {
             @Override
             public void onSuccess(Object response) throws JSONException {
@@ -293,6 +297,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
 
                 if (object.get("message").equals("success")) {
                     // display success message
+
 
                 } else {
                     //display message ex. Cant join this team
