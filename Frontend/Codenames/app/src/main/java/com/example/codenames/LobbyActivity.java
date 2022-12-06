@@ -101,11 +101,17 @@ public class LobbyActivity extends Activity implements View.OnClickListener
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
 
         try {
+            checkToStart(players);
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
             cc = new WebSocketClient(new URI(w)) {
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
                     getPlayers();
-                    checkToStart(players);
                     cc.send("update");
                 }
 
