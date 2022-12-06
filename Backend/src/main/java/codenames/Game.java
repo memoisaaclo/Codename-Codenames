@@ -41,7 +41,7 @@ public class Game implements Serializable {
     @Column(name = "game_lobby_name", unique = true)
     private String gameLobbyName;
 
-    @OneToMany(orphanRemoval = false, fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Player> players = new LinkedHashSet<>();
  
     @ManyToMany(fetch = FetchType.EAGER)
@@ -194,7 +194,7 @@ public class Game implements Serializable {
      * guesses a card given
      * @param card_position
      */
-    public void getGuess(int card_position) {
+    public void getGuess(int card_position, User user) {
         // Assume card position is Valid
         List<GameCard> cards = getGameCards();
         GameCard card = cards.get(card_position);
@@ -208,6 +208,7 @@ public class Game implements Serializable {
         // If the card is the correct team color, maintain turn.
         if (card.getColor() == turnColor) {
             guessesAvailable--;
+            user.incrementCorrectGuessesMade();
 
             // Adjust team points
             switch(turnColor) {
@@ -228,6 +229,9 @@ public class Game implements Serializable {
         if (getGuessesAvailable() == 0) {
             swapTeam();
         }
+
+        user.incrementGuessesMade();
+        Main.userRepo.save(user);
 
         // TODO: Make sure: Does this actually change the GameCard?
     }
@@ -260,8 +264,14 @@ public class Game implements Serializable {
     public void checkWin() {
         if (redPoints == RED_POINTS_TO_WIN) {
             GameUpdateWebsocketController.broadcastWinToLobby("win red", id);
+
+            for(Player player : players)
+                if (player.getTeam().equals(Color.RED)) player.getUser().incrementWins();
         } else if (bluePoints == BLUE_POINTS_TO_WIN) {
             GameUpdateWebsocketController.broadcastWinToLobby("win blue", id);
+
+            for(Player player : players)
+                if (player.getTeam().equals(Color.BLUE)) player.getUser().incrementWins();
         }
     }
 

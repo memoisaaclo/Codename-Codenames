@@ -39,11 +39,10 @@ public class User {
     // Statistics
     private Integer logins = 0;
     private Integer gamesPlayed = 0;
-    private Integer guessesMade = 0;
-    private Integer cluesGiven = 0;
-    
-    private Integer gamesWon = 0;
-    private Integer correctGuesses = 0;
+    private Integer guessesMade = 0; // Implemented
+    private Integer cluesGiven = 0; // Implemented
+    private Integer gamesWon = 0; // Implemented
+    private Integer correctGuesses = 0; // Implemented
 
     /**
      * link between User, and player object used for tracking games
@@ -197,4 +196,11 @@ public class User {
 	public Player getAttachedPlayer() {
 		return attachedPlayer;
 	}
+
+
+	public void incrementCorrectGuessesMade() { correctGuesses++; }
+
+	public void incrementGuessesMade() { guessesMade++; }
+
+	public void incrementWins() { gamesWon++; }
 }
