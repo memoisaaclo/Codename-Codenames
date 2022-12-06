@@ -41,26 +41,27 @@ public class BoardController {
 
         // Data Validation
         if(clue.strip().equals("")) // (clue validation)
-            return failure;
+            return "{\"message\":\"error: clue is empty\"}";
         if (numGuesses < 0)
-            return failure;
+            return "{\"message\":\"error negative guesses\"}";
         else if (numGuesses > 25)
             numGuesses = 25;
         else
             numGuesses += 1;
         if (clue.strip().trim().contains(" ")) // (clue must be a single word)
-            return failure;
-        if (g.getGuessesAvailable() != 0) // (game state validation)
-            return failure;
+            return "{\"message\":\"error: clue is two words\"}";
+        if (!g.getTurnRole().equals(Role.SPYMASTER)) // (game state validation)
+            return "{\"message\":\"error: not the spymaster turn\"}";
 
         // Send clue to game
         g.setGuessesAvailable(numGuesses);
         g.addClue(clue);
+        g.setTurnRole(Role.OPERATIVE);
 
         //increment player statistics
-        User stats = Main.userRepo.findByusername(player.getUsername());
-        stats.setCluesGiven(stats.getCluesGiven() + 1);
-        Main.userRepo.save(stats);
+        User user = Main.userRepo.findByusername(player.getUsername());
+        user.incrementCluesGiven();
+        Main.userRepo.save(user);
         
         
         // Save and return
@@ -80,6 +81,9 @@ public class BoardController {
         Game g = Main.gameRepo.findById(id);
         if(g == null)
             return invalid;
+
+        if (g.getTurnRole().equals(Role.OPERATIVE))
+            return "{\"message\":\"error: not the operative's turn\"}";
 
         // Player validation
         if (!g.getTurnColor().equals(player.getTeam())

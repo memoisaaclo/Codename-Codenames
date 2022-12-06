@@ -72,6 +72,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     private String username;
     private WebSocketClient dd;
     private SeekBar seekNumGuesses;
+    private TextView textNumGuesses;
     private TextView red_score;
     private TextView blue_score;
     private JSONObject red_score_object;
@@ -164,7 +165,12 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         red_score = (TextView) findViewById(R.id.text_red);
         blue_score = (TextView) findViewById(R.id.text_blue);
 
+<<<<<<< HEAD
         seekNumGuesses = (SeekBar) findViewById(R.id.seek_numguesses);
+=======
+        textNumGuesses = (TextView) findViewById(R.id.text_numguesses);
+        textNumGuesses.setText(seekNumGuesses.getProgress());
+>>>>>>> 835a58d2563361c99b9729eb4ea898f644d91ef9
 
         //Cards
 

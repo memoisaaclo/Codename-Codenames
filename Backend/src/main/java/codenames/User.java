@@ -198,4 +198,6 @@ public class User {
 	public void incrementGuessesMade() { guessesMade++; }
 
 	public void incrementWins() { gamesWon++; }
+
+	public void incrementCluesGiven() { cluesGiven++; }
 }
