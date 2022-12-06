@@ -70,7 +70,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     private String lobbyID;
     private EditText text_edit;
     private String username;
-    private WebSocketClient cc;
+    private WebSocketClient dd;
     private SeekBar seekNumGuesses;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
@@ -120,11 +120,13 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
 
+        System.out.println("START OF SPYMASTER");
+
         try {
-            cc = new WebSocketClient(new URI(w)) {
+            dd = new WebSocketClient(new URI(w)) {
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
-                    cc.send("update");
+//                    dd.send("update");
                 }
 
                 @Override
@@ -147,7 +149,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
             e.printStackTrace();
         }
 
-        cc.connect();
+        dd.connect();
 
         text_edit = (EditText)findViewById(R.id.text_spy_guess);
 
@@ -309,8 +311,6 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
             e.printStackTrace();
         }
         VolleyListener.makeRequest(this, url, addListener, data, Request.Method.PUT);
-
-        cc.send("update");
     }
 
     /**
@@ -332,10 +332,12 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
             case R.id.button_sendclue:
                 sendClue();
+                dd.send("update");
 
             default:
                 break;
         }
+
     }
 
     /**

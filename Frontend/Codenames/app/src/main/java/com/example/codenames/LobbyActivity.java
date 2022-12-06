@@ -117,9 +117,11 @@ public class LobbyActivity extends Activity implements View.OnClickListener
                     } else if (s.equals("start")) {
                         //start the game, send everyone to game screen
                         if (role.equals("spymaster")) {
+                            cc.close();
                             startActivity(new Intent(LobbyActivity.this, SpymasterGameActivity.class)
                                     .putExtra("username", username).putExtra("id", id).putExtra("team", team));
                         } else {
+                            cc.close();
                             startActivity(new Intent(LobbyActivity.this, OperativeGameActivity.class)
                                     .putExtra("username", username).putExtra("id", id).putExtra("team", team));
                         }
