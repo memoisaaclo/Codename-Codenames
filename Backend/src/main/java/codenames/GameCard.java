@@ -65,8 +65,8 @@ public class GameCard implements Comparable<GameCard>, Serializable {
     public void setGamePosition(Integer gamePosition) { this.gamePosition = gamePosition; }
     public String getWord() { return word; }
     public void setWord(String word) { this.word = word; }
-    public boolean isRevealed() { return revealed; }
-    public void setRevealed(boolean revealed) { this.revealed = revealed; }
+    public Boolean isRevealed() { return revealed; }
+    public void setRevealed(Boolean revealed) { this.revealed = revealed; }
     public Color getColor() { return color; }
     public void setColor(Color color) { this.color = color; }
     public Game getGame() { return game; }
