@@ -19,7 +19,7 @@ public class Player implements Serializable {
 	private Role role = Role.OPERATIVE;
 	/**
 	 * team color, default as red
-	 */
+	 */ 
 	private Color team = Color.RED;
 	
 	/**

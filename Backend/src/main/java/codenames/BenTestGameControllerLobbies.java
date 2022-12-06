@@ -165,15 +165,17 @@ class BenTestGameControllerLobbies {
 	
 	
 	
+	
+	
 	@AfterAll
 	static void cleanUp() {
 		
-		with()	// clear games
-		.delete("/games/removeall/98765");
+		//with()	// clear games
+		//.delete("/games/removeall/98765");
 		
 		with() 	// clear users
 		.delete("users/clearusers/75362");
 		
-		with().delete("/end");
+		//with().delete("/end");
 	}
 }

@@ -43,7 +43,7 @@ public class GameController {
         return "{\"message\":\"success\", \"id\":\"" + game.getLobby().getIdentity() + "\"}";
     }
     
-    /**
+    /** 
      * gets number of players in a game
      * @param id of game
      * @return number of players

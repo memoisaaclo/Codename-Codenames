@@ -40,7 +40,7 @@ class Main {
             Main.userRepo = userRepository;
             Main.playerRepo = playerRepository;
             Main.gameRepo = gameRepository;
-            Main.cardRepo = cardRepository;
+            Main.cardRepo = cardRepository; 
             Main.gameCardRepo = gameCardRepository;
         };
     }

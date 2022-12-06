@@ -34,7 +34,7 @@ public class User {
 	 */
     private boolean isAdmin;
     
-    // Statistics
+    // Statistics 
     private Integer logins = 0;
     private Integer gamesPlayed = 0;
     private Integer guessesMade = 0; // Implemented
