@@ -259,11 +259,10 @@ public class Game implements Serializable {
      */
     public void checkWin() {
         if (redPoints == RED_POINTS_TO_WIN) {
+            GameUpdateWebsocketController.broadcastWinToLobby("win red", id);
         } else if (bluePoints == BLUE_POINTS_TO_WIN) {
+            GameUpdateWebsocketController.broadcastWinToLobby("win blue", id);
         }
-        //TODO: Send WS red or blue win
-
-        return;
     }
 
     /**

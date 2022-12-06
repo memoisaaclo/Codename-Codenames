@@ -114,7 +114,7 @@ public class GameUpdateWebsocketController {
     	}
     }
 
-    private static void broadcastWinToLobby(String message, int lobbyID) {
+    protected static void broadcastWinToLobby(String message, int lobbyID) {
         Set<Player> playerList = Main.gameRepo.findById(lobbyID).getPlayers();
 
         playerList.forEach((plyr)->{
