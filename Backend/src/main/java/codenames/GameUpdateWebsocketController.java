@@ -84,7 +84,7 @@ public class GameUpdateWebsocketController {
     /**
      * Used to broadcast a message to all users in session.
      * @param message
-     * @param session2 
+     * @param usr
      */
     private void broadcastToLobby(String message, String usr) {
     	User user = Main.userRepo.findByusername(usr);
@@ -112,9 +112,30 @@ public class GameUpdateWebsocketController {
 				}
 	    	});
     	}
-    	
-    	
-    	
+    }
+
+    private static void broadcastWinToLobby(String message, int lobbyID) {
+        Set<Player> playerList = Main.gameRepo.findById(lobbyID).getPlayers();
+
+        playerList.forEach((plyr)->{
+            try {
+                usernameSessionMap.get(plyr.getUsername()).getBasicRemote().sendText(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        List<Session> spectators = GameUpdateSpectatorWebsocketController.getSessionsFromLobbyId(lobbyID);
+
+        if(spectators != null) {
+            spectators.forEach((session)->{
+                try {
+                    session.getBasicRemote().sendText(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
     }
 }
 

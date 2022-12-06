@@ -171,6 +171,8 @@ public class BoardController {
 
         StringBuilder returnString = new StringBuilder("{");
 
+        returnString.append("\"cards\": ");
+
         // Add card JSON array to return
         StringBuilder cardString = new StringBuilder("[");
         for (GameCard c : g.getGameCards())
