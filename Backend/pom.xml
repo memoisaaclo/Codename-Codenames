@@ -68,12 +68,6 @@
             <artifactId>javax.websocket-api</artifactId>
         </dependency>
 
-        <!-- Google gson for java to JSON messages -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>
-
         <!-- The dependency to use Swagger to document stuff -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -113,12 +107,6 @@
 		<dependency>
 	    <groupId>io.rest-assured</groupId>
 		    <artifactId>rest-assured</artifactId>
-		</dependency>
-
-		<!--  lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
 		</dependency>
 
     </dependencies>
