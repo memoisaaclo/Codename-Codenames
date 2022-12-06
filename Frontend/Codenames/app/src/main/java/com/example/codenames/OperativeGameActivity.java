@@ -56,6 +56,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
     private TextView blue_score;
     private JSONObject red_score_object;
     private JSONObject blue_score_object;
+    private String team;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -101,6 +102,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         Intent intent = getIntent();
         lobbyID = intent.getStringExtra("id");
         username = intent.getStringExtra("username");
+        team = intent.getStringExtra("team");
 
         clue = (TextView) findViewById(R.id.text_clue);
         numGuesses = (TextView) findViewById(R.id.text_applies);
@@ -127,11 +129,11 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                     showColors();
                     getClue();
                     getNumPlayers();
-                    cc.send("update");
                 }
 
                 @Override
                 public void onMessage(String s) {
+                    System.out.println("The message is : " + s);
                     if (s.equals("update")) {
                         showCards();
                         showColors();
@@ -164,7 +166,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         String url = URL_JSON_SCORE_GET + lobbyID + URL_JSON_SCORE_GET_SECOND;
 
         StringRequest request = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
+                    new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
@@ -313,51 +315,78 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
      */
     private void revealCard(int index)
     {
-        String url = URL_JSON_REVEAL_GET + lobbyID + URL_JSON_REVEAL_GET_SECOND;
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                url, null,
-                new Response.Listener<JSONObject>()
-                {
-                    @Override
-                    public void onResponse(JSONObject response)
-                    {
-                        try
-                        {
-                            Log.d(TAG, response.getString("isrevealed"));
-                        }
-                        catch (JSONException e)
-                        {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener()
-        {
+
+        RequestListener listener = new RequestListener() {
             @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-            }
-        })
-        {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError
-            {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json");
-                return headers;
+            public void onSuccess(Object response) throws JSONException {
+                JSONObject object = (JSONObject) response;
+                System.out.println(object);
             }
 
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String> params = new HashMap<String, String>();
-
-                return params;
+            public void onFailure(String errorMessage) {
+                System.out.println(errorMessage);
             }
         };
-        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+
+        String url = URL_JSON_GUESS_FIRST + lobbyID + URL_JSON_GUESS_SECOND + index;
+        JSONObject data = new JSONObject();
+        JSONObject d = new JSONObject();
+        try {
+            d.put("username", username);
+            data.put("user", d);
+            data.put("role", "OPERATIVE");
+            data.put("team", team.toUpperCase());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+//        String url = URL_JSON_GUESS_FIRST + lobbyID + URL_JSON_GUESS_SECOND + index;
+//        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.PUT,
+//                url, null,
+//                new Response.Listener<JSONObject>()
+//                {
+//                    @Override
+//                    public void onResponse(JSONObject response)
+//                    {
+//                        try
+//                        {
+//                            Log.d(TAG, response.getString("isrevealed"));
+//                        }
+//                        catch (JSONException e)
+//                        {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new Response.ErrorListener()
+//        {
+//            @Override
+//            public void onErrorResponse(VolleyError error)
+//            {
+//                VolleyLog.d(TAG, "Error: " + error.getMessage());
+//            }
+//        })
+//        {
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError
+//            {
+//                HashMap<String, String> headers = new HashMap<String, String>();
+//                headers.put("Content-Type", "application/json");
+//                return headers;
+//            }
+//
+//            @Override
+//            protected Map<String, String> getParams()
+//            {
+//                Map<String, String> params = new HashMap<String, String>();
+//
+//                return params;
+//            }
+//        };
+//        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+
+
         showScores();
-        cc.send("update");
     }
 
     /**
@@ -472,6 +501,8 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
             default:
                 break;
         }
+        cc.send("update");
+
     }
 
     /**
