@@ -242,7 +242,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
                         try {
                             System.out.println(response);
 
-                            JSONArray object = new JSONArray(response);
+                            JSONArray object = (JSONArray) (new JSONObject(response).get("cards"));
                             for (int i = 0; i < 25; i++) {
                                 JSONObject o = (JSONObject) object.get(i);
                                 cards[i].setText(o.get("word").toString());
