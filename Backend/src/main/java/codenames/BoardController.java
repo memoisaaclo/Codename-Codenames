@@ -82,7 +82,8 @@ public class BoardController {
         if(g == null)
             return invalid;
 
-        if (g.getTurnRole().equals(Role.OPERATIVE))
+        // Validate turn
+        if (!g.getTurnRole().equals(Role.OPERATIVE))
             return "{\"message\":\"error: not the operative's turn\"}";
 
         // Player validation
