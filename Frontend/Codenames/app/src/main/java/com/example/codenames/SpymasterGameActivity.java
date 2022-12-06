@@ -72,6 +72,10 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     private String username;
     private WebSocketClient cc;
     private SeekBar seekNumGuesses;
+    private TextView red_score;
+    private TextView blue_score;
+    private JSONObject red_score_object;
+    private JSONObject blue_score_object;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -155,6 +159,9 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         lobbyID = intent.getStringExtra("id");
         username = intent.getStringExtra("username");
 
+        red_score = (TextView) findViewById(R.id.text_red);
+        blue_score = (TextView) findViewById(R.id.text_blue);
+
         //Cards
 
         for (int i=0; i<25; i++)
@@ -164,6 +171,37 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         }
         showCards();
         showColors();
+    }
+
+    public void showScores()
+    {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = URL_JSON_SCORE_GET + lobbyID + URL_JSON_SCORE_GET_SECOND;
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            red_score_object = object;
+                            red_score.setText(red_score_object.getString("redPoints"));
+                            blue_score_object = object;
+                            blue_score.setText(blue_score_object.getString("bluePoints"));
+                            //clue.setText(clue_object.getString("clue"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error.toString());
+                    }
+                });
+
+        queue.add(request);
     }
 
     /**
