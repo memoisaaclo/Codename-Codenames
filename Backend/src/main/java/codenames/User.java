@@ -24,11 +24,11 @@ public class User {
      * username used for login and searching the object
      */
     //login information:
-    private String username;
+    public String username;
 	/**
 	 * password used only for internal comparison
 	 */
-    private String password;	
+    public String password;	
 	/**
 	 * flag if the account is an admin
 	 */
@@ -47,7 +47,7 @@ public class User {
      */
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "playerID")
-	@JsonManagedReference
+	//@JsonManagedReference	// this breaks everything
     private Player attachedPlayer;
     
     /**

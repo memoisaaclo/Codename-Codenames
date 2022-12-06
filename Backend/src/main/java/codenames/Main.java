@@ -45,13 +45,13 @@ class Main {
         };
     }
 
-    @Bean
-    CommandLineRunner initUser() {
-        return args -> {
-            /*User user1 = new User("John", "john@somemail.com", new Date())
-            userRepository.save(user3);*/
-        };
-    }
+//    @Bean
+//    CommandLineRunner initUser() {
+//        return args -> {
+//            /*User user1 = new User("John", "john@somemail.com", new Date())
+//            userRepository.save(user3);*/
+//        };
+//    }
 
     /* "This Bean creates the documentation for all the APIs Which is exactly
        what is needed."

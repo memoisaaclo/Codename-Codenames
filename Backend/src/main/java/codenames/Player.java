@@ -35,14 +35,14 @@ public class Player implements Serializable {
      */
     @ManyToOne
     @JoinColumn(name = "game_id")
-    @JsonBackReference
+//    @JsonBackReference
     private Game game;
 
 	/**
      * mapping to a user object
      */
     @OneToOne(mappedBy = "attachedPlayer") //, orphanRemoval = true  <<< add this later?
-    @JsonBackReference
+//    @JsonBackReference
     private User user;
 
     /**

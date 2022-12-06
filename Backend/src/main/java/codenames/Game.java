@@ -1,5 +1,6 @@
 package codenames;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -42,7 +43,8 @@ public class Game implements Serializable {
     private String gameLobbyName;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JsonManagedReference
+//    @JsonManagedReference
+//    @JsonBackReference
     private Set<Player> players = new LinkedHashSet<>();
  
     @ManyToMany(fetch = FetchType.EAGER)
@@ -54,7 +56,7 @@ public class Game implements Serializable {
     private Set<Card> cards = new LinkedHashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "game", orphanRemoval = true)
-    @JsonManagedReference
+//    @JsonManagedReference
     private List<GameCard> gameCards = new ArrayList<>();
 
     @Column(name = "red_points")
