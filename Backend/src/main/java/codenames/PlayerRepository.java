@@ -13,14 +13,14 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
 	
 	/**
 	 * get player by ID
-	 * @param id
-	 * @return
+	 * @param id of player
+	 * @return player
 	 */
     Player findById(int id);
 
     /**
      * delete player by ID
-     * @param id
+     * @param id of player
      */
     @Transactional
     void deleteById(int id);

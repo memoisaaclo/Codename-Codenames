@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
-import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
@@ -27,7 +25,7 @@ public class GameUpdateSpectatorWebsocketController {
     private static Map<Integer, List<Session>> idSessionMap = new Hashtable<>();
     private static Map<Session, Integer> sessionIdMap = new Hashtable<>();
 
-    private final Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
+    private final Logger logger = LoggerFactory.getLogger(WebSocketChatServer.class);
 
     /**
      * Called when session is opened

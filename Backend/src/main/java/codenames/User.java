@@ -1,9 +1,8 @@
 package codenames;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.*;
 
 /**
  * 
@@ -33,29 +32,28 @@ public class User {
 	/**
 	 * flag if the account is an admin
 	 */
-    @Getter @Setter
     private boolean isAdmin;
     
     // Statistics
     private Integer logins = 0;
     private Integer gamesPlayed = 0;
-    private Integer guessesMade = 0;
-    private Integer cluesGiven = 0;
-    
-    private Integer gamesWon = 0;
-    private Integer correctGuesses = 0;
+    private Integer guessesMade = 0; // Implemented
+    private Integer cluesGiven = 0; // Implemented
+    private Integer gamesWon = 0; // Implemented
+    private Integer correctGuesses = 0; // Implemented
 
     /**
      * link between User, and player object used for tracking games
      */
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "playerID")
+	@JsonManagedReference
     private Player attachedPlayer;
     
     /**
      * constructor for new User
-     * @param username
-     * @param password
+     * @param username of new user
+     * @param password of new user
      */
     public User(String username, String password) {
     	this.username = username;
@@ -80,7 +78,7 @@ public class User {
     
     /**
      * attach a user to a game through a player object
-     * @param id
+     * @param id game id
      */
     public void addToGame(int id) {
     	Game g = Main.gameRepo.findById(id);
@@ -100,7 +98,7 @@ public class User {
     
     /**
      * remove a user from a game, through attached player
-     * @param id
+     * @param id of game
      */
     public void removeFromGame(int id) {
     	Game g = Main.gameRepo.findById(id);
@@ -115,8 +113,8 @@ public class User {
     
     /**
      * checks username and password
-     * @param usr
-     * @return
+     * @param usr user
+     * @return credential validity
      */
 	public boolean validateCredentials(User usr) {
     	return this.username.equals(usr.username) && password.equals(usr.password);
@@ -137,10 +135,6 @@ public class User {
 	public String getUsername() {
     	return username;
     }
-	
-	//public String getPassword() {
-//		return password;
-//	}
 	
 	public void setPassword(String password) {
 		this.password = password;
@@ -197,4 +191,11 @@ public class User {
 	public Player getAttachedPlayer() {
 		return attachedPlayer;
 	}
+
+
+	public void incrementCorrectGuessesMade() { correctGuesses++; }
+
+	public void incrementGuessesMade() { guessesMade++; }
+
+	public void incrementWins() { gamesWon++; }
 }

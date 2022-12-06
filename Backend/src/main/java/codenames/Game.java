@@ -41,7 +41,8 @@ public class Game implements Serializable {
     @Column(name = "game_lobby_name", unique = true)
     private String gameLobbyName;
 
-    @OneToMany(orphanRemoval = false, fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
+    @JsonManagedReference
     private Set<Player> players = new LinkedHashSet<>();
  
     @ManyToMany(fetch = FetchType.EAGER)
@@ -108,7 +109,7 @@ public class Game implements Serializable {
      * Add clue to list of clues
      * Clue should be in the specified form:
      * {one word clue}{#of cards that it applies to}
-     * @param clue
+     * @param clue clue to be added
      */
     public void addClue(String clue) {
         this.clues += "," +  clue.strip();
@@ -192,9 +193,9 @@ public class Game implements Serializable {
 
     /**
      * guesses a card given
-     * @param card_position
+     * @param card_position 0-24
      */
-    public void getGuess(int card_position) {
+    public void getGuess(int card_position, User user) {
         // Assume card position is Valid
         List<GameCard> cards = getGameCards();
         GameCard card = cards.get(card_position);
@@ -208,6 +209,7 @@ public class Game implements Serializable {
         // If the card is the correct team color, maintain turn.
         if (card.getColor() == turnColor) {
             guessesAvailable--;
+            user.incrementCorrectGuessesMade();
 
             // Adjust team points
             switch(turnColor) {
@@ -229,12 +231,15 @@ public class Game implements Serializable {
             swapTeam();
         }
 
+        user.incrementGuessesMade();
+        Main.userRepo.save(user);
+
         // TODO: Make sure: Does this actually change the GameCard?
     }
 
     /**
      * creates a list of clues for this game
-     * @return
+     * @return String array of clues
      */
     public String[] generateClueList() { return clues.split(","); }
 
@@ -259,11 +264,16 @@ public class Game implements Serializable {
      */
     public void checkWin() {
         if (redPoints == RED_POINTS_TO_WIN) {
-        } else if (bluePoints == BLUE_POINTS_TO_WIN) {
-        }
-        //TODO: Send WS red or blue win
+            GameUpdateWebsocketController.broadcastWinToLobby("win red", id);
 
-        return;
+            for(Player player : players)
+                if (player.getTeam().equalsIgnoreCase("RED")) player.getUser().incrementWins();
+        } else if (bluePoints == BLUE_POINTS_TO_WIN) {
+            GameUpdateWebsocketController.broadcastWinToLobby("win blue", id);
+
+            for(Player player : players)
+                if (player.getTeam().equalsIgnoreCase("BLUE")) player.getUser().incrementWins();
+        }
     }
 
     /**
@@ -297,7 +307,7 @@ public class Game implements Serializable {
 
     /**
      * remove a player from the game
-     * @param attachedPlayer
+     * @param attachedPlayer the player to be removed
      */
 	public void removePlayer(Player attachedPlayer) {
 		players.remove(attachedPlayer);
