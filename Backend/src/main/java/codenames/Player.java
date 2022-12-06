@@ -42,7 +42,7 @@ public class Player implements Serializable {
      * mapping to a user object
      */
     @OneToOne(mappedBy = "attachedPlayer") //, orphanRemoval = true  <<< add this later?
-//    @JsonBackReference
+    @JsonBackReference
     private User user;
 
     /**
