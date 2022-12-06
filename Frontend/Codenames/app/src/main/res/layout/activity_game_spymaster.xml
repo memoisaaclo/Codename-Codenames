@@ -587,4 +587,26 @@
 		app:layout_constraintStart_toEndOf="@+id/header_clue"
 		app:layout_constraintTop_toTopOf="@+id/header_applies" />
 
+	<TextView
+		android:id="@+id/text_red"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="32dp"
+		android:text="#"
+		android:textColor="#FFFFFF"
+		app:layout_constraintBottom_toBottomOf="@+id/header_red"
+		app:layout_constraintEnd_toEndOf="@+id/header_red"
+		app:layout_constraintTop_toTopOf="@+id/header_red" />
+
+	<TextView
+		android:id="@+id/text_blue"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="32dp"
+		android:text="#"
+		android:textColor="#FFFFFF"
+		app:layout_constraintBottom_toBottomOf="@+id/header_blue"
+		app:layout_constraintStart_toEndOf="@+id/header_red"
+		app:layout_constraintTop_toTopOf="@+id/header_blue" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
