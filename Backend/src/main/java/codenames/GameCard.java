@@ -19,13 +19,13 @@ public class GameCard implements Comparable<GameCard>, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
-    private int gamePosition;
+    private Integer gamePosition;
 
     private String word;
 
-    private Boolean revealed;
+    private Boolean revealed = false;
 
     private Color color;
 
@@ -37,18 +37,18 @@ public class GameCard implements Comparable<GameCard>, Serializable {
     /* Constructors */
     public GameCard() { color = Color.GREY; }
 
-    public GameCard(int gamePosition, Color color) {
+    public GameCard(Integer gamePosition, Color color) {
         this.gamePosition = gamePosition;
         this.color = color;
     }
 
-    public GameCard(int gamePosition, Color color, Game game) {
+    public GameCard(Integer gamePosition, Color color, Game game) {
         this.gamePosition = gamePosition;
         this.color = color;
         this.game = game;
     }
 
-    public GameCard(int gamePosition, String word, Color color, Game game) {
+    public GameCard(Integer gamePosition, String word, Color color, Game game) {
         this.gamePosition = gamePosition;
         this.word = word;
         this.color = color;
@@ -59,10 +59,10 @@ public class GameCard implements Comparable<GameCard>, Serializable {
 
     
     /* Getters and Setters */
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-    public int getGamePosition() { return gamePosition; }
-    public void setGamePosition(int gamePosition) { this.gamePosition = gamePosition; }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
+    public Integer getGamePosition() { return gamePosition; }
+    public void setGamePosition(Integer gamePosition) { this.gamePosition = gamePosition; }
     public String getWord() { return word; }
     public void setWord(String word) { this.word = word; }
     public boolean isRevealed() { return revealed; }
