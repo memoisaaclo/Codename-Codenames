@@ -26,7 +26,7 @@ public class GameUpdateWebsocketController {
     private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
     private static Map<String, Session> usernameSessionMap = new Hashtable<>();
 
-    private final Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
+    private final Logger logger = LoggerFactory.getLogger(WebSocketChatServer.class);
 
     /**
      * Called when session is opened

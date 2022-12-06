@@ -108,7 +108,7 @@ public class Game implements Serializable {
      * Add clue to list of clues
      * Clue should be in the specified form:
      * {one word clue}{#of cards that it applies to}
-     * @param clue
+     * @param clue clue to be added
      */
     public void addClue(String clue) {
         this.clues += "," +  clue.strip();
@@ -192,7 +192,7 @@ public class Game implements Serializable {
 
     /**
      * guesses a card given
-     * @param card_position
+     * @param card_position 0-24
      */
     public void getGuess(int card_position, User user) {
         // Assume card position is Valid
@@ -238,7 +238,7 @@ public class Game implements Serializable {
 
     /**
      * creates a list of clues for this game
-     * @return
+     * @return String array of clues
      */
     public String[] generateClueList() { return clues.split(","); }
 
@@ -266,12 +266,12 @@ public class Game implements Serializable {
             GameUpdateWebsocketController.broadcastWinToLobby("win red", id);
 
             for(Player player : players)
-                if (player.getTeam().equals(Color.RED)) player.getUser().incrementWins();
+                if (player.getTeam().equalsIgnoreCase("RED")) player.getUser().incrementWins();
         } else if (bluePoints == BLUE_POINTS_TO_WIN) {
             GameUpdateWebsocketController.broadcastWinToLobby("win blue", id);
 
             for(Player player : players)
-                if (player.getTeam().equals(Color.BLUE)) player.getUser().incrementWins();
+                if (player.getTeam().equalsIgnoreCase("BLUE")) player.getUser().incrementWins();
         }
     }
 
@@ -306,7 +306,7 @@ public class Game implements Serializable {
 
     /**
      * remove a player from the game
-     * @param attachedPlayer
+     * @param attachedPlayer the player to be removed
      */
 	public void removePlayer(Player attachedPlayer) {
 		players.remove(attachedPlayer);

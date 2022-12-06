@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
 	@SuppressWarnings("unused")
-	private String success = "{\"message\":\"success\"}";
+	private final String success = "{\"message\":\"success\"}";
     @SuppressWarnings("unused")
-	private String failure = "{\"message\":\"failure\"}";
+	private final String failure = "{\"message\":\"failure\"}";
     
     /**
      * register a new player
-     * @param usr
+     * @param usr to be registered
      * @return success or failure
      */
 	@RequestMapping(method = RequestMethod.POST, path = "/users/register")
@@ -40,7 +40,7 @@ public class UserController {
 
 	/**
 	 * log in a player
-	 * @param usr
+	 * @param usr to login
 	 * @return success or failure
 	 */
 	@RequestMapping(method = RequestMethod.POST, path = "/users/login")
@@ -56,13 +56,12 @@ public class UserController {
 	
 	/**
 	 * get user JSON representation
-	 * @param username
+	 * @param username of user
 	 * @return JSON of a user object
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/users/{username}")
     public @ResponseBody User getUserObject(@PathVariable String username) {	// creates user object off of json body
-		User usrObj = Main.userRepo.findByusername(username);
-		return usrObj;
+		return Main.userRepo.findByusername(username);
     }
 	
 	/**
@@ -84,7 +83,7 @@ public class UserController {
 	
 	/**
 	 * delete a specific user
-	 * @param username
+	 * @param username of user
 	 * @return success or failure
 	 */
 	@RequestMapping(method = RequestMethod.DELETE, path = "/users/removeuser/{username}")

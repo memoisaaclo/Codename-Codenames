@@ -2,9 +2,6 @@ package codenames;
 
 import javax.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * 
  * @author Ben Kelly
@@ -33,7 +30,6 @@ public class User {
 	/**
 	 * flag if the account is an admin
 	 */
-    @Getter @Setter
     private boolean isAdmin;
     
     // Statistics
@@ -53,8 +49,8 @@ public class User {
     
     /**
      * constructor for new User
-     * @param username
-     * @param password
+     * @param username of new user
+     * @param password of new user
      */
     public User(String username, String password) {
     	this.username = username;
@@ -79,7 +75,7 @@ public class User {
     
     /**
      * attach a user to a game through a player object
-     * @param id
+     * @param id game id
      */
     public void addToGame(int id) {
     	Game g = Main.gameRepo.findById(id);
@@ -99,7 +95,7 @@ public class User {
     
     /**
      * remove a user from a game, through attached player
-     * @param id
+     * @param id of game
      */
     public void removeFromGame(int id) {
     	Game g = Main.gameRepo.findById(id);
@@ -114,8 +110,8 @@ public class User {
     
     /**
      * checks username and password
-     * @param usr
-     * @return
+     * @param usr user
+     * @return credential validity
      */
 	public boolean validateCredentials(User usr) {
     	return this.username.equals(usr.username) && password.equals(usr.password);
@@ -136,10 +132,6 @@ public class User {
 	public String getUsername() {
     	return username;
     }
-	
-	//public String getPassword() {
-//		return password;
-//	}
 	
 	public void setPassword(String password) {
 		this.password = password;
