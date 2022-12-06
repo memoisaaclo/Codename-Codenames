@@ -58,7 +58,7 @@ public class BoardController {
         g.addClue(clue);
 
         //increment player statistics
-        User user = player.getUser();
+        User user = Main.userRepo.findByusername(player.getUsername());
         user.incrementCluesGiven();
         Main.userRepo.save(user);
         
