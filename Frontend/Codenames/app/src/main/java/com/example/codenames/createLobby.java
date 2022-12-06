@@ -1,20 +1,17 @@
 package com.example.codenames;
 
-import static com.example.codenames.utils.Const.URL_JSON_CREATE;
-import static com.example.codenames.utils.Const.URL_JSON_GENCARDS_FIRST;
-import static com.example.codenames.utils.Const.URL_JSON_GENCARDS_SECOND;
-import static com.example.codenames.utils.Const.URL_JSON_PLAYERNUM_POST_FIRST;
-import static com.example.codenames.utils.Const.URL_JSON_PLAYERNUM_POST_SECOND;
+/**
+ * @author Dylan Booth
+ */
 
+import static com.example.codenames.utils.Const.*;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,17 +20,16 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.codenames.services.RequestListener;
 import com.example.codenames.services.VolleyListener;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class createLobby extends AppCompatActivity implements View.OnClickListener {
 
-    private Button create;
-    private Button back;
-    private EditText name;
-    private String username;
-    private String lobbyName;
+    private Button create; // Button to call method to make reqeust to create lobby
+    private Button back; // Button to return user to HubActivity
+    private EditText name; // EditText to get value of lobby name
+    private String username; // String to hold value of username, can be sent when transitioning screens
+    private String lobbyName; // String to hold value of lobby name, can be sent when transitioning screens
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +60,11 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
         }
     };
 
-
-
+    /**
+     * Makes a POST request to create a new game lobby with given lobby name, calls genCards() upon successful creation of lobby
+     * @param name String value of the name of the lobby to be created
+     * @throws JSONException Error that JSON key or error with JSON objects
+     */
     private void sendLobbyName(String name) throws JSONException {
         RequestListener lobbyListener = new RequestListener() {
             @Override
@@ -81,7 +80,6 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
                         next.putExtra("lobbyName", lobbyName);
                         addPlayer(username, object.get("id").toString());
                         genCards(object.get("id").toString());
-                        startActivity(next);
                     } else {
                         ((TextView) findViewById(R.id.create_error)).setText(object.get("message").toString());
                     }
@@ -110,6 +108,11 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * Called by sendLobbyName(), makes a GET request to generate the card colors and words for the game with given id that was just created
+     * @param id String value of the id the backend uses to identify game lobby
+     * @throws JSONException throws exception if there is a JSON error, should not occur
+     */
     private void genCards (String id) throws JSONException {
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -130,6 +133,12 @@ public class createLobby extends AppCompatActivity implements View.OnClickListen
         queue.add(request);
     }
 
+    /**
+     * Called by sendLobbyName() upon successful creation of lobby. Makes a POST request to add a player to the lobby.
+     * @param lobby String value of the name of the lobby player will be added to, used when changing user to lobby screen
+     * @param id String value of the id the player is to be added to. Used by backend to identify game lobby
+     * @throws JSONException Throws casting exception if response object is not a Object or does not contain key "message"
+     */
     private void addPlayer (String lobby, String id) throws JSONException {
         RequestListener addListener = new RequestListener() {
             @Override

@@ -1,5 +1,9 @@
 package com.example.codenames;
 
+/**
+ * @author Jimmy Driskell
+ */
+
 import static com.example.codenames.utils.Const.URL_JSON_WORD_ADD;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +23,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -47,6 +52,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.java_websocket.client.WebSocketClient;
+//import org.java_websocket.drafts.Draft;
+//import org.java_websocket.drafts.Draft_6455;
+import org.java_websocket.handshake.ServerHandshake;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
 public class SpymasterGameActivity extends AppCompatActivity implements View.OnClickListener
 {
     private String TAG = SpymasterGameActivity.class.getSimpleName();
@@ -57,6 +70,8 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     private String lobbyID;
     private EditText text_edit;
     private String username;
+    private WebSocketClient cc;
+    private SeekBar seekNumGuesses;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -103,6 +118,37 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         Button btnSendClue = (Button) findViewById(R.id.button_sendclue);
         btnSendClue.setOnClickListener(this);
 
+        String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
+
+        try {
+            cc = new WebSocketClient(new URI(w)) {
+                @Override
+                public void onOpen(ServerHandshake serverHandshake) {
+                    cc.send("update");
+                }
+
+                @Override
+                public void onMessage(String s) {
+                    System.out.println("This is the message:" + s);
+                }
+
+                @Override
+                public void onClose(int i, String s, boolean b) {
+                    System.out.println("There was an issue and it closed");
+                    System.out.println("The issue was " + s);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    System.out.println(e.toString());
+                }
+            };
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        cc.connect();
+
         text_edit = (EditText)findViewById(R.id.text_spy_guess);
 
         Intent intent = getIntent();
@@ -120,6 +166,11 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         showColors();
     }
 
+    /**
+     * Makes GET request to add words to each card/button
+     * "cards[]" is an array containing each card
+     * This method adds each word from the backend onto each card in the array one by one
+     */
     public void showCards()
     {
         String url = URL_JSON_CARD_GET + lobbyID + URL_JSON_CARD_GET_SECOND;
@@ -172,6 +223,11 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
 
+    /**
+     * Makes GET request to add the appropriate color to each card/button
+     * "cards[]" is an array containing each card
+     * This method adds each color from the backend onto each card in the array one by one
+     */
     public void showColors()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -219,6 +275,11 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         queue.add(request);
     }
 
+    /**
+     * Makes PUT request to send the spymaster's clue over to the operatives
+     * "input" allows the clue to be sent over, and "text_edit" allows the "input" to read what was typed in
+     * The JSON object also puts in the user's team and role
+     */
     private void sendClue()
     {
         String url = URL_JSON_CLUE_PUT + lobbyID + URL_JSON_CLUE_PUT_SECOND + input + URL_JSON_CLUE_PUT_THIRD + "2";
@@ -248,8 +309,14 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
             e.printStackTrace();
         }
         VolleyListener.makeRequest(this, url, addListener, data, Request.Method.PUT);
+
+        cc.send("update");
     }
 
+    /**
+     * Determines what to do when clicking specific buttons
+     * @param v receives the id of the button pressed
+     */
     @Override
     public void onClick(View v)
     {
@@ -271,7 +338,11 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    // Removes player from lobby
+    /**
+     * Removes current player from lobby
+     * Uses "username" to let the game know which user to remove from the list of users in game
+     * @throws JSONException Exception thrown if Casting error to JSONObject or if key "message" does not exist in JSONObject
+     */
     private void leaveLobby() throws JSONException {
         RequestListener leaveListener = new RequestListener() {
             @Override

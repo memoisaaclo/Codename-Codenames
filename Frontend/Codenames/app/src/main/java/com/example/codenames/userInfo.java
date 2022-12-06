@@ -1,5 +1,9 @@
 package com.example.codenames;
 
+/**
+ * @author Dylan Booth
+ */
+
 import static com.example.codenames.utils.Const.URL_JSON_STATISTICS;
 
 import android.content.Intent;
@@ -7,30 +11,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 public class userInfo extends AppCompatActivity implements View.OnClickListener {
 
-    private Button exit;
-    private TextView gamesWon;
-    private TextView gamesPlayed;
-    private TextView guessesMade;
-    private TextView cluesGiven;
-    private TextView correctGuesses;
-    private TextView logins;
-    private String username;
+    private Button exit; // Button to exit back to menu
+    private TextView gamesWon; // TextView to display how many games the player has won
+    private TextView gamesPlayed; // TextView to display how many games the player has played
+    private TextView guessesMade; // TextView to display the amount of guesses made
+    private TextView cluesGiven; // TextView to display the amount of clus the player has given
+    private TextView correctGuesses; // TextView to display the amount of correct guesses player has made
+    private TextView logins; // TextView to display number of times player has logged in
+    private String username; // String to hold the players username
 
 
     @Override
@@ -59,6 +60,10 @@ public class userInfo extends AppCompatActivity implements View.OnClickListener 
 
     }
 
+    /**
+     * Helper method to set user statistics with appropriate data. Called by getUserInfo()
+     * @param stats JSONObject that contains the value pairs of the user statistics
+     */
     private void updateInfo(JSONObject stats) {
         try {
             gamesWon.setText(stats.get("gamesWon").toString());
@@ -79,6 +84,10 @@ public class userInfo extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
+    /**
+     * Method that makes a GET request to get the current users information. Calls updateInfo() with the response
+     * to update user statistics.
+     */
     private void getUserInfo() {
         RequestQueue queue = Volley.newRequestQueue(this);
 

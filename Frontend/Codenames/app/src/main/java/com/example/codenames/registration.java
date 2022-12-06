@@ -1,7 +1,10 @@
 package com.example.codenames;
 
-import static com.example.codenames.utils.Const.URL_JSON_REGISTRATION;
+/**
+ * @author Dylan Booth
+ */
 
+import static com.example.codenames.utils.Const.URL_JSON_REGISTRATION;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,23 +13,21 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.android.volley.Request;
 import com.example.codenames.services.RequestListener;
 import com.example.codenames.services.VolleyListener;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class registration extends Activity implements OnClickListener {
 
-    private Button register;
-    private Button exit;
-    private TextView errorText;
-    private EditText user;
-    private EditText pass;
-    private EditText pass2;
-    private String username;
+    private Button register; // Button to forward user to the registration screen.
+    private Button exit; // Button to return user back to the menu screen
+    private TextView errorText; // TextView to display the error message if there is an error/problem with registration
+    private EditText user; // EditText to hold/get the username to be registered
+    private EditText pass; // EditText to hold/get the password to be registered
+    private EditText pass2; // EditText to hold/get the password to compare and be registered
+    private String username; // String to hold value of the registered username. Used when going back to menu screen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,12 @@ public class registration extends Activity implements OnClickListener {
         }
     };
 
+    /**
+     * Makes a POST request. Sends data to register player in database, then log them in.
+     * @param username String value of new users username
+     * @param password String value of new users password
+     * @throws JSONException Exception thrown if Casting exception to JSONObject or if key "message" does not exist in JSONObject
+     */
     private void sendRegistrationInfo(String username, String password) throws JSONException {
         RequestListener registerListener = new RequestListener() {
             @Override

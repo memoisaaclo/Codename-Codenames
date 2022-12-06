@@ -1,32 +1,31 @@
 package com.example.codenames;
 
-import static com.example.codenames.utils.Const.URL_JSON_LOGIN;
+/**
+ * @author Dylan Booth
+ */
 
+import static com.example.codenames.utils.Const.URL_JSON_LOGIN;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.example.codenames.services.RequestListener;
 import com.example.codenames.services.VolleyListener;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 public class login extends AppCompatActivity implements View.OnClickListener {
 
-    private Button login;
-    private Button register;
-    private Button exit;
-
-    private EditText user;
-    private EditText pass;
+    private Button login; // Button to call method to make JSON request to login
+    private Button register; // Button to send user to registration screen
+    private Button exit; // Button to exit and send user back to menu
+    private EditText user; // EditText to get username
+    private EditText pass; // EditText to get password
 
 
     @Override
@@ -73,6 +72,12 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         }
     };
 
+    /**
+     * Makes a POST request to login the player
+     * @param username String value of the username of player to be logged in
+     * @param password String value of the password of the player to be logged in
+     * @throws JSONException Exception thrown if casting error to JSONObject or key "message" does not exist in JSONObject
+     */
     private void sendLoginInfo(String username, String password) throws JSONException {
         RequestListener loginListener = new RequestListener() {
             @Override

@@ -1,5 +1,9 @@
 package com.example.codenames;
 
+/**
+ * @author Jimmy Driskell
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,15 +35,23 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
 public class OperativeGameActivity extends AppCompatActivity implements View.OnClickListener
 {
     private String TAG = OperativeGameActivity.class.getSimpleName();
     private Button btnExit;
     private TextView card_name;
     private TextView clue;
+    private TextView numGuesses;
     private String lobbyID;
     private String username;
     private JSONObject clue_object;
+    private WebSocketClient cc;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -87,6 +99,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         username = intent.getStringExtra("username");
 
         clue = (TextView) findViewById(R.id.text_clue);
+        numGuesses = (TextView) findViewById(R.id.text_applies);
 
         //Cards
 
@@ -95,11 +108,50 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
             cards[i] = (Button)findViewById(CARD_IDS[i]);
             cards[i].setOnClickListener(this);
         }
+
+
+        String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
+
+        try {
+            cc = new WebSocketClient(new URI(w)) {
+                @Override
+                public void onOpen(ServerHandshake serverHandshake) {
+                    cc.send("update");
+                }
+
+                @Override
+                public void onMessage(String s) {
+                    System.out.println("This is the message:" + s);
+                }
+
+                @Override
+                public void onClose(int i, String s, boolean b) {
+                    System.out.println("There was an issue and it closed");
+                    System.out.println("The issue was " + s);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    System.out.println(e.toString());
+                }
+            };
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        cc.connect();
+
         showCards();
         showColors();
         getClue();
+        getNumPlayers();
     }
 
+    /**
+     * Makes GET request to add words to each card/button
+     * Uses cards[], which is an array containing each card
+     * This method adds each word from the backend onto each card in the array one by one
+     */
     public void showCards()
     {
         String url = URL_JSON_CARD_GET + lobbyID + URL_JSON_CARD_GET_SECOND;
@@ -152,6 +204,12 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
 
+    /**
+     * Makes GET request to add the appropriate color to each card/button
+     * Uses cards[], which is an array containing each card
+     * This method adds each color from the backend onto each card in the array one by one
+     * If the card hasn't been revealed yet, the color will always be gray
+     */
     public void showColors()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -207,8 +265,11 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         queue.add(request);
     }
 
-
-
+    /**
+     * Makes POST request to add the appropriate color to each card/button
+     * @param index selects an individual card from array "cards[]" to reveal
+     * "cards[]" is used to call the entire list of cards
+     */
     private void revealCard(int index)
     {
         String url = URL_JSON_REVEAL_GET + lobbyID + URL_JSON_REVEAL_GET_SECOND;
@@ -253,11 +314,15 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                 return params;
             }
         };
-
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+
+        cc.send("update");
     }
 
-
+    /**
+     * Makes GET request to receive clue sent over from the spymaster
+     * Uses "clue", which displays the clue in text form
+     */
     private void getClue()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -284,9 +349,46 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                 });
 
         queue.add(request);
+
+        cc.send("update");
     }
 
+    /**
+     * Makes GET request to receive the number of cards applied to the clue
+     * Uses "numGuesses", which displays the number of guesses in text form
+     */
+    private void getNumPlayers()
+    {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = URL_JSON_NUMGUESSES_FIRST + lobbyID + URL_JSON_NUMGUESSES_SECOND;
 
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            clue_object = object;
+                            numGuesses.setText(clue_object.getString("guessesavailable"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error.toString());
+                    }
+                });
+
+        queue.add(request);
+    }
+
+    /**
+     * Determines what to do when clicking specific buttons
+     * @param v receives the id of the button pressed
+     */
     @Override
     public void onClick(View v)
     {
@@ -300,29 +402,42 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                 }
                 break;
 
-//            case CARD_IDS[0]:
-//                revealCard(0);
-//                break;
-//            case CARD_IDS[1]:
-//                revealCard(1);
-//                break;
-//            case CARD_IDS[2]:
-//                revealCard(2);
-//                break;
-//            case CARD_IDS[3]:
-//                revealCard(3);
-//                break;
-//            case CARD_IDS[4]:
-//                revealCard(4);
-//                break;
-
+            case R.id.button_card1: revealCard(0); break;
+            case R.id.button_card2: revealCard(1); break;
+            case R.id.button_card3: revealCard(2); break;
+            case R.id.button_card4: revealCard(3); break;
+            case R.id.button_card5: revealCard(4); break;
+            case R.id.button_card6: revealCard(5); break;
+            case R.id.button_card7: revealCard(6); break;
+            case R.id.button_card8: revealCard(7); break;
+            case R.id.button_card9: revealCard(8); break;
+            case R.id.button_card10: revealCard(9); break;
+            case R.id.button_card11: revealCard(10); break;
+            case R.id.button_card12: revealCard(11); break;
+            case R.id.button_card13: revealCard(12); break;
+            case R.id.button_card14: revealCard(13); break;
+            case R.id.button_card15: revealCard(14); break;
+            case R.id.button_card16: revealCard(15); break;
+            case R.id.button_card17: revealCard(16); break;
+            case R.id.button_card18: revealCard(17); break;
+            case R.id.button_card19: revealCard(18); break;
+            case R.id.button_card20: revealCard(19); break;
+            case R.id.button_card21: revealCard(20); break;
+            case R.id.button_card22: revealCard(21); break;
+            case R.id.button_card23: revealCard(22); break;
+            case R.id.button_card24: revealCard(23); break;
+            case R.id.button_card25: revealCard(24); break;
 
             default:
                 break;
         }
     }
 
-    // Removes player from lobby
+    /**
+     * Removes current player from lobby
+     * Using "username" to let the game know which user to remove from teh list of users in game
+     * @throws JSONException Exception thrown if Casting exception to JSONObject or key "message" does not exist in JSONObject
+     */
     private void leaveLobby() throws JSONException {
         RequestListener leaveListener = new RequestListener() {
             @Override

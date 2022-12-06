@@ -90,4 +90,7 @@ public class Const {
 
 	public static final String URL_JSON_CARD_POST = "/games/38/words";
 
+	//Get the number of cards the clue is applied to
+	public static final String URL_JSON_NUMGUESSES_FIRST = "http://10.90.75.56:8080/games/";
+	public static final String URL_JSON_NUMGUESSES_SECOND = "/guessesavailable";
 }

@@ -1,5 +1,9 @@
 package com.example.codenames;
 
+/**
+ * @author Jimmy Driskell
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,6 +63,12 @@ public class AdminUsersActivity extends AppCompatActivity implements View.OnClic
         showUsers();
     }
 
+    /**
+     * Makes DELETE request to remove user from the database
+     * Uses "queue" and "request"
+     * "queue" queues the request
+     * "request" contains the username of the user that is about to be deleted
+     */
     private void deleteUser()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -80,6 +90,10 @@ public class AdminUsersActivity extends AppCompatActivity implements View.OnClic
         queue.add(request);
     }
 
+    /**
+     * Makes GET request to show every username in a list
+     * Uses "user_list" to print the usernames onto a text view for the admins to see visibly
+     */
     private void showUsers()
     {
         JsonArrayRequest jsonArrReq = new JsonArrayRequest(Request.Method.GET,
@@ -104,6 +118,10 @@ public class AdminUsersActivity extends AppCompatActivity implements View.OnClic
         AppController.getInstance().addToRequestQueue(jsonArrReq, tag_json_arry);
     }
 
+    /**
+     * Determines what to do when clicking specific buttons
+     * @param v receives the id of the button pressed
+     */
     @Override
     public void onClick(View v)
     {

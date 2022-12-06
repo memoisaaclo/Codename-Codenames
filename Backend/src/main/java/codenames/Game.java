@@ -1,7 +1,6 @@
 package codenames;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,24 +23,27 @@ public class Game implements Serializable {
     @Column(name = "clues")
     private String clues = "";
 
-    @Column(name = "currentClue")
+    @Column(name = "current_clue")
     private String currentClue = "";
 
-    @Column(name = "guessesAvailable")
+    @Column(name = "guesses_available")
     private Integer guessesAvailable = 0;
 
-    @Column(name = "turnColor")
+    @Column(name = "turn_color")
     private Color turnColor = RED;
+
+    @Column(name = "turn_role")
+    private Role turnRole = Role.SPYMASTER;
 
     @Column(name = "moves")
     private String moves = "";
 
-    @Column(name = "gameLobbyName", unique = true)
+    @Column(name = "game_lobby_name", unique = true)
     private String gameLobbyName;
 
     @OneToMany(orphanRemoval = false, fetch = FetchType.EAGER)
     private Set<Player> players = new LinkedHashSet<>();
-
+ 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "game_cards",
@@ -54,6 +56,14 @@ public class Game implements Serializable {
     @JsonManagedReference
     private List<GameCard> gameCards = new ArrayList<>();
 
+    @Column(name = "red_points")
+    private Integer redPoints = 0;
+
+    @Column(name = "blue_points")
+    private Integer bluePoints = 0;
+
+    private static final int RED_POINTS_TO_WIN = 9;
+    private static final int BLUE_POINTS_TO_WIN = 8;
 
         /* Constructors */
     public Game() { }
@@ -69,15 +79,13 @@ public class Game implements Serializable {
     public void setCards(Set<Card> cards) { this.cards = cards; }
     public String getGameLobbyName() { return gameLobbyName; }
     public void setGameLobbyName(String gameLobbyName) { this.gameLobbyName = gameLobbyName; }
-    public Set<Player> getPlayers() { return players; }
+    public Set<Player> getPlayers() { 
+    	return players; 
+	}
     public void setPlayers(Set<Player> players) { this.players = players; }
     public String getClues() { return clues; }
     public void setClues(String clues) { this.clues = clues; }
     public Lobby getLobby() { return new Lobby(); }
-    /**
-     * Get the current game turn's color
-     * @return Color string
-     */
     public String getTurnColor() { return turnColor.toString(); }
     public void setTurnColor(Color turnColor) { this.turnColor = turnColor; }
     public List<GameCard> getGameCards() {
@@ -89,6 +97,10 @@ public class Game implements Serializable {
     public void setCurrentClue(String currentClue) { this.currentClue = currentClue; }
     public int getGuessesAvailable() { return guessesAvailable; }
     public void setGuessesAvailable(int guessesAvailable) { this.guessesAvailable = guessesAvailable; }
+    public Role getTurnRole() { return turnRole; }
+    public void setTurnRole(Role turnRole) { this.turnRole = turnRole; }
+    public Integer getRedPoints() { return redPoints; }
+    public Integer getBluePoints() { return bluePoints; }
 
 
     /* Special methods */
@@ -103,6 +115,9 @@ public class Game implements Serializable {
         currentClue = clue;
     }
 
+    /**
+     * generates the word list for a game
+     */
     public void generateWordList() {
         List<Card> allCards = Main.cardRepo.findAll();
         Random rand = new Random();
@@ -131,6 +146,9 @@ public class Game implements Serializable {
         Main.gameRepo.save(this);
     }
 
+    /**
+     * generates the card statuses for a game
+     */
     public void generateGameCards() {
         GameCard card;
 
@@ -143,7 +161,7 @@ public class Game implements Serializable {
         ArrayList<Color> colors = new ArrayList<>(Arrays.asList(
             // ONE BLACK CARD
             BLACK,
-            // EIGHT YELLOW CARDS
+            // EIGHT BLUE CARDS
             BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE, BLUE,
             // NINE RED CARDS
             RED, RED, RED, RED, RED, RED, RED, RED, RED,
@@ -172,40 +190,87 @@ public class Game implements Serializable {
         Main.gameRepo.save(this);
     }
 
+    /**
+     * guesses a card given
+     * @param card_position
+     */
     public void getGuess(int card_position) {
-        // Assume Data is Valid
+        // Assume card position is Valid
         List<GameCard> cards = getGameCards();
         GameCard card = cards.get(card_position);
 
+        // Check if the card is revealed; if it is, do nothing.
         if (card.isRevealed())
             return;
         else
             card.setRevealed(true);
 
-        if (card.getColor() == turnColor)
+        // If the card is the correct team color, maintain turn.
+        if (card.getColor() == turnColor) {
             guessesAvailable--;
-        else
+
+            // Adjust team points
+            switch(turnColor) {
+                case RED:
+                    redPoints++;
+                    break;
+                case BLUE:
+                    bluePoints++;
+                    break;
+            }
+
+            // Check if game is won
+            checkWin();
+        } else
             setGuessesAvailable(0);
 
+        // If there are no more guesses available, switch teams.
         if (getGuessesAvailable() == 0) {
             swapTeam();
         }
+
+        // TODO: Make sure: Does this actually change the GameCard?
     }
 
+    /**
+     * creates a list of clues for this game
+     * @return
+     */
     public String[] generateClueList() { return clues.split(","); }
 
+    /**
+     * changes current teams turn    
+     */
     public void swapTeam() {
         switch (turnColor) {
             case RED:
                 setTurnColor(BLUE);
+                setTurnRole(Role.SPYMASTER);
                 break;
             case BLUE:
                 setTurnColor(RED);
+                setTurnRole(Role.SPYMASTER);
                 break;
         }
     }
 
-        /* Baby classes (inner classes) */
+    /**
+     * Check if the game is in winning status
+     */
+    public void checkWin() {
+        if (redPoints == RED_POINTS_TO_WIN) {
+        } else if (bluePoints == BLUE_POINTS_TO_WIN) {
+        }
+        //TODO: Send WS red or blue win
+
+        return;
+    }
+
+    /**
+     * 
+     * inner class to represent a paired down version of the game class 
+     *
+     */
     class Lobby {
         private String lobbyName;
         private Integer numPlayers;
@@ -230,6 +295,10 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * remove a player from the game
+     * @param attachedPlayer
+     */
 	public void removePlayer(Player attachedPlayer) {
 		players.remove(attachedPlayer);
 	}

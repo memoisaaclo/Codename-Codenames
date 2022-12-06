@@ -57,6 +57,12 @@ public class BoardController {
         g.setGuessesAvailable(numGuesses);
         g.addClue(clue);
 
+        //increment player statistics
+        User stats = Main.userRepo.findByusername(player.getUsername());
+        stats.setCluesGiven(stats.getCluesGiven() + 1);
+        Main.userRepo.save(stats);
+        
+        
         // Save and return
         Main.gameRepo.save(g);
         return success;
@@ -87,6 +93,12 @@ public class BoardController {
         g.getGuess(card_position);
 
         Main.gameRepo.save(g);
+        
+        //update statistics
+        User stats = Main.userRepo.findByusername(player.getUsername());
+        stats.setGuessesMade(stats.getGuessesMade() + 1);
+        Main.userRepo.save(stats);
+        
         return success;
     }
 
@@ -149,18 +161,32 @@ public class BoardController {
     @GetMapping(path = "/games/{id}/getboard")
     String getGameStatus(@PathVariable int id) {
         Game g = Main.gameRepo.findById(id);
+
         if (g == null)
             return invalid;
-
-        StringBuilder rstring = new StringBuilder("[");
-
-        for (GameCard c : g.getGameCards())
-            rstring.append(c.displayInfo()).append(", ");
-
+        if (g.getGameCards().size() == 0)
+            return "{\"message\":\"Invalid Game State, no GameCards\"}";
         if (g.getCards() == null)
-            return "{\"message\":\"Invalid Game State\"}";
+            return "{\"message\":\"Invalid Game State, no Cards\"}";
 
-        return rstring.substring(0, rstring.length()-2)+ "]";
+        StringBuilder returnString = new StringBuilder("{");
+
+        // Add card JSON array to return
+        StringBuilder cardString = new StringBuilder("[");
+        for (GameCard c : g.getGameCards())
+            cardString.append(c.displayInfo()).append(", ");
+        returnString.append(cardString.substring(0, cardString.length() - 2)).append("]");
+
+        // Add turnColor and turnRole to return
+        returnString.append(", \"turnColor\": \"").append(g.getTurnColor()).append("\"");
+        returnString.append(", \"turnRole\": \"").append(g.getTurnRole()).append("\"");
+
+        // Add both team points to return
+        returnString.append(", \"redPoints\": \"").append(g.getRedPoints()).append("\"");
+        returnString.append(", \"bluePoints\": \"").append(g.getBluePoints()).append("\"");
+
+        returnString.append("}");
+        return returnString.toString();
     }
 
     /**
@@ -284,5 +310,19 @@ public class BoardController {
             return invalid;
 
         return "{\"turnColor\": \"" + g.getTurnColor() + "\"}";
+    }
+
+    /**
+     * Get current guesses available of a game
+     * @param id game id
+     * @return num guesses available
+     */
+    @GetMapping(path = "/games/{id}/guessesavailable")
+    String getGuessAvailable(@PathVariable int id) {
+        Game g = Main.gameRepo.findById(id);
+        if(g == null)
+            return invalid;
+
+        return "{\"numGuesses\": \"" + g.getGuessesAvailable() + "\"}";
     }
 }
