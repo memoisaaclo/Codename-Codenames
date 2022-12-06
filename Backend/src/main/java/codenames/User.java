@@ -1,5 +1,7 @@
 package codenames;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 /**
@@ -45,6 +47,7 @@ public class User {
      */
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "playerID")
+	@JsonManagedReference
     private Player attachedPlayer;
     
     /**
