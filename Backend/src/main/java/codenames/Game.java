@@ -42,6 +42,7 @@ public class Game implements Serializable {
     private String gameLobbyName;
 
     @OneToMany(fetch = FetchType.EAGER)
+    @JsonManagedReference
     private Set<Player> players = new LinkedHashSet<>();
  
     @ManyToMany(fetch = FetchType.EAGER)

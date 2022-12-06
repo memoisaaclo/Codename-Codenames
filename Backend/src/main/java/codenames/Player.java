@@ -1,5 +1,7 @@
 package codenames;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -33,6 +35,7 @@ public class Player implements Serializable {
      */
     @ManyToOne
     @JoinColumn(name = "game_id")
+    @JsonBackReference
     private Game game;
 
 	/**
