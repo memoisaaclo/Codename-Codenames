@@ -131,7 +131,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
             dd = new WebSocketClient(new URI(w)) {
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
-//                    dd.send("update");
+
                 }
 
                 @Override
@@ -142,7 +142,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
                 @Override
                 public void onClose(int i, String s, boolean b) {
                     System.out.println("There was an issue and it closed");
-                    System.out.println("The issue was " + s);
+                    System.out.println("The issue was " + s + " " + i + " " + b);
                 }
 
                 @Override
@@ -165,8 +165,12 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         red_score = (TextView) findViewById(R.id.text_red);
         blue_score = (TextView) findViewById(R.id.text_blue);
 
+<<<<<<< HEAD
+        seekNumGuesses = (SeekBar) findViewById(R.id.seek_numguesses);
+=======
         textNumGuesses = (TextView) findViewById(R.id.text_numguesses);
         textNumGuesses.setText(seekNumGuesses.getProgress());
+>>>>>>> 835a58d2563361c99b9729eb4ea898f644d91ef9
 
         //Cards
 
@@ -326,7 +330,6 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
      */
     private void sendClue()
     {
-        String url = URL_JSON_CLUE_PUT + lobbyID + URL_JSON_CLUE_PUT_SECOND + input + URL_JSON_CLUE_PUT_THIRD + "2";
         RequestListener addListener = new RequestListener()
         {
             @Override
@@ -344,9 +347,12 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
         input = text_edit.getText().toString();
         System.out.println(input);
-        url = URL_JSON_CLUE_PUT + lobbyID + URL_JSON_CLUE_PUT_SECOND + input + URL_JSON_CLUE_PUT_THIRD + "2";
+        String url = URL_JSON_CLUE_PUT + lobbyID + URL_JSON_CLUE_PUT_SECOND + input + URL_JSON_CLUE_PUT_THIRD + seekNumGuesses.getProgress();
         JSONObject data = new JSONObject();
+        JSONObject d = new JSONObject();
         try {
+            d.put("username", username);
+            data.put("user", d);
             data.put("role","SPYMASTER");
             data.put("team","RED");
         } catch (JSONException e) {
