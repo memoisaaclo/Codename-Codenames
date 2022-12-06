@@ -51,7 +51,7 @@ public class GameUpdateWebsocketController {
      */
     @OnMessage
     public void onMessage(Session session, String message) {
-    	logger.info(message);
+    	logger.info("Got: " + message);
 		broadcastToLobby(message, sessionUsernameMap.get(session));
     }
 
@@ -68,6 +68,7 @@ public class GameUpdateWebsocketController {
         String username = sessionUsernameMap.get(session);
         sessionUsernameMap.remove(session);
         usernameSessionMap.remove(username);
+        logger.info(Integer.toString(sessionUsernameMap.size()));
     }
 
     /**
