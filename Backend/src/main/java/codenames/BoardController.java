@@ -99,11 +99,6 @@ public class BoardController {
 
         Main.gameRepo.save(g);
         
-        //update statistics
-        User stats = Main.userRepo.findByusername(player.getUsername());
-        stats.setGuessesMade(stats.getGuessesMade() + 1);
-        Main.userRepo.save(stats);
-        
         return success;
     }
 
