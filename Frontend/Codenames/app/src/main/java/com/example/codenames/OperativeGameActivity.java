@@ -116,12 +116,21 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
             cc = new WebSocketClient(new URI(w)) {
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
+                    showCards();
+                    showColors();
+                    getClue();
+                    getNumPlayers();
                     cc.send("update");
                 }
 
                 @Override
                 public void onMessage(String s) {
-                    System.out.println("This is the message:" + s);
+                    if (s.equals("update")) {
+                        showCards();
+                        showColors();
+                        getClue();
+                        getNumPlayers();
+                    }
                 }
 
                 @Override
@@ -140,11 +149,6 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         }
 
         cc.connect();
-
-        showCards();
-        showColors();
-        getClue();
-        getNumPlayers();
     }
 
     /**
@@ -222,9 +226,8 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                     public void onResponse(String response) {
 
                         try {
-                            System.out.println(response);
 
-                            JSONArray object = new JSONArray(response);
+                            JSONArray object = (JSONArray) (new JSONObject(response).get("cards"));
                             for (int i = 0; i < 25; i++) {
                                 JSONObject o = (JSONObject) object.get(i);
                                 cards[i].setText(o.get("word").toString());
@@ -350,7 +353,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
 
         queue.add(request);
 
-        cc.send("update");
+//        cc.send("update");
     }
 
     /**
@@ -369,7 +372,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                         try {
                             JSONObject object = new JSONObject(response);
                             clue_object = object;
-                            numGuesses.setText(clue_object.getString("guessesavailable"));
+                            numGuesses.setText(clue_object.getString("numGuesses"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -442,7 +445,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         RequestListener leaveListener = new RequestListener() {
             @Override
             public void onSuccess(Object response) throws JSONException {
-                System.out.println(response);
+
                 JSONObject object = new JSONObject((String) response);
                 if(object.get("message").equals("success")) {
                     //leave and go to hub
