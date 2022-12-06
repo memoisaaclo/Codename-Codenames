@@ -109,7 +109,9 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
                         try {
                             System.out.println(response);
 
-                            JSONArray object = new JSONArray(response);
+                            JSONObject obj = new JSONObject(response);
+                            JSONArray object = new JSONArray((obj.get("cards")));
+
                             for (int i = 0; i < 5; i++) {
                                 LinearLayout row = addRow();
 

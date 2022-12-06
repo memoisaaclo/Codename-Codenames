@@ -152,7 +152,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
                         try {
 
                             pList.removeAllViews();
-
+                            System.out.println(response);
                             JSONArray object = new JSONArray(response);
                             players = object;
                             player_count.setText(Integer.toString(players.length()));
