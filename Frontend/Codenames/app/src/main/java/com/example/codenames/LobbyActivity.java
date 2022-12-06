@@ -130,6 +130,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
                 public void onClose(int i, String s, boolean b) {
                     System.out.println("There was an issue and it closed");
                     System.out.println("The issue was " + s);
+                    cc.connect();
                 }
 
                 @Override
@@ -159,7 +160,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
                         try {
 
                             pList.removeAllViews();
-
+                            System.out.println(response);
                             JSONArray object = new JSONArray(response);
                             players = object;
                             player_count.setText(Integer.toString(players.length()));
@@ -342,6 +343,7 @@ public class LobbyActivity extends Activity implements View.OnClickListener
      * @throws JSONException Exception thrown when a casting error occurs, or there does not exist a key "message" in JSONObject
      */
     private void leaveLobby() throws JSONException {
+        cc.close();
         RequestListener leaveListener = new RequestListener() {
             @Override
             public void onSuccess(Object response) throws JSONException {

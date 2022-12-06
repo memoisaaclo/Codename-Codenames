@@ -68,24 +68,25 @@ public class spectatorLobby extends AppCompatActivity implements View.OnClickLis
         toGame.setOnClickListener(this);
         toGame.setVisibility(View.INVISIBLE);
 
-        String w = "ws://10.90.75.56:8080/websocket/games/update/" + id;
+        String w = "ws://10.90.75.56:8080/websocket/games/spectate/" + id;
 
         try {
             cc = new WebSocketClient(new URI(w)) {
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
                     getPlayers();
-                    cc.send("update");
                 }
 
                 @Override
                 public void onMessage(String s) {
+                    System.out.println(s + " this was the message");
                     if (s.toLowerCase(Locale.ROOT).equals("update")) {
                         System.out.println("This is the message: " + s);
                         getPlayers();
                     } else if (s.toLowerCase(Locale.ROOT).equals("start")) {
                         System.out.println("This is the message: " + s);
-                        startActivity(new Intent(spectatorLobby.this, spectatorViewing.class).putExtra("id", id));
+                        startActivity(new Intent(spectatorLobby.this, spectatorViewing.class)
+                                .putExtra("id", id).putExtra("lobbyName", lobbyName));
                     }
                 }
 

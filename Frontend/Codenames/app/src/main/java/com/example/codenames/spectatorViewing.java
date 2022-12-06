@@ -114,7 +114,10 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
                         try {
                             System.out.println(response);
 
-                            JSONArray object = new JSONArray(response);
+                            JSONObject obj = new JSONObject(response);
+                            System.out.println(obj.get("cards"));
+                            JSONArray object = (JSONArray) obj.get("cards");
+
                             for (int i = 0; i < 5; i++) {
                                 LinearLayout row = addRow();
 
@@ -172,7 +175,8 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
         } else if (color.toLowerCase(Locale.ROOT).equals("black") && isRevealed.toLowerCase(Locale.ROOT).equals("true")){
             t.setBackgroundColor(Color.BLACK);
         } else {
-
+            t.setBackgroundColor(Color.GRAY);
+            t.setTextColor(Color.BLACK);
         }
 
         t.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
