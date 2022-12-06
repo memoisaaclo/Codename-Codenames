@@ -90,7 +90,7 @@ public class BoardController {
         else if (card_position < 0 || card_position > 24)
             return failure;
 
-        g.getGuess(card_position);
+        g.getGuess(card_position, player.getUser());
 
         Main.gameRepo.save(g);
         

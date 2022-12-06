@@ -50,6 +50,10 @@ public class Player implements Serializable {
     public void attachUser(User user) {
     	this.user = user;
     }
+
+    public User getUser() {
+        return user;
+    }
     
     public Integer getId() {
         return id;

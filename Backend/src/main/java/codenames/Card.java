@@ -2,8 +2,6 @@ package codenames;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 /**
  * Isaaclo

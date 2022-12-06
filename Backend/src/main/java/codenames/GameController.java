@@ -10,9 +10,9 @@ import java.util.Set;
 @RestController
 public class GameController {
 
-    private String success = "{\"message\":\"success\"}";
-    private String failure = "{\"message\":\"failure\"}";
-    private String invalidGame ="{\"message\":\"Invalid lobby ID\"}";
+    private final String success = "{\"message\":\"success\"}";
+    private final String failure = "{\"message\":\"failure\"}";
+    private final String invalidGame ="{\"message\":\"Invalid lobby ID\"}";
 
     /**
      * default constructor
@@ -22,7 +22,7 @@ public class GameController {
 
     /**
      * constructor
-     * @param gameRepository
+     * @param gameRepository of program? :>
      */
     public GameController(GameRepository gameRepository) {
         Main.gameRepo = gameRepository;
@@ -30,7 +30,7 @@ public class GameController {
 
     /**
      * create a game
-     * @param game
+     * @param game to be created
      * @return success or failure
      */
     @RequestMapping(method = RequestMethod.POST, path = "/games/add")
@@ -45,7 +45,7 @@ public class GameController {
     
     /**
      * gets number of players in a game
-     * @param id
+     * @param id of game
      * @return number of players
      */
     @GetMapping(path = "/games/{id}/numplayers")
@@ -60,8 +60,8 @@ public class GameController {
     
     /**
      * adds a player to the game
-     * @param id
-     * @param username
+     * @param id of game
+     * @param username of player to be added
      * @return success or failure
      */
     @PostMapping(path = "/games/{id}/addplayer/{username}")
@@ -78,8 +78,8 @@ public class GameController {
     
     /**
      * remove a player from a game
-     * @param id
-     * @param username
+     * @param id of game
+     * @param username of player
      * @return success or failure
      */
     @DeleteMapping(path = "/games/{id}/removeplayer/{username}")
@@ -98,13 +98,13 @@ public class GameController {
     
     /**
      * get a list of all players
-     * @param id
+     * @param id of game
      * @return list of all players
      */
     @GetMapping(path = "/games/{id}/players")
     Set<Player> getPlayers(@PathVariable int id){
     	Game check = Main.gameRepo.findById(id);
-    	if(check ==null) return new HashSet<Player>();
+    	if(check ==null) return new HashSet<>();
     	return Main.gameRepo.findById(id).getPlayers();
     }
 
@@ -119,7 +119,7 @@ public class GameController {
 
     /**
      * gets all data of a game by id
-     * @param id
+     * @param id of game
      * @return game data as JSON
      */
     @GetMapping(path = "/games/{id}")
@@ -135,7 +135,7 @@ public class GameController {
      */
     @GetMapping(path = "/games/lobbyinfo")
     public List<Game.Lobby> getGameLobbyName() {
-        List<Game.Lobby> l = new ArrayList<Game.Lobby>();
+        List<Game.Lobby> l = new ArrayList<>();
     	for(Game g : getAllGames()) {
         	l.add(g.getLobby());
         }

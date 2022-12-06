@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminController {
 
 	@SuppressWarnings("unused")
-	private String success = "{\"message\":\"success\"}";
+	private final String success = "{\"message\":\"success\"}";
     @SuppressWarnings("unused")
-	private String failure = "{\"message\":\"failure\"}";
-    private final Logger logger = LoggerFactory.getLogger(WebSocketServer.class);
+	private final String failure = "{\"message\":\"failure\"}";
+    private final Logger logger = LoggerFactory.getLogger(WebSocketChatServer.class);
     
 	public AdminController() {
 		
@@ -41,7 +41,7 @@ public class AdminController {
 	
 	/**
 	 * check if a user is an admin
-	 * @param username
+	 * @param username of user
 	 * @return success or failure
 	 */
 	@GetMapping(path = "/admin/get/{username}")
@@ -54,7 +54,7 @@ public class AdminController {
 	
 	/**
 	 * set a user as an admin
-	 * @param username
+	 * @param username of user
 	 * @return success
 	 */
 	@PostMapping(path = "/admin/set/{username}")
@@ -67,7 +67,7 @@ public class AdminController {
 	
 	/**
 	 * add a card, with JSON body
-	 * @param card
+	 * @param card to be added
 	 * @return success or failure
 	 */
 	@PutMapping(path = "/admin/cards/add")
@@ -81,11 +81,11 @@ public class AdminController {
 	
 	/**
 	 * add a card, path argument version
-	 * @param card
+	 * @param card to be added
 	 * @return success or failure
 	 */
 	@PutMapping(path = "/admin/cards/add/{card}")
-	public String addCardpath(@PathVariable String card) {
+	public String addCardPath(@PathVariable String card) {
 		Card c = new Card(card);
 		if(Main.cardRepo.findByword(card) == null) {
 			Main.cardRepo.save(c);
@@ -96,7 +96,7 @@ public class AdminController {
 	
 	/**
 	 * add cards in bulk JSON list
-	 * @param card
+	 * @param card to be added
 	 * @return success
 	 */
 	@PutMapping(path = "/admin/cards/addbulk")
@@ -111,7 +111,7 @@ public class AdminController {
 	
 	/**
 	 * remove a card given in a JSON body
-	 * @param card
+	 * @param card to be removed
 	 * @return success or failure
 	 */
 	@DeleteMapping(path = "/admin/cards/remove")
@@ -126,7 +126,7 @@ public class AdminController {
 	
 	/**
 	 * remove a card, path version
-	 * @param card
+	 * @param card to be removed
 	 * @return success or failure
 	 */
 	@DeleteMapping(path = "/admin/cards/remove/{card}")

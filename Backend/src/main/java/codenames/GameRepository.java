@@ -12,22 +12,22 @@ import org.springframework.transaction.annotation.Transactional;
 public interface GameRepository extends JpaRepository<Game, Long> {
 	/**
 	 * get game by ID
-	 * @param id
-	 * @return
+	 * @param id of game
+	 * @return game
 	 */
     Game findById(int id);
 
     /**
      * delete game by ID
-     * @param id
+     * @param id of game
      */
     @Transactional
     void deleteById(int id);
 
     /**
-     * get by game by ID
-     * @param gameLobbyName
-     * @return
+     * get by game by lobby name
+     * @param gameLobbyName of lobby
+     * @return game
      */
     Game findBygameLobbyName(String gameLobbyName);
 }

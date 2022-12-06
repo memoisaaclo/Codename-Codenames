@@ -6,15 +6,15 @@ import org.springframework.transaction.annotation.Transactional;
 public interface GameCardRepository extends JpaRepository<GameCard, Long> {
 	
 	/**
-	 * get cardstate by id
-	 * @param id
+	 * get cardState by id
+	 * @param id of cardState
 	 * @return
 	 */
     GameCard findById(int id);
 
     /**
-     * delete a cardstate by id
-     * @param id
+     * delete a cardState by id
+     * @param id of cardState
      */
     @Transactional
     void deleteById(int id);
