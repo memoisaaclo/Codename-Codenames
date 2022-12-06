@@ -70,8 +70,13 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     private String lobbyID;
     private EditText text_edit;
     private String username;
-    private WebSocketClient cc;
+    private WebSocketClient dd;
     private SeekBar seekNumGuesses;
+    private TextView textNumGuesses;
+    private TextView red_score;
+    private TextView blue_score;
+    private JSONObject red_score_object;
+    private JSONObject blue_score_object;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -120,11 +125,13 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
 
+        System.out.println("START OF SPYMASTER");
+
         try {
-            cc = new WebSocketClient(new URI(w)) {
+            dd = new WebSocketClient(new URI(w)) {
                 @Override
                 public void onOpen(ServerHandshake serverHandshake) {
-                    cc.send("update");
+//                    dd.send("update");
                 }
 
                 @Override
@@ -147,13 +154,19 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
             e.printStackTrace();
         }
 
-        cc.connect();
+        dd.connect();
 
         text_edit = (EditText)findViewById(R.id.text_spy_guess);
 
         Intent intent = getIntent();
         lobbyID = intent.getStringExtra("id");
         username = intent.getStringExtra("username");
+
+        red_score = (TextView) findViewById(R.id.text_red);
+        blue_score = (TextView) findViewById(R.id.text_blue);
+
+        textNumGuesses = (TextView) findViewById(R.id.text_numguesses);
+        textNumGuesses.setText(seekNumGuesses.getProgress());
 
         //Cards
 
@@ -164,6 +177,37 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         }
         showCards();
         showColors();
+    }
+
+    public void showScores()
+    {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = URL_JSON_SCORE_GET + lobbyID + URL_JSON_SCORE_GET_SECOND;
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            red_score_object = object;
+                            red_score.setText(red_score_object.getString("redPoints"));
+                            blue_score_object = object;
+                            blue_score.setText(blue_score_object.getString("bluePoints"));
+                            //clue.setText(clue_object.getString("clue"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error.toString());
+                    }
+                });
+
+        queue.add(request);
     }
 
     /**
@@ -309,8 +353,6 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
             e.printStackTrace();
         }
         VolleyListener.makeRequest(this, url, addListener, data, Request.Method.PUT);
-
-        cc.send("update");
     }
 
     /**
@@ -332,10 +374,12 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
             case R.id.button_sendclue:
                 sendClue();
+                dd.send("update");
 
             default:
                 break;
         }
+
     }
 
     /**
