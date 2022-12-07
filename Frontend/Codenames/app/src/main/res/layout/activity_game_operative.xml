@@ -119,7 +119,7 @@
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<androidx.appcompat.widget.Toolbar
-		android:id="@+id/title_header"
+		android:id="@+id/op_title_header"
 		android:layout_width="0dp"
 		android:layout_height="0dp"
 		android:layout_marginBottom="640dp"
@@ -139,8 +139,8 @@
 		android:text="Operative"
 		android:textColor="#000000"
 		android:textSize="32dp"
-		app:layout_constraintBottom_toBottomOf="@+id/title_header"
-		app:layout_constraintEnd_toEndOf="@+id/title_header"
+		app:layout_constraintBottom_toBottomOf="@+id/op_title_header"
+		app:layout_constraintEnd_toEndOf="@+id/op_title_header"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/gameToolbar7" />
 
@@ -155,7 +155,7 @@
 		app:layout_constraintBottom_toTopOf="@+id/header_red"
 		app:layout_constraintEnd_toStartOf="@+id/button_card2"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/title_header" />
+		app:layout_constraintTop_toBottomOf="@+id/op_title_header" />
 
 	<Button
 		android:id="@+id/button_card2"
@@ -169,7 +169,7 @@
 		app:layout_constraintBottom_toTopOf="@+id/header_red"
 		app:layout_constraintEnd_toStartOf="@+id/button_card3"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/title_header" />
+		app:layout_constraintTop_toBottomOf="@+id/op_title_header" />
 
 	<Button
 		android:id="@+id/button_card3"
@@ -184,7 +184,7 @@
 		app:layout_constraintBottom_toTopOf="@+id/header_red"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/title_header" />
+		app:layout_constraintTop_toBottomOf="@+id/op_title_header" />
 
 	<Button
 		android:id="@+id/button_card4"
@@ -197,7 +197,7 @@
 		app:layout_constraintBottom_toTopOf="@+id/header_blue"
 		app:layout_constraintEnd_toStartOf="@+id/button_card5"
 		app:layout_constraintStart_toEndOf="@+id/button_card3"
-		app:layout_constraintTop_toBottomOf="@+id/title_header" />
+		app:layout_constraintTop_toBottomOf="@+id/op_title_header" />
 
 	<Button
 		android:id="@+id/button_card5"
@@ -211,7 +211,7 @@
 		app:layout_constraintBottom_toTopOf="@+id/header_blue"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toEndOf="@+id/button_card3"
-		app:layout_constraintTop_toBottomOf="@+id/title_header" />
+		app:layout_constraintTop_toBottomOf="@+id/op_title_header" />
 
 	<Button
 		android:id="@+id/button_card6"
