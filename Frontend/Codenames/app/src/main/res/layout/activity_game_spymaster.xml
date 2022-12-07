@@ -88,22 +88,6 @@
 		app:layout_constraintTop_toTopOf="@+id/gameToolbar8" />
 
 	<androidx.appcompat.widget.Toolbar
-		android:id="@+id/header_guesses"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:layout_marginStart="32dp"
-		android:layout_marginTop="16dp"
-		android:layout_marginEnd="32dp"
-		android:layout_marginBottom="130dp"
-		android:background="@color/gray_2"
-		android:minHeight="?attr/actionBarSize"
-		android:theme="?attr/actionBarTheme"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/header_clue" />
-
-	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/box_guesses"
 		android:layout_width="0dp"
 		android:layout_height="0dp"
@@ -116,8 +100,7 @@
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.0"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/header_guesses" />
+		app:layout_constraintStart_toStartOf="parent" />
 
 	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/header_blue"
@@ -521,28 +504,6 @@
 		app:layout_constraintStart_toStartOf="@+id/header_blue"
 		app:layout_constraintTop_toTopOf="@+id/header_blue" />
 
-	<TextView
-		android:id="@+id/text_guessesheader"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Other Guesses"
-		android:textColor="#000000"
-		app:layout_constraintBottom_toBottomOf="@+id/header_guesses"
-		app:layout_constraintEnd_toEndOf="@+id/header_guesses"
-		app:layout_constraintStart_toStartOf="@+id/header_guesses"
-		app:layout_constraintTop_toTopOf="@+id/header_guesses" />
-
-	<TextView
-		android:id="@+id/text_guesses"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="8dp"
-		android:layout_marginTop="8dp"
-		android:text="Player 1: Word"
-		android:textColor="#000000"
-		app:layout_constraintStart_toStartOf="@+id/box_guesses"
-		app:layout_constraintTop_toBottomOf="@+id/header_guesses" />
-
 	<Button
 		android:id="@+id/button_sendclue"
 		android:layout_width="0dp"
@@ -608,5 +569,35 @@
 		app:layout_constraintBottom_toBottomOf="@+id/header_blue"
 		app:layout_constraintStart_toEndOf="@+id/header_red"
 		app:layout_constraintTop_toTopOf="@+id/header_blue" />
+
+	<TextView
+		android:id="@+id/text_turn_color"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="96dp"
+		android:layout_marginTop="32dp"
+		android:text="TextView"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/header_clue" />
+
+	<TextView
+		android:id="@+id/text_turn_role"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="32dp"
+		android:layout_marginEnd="96dp"
+		android:text="TextView"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/header_clue" />
+
+	<TextView
+		android:id="@+id/text_turn"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="16dp"
+		android:text="is playing right now..."
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/text_turn_role" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
