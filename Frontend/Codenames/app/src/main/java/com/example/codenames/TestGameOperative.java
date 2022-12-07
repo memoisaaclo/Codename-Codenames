@@ -27,30 +27,30 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@LargeTest
-@RunWith(AndroidJUnit4.class)
-public class TestGameSpymaster
+public class TestGameOperative
 {
     @Rule
     public ActivityScenarioRule<SpymasterGameActivity> mActivityScenarioRule = new ActivityScenarioRule<>(SpymasterGameActivity.class);
 
 
 
-    ViewInteraction appCompatEditText = onView(
-            allOf(withId(R.id.text_spy_guess),
-                    childAtPosition(
-                            childAtPosition(
-                                    withId(android.R.id.content),
-                                    0),
-                            4),
-                    isDisplayed()));
-        appCompatEditText.perform(replaceText("clue"), closeSoftKeyboard());
-
     ViewInteraction button = onView(
-            allOf(withId(R.id.button_sendclue), withText("SPYMASTER SENDS CLUE"),
+            allOf(withId(R.id.button_card2), withText("OPERATIVE GUESSES CARD"),
                     withParent(withParent(withId(android.R.id.content))),
                     isDisplayed()));
         button.check(matches(isDisplayed()));
+
+    ViewInteraction button2 = onView(
+            allOf(withId(R.id.button_card18), withText("OPERATIVE GUESSES ANOTHER CARD"),
+                    withParent(withParent(withId(android.R.id.content))),
+                    isDisplayed()));
+        button2.check(matches(isDisplayed()));
+
+    ViewInteraction button3 = onView(
+            allOf(withId(R.id.button_endturn), withText("OPERATIVE ENDS THE TURN"),
+                    withParent(withParent(withId(android.R.id.content))),
+                    isDisplayed()));
+        button3.check(matches(isDisplayed()));
 
 
 
