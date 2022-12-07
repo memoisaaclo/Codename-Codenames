@@ -128,7 +128,6 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
             cards[i].setOnClickListener(this);
         }
 
-
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
 
         try {

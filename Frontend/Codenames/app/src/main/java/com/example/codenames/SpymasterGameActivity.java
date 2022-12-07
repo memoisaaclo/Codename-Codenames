@@ -150,9 +150,8 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         }
 
         seekNumGuesses = (SeekBar) findViewById(R.id.seek_numguesses);
-
         textNumGuesses = (TextView) findViewById(R.id.text_numguesses);
-//        textNumGuesses.setText(seekNumGuesses.getProgress());
+        textNumGuesses.setText(Integer.toString(seekNumGuesses.getProgress()));
 
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
 
