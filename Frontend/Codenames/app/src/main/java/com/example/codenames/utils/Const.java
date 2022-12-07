@@ -86,7 +86,7 @@ public class Const {
 	public static final String URL_JSON_ALL_USERS = "http://10.90.75.56:8080/users/getallusers";
 
 	public static final String URL_JSON_REVEAL_GET = "http://10.90.75.56:8080/games/";
-	public static final String URL_JSON_REVEAL_GET_SECOND = "/isreveald";
+	public static final String URL_JSON_REVEAL_GET_SECOND = "/isrevealed";
 
 	public static final String URL_JSON_CARD_POST = "/games/38/words";
 
@@ -96,4 +96,7 @@ public class Const {
 
 	public static final String URL_JSON_SCORE_GET = "http://10.90.75.56:8080/games/";
 	public static final String URL_JSON_SCORE_GET_SECOND = "/getboard";
+
+	public static final String URL_JSON_GUESS_FIRST = "/games/";
+	public static final String URL_JSON_GUESS_SECOND = "/guess/";
 }

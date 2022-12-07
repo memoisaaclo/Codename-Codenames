@@ -12,19 +12,25 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.widget.CompoundButtonCompat;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -77,6 +83,8 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     private TextView blue_score;
     private JSONObject red_score_object;
     private JSONObject blue_score_object;
+    private String team;
+    private Toolbar header;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -123,6 +131,28 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         Button btnSendClue = (Button) findViewById(R.id.button_sendclue);
         btnSendClue.setOnClickListener(this);
 
+
+        text_edit = (EditText)findViewById(R.id.text_spy_guess);
+
+        Intent intent = getIntent();
+        lobbyID = intent.getStringExtra("id");
+        username = intent.getStringExtra("username");
+        team = intent.getStringExtra("team");
+
+        red_score = (TextView) findViewById(R.id.text_red);
+        blue_score = (TextView) findViewById(R.id.text_blue);
+
+        header = (Toolbar) findViewById(R.id.title_header);
+        
+        if (team == ("BLUE"))
+        {
+            header.setBackgroundTintList(getResources().getColorStateList(R.color.blue));
+        }
+
+        seekNumGuesses = (SeekBar) findViewById(R.id.seek_numguesses);
+        textNumGuesses = (TextView) findViewById(R.id.text_numguesses);
+        textNumGuesses.setText(Integer.toString(seekNumGuesses.getProgress()));
+
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
 
         System.out.println("START OF SPYMASTER");
@@ -136,7 +166,15 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
                 @Override
                 public void onMessage(String s) {
-                    System.out.println("This is the message:" + s);
+                    if (s.equals("update")) {
+                        showScores();
+                    } else if (s.equals("blue won")) {
+                        dd.close();
+                        startActivity(new Intent(SpymasterGameActivity.this, winScreen.class).putExtra("username", username).putExtra("message", "Blue Won"));
+                    } else if (s.equals("red won")) {
+                        dd.close();
+                        startActivity(new Intent(SpymasterGameActivity.this, winScreen.class).putExtra("username", username).putExtra("message", "Red Won"));
+                    }
                 }
 
                 @Override
@@ -156,21 +194,6 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
         dd.connect();
 
-        text_edit = (EditText)findViewById(R.id.text_spy_guess);
-
-        Intent intent = getIntent();
-        lobbyID = intent.getStringExtra("id");
-        username = intent.getStringExtra("username");
-
-        red_score = (TextView) findViewById(R.id.text_red);
-        blue_score = (TextView) findViewById(R.id.text_blue);
-
-<<<<<<< HEAD
-        seekNumGuesses = (SeekBar) findViewById(R.id.seek_numguesses);
-=======
-        textNumGuesses = (TextView) findViewById(R.id.text_numguesses);
-        textNumGuesses.setText(seekNumGuesses.getProgress());
->>>>>>> 835a58d2563361c99b9729eb4ea898f644d91ef9
 
         //Cards
 
@@ -354,7 +377,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
             d.put("username", username);
             data.put("user", d);
             data.put("role","SPYMASTER");
-            data.put("team","RED");
+            data.put("team",team.toUpperCase());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -387,6 +410,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         }
 
     }
+
 
     /**
      * Removes current player from lobby

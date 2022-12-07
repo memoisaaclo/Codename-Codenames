@@ -27,6 +27,8 @@ import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Locale;
@@ -100,12 +102,12 @@ public class LobbyActivity extends Activity implements View.OnClickListener
 
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
 
-        try {
-            checkToStart(players);
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            checkToStart(players);
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         try {
             cc = new WebSocketClient(new URI(w)) {
