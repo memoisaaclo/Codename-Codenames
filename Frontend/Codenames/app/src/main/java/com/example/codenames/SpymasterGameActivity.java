@@ -411,6 +411,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
             e.printStackTrace();
         }
         VolleyListener.makeRequest(this, url, addListener, data, Request.Method.PUT);
+        showTurn();
     }
 
     /**

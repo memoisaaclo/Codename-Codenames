@@ -138,6 +138,8 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
             cards[i].setOnClickListener(this);
         }
 
+        showTurn();
+
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
 
         try {
@@ -399,8 +401,8 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         VolleyListener.makeRequest(this, url, listener, data, Request.Method.PUT);
+        showTurn();
 
 //        String url = URL_JSON_GUESS_FIRST + lobbyID + URL_JSON_GUESS_SECOND + index;
 //        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.PUT,
