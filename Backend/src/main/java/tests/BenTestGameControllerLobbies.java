@@ -99,10 +99,25 @@ class BenTestGameControllerLobbies {
 		.body("message", equalTo("success"));
 	}
 	
+	@Order(3)
+	@Test
+	void testCreateLobbyFailure() {
+		with()
+		.body("{\"gameLobbyName\":\"lobby1\"}")
+		.contentType("application/json")	// set this to json type
+		.post("/games/add")
+		
+		.then()
+		
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("Lobby name already in use"));
+	}
+	
 	/**
 	 * checks the lobby has no people in it
 	 */
-	@Order(3)
+	@Order(4)
 	@Test
 	void testCheckLobbySize() {
 		with()
@@ -115,10 +130,23 @@ class BenTestGameControllerLobbies {
 		.body("playerNum", equalTo("0"));
 	}
 	
+	@Order(5)
+	@Test
+	void testCheckLobbySizeFailure() {
+		with()
+		.get("/games/198765/numplayers")
+		
+		.then()
+		
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("Invalid lobby ID"));
+	}
+	
 	/**
 	 * tries to add a player to a lobby
 	 */
-	@Order(4)
+	@Order(6)
 	@Test
 	void testAddPlayerToLobby() {
 		
@@ -131,37 +159,180 @@ class BenTestGameControllerLobbies {
 		.body("message", equalTo("success"));
 	}
 
+	@Order(7)
+	@Test
+	void testAddPlayerToLobbyFailureFromPlayer() {
+		
+		with()
+		.post("/games/1/addplayer/asdfasdf")
+		
+		.then()
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("could not find player"));
+	}
+	
+	@Order(8)
+	@Test
+	void testAddPlayerToLobbyFailureFromPlayerAlreadyIn() {
+		
+		with()
+		.post("/games/1/addplayer/test")
+		
+		.then()
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("player is already in game"));
+	}
+	
+	@Order(9)
+	@Test
+	void testAddPlayerToLobbyFailureFromLobby() {
+		
+		with()
+		.post("/games/109/addplayer/test")
+		
+		.then()
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("could not find game"));
+	}
+	
 	/**
 	 * tests removing a player from the lobby
 	 */
-	@Order(5)
+	@Order(10)
 	@Test
-	void testRemovePlayerFromLobby() {
-		with().delete("/games/1/removeplayer/test");
-		
-		with()	// check player has been removed
-		.get("/games/1/numplayers")
+	void testRemovePlayerFromLobbyFailureGameDoesNotExist() {
+		with()
+		.delete("/games/1932/removeplayer/test")
 		
 		.then()
 		
 		.statusCode(200)
 		.assertThat()
-		.body("playerNum", equalTo("0"));
+		.body("message", equalTo("could not find game"));
 	}
 	
-	@Order(6)
+	@Order(11)
 	@Test
-	void testDeleteLobby() {
-		with().delete("/games/1/delete");
-		with()	// check player has been removed
-		.get("/games/1/numplayers")
+	void testRemovePlayerFromLobby() {
+		with()
+		.delete("/games/1/removeplayer/test")
 		
 		.then()
 		
 		.statusCode(200)
 		.assertThat()
-		.body("playerNum", equalTo("0"));
+		.body("message", equalTo("success"));
 	}
+	
+	@Order(12)
+	@Test
+	void testRemovePlayerFromLobbyFailure() {
+		with()
+		.delete("/games/1/removeplayer/test")
+		
+		.then()
+		
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("player is already not in game"));
+	}
+	
+	@Order(13)
+	@Test
+	void testRemovePlayerFromLobbyFailurePlayerDoesNotExist() {
+		with()
+		.delete("/games/1/removeplayer/asdfasdfasdf")
+		
+		.then()
+		
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("could not find player"));
+	}
+	
+	@Order(14)
+	@Test
+	void testGetPlayers() {
+		with()
+		.get("/games/1/players")
+		
+		.then()
+		
+		.statusCode(200);
+	}
+	
+	@Order(15)
+	@Test
+	void testGetPlayersFailure() {
+		with()
+		.get("/games/1234/players")
+		
+		.then()
+		
+		.statusCode(200);
+	}
+	
+	@Order(16)
+	@Test
+	void testGetAllGames() {
+		with()
+		.get("/games")
+		
+		.then()
+		
+		.statusCode(200);
+	}
+	
+	@Order(17)
+	@Test
+	void testGetGameById() {
+		with()
+		.get("/games/1")
+		
+		.then()
+		
+		.statusCode(200);
+	}
+	
+	@Order(18)
+	@Test
+	void testGetGameByIdFailure() {
+		with()
+		.get("/games/1325")
+		
+		.then()
+		
+		.statusCode(200);
+	}
+	
+	@Order(18)
+	@Test
+	void testGetLobbies() {
+		with()
+		.get("/games/lobbyinfo")
+		
+		.then()
+		
+		.statusCode(200);
+	}
+	
+	
+//	@Order(11)		// this never existed either
+//	@Test
+//	void testDeleteLobby() {
+//		with().delete("/games/1/delete");
+//		with()	// check player has been removed
+//		.get("/games/1/numplayers")
+//		
+//		.then()
+//		
+//		.statusCode(200)
+//		.assertThat()
+//		.body("playerNum", equalTo("0"));
+//	}
 	
 	
 	

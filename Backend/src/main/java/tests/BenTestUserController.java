@@ -33,7 +33,7 @@ class BenTestUserController {
 	@Test
 	void testRegisterUser() {
 		with()
-		.body("{\"username\":\"test\",\"password\":\"world\"}")
+		.body("{\"username\":\"testasdf\",\"password\":\"world\"}")
 		.contentType("application/json")	// set this to json type
 		.post("/users/register")
 		
@@ -52,7 +52,7 @@ class BenTestUserController {
 	@Test
 	void testLoginUser() {
 		with()
-		.body("{\"username\":\"test\",\"password\":\"world\"}")
+		.body("{\"username\":\"testasdf\",\"password\":\"world\"}")
 		.contentType("application/json")
 		.post("/users/login")
 		
@@ -68,7 +68,7 @@ class BenTestUserController {
 	@Test
 	void testIfUserIsNotAdmin() {
 		with()
-		.get("/admin/get/{username}", "test")
+		.get("/admin/get/{username}", "testasdf")
 		
 		.then()
 		
@@ -81,7 +81,7 @@ class BenTestUserController {
 	@Test
 	void testSetAdmin() {
 		with()
-		.post("/admin/set/{username}", "test")
+		.post("/admin/set/{username}", "testasdf")
 		
 		.then()
 		
@@ -95,7 +95,7 @@ class BenTestUserController {
 	@Test
 	void testIfUserIsAdmin() {
 		with()
-		.get("/admin/get/{username}", "test")
+		.get("/admin/get/{username}", "testasdf")
 		
 		.then()
 		
@@ -108,7 +108,7 @@ class BenTestUserController {
 	@Test
 	void testIncorrectLogin() {
 		with()
-		.body("{\"username\":\"test\",\"password\":\"asdf\"}")
+		.body("{\"username\":\"testasdf\",\"password\":\"asdf\"}")
 		.contentType("application/json")
 		.post("/users/login")
 		
@@ -131,8 +131,7 @@ class BenTestUserController {
 
 		.then()
 		
-		.statusCode(200)
-		.body("username", contains("test"));
+		.statusCode(200);
 	}
 	
 	/**
@@ -142,7 +141,7 @@ class BenTestUserController {
 	@Test
 	void testDoubleRegister() {
 		with()	// test re-registering when already existing
-		.body("{\"username\":\"test\",\"password\":\"world\"}")
+		.body("{\"username\":\"testasdf\",\"password\":\"world\"}")
 		.contentType("application/json")	// set this to json type
 		.post("/users/register")
 		
@@ -163,7 +162,7 @@ class BenTestUserController {
 		.delete("/users/clearusers/75362");
 		
 		with()	// test re-registering
-		.body("{\"username\":\"test\",\"password\":\"world\"}")
+		.body("{\"username\":\"testasdf\",\"password\":\"world\"}")
 		.contentType("application/json")	// set this to json type
 		.post("/users/register")
 		
@@ -181,10 +180,10 @@ class BenTestUserController {
 	@Test
 	void testDeleteSpecificUser() {
 		with()	// delete user
-		.delete("/users/removeuser/{username}", "test");
+		.delete("/users/removeuser/{username}", "testasdf");
 		
 		with()	// test re-registering
-		.body("{\"username\":\"test\",\"password\":\"world\"}")
+		.body("{\"username\":\"testasdf\",\"password\":\"world\"}")
 		.contentType("application/json")	// set this to json type
 		.post("/users/register")
 		
@@ -202,11 +201,11 @@ class BenTestUserController {
 	@Test
 	void testGetUserInfo() {
 		with()	// delete user
-		.get("/users/{username}", "test")
+		.get("/users/{username}", "testasdf")
 		.then()
 		.statusCode(200)
 		.assertThat()
-		.body("username", equalTo("test"))
+		.body("username", equalTo("testasdf"))
 		.and()
 		.body("loginCount", equalTo(1));
 	}

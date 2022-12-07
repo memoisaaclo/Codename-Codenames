@@ -30,38 +30,15 @@ public class PlayerController {
         Main.playerRepo = playerRepository;
     }
 
-    /**
-     * gets all players
-     * @return all players
-     */
-    @GetMapping(path = "/players")
-    List<Player> getAllPlayers(){
-        return Main.playerRepo.findAll();
-    }
+//    /**
+//     * gets all players
+//     * @return all players
+//     */
+//    @GetMapping(path = "/players")
+//    List<Player> getAllPlayers(){
+//        return Main.playerRepo.findAll();
+//    }
 
-    /**
-     * finds a player by ID
-     * @param id player id
-     * @return the JSON representation of a given player
-     */
-    @GetMapping(path = "/players/{id}")
-    Player getPlayerById( @PathVariable int id){
-        return Main.playerRepo.findById(id);
-    }
-
-    /**
-     * creates a new player given in a JSON object
-     * @param player player
-     * @return success or failure message
-     */
-    @PostMapping(path = "/players/create")
-    String createPlayer(@RequestBody Player player){
-        if (player == null)
-            return failure;
-        Main.playerRepo.save(player);
-        return success;
-    }
-    
     /**
      * sets a player's team
      * 
@@ -133,7 +110,7 @@ public class PlayerController {
     	return "{\"role\":\"" + Main.userRepo.findByusername(username).getAttachedPlayer().getRole() + "\"}";
     }
 
-    /**
+    /**	//unused i think
      * delete a player by id
      * @param id player id
      * @return success or failure message

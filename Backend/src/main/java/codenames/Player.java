@@ -63,7 +63,7 @@ public class Player implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id) {	// removed for coverage
         this.id = id;
     }
 
