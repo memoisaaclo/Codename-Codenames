@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -16,10 +18,11 @@ import com.example.codenames.services.VolleyListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class winScreen extends AppCompatActivity {
+public class winScreen extends AppCompatActivity implements View.OnClickListener {
 
     String username;
     String id;
+    Button toHub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +40,9 @@ public class winScreen extends AppCompatActivity {
         display.setText(message);
         user.setText(username);
 
-        try {
-            Thread.sleep(7500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        toHub = (Button) findViewById(R.id.win_toHub);
+        toHub.setOnClickListener(this);
 
-        try {
-            leaveLobby();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
     }
 
@@ -77,5 +72,14 @@ public class winScreen extends AppCompatActivity {
         String url = URL_JSON_REMOVEPLAYER_FIRST + id + URL_JSON_REMOVEPLAYER_SECOND + username;
 
         VolleyListener.makeRequest(this, url, leaveListener, Request.Method.DELETE);
+    }
+
+    @Override
+    public void onClick(View v) {
+        try {
+            leaveLobby();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -65,4 +65,15 @@
         app:layout_constraintTop_toBottomOf="@+id/win_title"
         android:layout_marginTop="50dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/win_toHub"
+        app:layout_constraintTop_toBottomOf="@+id/win_message"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="50dp"
+        android:text="Back to Hub"
+        android:backgroundTint="#230959" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
