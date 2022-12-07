@@ -47,3 +47,5 @@ target/
 *.classpath
 *.project
 *.iml
+
+*.db
