@@ -1,4 +1,4 @@
-package codenames;
+package tests;
 
 import static io.restassured.RestAssured.with;
 import static org.hamcrest.Matchers.equalTo;

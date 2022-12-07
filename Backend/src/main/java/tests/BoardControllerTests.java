@@ -1,4 +1,4 @@
-package codenames;
+package tests;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -54,7 +54,16 @@ class BoardControllerTests {
     @Order(2)
     @Test
     void receiveClueFromOperativeTest() {
+        with()
+                .body("{\"user\": {\"username\": \"test\"}, \"role\": \"OPERATIVE\", \"team\": \"RED\"}")
+                .contentType("application/json")
+                .put("/games/1/clue/goodClue/3")
 
+                .then()
+
+                .statusCode(200)
+                .assertThat()
+                .body("message", equalTo("incorrect clue giver"));
     }
 
     @AfterAll
