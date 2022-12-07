@@ -12,17 +12,22 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.widget.CompoundButtonCompat;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -165,9 +170,11 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
                     if (s.equals("update")) {
                         showScores();
                     } else if (s.equals("blue won")) {
-
+                        dd.close();
+                        startActivity(new Intent(SpymasterGameActivity.this, winScreen.class).putExtra("username", username).putExtra("message", "Blue Won"));
                     } else if (s.equals("red won")) {
-
+                        dd.close();
+                        startActivity(new Intent(SpymasterGameActivity.this, winScreen.class).putExtra("username", username).putExtra("message", "Red Won"));
                     }
                 }
 
@@ -404,6 +411,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         }
 
     }
+
 
     /**
      * Removes current player from lobby
