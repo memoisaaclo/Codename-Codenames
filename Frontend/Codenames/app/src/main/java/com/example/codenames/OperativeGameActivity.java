@@ -139,6 +139,8 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         }
 
         showTurn();
+        showCards();
+        showColors();
 
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
 
@@ -160,10 +162,14 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                         showColors();
                         getClue();
                         getNumPlayers();
-                    } else if (s.equals("blue won")) {
-
-                    } else if (s.equals("red won")) {
-
+                    } else if (s.equals("win blue")) {
+                        cc.close();
+                        startActivity(new Intent(OperativeGameActivity.this, winScreen.class).putExtra("username", username).putExtra("message", "Blue Won")
+                                .putExtra("username",username).putExtra("id", lobbyID));
+                    } else if (s.equals("win red")) {
+                        cc.close();
+                        startActivity(new Intent(OperativeGameActivity.this, winScreen.class).putExtra("username", username).putExtra("message", "Red Won")
+                                .putExtra("username", username).putExtra("id", lobbyID));
                     }
                 }
 

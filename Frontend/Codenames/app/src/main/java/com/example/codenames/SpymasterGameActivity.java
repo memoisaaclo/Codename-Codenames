@@ -160,12 +160,14 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
                 public void onMessage(String s) {
                     if (s.equals("update")) {
                         showScores();
-                    } else if (s.equals("blue won")) {
+                    } else if (s.equals("win blue")) {
                         dd.close();
-                        startActivity(new Intent(SpymasterGameActivity.this, winScreen.class).putExtra("username", username).putExtra("message", "Blue Won"));
-                    } else if (s.equals("red won")) {
+                        startActivity(new Intent(SpymasterGameActivity.this, winScreen.class).putExtra("username", username).putExtra("message", "Blue Won")
+                                .putExtra("username", username).putExtra("id", lobbyID));
+                    } else if (s.equals("win red")) {
                         dd.close();
-                        startActivity(new Intent(SpymasterGameActivity.this, winScreen.class).putExtra("username", username).putExtra("message", "Red Won"));
+                        startActivity(new Intent(SpymasterGameActivity.this, winScreen.class).putExtra("username", username).putExtra("message", "Red Won")
+                                .putExtra("username", username).putExtra("id", lobbyID));
                     }
                 }
 
