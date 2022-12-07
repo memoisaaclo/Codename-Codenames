@@ -73,7 +73,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     private JSONObject object_turn_role;
 
     private String team;
-    private Toolbar header;
+    private androidx.appcompat.widget.Toolbar header;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -131,7 +131,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         red_score = (TextView) findViewById(R.id.text_red);
         blue_score = (TextView) findViewById(R.id.text_blue);
 
-        header = (Toolbar) findViewById(R.id.title_header);
+        header = (androidx.appcompat.widget.Toolbar) findViewById(R.id.spy_title_header);
         
         if (team == ("BLUE"))
         {
@@ -411,6 +411,7 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
             e.printStackTrace();
         }
         VolleyListener.makeRequest(this, url, addListener, data, Request.Method.PUT);
+        showTurn();
     }
 
     /**
