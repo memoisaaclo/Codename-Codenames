@@ -154,7 +154,13 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
 
                 @Override
                 public void onMessage(String s) {
-                    System.out.println("This is the message:" + s);
+                    if (s.equals("update")) {
+                        showScores();
+                    } else if (s.equals("blue won")) {
+
+                    } else if (s.equals("red won")) {
+
+                    }
                 }
 
                 @Override

@@ -97,6 +97,6 @@ public class Const {
 	public static final String URL_JSON_SCORE_GET = "http://10.90.75.56:8080/games/";
 	public static final String URL_JSON_SCORE_GET_SECOND = "/getboard";
 
-	public static final String URL_JSON_GUESS_FIRST = "http://10.90.75.56:8080/games/";
+	public static final String URL_JSON_GUESS_FIRST = "/games/";
 	public static final String URL_JSON_GUESS_SECOND = "/guess/";
 }

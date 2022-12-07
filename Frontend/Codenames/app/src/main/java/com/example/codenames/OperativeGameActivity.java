@@ -139,6 +139,10 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
                         showColors();
                         getClue();
                         getNumPlayers();
+                    } else if (s.equals("blue won")) {
+
+                    } else if (s.equals("red won")) {
+
                     }
                 }
 
@@ -340,6 +344,8 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        VolleyListener.makeRequest(this, url, listener, data, Request.Method.PUT);
 
 //        String url = URL_JSON_GUESS_FIRST + lobbyID + URL_JSON_GUESS_SECOND + index;
 //        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.PUT,
