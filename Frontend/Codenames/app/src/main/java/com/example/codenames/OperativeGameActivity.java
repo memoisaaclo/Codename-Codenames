@@ -54,10 +54,17 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
     private String username;
     private JSONObject clue_object;
     private WebSocketClient cc;
+
     private TextView red_score;
     private TextView blue_score;
     private JSONObject red_score_object;
     private JSONObject blue_score_object;
+
+    private TextView text_turn_color;
+    private TextView text_turn_role;
+    private JSONObject object_turn_color;
+    private JSONObject object_turn_role;
+
     private String team;
     private Toolbar header;
 
@@ -120,6 +127,9 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
             header.setBackgroundTintList(getResources().getColorStateList(R.color.blue));
         }
 
+        text_turn_color = (TextView) findViewById(R.id.text_turn_color2);
+        text_turn_role = (TextView) findViewById(R.id.text_turn_role2);
+
         //Cards
 
         for (int i=0; i<25; i++)
@@ -127,7 +137,6 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
             cards[i] = (Button)findViewById(CARD_IDS[i]);
             cards[i].setOnClickListener(this);
         }
-
 
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
 
@@ -174,6 +183,42 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
         cc.connect();
     }
 
+    /**
+     * Makes GET request to display whose turn it is
+     */
+    public void showTurn()
+    {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = URL_JSON_SCORE_GET + lobbyID + URL_JSON_SCORE_GET_SECOND;
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            object_turn_color = object;
+                            text_turn_color.setText(object_turn_color.getString("turnColor"));
+                            object_turn_role = object;
+                            text_turn_role.setText(object_turn_role.getString("turnRole"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error.toString());
+                    }
+                });
+
+        queue.add(request);
+    }
+
+    /**
+     * Makes GET request to display the score for both teams
+     */
     public void showScores()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
