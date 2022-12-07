@@ -2,7 +2,6 @@ package tests;
 
 import static io.restassured.RestAssured.with;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,7 +13,7 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 
-@TestMethodOrder(OrderAnnotation.class)	// enfoce a specific order 
+@TestMethodOrder(OrderAnnotation.class)	// enforce a specific order 
 class BenTestGameControllerLobbies {
 
 	/**

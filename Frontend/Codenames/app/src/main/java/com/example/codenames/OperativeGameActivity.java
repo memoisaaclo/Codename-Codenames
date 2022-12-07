@@ -138,6 +138,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
             cards[i].setOnClickListener(this);
         }
 
+        showScores();
         showTurn();
         showCards();
         showColors();
