@@ -12,8 +12,6 @@ public class BoardController {
     private final String failure = "{\"message\":\"failure\"}";
     private final String invalid ="{\"message\":\"invalid argument\"}";
 
-    public BoardController() { }
-
     public BoardController(GameRepository gameRepository) { Main.gameRepo = gameRepository; }
 
 
@@ -85,6 +83,8 @@ public class BoardController {
         // Validate turn
         if (!g.getTurnRole().equals(Role.OPERATIVE))
             return "{\"message\":\"error: not the operative's turn\"}";
+        if (g.getGuessesAvailable() < 1)
+            return "{\"message\":\"error: operative's have no guesses left\"}";
 
         // Player validation
         if (!g.getTurnColor().equals(player.getTeam())
@@ -99,6 +99,17 @@ public class BoardController {
 
         Main.gameRepo.save(g);
         
+        return success;
+    }
+
+    @PutMapping(path = "/games/{id}/endguessing")
+    @ResponseBody String endTurn(@PathVariable int id) {
+        Game g = Main.gameRepo.findById(id);
+        if (g==null) return invalid;
+
+        g.swapTeam();
+
+        Main.gameRepo.save(g);
         return success;
     }
 

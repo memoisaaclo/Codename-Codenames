@@ -202,6 +202,10 @@ public class Game implements Serializable {
         List<GameCard> cards = getGameCards();
         GameCard card = cards.get(card_position);
 
+        // Should not get here but if it does, just return
+        if (getGuessesAvailable() < 1)
+            return;
+
         // Check if the card is revealed; if it is, do nothing.
         if (card.isRevealed())
             return;
@@ -225,8 +229,11 @@ public class Game implements Serializable {
 
             // Check if game is won
             checkWin();
-        } else
+        } else if (card.getColor() == Color.BLACK) {
+            instantLose(turnColor);
+        } else { // Card is either GREY or the wrong team color
             setGuessesAvailable(0);
+        }
 
         // If there are no more guesses available, switch teams.
         if (getGuessesAvailable() == 0) {
@@ -235,8 +242,23 @@ public class Game implements Serializable {
 
         user.incrementGuessesMade();
         Main.userRepo.save(user);
+        Main.gameCardRepo.save(card);
+    }
 
-        // TODO: Make sure: Does this actually change the GameCard?
+    /**
+     * Called on click of the black card
+     * @param loserColor the color of the loser clicker player user
+     */
+    private void instantLose(Color loserColor) {
+        switch (loserColor) {
+            case RED:
+                bluePoints = BLUE_POINTS_TO_WIN;
+                break;
+            case BLUE:
+                redPoints = RED_POINTS_TO_WIN;
+                break;
+        }
+        checkWin();
     }
 
     /**
@@ -249,6 +271,8 @@ public class Game implements Serializable {
      * changes current teams turn    
      */
     public void swapTeam() {
+        setGuessesAvailable(0);
+
         switch (turnColor) {
             case RED:
                 setTurnColor(BLUE);
