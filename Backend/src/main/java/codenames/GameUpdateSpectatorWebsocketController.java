@@ -25,7 +25,7 @@ public class GameUpdateSpectatorWebsocketController {
     private static Map<Integer, List<Session>> idSessionMap = new Hashtable<>();
     private static Map<Session, Integer> sessionIdMap = new Hashtable<>();
 
-    private final Logger logger = LoggerFactory.getLogger(WebSocketChatServer.class);
+    private final Logger logger = LoggerFactory.getLogger(GameUpdateSpectatorWebsocketController.class);
 
     /**
      * Called when session is opened

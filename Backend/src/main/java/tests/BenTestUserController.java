@@ -1,4 +1,4 @@
-package codenames;
+package tests;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,7 +13,7 @@ import io.restassured.parsing.Parser;
 import static org.hamcrest.Matchers.*;
 import static io.restassured.RestAssured.*;
 
-@TestMethodOrder(OrderAnnotation.class)	// enfoce a specific order 
+@TestMethodOrder(OrderAnnotation.class)	// enforce a specific order 
 class BenTestUserController {
 	
 	/**
@@ -33,7 +33,7 @@ class BenTestUserController {
 	@Test
 	void testRegisterUser() {
 		with()
-		.body("{\"username\":\"test\",\"password\":\"world\"}")
+		.body("{\"username\":\"testasdf\",\"password\":\"world\"}")
 		.contentType("application/json")	// set this to json type
 		.post("/users/register")
 		
@@ -52,7 +52,7 @@ class BenTestUserController {
 	@Test
 	void testLoginUser() {
 		with()
-		.body("{\"username\":\"test\",\"password\":\"world\"}")
+		.body("{\"username\":\"testasdf\",\"password\":\"world\"}")
 		.contentType("application/json")
 		.post("/users/login")
 		
@@ -64,29 +64,84 @@ class BenTestUserController {
 		
 	}
 	
+	@Order(3)
+	@Test
+	void testIfUserIsNotAdmin() {
+		with()
+		.get("/admin/get/{username}", "testasdf")
+		
+		.then()
+		
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("failure"));
+	}
+	
+	@Order(4)
+	@Test
+	void testSetAdmin() {
+		with()
+		.post("/admin/set/{username}", "testasdf")
+		
+		.then()
+		
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("success"));
+		
+	}
+	
+	@Order(5)
+	@Test
+	void testIfUserIsAdmin() {
+		with()
+		.get("/admin/get/{username}", "testasdf")
+		
+		.then()
+		
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("success"));
+	}
+	
+	@Order(6)
+	@Test
+	void testIncorrectLogin() {
+		with()
+		.body("{\"username\":\"testasdf\",\"password\":\"asdf\"}")
+		.contentType("application/json")
+		.post("/users/login")
+		
+		.then()
+		
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("Incorrect Credentials"));
+		
+	}
+	
 	/**
 	 * tests we get a response from getAllUsers
 	 * only tests that a 200 response code is given
 	 */
-	@Order(3)
+	@Order(7)
 	@Test
 	void testGetUsers() {		
 		get("/users/getallusers")
 
 		.then()
 		
-		.statusCode(200)
-		.body("username", contains("test"));
+		.statusCode(200);
 	}
 	
 	/**
 	 * test double registering
 	 */
-	@Order(4)
+	@Order(8)
 	@Test
 	void testDoubleRegister() {
 		with()	// test re-registering when already existing
-		.body("{\"username\":\"test\",\"password\":\"world\"}")
+		.body("{\"username\":\"testasdf\",\"password\":\"world\"}")
 		.contentType("application/json")	// set this to json type
 		.post("/users/register")
 		
@@ -100,14 +155,14 @@ class BenTestUserController {
 	/**
 	 * test deleting all users
 	 */
-	@Order(5)
+	@Order(9)
 	@Test
 	void testDeleteUsers() {
 		with()	// delete users
 		.delete("/users/clearusers/75362");
 		
 		with()	// test re-registering
-		.body("{\"username\":\"test\",\"password\":\"world\"}")
+		.body("{\"username\":\"testasdf\",\"password\":\"world\"}")
 		.contentType("application/json")	// set this to json type
 		.post("/users/register")
 		
@@ -121,14 +176,14 @@ class BenTestUserController {
 	/**
 	 * test deleting all users
 	 */
-	@Order(6)
+	@Order(10)
 	@Test
 	void testDeleteSpecificUser() {
 		with()	// delete user
-		.delete("/users/removeuser/{username}", "test");
+		.delete("/users/removeuser/{username}", "testasdf");
 		
 		with()	// test re-registering
-		.body("{\"username\":\"test\",\"password\":\"world\"}")
+		.body("{\"username\":\"testasdf\",\"password\":\"world\"}")
 		.contentType("application/json")	// set this to json type
 		.post("/users/register")
 		
@@ -142,20 +197,29 @@ class BenTestUserController {
 	/**
 	 * test deleting all users
 	 */
-	@Order(7)
+	@Order(11)
 	@Test
 	void testGetUserInfo() {
 		with()	// delete user
-		.get("/users/{username}", "test")
+		.get("/users/{username}", "testasdf")
 		.then()
 		.statusCode(200)
 		.assertThat()
-		.body("username", equalTo("test"))
+		.body("username", equalTo("testasdf"))
 		.and()
 		.body("loginCount", equalTo(1));
 	}
 	
-	
+	@Order(12)
+	@Test
+	void testDeleteNonExistantUser() {
+		with()	// delete user
+		.delete("/users/removeuser/{username}", "doesntExist")
+		.then()
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("failure"));
+	}
 	
 	@AfterAll
 	static void cleanUp() {

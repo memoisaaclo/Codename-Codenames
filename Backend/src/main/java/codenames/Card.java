@@ -20,9 +20,9 @@ public class Card implements Serializable {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+//    public void setId(Long id) {	// removed for coverage. add back if needed
+//        this.id = id;
+//    }
 
     public Card() {
     	
