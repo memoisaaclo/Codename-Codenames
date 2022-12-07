@@ -16,7 +16,6 @@ public class BoardController {
 
 
         /*  Clue and Guess Methods */
-
     /**
      * Send a clue to a game board
      * @param id game id
