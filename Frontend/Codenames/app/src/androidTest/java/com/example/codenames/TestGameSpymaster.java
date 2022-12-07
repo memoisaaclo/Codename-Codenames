@@ -27,32 +27,32 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-public class TestGameOperative
+@LargeTest
+@RunWith(AndroidJUnit4.class)
+public class TestGameSpymaster
 {
     @Rule
     public ActivityScenarioRule<SpymasterGameActivity> mActivityScenarioRule = new ActivityScenarioRule<>(SpymasterGameActivity.class);
 
+    @Test
+    public void TestGameSpymaster()
+    {
+        ViewInteraction appCompatEditText = onView(
+                allOf(withId(R.id.text_spy_guess),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                4),
+                        isDisplayed()));
+        appCompatEditText.perform(replaceText("clue"), closeSoftKeyboard());
 
-
-    ViewInteraction button = onView(
-            allOf(withId(R.id.button_card2), withText("OPERATIVE GUESSES CARD"),
-                    withParent(withParent(withId(android.R.id.content))),
-                    isDisplayed()));
+        ViewInteraction button = onView(
+                allOf(withId(R.id.button_sendclue), withText("SPYMASTER SENDS CLUE"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
         button.check(matches(isDisplayed()));
-
-    ViewInteraction button2 = onView(
-            allOf(withId(R.id.button_card18), withText("OPERATIVE GUESSES ANOTHER CARD"),
-                    withParent(withParent(withId(android.R.id.content))),
-                    isDisplayed()));
-        button2.check(matches(isDisplayed()));
-
-    ViewInteraction button3 = onView(
-            allOf(withId(R.id.button_endturn), withText("OPERATIVE ENDS THE TURN"),
-                    withParent(withParent(withId(android.R.id.content))),
-                    isDisplayed()));
-        button3.check(matches(isDisplayed()));
-
-
+    }
 
     private static Matcher<View> childAtPosition(final Matcher<View> parentMatcher, final int position)
     {
