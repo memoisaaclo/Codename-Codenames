@@ -4,30 +4,15 @@ package com.example.codenames;
  * @author Jimmy Driskell
  */
 
-import static com.example.codenames.utils.Const.URL_JSON_WORD_ADD;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.widget.CompoundButtonCompat;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -44,17 +29,14 @@ import com.android.volley.toolbox.Volley;
 import com.example.codenames.app.AppController;
 import com.example.codenames.services.RequestListener;
 import com.example.codenames.services.VolleyListener;
-import com.example.codenames.utils.Const;
+
 import static com.example.codenames.utils.Const.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.ls.LSOutput;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -79,10 +61,17 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
     private WebSocketClient dd;
     private SeekBar seekNumGuesses;
     private TextView textNumGuesses;
+
     private TextView red_score;
     private TextView blue_score;
     private JSONObject red_score_object;
     private JSONObject blue_score_object;
+
+    private TextView text_turn_color;
+    private TextView text_turn_role;
+    private JSONObject object_turn_color;
+    private JSONObject object_turn_role;
+
     private String team;
     private Toolbar header;
 
@@ -153,6 +142,9 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         textNumGuesses = (TextView) findViewById(R.id.text_numguesses);
         textNumGuesses.setText(Integer.toString(seekNumGuesses.getProgress()));
 
+        text_turn_color = (TextView) findViewById(R.id.text_turn_color);
+        text_turn_role = (TextView) findViewById(R.id.text_turn_role);
+
         String w = "ws://10.90.75.56:8080/websocket/games/update/" + username;
 
         System.out.println("START OF SPYMASTER");
@@ -204,8 +196,45 @@ public class SpymasterGameActivity extends AppCompatActivity implements View.OnC
         }
         showCards();
         showColors();
+        showTurn();
     }
 
+    /**
+     * Makes GET request to display whose turn it is
+     */
+    public void showTurn()
+    {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = URL_JSON_SCORE_GET + lobbyID + URL_JSON_SCORE_GET_SECOND;
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            object_turn_color = object;
+                            text_turn_color.setText(object_turn_color.getString("turnColor"));
+                            object_turn_role = object;
+                            text_turn_role.setText(object_turn_role.getString("turnRole"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error.toString());
+                    }
+                });
+
+        queue.add(request);
+    }
+
+    /**
+     * Makes GET request to display the score for both teams
+     */
     public void showScores()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
