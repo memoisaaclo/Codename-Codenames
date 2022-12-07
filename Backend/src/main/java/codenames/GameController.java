@@ -153,7 +153,7 @@ public class GameController {
     /**
      * ends the program
      */
-    @DeleteMapping(path = "/end")
+    @GetMapping(path = "/end")
     public void end() {
     	System.exit(0);
     }

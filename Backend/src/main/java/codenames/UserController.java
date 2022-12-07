@@ -92,6 +92,6 @@ public class UserController {
 		User delete = Main.userRepo.findByusername(username);
 		Main.userRepo.delete(delete);
 		return success;
-	}
+	} 
 	
 }

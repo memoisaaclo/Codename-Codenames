@@ -120,9 +120,9 @@ public class User {
     	return this.username.equals(usr.username) && password.equals(usr.password);
     }
     
-    public void setId(Long id) {
-		this.id = id;
-	}
+//    public void setId(Long id) {
+//		this.id = id;
+//	}
     
     public int getLoginCount() {
     	return logins;
@@ -142,10 +142,6 @@ public class User {
 
 	public Integer getGamesPlayed() {
 		return gamesPlayed;
-	}
-
-	public void setGamesPlayed(Integer gamesPlayed) {
-		this.gamesPlayed = gamesPlayed;
 	}
 
 	public Integer getGamesWon() {
@@ -168,17 +164,17 @@ public class User {
 		return cluesGiven;
 	}
 
-	public void setCluesGiven(Integer cluesGiven) {
-		this.cluesGiven = cluesGiven;
-	}
+//	public void setCluesGiven(Integer cluesGiven) {
+//		this.cluesGiven = cluesGiven;
+//	}
 
 	public Integer getCorrectGuesses() {
 		return correctGuesses;
 	}
 
-	public void setCorrectGuesses(Integer correctGuesses) {
-		this.correctGuesses = correctGuesses;
-	}
+//	public void setCorrectGuesses(Integer correctGuesses) {
+//		this.correctGuesses = correctGuesses;
+//	}
 	
 	public boolean isAdmin() {
 		return isAdmin;

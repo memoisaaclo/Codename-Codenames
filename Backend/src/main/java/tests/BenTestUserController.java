@@ -1,4 +1,4 @@
-package codenames;
+package tests;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,7 +13,7 @@ import io.restassured.parsing.Parser;
 import static org.hamcrest.Matchers.*;
 import static io.restassured.RestAssured.*;
 
-@TestMethodOrder(OrderAnnotation.class)	// enfoce a specific order 
+@TestMethodOrder(OrderAnnotation.class)	// enforce a specific order 
 class BenTestUserController {
 	
 	/**
@@ -64,11 +64,67 @@ class BenTestUserController {
 		
 	}
 	
+	@Order(3)
+	@Test
+	void testIfUserIsNotAdmin() {
+		with()
+		.get("/admin/get/{username}", "test")
+		
+		.then()
+		
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("failure"));
+	}
+	
+	@Order(4)
+	@Test
+	void testSetAdmin() {
+		with()
+		.post("/admin/set/{username}", "test")
+		
+		.then()
+		
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("success"));
+		
+	}
+	
+	@Order(5)
+	@Test
+	void testIfUserIsAdmin() {
+		with()
+		.get("/admin/get/{username}", "test")
+		
+		.then()
+		
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("success"));
+	}
+	
+	@Order(6)
+	@Test
+	void testIncorrectLogin() {
+		with()
+		.body("{\"username\":\"test\",\"password\":\"asdf\"}")
+		.contentType("application/json")
+		.post("/users/login")
+		
+		.then()
+		
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("Incorrect Credentials"));
+		
+	}
+	
 	/**
 	 * tests we get a response from getAllUsers
 	 * only tests that a 200 response code is given
 	 */
-	@Order(3)
+	@Order(7)
 	@Test
 	void testGetUsers() {		
 		get("/users/getallusers")
@@ -82,7 +138,7 @@ class BenTestUserController {
 	/**
 	 * test double registering
 	 */
-	@Order(4)
+	@Order(8)
 	@Test
 	void testDoubleRegister() {
 		with()	// test re-registering when already existing
@@ -100,7 +156,7 @@ class BenTestUserController {
 	/**
 	 * test deleting all users
 	 */
-	@Order(5)
+	@Order(9)
 	@Test
 	void testDeleteUsers() {
 		with()	// delete users
@@ -121,7 +177,7 @@ class BenTestUserController {
 	/**
 	 * test deleting all users
 	 */
-	@Order(6)
+	@Order(10)
 	@Test
 	void testDeleteSpecificUser() {
 		with()	// delete user
@@ -142,7 +198,7 @@ class BenTestUserController {
 	/**
 	 * test deleting all users
 	 */
-	@Order(7)
+	@Order(11)
 	@Test
 	void testGetUserInfo() {
 		with()	// delete user
@@ -155,7 +211,16 @@ class BenTestUserController {
 		.body("loginCount", equalTo(1));
 	}
 	
-	
+	@Order(12)
+	@Test
+	void testDeleteNonExistantUser() {
+		with()	// delete user
+		.delete("/users/removeuser/{username}", "doesntExist")
+		.then()
+		.statusCode(200)
+		.assertThat()
+		.body("message", equalTo("failure"));
+	}
 	
 	@AfterAll
 	static void cleanUp() {

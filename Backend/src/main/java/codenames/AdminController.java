@@ -24,7 +24,7 @@ public class AdminController {
 	private final String success = "{\"message\":\"success\"}";
     @SuppressWarnings("unused")
 	private final String failure = "{\"message\":\"failure\"}";
-    private final Logger logger = LoggerFactory.getLogger(WebSocketChatServer.class);
+    private final Logger logger = LoggerFactory.getLogger(AdminController.class);
     
 	public AdminController() {
 		
@@ -100,7 +100,7 @@ public class AdminController {
 	 * @return success
 	 */
 	@PutMapping(path = "/admin/cards/addbulk")
-	public String addCard(@RequestBody Card[] card) {
+	public String addCardBulk(@RequestBody Card[] card) {
 		for (Card c : card) {
 			if(Main.cardRepo.findByword(c.getWord()) == null) {
 				Main.cardRepo.save(c);

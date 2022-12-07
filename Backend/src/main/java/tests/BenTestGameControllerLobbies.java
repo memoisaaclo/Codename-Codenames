@@ -1,4 +1,4 @@
-package codenames;
+package tests;
 
 import static io.restassured.RestAssured.with;
 import static org.hamcrest.Matchers.equalTo;
@@ -28,7 +28,7 @@ class BenTestGameControllerLobbies {
 		with()	// create player for testing
 		.body("{\"username\":\"test\",\"password\":\"world\"}")
 		.contentType("application/json")	// set this to json type
-		.post("/users/register");
+		.post("/users/register"); 
 	}
  
 	/**
@@ -71,7 +71,7 @@ class BenTestGameControllerLobbies {
 				+ "    {\"word\":\"Tsunami\"}\r\n"
 				+ "]")
 		.contentType("application/json")	// set this to json type
-		.put("http://10.90.75.56:8080/admin/cards/addbulk")
+		.put("/admin/cards/addbulk")
 		
 		.then()
 		
