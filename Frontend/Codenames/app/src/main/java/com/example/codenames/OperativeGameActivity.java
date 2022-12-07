@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toolbar;
+
 import static com.example.codenames.utils.Const.*;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -57,6 +59,7 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
     private JSONObject red_score_object;
     private JSONObject blue_score_object;
     private String team;
+    private Toolbar header;
 
     private String tag_json_obj = "jobj_req", tag_json_arry = "jarray_req";
 
@@ -109,6 +112,13 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
 
         red_score = (TextView) findViewById(R.id.text_red2);
         blue_score = (TextView) findViewById(R.id.text_blue2);
+
+        header = (Toolbar) findViewById(R.id.title_header);
+
+        if (team == ("BLUE"))
+        {
+            header.setBackgroundTintList(getResources().getColorStateList(R.color.blue));
+        }
 
         //Cards
 
