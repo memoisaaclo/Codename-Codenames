@@ -157,7 +157,6 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
 
                 @Override
                 public void onMessage(String s) {
-                    System.out.println("The message is : " + s);
                     if (s.equals("update")) {
                         showCards();
                         showColors();
@@ -388,7 +387,6 @@ public class OperativeGameActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onSuccess(Object response) throws JSONException {
                 JSONObject object = (JSONObject) response;
-                System.out.println(object);
             }
 
             @Override

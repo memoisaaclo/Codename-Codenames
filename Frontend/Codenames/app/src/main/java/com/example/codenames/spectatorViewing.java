@@ -25,6 +25,7 @@ import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,6 +40,8 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
     private TextView t;
     private TextView lName;
     private WebSocketClient cc;
+    private TextView redScore;
+    private TextView blueScore;
 
 
     @Override
@@ -60,7 +63,13 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
         // Getting linearlayout
         cardList = (LinearLayout) findViewById(R.id.specGame_cardView);
 
-        String w = "ws://10.90.75.56:8080/websocket/games/update/" + id;
+        // Setting Score TextViews
+        redScore = (TextView) findViewById(R.id.specGame_score_red);
+        blueScore = (TextView) findViewById(R.id.specGame_score_blue);
+
+        String w = "ws://10.90.75.56:8080/websocket/games/spectate/" + id;
+
+
 
         try {
             cc = new WebSocketClient(new URI(w)) {
@@ -72,8 +81,18 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
 
                 @Override
                 public void onMessage(String s) {
-                    System.out.println("This is the message:" + s);
-                    getCards();
+                    if (s.equals("update")) {
+                        cardList.removeAllViewsInLayout();
+                        getCards();
+                        showScores();
+                    } else if (s.equals("win blue")) {
+                        cc.close();
+                        startActivity(new Intent(spectatorViewing.this, winScreen.class).putExtra("message", "Blue Won"));
+                    } else if (s.equals("win red")) {
+                        cc.close();
+                        startActivity(new Intent(spectatorViewing.this, winScreen.class).putExtra("message", "Red Won"));
+                    }
+
                 }
 
                 @Override
@@ -155,7 +174,7 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
      * Helper method to create a TextView to display words and color. Can be configured to only display color if the card isRevealed.
      * @param word String value with the word value of the card
      * @param color String value with the color value of the card
-     * @param isRevealed String value of whether or not the card isRevealed
+     * @param isRevealed Boolean value of whether or not the card isRevealed
      * @return TextView t setup with given parameters
      */
     private TextView getTextView(String word, String color, String isRevealed) {
@@ -165,19 +184,31 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
         t.setTextSize(22);
         t.setTextColor(Color.WHITE);
 
-        if (color.toLowerCase(Locale.ROOT).equals("red") && isRevealed.toLowerCase(Locale.ROOT).equals("true")) {
-            t.setBackgroundColor(Color.RED);
-        } else if (color.toLowerCase(Locale.ROOT).equals("blue") && isRevealed.toLowerCase(Locale.ROOT).equals("true")) {
-            t.setBackgroundColor(Color.BLUE);
-        } else if (color.toLowerCase(Locale.ROOT).equals("grey")) {
-            t.setBackgroundColor(Color.GRAY);
-            t.setTextColor(Color.BLACK);
-        } else if (color.toLowerCase(Locale.ROOT).equals("black") && isRevealed.toLowerCase(Locale.ROOT).equals("true")){
-            t.setBackgroundColor(Color.BLACK);
+        if (isRevealed.toLowerCase(Locale.ROOT).equals("true")) {
+            if (color.toLowerCase(Locale.ROOT).equals("red")) {
+                t.setBackgroundColor(Color.RED);
+            } else if (color.toLowerCase(Locale.ROOT).equals("blue")) {
+                t.setBackgroundColor(Color.BLUE);
+            } else if (color.toLowerCase(Locale.ROOT).equals("black")) {
+                t.setBackgroundColor(Color.BLACK);
+            }
         } else {
             t.setBackgroundColor(Color.GRAY);
-            t.setTextColor(Color.BLACK);
         }
+
+//        if (color.toLowerCase(Locale.ROOT).equals("red") && isRevealed.equals("true")) {
+//            t.setBackgroundColor(Color.RED);
+//        } else if (color.toLowerCase(Locale.ROOT).equals("blue") && isRevealed.equals("true")) {
+//            t.setBackgroundColor(Color.BLUE);
+//        } else if (color.toLowerCase(Locale.ROOT).equals("grey")) {
+//            t.setBackgroundColor(Color.GRAY);
+//            t.setTextColor(Color.BLACK);
+//        } else if (color.toLowerCase(Locale.ROOT).equals("black") && isRevealed.equals("true")){
+//            t.setBackgroundColor(Color.BLACK);
+//        } else {
+//            t.setBackgroundColor(Color.GRAY);
+//            t.setTextColor(Color.BLACK);
+//        }
 
         t.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         t.setLayoutParams(new LinearLayout.LayoutParams(210, 200));
@@ -203,4 +234,39 @@ public class spectatorViewing extends AppCompatActivity implements View.OnClickL
         cc.close();
         startActivity(new Intent(spectatorViewing.this, spectatorHub.class));
     }
+
+    /**
+     * Makes GET request to display the score for both teams
+     */
+    public void showScores()
+    {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = URL_JSON_GAMELOBBYNAME_GET + id;
+
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            System.out.println("Redscore: " + object.getString("redPoints"));
+                            System.out.println("Bluescore: " + object.getString("bluePoints"));
+                            redScore.setText(object.getString("redPoints"));
+                            blueScore.setText(object.getString("bluePoints"));
+                            //clue.setText(clue_object.getString("clue"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error.toString());
+                    }
+                });
+
+        queue.add(request);
+    }
+
 }

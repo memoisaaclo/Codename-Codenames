@@ -77,7 +77,11 @@ public class winScreen extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         try {
-            leaveLobby();
+            if (username != null) {
+                leaveLobby();
+            } else {
+                startActivity(new Intent(winScreen.this, spectatorHub.class));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
