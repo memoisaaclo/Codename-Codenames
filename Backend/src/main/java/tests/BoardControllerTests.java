@@ -231,9 +231,76 @@ class BoardControllerTests {
                 .body("clue", equalTo("goodClue"));
     }
 
+    @Order(11)
+    @Test
+    public void clueListTest() {
+        with()
+                .get("/games/1/cluelist")
+
+                .then()
+
+                .statusCode(200)
+                .assertThat()
+                .body("1", equalTo("goodClue"));
+    }
+
+    @Order(12)
+    @Test
+    public void isRevealedTest() {
+        with()
+                .get("/games/1/isrevealed")
+
+                .then()
+
+                .statusCode(200)
+                .assertThat()
+                .body("message", equalTo(null)); // AKA no invalid state message
+    }
+
+    @Order(13)
+    @Test
+    public void getColorsTest() {
+        with()
+                .get("/games/1/colors")
+
+                .then()
+
+                .statusCode(200)
+                .assertThat()
+                .body("message", equalTo(null)); // AKA no invalid state message
+    }
+
+    @Order(14)
+    @Test
+    public void generateStatesTest() {
+        with()
+                .get("/games/1/generatestates")
+
+                .then()
+
+                .statusCode(200)
+                .assertThat()
+                .body("message", equalTo("success"));
+    }
+
+    @Order(15)
+    @Test
+    public void generateWordsTest() {
+        with()
+                .get("/games/1/generatewords")
+
+                .then()
+
+                .statusCode(200)
+                .assertThat()
+                .body("message", equalTo("success"));
+    }
+
     @AfterAll
     static void cleanUp() {
         // clear users
         with().delete("users/clearusers/75362");
     }
+
+
 }
